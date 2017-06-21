@@ -1,0 +1,6 @@
+:root {
+  --chatIcon-color: var(--color-white);
+  --chatIcon-background: var(--palette-orange-900);
+  --chatIcon-size: calc(4 * var(--unit));
+  --chatIcon-font-size: calc(2.4 * var(--unit));
+}
