@@ -1,0 +1,157 @@
+@import './config.css';
+
+.letstalk-container-mbox {
+    flex-direction: column;
+    display: block;
+    overflow: hidden;
+    min-width: 200px;
+}
+
+.letstalk-container-mbox .letstalk-mbox-avatar-container{
+  display: inline-block;
+}
+
+.letstalk-mbox-avatar-container-left {
+  float: left;
+}
+
+.letstalk-mbox-avatar-container-right {
+  float: right;
+}
+
+.letstalk-mbox-forward {
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    background: #fff;
+    position: absolute;
+    flex-direction: row;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 5px 0 rgba(164, 164, 164, 1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.letstalk-mbox-forward-left {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    left: -50px;
+}
+
+.letstalk-mbox-forward-right {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    right: -50px;
+}
+
+.letstalk-container-mbox:hover .letstalk-mbox-forward-left {
+    opacity: 1;
+    visibility: visible;
+}
+
+.letstalk-container-mbox:hover .letstalk-mbox-forward-right {
+    opacity: 1;
+    visibility: visible;
+}
+
+.letstalk-mbox {
+    position: relative;
+    background-color: var(--messageBox-background);
+    color: var(--messageBox-color);
+    border-radius: var(--messageBox-border-radius);
+    box-shadow: var(--messageBox-box-shadow);
+    margin-left: var(--messageBox-side-margin);
+    margin-right: 5px;
+    margin-top: 3px;
+    flex-direction: column;
+    margin-bottom: 3px;
+    padding: 6px 9px 8px 9px;
+    float: left;
+    min-width: 140px;
+}
+
+.letstalk-mbox-body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.letstalk-mbox.letstalk-mbox-right {
+    float: right;
+    margin-left: 5px;
+    margin-right: var(--messageBox-side-margin);
+}
+
+.letstalk-mbox-text {
+    font-size: 13.6px;
+    word-break: break-word;
+}
+
+.letstalk-mbox-text:after {
+    content: "\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0"
+}
+
+.letstalk-mbox-time {
+    text-align: right;
+    color: var(--messageBox-time-color);
+    font-size: var(--font-size-tiny);
+    position: relative;
+    right: -4px;
+    bottom: -5px;
+}
+
+.letstalk-mbox-time-block {
+    /*position: relative;*/
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-right: -6px;
+    margin-left: -6px;
+    padding-top: 5px;
+    padding-right: 3px;
+    padding-bottom: 2px;
+    background: linear-gradient(to top, rgba(0,0,0,0.33), transparent);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: #fff;
+}
+
+.letstalk-mbox--clear-padding {
+    padding-bottom: 3px;
+}
+
+.letstalk-mbox-title {
+    margin: 0;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--messageBox-title-color);
+    user-select: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.letstalk-mbox-title:hover {
+    text-decoration: underline;
+}
+
+.letstalk-mbox-title--clear {
+    margin-bottom: 5px;
+}
+
+.letstalk-mbox-status {
+    margin-left: 3px;
+    font-size: 15px;
+}
+
+.letstalk-mbox-title > .letstalk-avatar-container {
+    margin-right: 5px;
+}

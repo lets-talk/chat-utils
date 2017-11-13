@@ -15,7 +15,7 @@
 
   --preferred-font: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   --font-size: calc(1.6 * var(--unit));
-  --font-size-tiny: calc(1.2 * var(--unit));
+  --font-size-tiny: calc(1 * var(--unit));
   --font-size-small: calc(1.4 * var(--unit));
   --font-size-normal: var(--font-size);
   --font-size-big: calc(1.8 * var(--unit));

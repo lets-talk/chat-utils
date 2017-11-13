@@ -1,0 +1,67 @@
+@import '../../../../common/styles/variables.css';
+
+:root {
+  --chatBox-Header-background: var(--palette-orange-900);
+  --chatBox-Header-color: var(--color-white);
+  --chatBox-Header-fontsize: var(--font-size-small);
+  --chatBox-Sender-background: var(--palette-grey-200);
+}
+
+@mixin letstalk-message-bubble($color) {
+  background-color: $color;
+  border-radius: 10px;
+  padding: 15px;
+  max-width: 215px;
+  text-align: left;
+}
+
+@mixin letstalk-widget-container {
+  height: 100%;
+  margin: 0;
+  max-width: none;
+  width: 100%;
+}
+
+@mixin letstalk-header {
+  flex-shrink: 0;
+  position: relative;
+}
+
+@mixin letstalk-title {
+  font-size: var(--chatBox-Header-fontsize);
+}
+
+@mixin letstalk-close-button {
+  background-color: var(--palette-white-900);
+  border: 0;
+  display: block;
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  width: 40px;
+}
+
+@mixin letstalk-close {
+  width: 20px;
+  height: 20px;
+}
+
+@mixin letstalk-messages-container {
+  height: 100%;
+  max-height: none;
+  font-size: var(--font-size-normal);
+  padding: 0px 10px;
+}
+
+@mixin letstalk-conversation-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+@mixin letstalk-launcher {
+  bottom: 0;
+  margin: 20px;
+  position: fixed;
+  right: 0;
+}

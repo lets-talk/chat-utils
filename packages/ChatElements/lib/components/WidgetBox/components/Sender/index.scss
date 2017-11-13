@@ -1,0 +1,38 @@
+@import '../../../../common/styles/variables.css';
+@import "../common.scss";
+
+.letstalk-sender {
+  align-items: center;
+  display: flex;
+  background-color: var(--chatBox-Sender-background);
+  height: 40px;
+  padding: 5px;
+}
+
+.letstalk-new-message {
+  width: 100%;
+  border: 0;
+  background-color: var(--chatBox-Sender-background);
+  height: 30px;
+  padding-left: 15px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.letstalk-send {
+  background: var(--chatBox-Sender-background);
+  border: 0;
+
+  .letstalk-send-icon {
+    height: 25px;
+  }
+}
+
+@media screen and (max-width: 800px)  {
+  .letstalk-sender {
+    border-radius: 0;
+    flex-shrink: 0;
+  }
+}

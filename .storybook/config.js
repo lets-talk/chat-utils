@@ -8,9 +8,10 @@ setDefaults({
   inline: false,
 });
 
+// stories loader
+const req = require.context('../packages/ChatElements/lib/components', true, /.stories.js$/);
 function loadStories() {
-  require("../packages/index.js");
-  // You can require as many stories as you need.
+  req.keys().forEach((filename) => req(filename));
 }
 
 setOptions({

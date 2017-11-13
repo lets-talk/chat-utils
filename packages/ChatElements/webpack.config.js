@@ -10,14 +10,20 @@ module.exports = {
     path: path.resolve(process.cwd(), 'build'),
     publicPath: '/',
     filename: 'index.js',
+    libraryTarget: 'commonjs2',
+    library: 'LetsTalkToolkitChatElements',
   }, {}), // Merge with env dependent settings
   module: {
     rules: [
       {
         test: /\.js$/, // Transform all .js files required somewhere with Babel
         exclude: /node_modules/,
+        include: path.join(__dirname, 'lib'),
         use: {
           loader: 'babel-loader',
+        },
+        query: {
+          presets: ['es2015', 'react', 'stage-3'],
         },
       },
       {
@@ -31,12 +37,22 @@ module.exports = {
                 modules: true, // default is false
                 sourceMap: true,
                 importLoaders: 1,
-                localIdentName: process.env.NODE_ENV === 'development' ? '[name]--[local]--[hash:base64:8]' : '[hash:base64:5]',
+                localIdentName: process.env.NODE_ENV === 'development' ? '[name]' : '[hash:base64:5]',
               },
             },
             // { loader: 'postcss-loader', options: { sourceMap: true } },
           ],
         }),
+      },
+      {
+        test: /\.scss$/,
+        use: [{
+          loader: 'style-loader',
+        }, {
+          loader: 'css-loader',
+        }, {
+          loader: 'sass-loader',
+        }],
       },
       // The url-loader uses DataUrls. The file-loader emits files.
       {
@@ -68,5 +84,28 @@ module.exports = {
       filename: 'main.css',
       allChunks: true,
     }),
+  ],
+  externals: [
+    'material-ui',
+    {
+      'react-router-dom': {
+        root: 'react-router-dom',
+        commonjs2: 'react-router-dom',
+        commonjs: ['react-router-dom'],
+        amd: 'react-router-dom',
+      },
+      react: {
+        root: 'React',
+        commonjs2: 'react',
+        commonjs: ['react'],
+        amd: 'react',
+      },
+      'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: 'react-dom',
+        commonjs: ['react-dom'],
+        amd: 'react-dom',
+      },
+    },
   ],
 };

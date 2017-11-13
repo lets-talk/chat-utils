@@ -1,0 +1,40 @@
+@import '../../../../common/styles/variables.css';
+@import "../common.scss";
+
+.letstalk-header {
+  background-color: var(--palette-orange-900);
+  border-radius: 10px 10px 0 0;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 10px 5px;
+}
+
+.letstalk-title {
+  font-size: var(--chatBox-Header-fontsize);
+  margin: 0;
+  padding: 5px 10px;
+}
+
+.letstalk-close-button {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .letstalk-header {
+    @include letstalk-header;
+  }
+
+  .letstalk-title {
+    @include letstalk-title;
+  }
+
+  .letstalk-close-button {
+    @include letstalk-close-button;
+  }
+
+  .letstalk-close {
+    @include letstalk-close;
+  }
+}
