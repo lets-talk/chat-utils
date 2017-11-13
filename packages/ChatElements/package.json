@@ -1,6 +1,6 @@
 {
   "name": "@letstalk/ChatElements",
-  "version": "1.0.13",
+  "version": "1.1.0",
   "description": "",
   "main": "build/index.js",
   "directories": {
