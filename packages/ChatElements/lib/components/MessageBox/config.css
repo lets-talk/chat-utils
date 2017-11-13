@@ -1,0 +1,11 @@
+@import '../../common/styles/variables.css';
+
+:root {
+  --messageBox-background: var(--palette-orange-900);
+  --messageBox-color: var(--color-white);
+  --messageBox-title-color: var(--color-white);
+  --messageBox-time-color: var(--color-white);
+  --messageBox-side-margin: 10px;
+  --messageBox-border-radius: 5px;
+  --messageBox-box-shadow: 0px rgba(0, 0, 0, .2);
+}

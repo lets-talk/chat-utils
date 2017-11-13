@@ -1,0 +1,100 @@
+@import './config.css';
+
+.la-ball-clip-rotate,
+.la-ball-clip-rotate > div {
+    position: relative;
+    box-sizing: border-box;
+}
+
+.la-ball-clip-rotate {
+    display: block;
+    font-size: 0;
+    color: #fff;
+}
+
+.la-ball-clip-rotate.la-dark {
+    color: #333;
+}
+
+.la-ball-clip-rotate > div {
+    display: inline-block;
+    float: none;
+    background-color: currentColor;
+    border: 0 solid currentColor;
+}
+
+.la-ball-clip-rotate {
+    width: 32px;
+    height: 32px;
+}
+
+.la-ball-clip-rotate > div {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border-width: 2px;
+    border-bottom-color: transparent;
+    border-radius: 100%;
+    animation: ball-clip-rotate .75s linear infinite;
+}
+
+.la-ball-clip-rotate.xsmall > div {
+    width: var(--loader-size-xsmall);
+    height: var(--loader-size-xsmall);
+}
+
+.la-ball-clip-rotate.small > div {
+    width: var(--loader-size-small);
+    height: var(--loader-size-small);
+}
+
+.la-ball-clip-rotate.medium > div {
+    width: var(--loader-size-medium);
+    height: var(--loader-size-medium);
+}
+
+.la-ball-clip-rotate.large > div {
+    width: var(--loader-size-large);
+    height: var(--loader-size-large);
+}
+
+.la-ball-clip-rotate.xlarge > div {
+    width: var(--loader-size-xlarge);
+    height: var(--loader-size-xlarge);
+}
+
+.la-ball-clip-rotate.loader-hidden {
+  display: none;
+}
+
+.la-ball-clip-rotate.loader-active {
+    display: block;
+}
+
+.la-ball-clip-rotate.loader-active.loader-full-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+  background: none repeat scroll 0 0 #0A0A0A;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+ * Animation
+ */
+@keyframes ball-clip-rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+}

@@ -2,41 +2,41 @@
 @import '../../common/styles/variables.css';
 @import './config.css';
 
-.ChatIconContainer {
+.letstalk-ChatIconContainer {
   position: relative;
 }
 
-.ChatIcon {
+.letstalk-ChatIcon {
   position: relative;
-  margin-bottom: 50px;
-  height: 50px;
-  width: 50px;
   float: right;
-  margin-right: 10px;
+  margin: 0 10px 50px 0;
   color: var(--color-primary);
   background-color: var(--chatIcon-background);
   border-radius: 50%;
   box-shadow: 0px 20px 13px -15px rgba(0,0,0,0.44);
 
   @apply --reset;
-
-  & > i {
-    height: auto;
-    max-width: 100%;
-  }
-
-  &.disabled {
-    background-color: red;
-  }
-
 }
 
-.ChatIcon:focus {
+.letstalk-ChatIcon span.intro-message {
+  font-size: var(--chatIcon-font-size);
+  float: left;
+  text-align: left;
+  color: var(--chatIcon-color);
+  width: calc(100% - 50px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.letstalk-ChatIcon i.md-icon-chat {
+  float: right;
+}
+
+.letstalk-ChatIcon.default{
+  border-radius: 0;
+}
+
+.letstalk-ChatIcon:focus {
   outline: none;
-}
-
-.letter {
-  display: block;
-  line-height: var(--chatIcon-size);
-  width: 100%;
 }

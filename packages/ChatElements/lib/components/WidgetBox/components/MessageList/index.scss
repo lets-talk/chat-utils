@@ -1,0 +1,22 @@
+@import '../../../../common/styles/variables.css';
+@import "../common.scss";
+
+.letstalk-messages-container {
+  background-color: var(--color-white);
+  height: 50vh;
+  max-height: 410px;
+  overflow-y: scroll;
+  padding-top: 10px;
+}
+
+.full-screen {
+  .letstalk-messages-container {
+    @include letstalk-messages-container;
+  }
+}
+
+@media screen and (max-width: 800px)  {
+  .letstalk-messages-container {
+    @include letstalk-messages-container;
+  }
+}

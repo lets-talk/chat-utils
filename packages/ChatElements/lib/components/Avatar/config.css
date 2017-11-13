@@ -1,0 +1,14 @@
+@import '../../common/styles/variables.css';
+@import '../../common/styles/colors.css';
+
+:root {
+  --avatar-size-xsmall: calc(4 * var(--unit));
+  --avatar-size-small: calc(5 * var(--unit));
+  --avatar-size-medium: calc(8 * var(--unit));
+  --avatar-size-large: calc(13 * var(--unit));
+  --avatar-size-xlarge: calc(21 * var(--unit));
+
+  --avatar-status-online: var(--palette-green-600);
+  --avatar-status-offline: var(--palette-red-600);
+  --avatar-status-sleeping: var(--palette-yellow-600);
+}
