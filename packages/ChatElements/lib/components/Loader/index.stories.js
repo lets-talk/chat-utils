@@ -6,7 +6,7 @@ import { withKnobs, text, boolean, number, object, select, color } from '@storyb
 
 import { LightTheme, DarkTheme } from '../../../../theme';
 // Component to show on storybook
-import Loader from './Loader';
+import Loader from '.';
 
 
 const stories = storiesOf('Loader', module);
@@ -28,6 +28,14 @@ stories.addWithInfo(
         size={select('Size', {
           default: 'default', xsmall: 'xsmall', small: 'small', medium: 'medium', large: 'large', xlarge: 'xlarge',
         }, 'medium')}
+        type={select('Type', {
+          'ball-beat': 'ball-beat',
+          'ball-pulse': 'ball-pulse',
+          'ball-pulse-sync': 'ball-pulse-sync',
+          'single-ball-beat': 'single-ball-beat',
+          'ball-clip-rotate': 'ball-clip-rotate',
+        }, 'ball-beat')}
+        color={color('Color', '#FFF')}
       >
       </Loader>
     </ThemeProvider>

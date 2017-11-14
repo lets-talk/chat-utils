@@ -1,27 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './index.css';
+import classNames from 'classnames';
+import moment from 'moment';
 
-import FileMessage from '../FileMessage';
-import SystemMessage from '../SystemMessage';
-import PhotoMessage from '../PhotoMessage';
-
-import Avatar from '../Avatar';
-
+// Icons to be used on this component
 import FaForward from 'react-icons/lib/fa/mail-forward';
-import FaReply from 'react-icons/lib/fa/mail-reply';
-
 import IoDoneAll from 'react-icons/lib/io/android-done-all';
 import MdIosTime from 'react-icons/lib/md/access-time';
 import MdCheck from 'react-icons/lib/md/check';
 
-const moment = require('moment');
+// Other components used by this component
+import FileMessage from '../FileMessage';
+import SystemMessage from '../SystemMessage';
+import PhotoMessage from '../PhotoMessage';
+import Avatar from '../Avatar';
+import Loader from '../Loader';
 
-const classNames = require('classnames');
+// Component styles
+import './index.css';
 
 const MessageBox = (props) => {
-  const positionCls = classNames('letstalk-mbox', { 'letstalk-mbox-right': props.position === 'right' });
-  const thatAbsoluteTime = props.type !== 'text' && props.type !== 'file' && !(props.type === 'location' && props.text);
+  const positionCls = classNames('letstalk-mbox', {
+    'letstalk-mbox-right': props.position === 'right',
+    'letstalk-mbox-agent': props.user_type === 'agent',
+  });
+  const thatAbsoluteTime = props.type !== 'text' && props.type !== 'file' && props.type !== 'typing';
   return (
     <div
       role="button"
@@ -108,6 +111,13 @@ const MessageBox = (props) => {
               }
 
               {
+                props.type === 'typing' &&
+                  <div className="letstalk-mbox-typing">
+                    <Loader active type="ball-pulse" size="xsmall" color="rgb(113, 131, 150)" />
+                  </div>
+              }
+
+              {
                 props.type === 'photo' &&
                 <PhotoMessage
                   onOpen={props.onOpen}
@@ -129,39 +139,41 @@ const MessageBox = (props) => {
                   />
               }
 
-              <div className={classNames('letstalk-mbox-time', { 'letstalk-mbox-time-block': thatAbsoluteTime })}>
-                {
-                  props.date &&
-                  (
-                    props.dateString ||
-                      moment(props.date).fromNow()
-                  )
-                }
-                {
-                  props.status &&
-                    <span className="letstalk-mbox-status">
-                      {
-                        props.status === 'waiting' &&
-                        <MdIosTime />
-                      }
+              {props.type !== 'typing' &&
+                <div className={classNames('letstalk-mbox-time', { 'letstalk-mbox-time-block': thatAbsoluteTime })}>
+                  {
+                    props.date && (props.type !== 'typing') &&
+                    (
+                      props.dateString ||
+                        moment(props.date).fromNow()
+                    )
+                  }
+                  {
+                    props.status &&
+                      <span className="letstalk-mbox-status">
+                        {
+                          props.status === 'waiting' &&
+                          <MdIosTime />
+                        }
 
-                      {
-                        props.status === 'sent' &&
-                        <MdCheck />
-                      }
+                        {
+                          props.status === 'sent' &&
+                          <MdCheck />
+                        }
 
-                      {
-                        props.status === 'received' &&
-                        <IoDoneAll />
-                      }
+                        {
+                          props.status === 'received' &&
+                          <IoDoneAll />
+                        }
 
-                      {
-                        props.status === 'read' &&
-                        <IoDoneAll color="#4FC3F7" />
-                      }
-                    </span>
-                }
-              </div>
+                        {
+                          props.status === 'read' &&
+                          <IoDoneAll color="#4FC3F7" />
+                        }
+                      </span>
+                  }
+                </div>
+              }
             </div>
           </div>
       }

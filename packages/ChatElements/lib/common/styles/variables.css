@@ -1,9 +1,9 @@
 :root {
   --color-divider: var(--palette-grey-200);
-  --color-text: var(--palette-blue-grey-1000);
-  --color-background: var(--color-white);
-  --color-text-secondary: var(--palette-blue-grey-200);
-  --color-background-secondary: var(--palette-blue-grey-50);
+  --color-text: var(--color-white);
+  --color-background: rgb(252, 88, 48);
+  --color-text-secondary: rgb(22, 53, 84);
+  --color-background-secondary: rgb(233, 237, 239);
 
   --color-primary: var(--palette-indigo-500);
   --color-primary-dark: var(--palette-indigo-700);
@@ -14,7 +14,7 @@
 
   --unit: 10px;
 
-  --preferred-font: 'Sequel Sans', 'Helvetica', sans-serif;
+  --preferred-font: 'Nimbus sans-serif', 'Helvetica', Arial;
   --font-size: calc(1.4 * var(--unit));
   --font-size-tiny: calc(1 * var(--unit));
   --font-size-small: calc(1.2 * var(--unit));

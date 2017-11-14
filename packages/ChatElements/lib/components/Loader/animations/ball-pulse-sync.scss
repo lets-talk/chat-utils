@@ -1,0 +1,48 @@
+@import '../../common/styles/functions';
+@import 'mixins/mixins';
+
+$amount: 10px;
+
+@keyframes letstalk-ball-pulse-sync {
+  33% {
+    transform: translateY($amount);
+  }
+
+  66% {
+    transform: translateY(-$amount);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@mixin letstalk-ball-pulse-sync($n: 3, $start: 1) {
+  @for $i from $start through $n {
+    > div:nth-child(#{$i}) {
+      animation:
+        letstalk-ball-pulse-sync
+        var(--loader-animation-duration)
+        letstalk-delay(0.07s, $n, $i)
+        infinite ease-in-out;
+    }
+  }
+}
+
+.letstalk-ball-pulse-sync {
+  @include letstalk-ball-pulse-sync();
+
+  > div {
+    @include letstalk-balls();
+    @include letstalk-global-animation();
+
+    display: inline-block;
+    border-radius: 100%;
+  }
+}
+
+@include generateBallSize('ball-pulse-sync', 'xsmall');
+@include generateBallSize('ball-pulse-sync', 'small');
+@include generateBallSize('ball-pulse-sync', 'medium');
+@include generateBallSize('ball-pulse-sync', 'large');
+@include generateBallSize('ball-pulse-sync', 'xlarge');

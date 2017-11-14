@@ -1,13 +1,14 @@
 @import '../../../../common/styles/variables.css';
 
 :root {
-  --chatBox-Header-background: var(--palette-orange-900);
-  --chatBox-Header-color: var(--color-white);
-  --chatBox-Header-fontsize: var(--font-size-normal);
-  --chatBox-Header-text-align: center;
-  --chatBox-Header-title-fontsize: var(--font-size-big);
-  --chatBox-Header-subtitle-fontsize: var(--font-size-small);
+  --widgetBox-Header-background: var(--color-background);
+  --widgetBox-Header-color: var(--color-white);
+  --widgetBox-Header-fontsize: var(--font-size-normal);
+  --widgetBox-Header-text-align: center;
+  --widgetBox-Header-title-fontsize: var(--font-size-big);
+  --widgetBox-Header-subtitle-fontsize: var(--font-size-small);
   --widgetBox-Sender-background: var(--palette-blue-grey-50);
+  --widgetBox-Sender-background-focus: var(--color-white);
   --widgetBox-Sender-color: var(--palette-grey-custom);
 }
 
@@ -32,7 +33,7 @@
 }
 
 @mixin letstalk-title {
-  font-size: var(--chatBox-Header-title-fontsize);
+  font-size: var(--widgetBox-Header-title-fontsize);
 }
 
 @mixin letstalk-minimize-button {
@@ -41,7 +42,7 @@
   display: block;
   position: absolute;
   left: 10px;
-  top: 10px;
+  top: 15px;
   width: 40px;
 }
 
@@ -56,7 +57,7 @@
   display: block;
   position: absolute;
   right: 10px;
-  top: 10px;
+  top: 15px;
   width: 40px;
 }
 
@@ -69,7 +70,6 @@
   height: 100%;
   max-height: none;
   font-size: var(--font-size-normal);
-  padding: 0px 10px;
 }
 
 @mixin letstalk-conversation-container {

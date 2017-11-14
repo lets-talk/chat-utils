@@ -18,13 +18,13 @@ const Header = ({
       {
         showMinimizeButton &&
         <button className="letstalk-minimize-button" onClick={toggleChat}>
-          <MdKeyboardArrowDown size={30} color="white" />
+          <MdKeyboardArrowDown size={20} color="white" />
         </button>
       }
       {
         showMenuButton &&
         <button className="letstalk-menu-button" onClick={toggleChat}>
-          <MdMenu size={30} color="white" />
+          <MdMenu size={20} color="white" />
         </button>
       }
     </div>
