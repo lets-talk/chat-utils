@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { ThemeProvider } from 'styled-components';
 import { LightTheme, DarkTheme } from '../../../../theme';
 // Component to show on storybook
-import Avatar from './Avatar';
+import Avatar from '.';
 
 import { withKnobs, text, boolean, number, object, select, color } from '@storybook/addon-knobs';
 

@@ -32,7 +32,7 @@ const getRandomColor = () => {
 
 const messages = [];
 
-const token = () => parseInt((Math.random() * 10) % 6, 10);
+const token = () => parseInt((Math.random() * 10) % 4, 10);
 
 const random = (type) => {
   switch (type) {
@@ -42,7 +42,7 @@ const random = (type) => {
       switch (type) {
         case 0:
           type = 'photo';
-          status = 'sent';
+          status = 'waiting';
           break;
         case 1:
           type = 'file';
@@ -51,12 +51,6 @@ const random = (type) => {
         case 2:
           type = 'system';
           status = 'received';
-          break;
-        case 3:
-          type = 'location';
-          break;
-        case 4:
-          type = 'spotify';
           break;
         default:
           type = 'text';
@@ -74,7 +68,7 @@ const random = (type) => {
         // titleColor: getRandomColor(),
         text: loremIpsum({ count: 1, units: 'sentences' }),
         data: {
-          uri: `data:image/png;base64,${photo(150)}`,
+          uri: `${photo()}`,
           status: {
             click: false,
             loading: 0,
@@ -132,12 +126,71 @@ const addMessage = () => {
 
 for (let i = 1; i < 15; i += 1) {
   messages.push(random('message'));
-  messages.push(random('chat'));
+  // messages.push(random('chat'));
 }
 
 stories.addWithInfo(
-  'Basic Usage',
+  'Basic Usage - Just opened',
   'This is the basic usage of a Widget Box.',
+  () => (
+    <ThemeProvider theme={themes[select('Theme', { light: 'LightTheme', dark: 'DarkTheme' }, 'light')]}>
+      <WidgetBox
+        title={text('Title', 'Ayuda en linea')}
+        subtitle={text('Subtitle', '')}
+        sendMessage={(e) => {
+          e.preventDefault();
+          addMessage();
+          return false;
+        }}
+        senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
+        toggleChat={(e) => {
+          e.preventDefault();
+          addMessage();
+          return false;
+        }}
+        showMenuButton={boolean('Show Menu Button', true)}
+        showMinimizeButton={boolean('Show Minimize Button', true)}
+        disabledInput={boolean('Disable Input', false)}
+        messages={[]}
+      >
+      </WidgetBox>
+    </ThemeProvider>
+  )
+);
+
+stories.addWithInfo(
+  'Advanced Usage - With Avatar',
+  'This is the usage using the user Avatar.',
+  () => (
+    <ThemeProvider theme={themes[select('Theme', { light: 'LightTheme', dark: 'DarkTheme' }, 'light')]}>
+      <WidgetBox
+        title={text('Title', 'Sandino Núñez')}
+        subtitle={text('Subtitle', 'Emergencia Bancaria')}
+        sendMessage={(e) => {
+          e.preventDefault();
+          addMessage();
+          return false;
+        }}
+        senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
+        toggleChat={(e) => {
+          e.preventDefault();
+          addMessage();
+          return false;
+        }}
+        showMenuButton={boolean('Show Menu Button', true)}
+        showMinimizeButton={boolean('Show Minimize Button', true)}
+        disabledInput={boolean('Disable Input', false)}
+        avatar={text('Avatar', 'https://lh3.googleusercontent.com/-bKkhkiZr3lE/AAAAAAAAAAI/AAAAAAAAAAA/ANQ0kf70goDRcuSW0oKG8C0x7TprJwFOOQ/mo/photo.jpg?sz=512')}
+        messages={[]}
+      >
+      </WidgetBox>
+    </ThemeProvider>
+  )
+);
+
+stories.addWithInfo(
+  'Advanced Usage',
+  'This is the advanced usage of a Widget Box showing messages.',
   () => (
     <ThemeProvider theme={themes[select('Theme', { light: 'LightTheme', dark: 'DarkTheme' }, 'light')]}>
       <WidgetBox
@@ -149,13 +202,13 @@ stories.addWithInfo(
           return false;
         }}
         senderPlaceHolder={text('Sender PlaceHolder', 'Enviar')}
-        profileAvatar={text('Profile Avatar', 'Avatar')}
         toggleChat={(e) => {
           e.preventDefault();
           addMessage();
           return false;
         }}
-        showCloseButton={boolean('Show Close Button', true)}
+        showCloseButton={boolean('Show Minimize Button', true)}
+        showMenuButton={boolean('Show Menu Button', true)}
         disabledInput={boolean('Disable Input', false)}
         messages={object('Messages', messages)}
       >

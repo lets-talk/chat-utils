@@ -1,20 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import close from '../../../../assets/clear-button.svg';
+import MdKeyboardArrowDown from 'react-icons/lib/md/keyboard-arrow-down';
+import MdMenu from 'react-icons/lib/md/menu';
+import Avatar from '../../../Avatar';
+
 import './index.scss';
 
 const Header = ({
-  title, subtitle, toggleChat, showCloseButton,
+  title, subtitle, avatar, toggleChat, showMinimizeButton, showMenuButton,
 }) =>
   (
     <div className="letstalk-header">
+      {avatar && <Avatar src={avatar} size="medium" withStatus status="online" />}
       <h4 className="letstalk-title">{title}</h4>
-      <span>{subtitle}</span>
+      <span className="letstalk-subtitle">{subtitle}</span>
       {
-        showCloseButton &&
-        <button className="letstalk-close-button" onClick={toggleChat}>
-          <img src={close} className="letstalk-close" alt="close" />
+        showMinimizeButton &&
+        <button className="letstalk-minimize-button" onClick={toggleChat}>
+          <MdKeyboardArrowDown size={30} color="white" />
+        </button>
+      }
+      {
+        showMenuButton &&
+        <button className="letstalk-menu-button" onClick={toggleChat}>
+          <MdMenu size={30} color="white" />
         </button>
       }
     </div>
@@ -23,8 +33,10 @@ const Header = ({
 Header.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
+  avatar: PropTypes.string,
   toggleChat: PropTypes.func,
-  showCloseButton: PropTypes.bool,
+  showMinimizeButton: PropTypes.bool,
+  showMenuButton: PropTypes.bool,
 };
 
 export default Header;

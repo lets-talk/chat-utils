@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './index.css';
 
-import FileMessage from '../FileMessage/FileMessage';
-import SystemMessage from '../SystemMessage/SystemMessage';
+import FileMessage from '../FileMessage';
+import SystemMessage from '../SystemMessage';
+import PhotoMessage from '../PhotoMessage';
 
-import Avatar from '../Avatar/Avatar';
+import Avatar from '../Avatar';
 
 import FaForward from 'react-icons/lib/fa/mail-forward';
+import FaReply from 'react-icons/lib/fa/mail-reply';
 
 import IoDoneAll from 'react-icons/lib/io/android-done-all';
 import MdIosTime from 'react-icons/lib/md/access-time';
@@ -29,7 +31,7 @@ const MessageBox = (props) => {
       onKeyPress={props.onClick}
     >
       {
-        props.avatar &&
+        props.avatar && props.type !== 'system' &&
         <div
           className={classNames(
             'letstalk-mbox-avatar-container',
@@ -59,7 +61,6 @@ const MessageBox = (props) => {
             className={classNames(
               positionCls,
               { 'letstalk-mbox--clear-padding': thatAbsoluteTime },
-              { 'letstalk-mbox--clear-notch': !props.notch }
             )}
           >
             <div className="letstalk-mbox-body">
@@ -104,6 +105,18 @@ const MessageBox = (props) => {
                   <div className="letstalk-mbox-text">
                     {props.text}
                   </div>
+              }
+
+              {
+                props.type === 'photo' &&
+                <PhotoMessage
+                  onOpen={props.onOpen}
+                  onDownload={props.onDownload}
+                  data={props.data}
+                  width={props.width}
+                  height={props.height}
+                  text={props.text}
+                />
               }
 
               {

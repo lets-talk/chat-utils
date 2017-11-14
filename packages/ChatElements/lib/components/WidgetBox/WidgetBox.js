@@ -6,18 +6,19 @@ import MessageList from './components/MessageList';
 import Sender from './components/Sender';
 import './WidgetBox.scss';
 
-const WidgetBox = (props) =>
-  (
+const WidgetBox = (props) => {
+  return (
     <div className="widgetbox-container">
       <Header
         title={props.title}
         subtitle={props.subtitle}
+        avatar={props.avatar}
         toggleChat={props.toggleChat}
-        showCloseButton={props.showCloseButton}
+        showMinimizeButton={props.showMinimizeButton}
+        showMenuButton={props.showMenuButton}
       />
       <MessageList
         messages={props.messages}
-        profileAvatar={props.profileAvatar}
       />
       <Sender
         sendMessage={props.sendMessage}
@@ -26,6 +27,7 @@ const WidgetBox = (props) =>
       />
     </div>
   );
+};
 
 WidgetBox.propTypes = {
   messages: PropTypes.array,
@@ -33,9 +35,9 @@ WidgetBox.propTypes = {
   subtitle: PropTypes.string,
   sendMessage: PropTypes.func,
   senderPlaceHolder: PropTypes.string,
-  profileAvatar: PropTypes.string,
   toggleChat: PropTypes.func,
-  showCloseButton: PropTypes.bool,
+  showMinimizeButton: PropTypes.bool,
+  showMenuButton: PropTypes.bool,
   disabledInput: PropTypes.bool,
 };
 

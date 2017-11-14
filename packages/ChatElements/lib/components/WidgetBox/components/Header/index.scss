@@ -7,17 +7,22 @@
   color: white;
   display: flex;
   flex-direction: column;
-  text-align: center;
+  text-align: var(--chatBox-Header-text-align);
   padding: 10px 5px;
 }
 
 .letstalk-title {
-  font-size: var(--chatBox-Header-fontsize);
-  margin: 0;
+  font-size: var(--chatBox-Header-title-fontsize);
+  font-weight: normal;
+  margin: 0 40px;
   padding: 5px 10px;
 }
 
-.letstalk-close-button {
+.letstalk-subtitle {
+  font-size: var(--chatBox-Header-subtitle-fontsize);
+}
+
+.letstalk-minimize-button {
   display: none;
 }
 
@@ -30,11 +35,19 @@
     @include letstalk-title;
   }
 
-  .letstalk-close-button {
-    @include letstalk-close-button;
+  .letstalk-minimize-button {
+    @include letstalk-minimize-button;
   }
 
-  .letstalk-close {
-    @include letstalk-close;
+  .letstalk-minimize {
+    @include letstalk-minimize;
+  }
+
+  .letstalk-menu-button {
+    @include letstalk-menu-button;
+  }
+
+  .letstalk-menu {
+    @include letstalk-menu;
   }
 }

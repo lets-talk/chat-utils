@@ -9,8 +9,8 @@ Here are the few libraries we are going to use.
 
 # Setup Project
 ```
-git clone https://github.com/ankur-kushwaha/react-component-library.git
-cd react-component-library
+git clone https://github.com/lets-talk/lt-tool-kit
+cd lt-tool-kit
 npm install or yarn
 //after the installation complete
 npm run storybook or yarn storybook
@@ -25,9 +25,9 @@ You can also test you component by changing the input arguments in the right sid
 
 The packages folder will contains all the components.
 All components should be complete on their own. Like they must have a package.json to maintain their version.
-Package.json file should have a main property set to point the entry point.
+package.json file should have a main property set to point the entry point.
 Its always better to compile the es6 source-code to es5 using babel.
-All these optimization has been done in Button component.
+All these optimization has been done in the components.
 
 # Storybook Enhancement using Addons
 1. addon-knobs: Storybook Addon Knobs allow you to edit React props dynamically using the Storybook UI. You can also use Knobs as a dynamic variable inside stories in Storybook.
@@ -53,6 +53,7 @@ git remote add origin <your git repo>
 git commit -am "done"
 git push
 //setup lerna for new components
+//You can install lerna globally `npm install -g lerna` or use from node modules: `node_modules/lerna/bin/lerna.js publish`
 lerna bootstrap
 lerna publish
 ```

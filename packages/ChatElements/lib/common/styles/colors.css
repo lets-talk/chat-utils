@@ -260,6 +260,7 @@
   --palette-grey-700: rgb(97, 97, 97);
   --palette-grey-800: rgb(66, 66, 66);
   --palette-grey-900: rgb(33, 33, 33);
+  --palette-grey-custom: rgb(194, 205, 211);
 
   --palette-blue-grey-50: rgb(236, 239, 241);
   --palette-blue-grey-100: rgb(207, 216, 220);
@@ -271,6 +272,7 @@
   --palette-blue-grey-700: rgb(69, 90, 100);
   --palette-blue-grey-800: rgb(55, 71, 79);
   --palette-blue-grey-900: rgb(38, 50, 56);
+  --palette-blue-grey-1000: rgb(6, 39, 72);
 
   --color-black: rgb(0, 0, 0);
   --color-white: rgb(255, 255, 255);
