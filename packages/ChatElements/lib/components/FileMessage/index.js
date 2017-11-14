@@ -5,7 +5,7 @@ import FaCloudDownload from 'react-icons/lib/fa/cloud-download';
 import FaFile from 'react-icons/lib/fa/file';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import './FileMessage.css';
+import './index.css';
 
 export class FileMessage extends Component {
   constructor(props) {
@@ -25,20 +25,20 @@ export class FileMessage extends Component {
 
   render() {
     return (
-      <div className="rce-mbox-file">
+      <div className="letstalk-mbox-file">
         <button onClick={this.onClick}>
-          <div className="rce-mbox-file--icon">
+          <div className="letstalk-mbox-file--icon">
             <FaFile
               color="#aaa"
             />
-            <div className="rce-mbox-file--size">
+            <div className="letstalk-mbox-file--size">
               {this.props.data.size}
             </div>
           </div>
-          <div className="rce-mbox-file--text">
+          <div className="letstalk-mbox-file--text">
             {this.props.text}
           </div>
-          <div className="rce-mbox-file--buttons">
+          <div className="letstalk-mbox-file--buttons">
             {
               this.props.data.status &&
                 !this.props.data.status.download &&

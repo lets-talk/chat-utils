@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-// import './Avatar.css';
-import './Avatar.scss';
+import './index.scss';
 
 const Avatar = (props) =>
   (

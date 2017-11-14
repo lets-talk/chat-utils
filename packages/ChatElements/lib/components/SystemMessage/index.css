@@ -1,12 +1,12 @@
-.rce-container-smsg {
+.letstalk-container-smsg {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.rce-smsg {
+.letstalk-smsg {
     position: relative;
-    background: white;
+    background: var(--systemMessage-background);
     border-radius: 10px;
     box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2);
     display: flex;
@@ -19,8 +19,8 @@
     justify-content: center;
 }
 
-.rce-smsg-text {
+.letstalk-smsg-text {
     text-align: center;
     display: inline-block;
-    font-size: 15px;
+    font-size: var(--systemMessage-font-size);
 }

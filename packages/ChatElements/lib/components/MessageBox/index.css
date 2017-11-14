@@ -90,7 +90,7 @@
 }
 
 .letstalk-mbox-text {
-    font-size: 13.6px;
+    font-size: --messageBox-font-size;
     word-break: break-word;
 }
 
@@ -131,7 +131,7 @@
     margin: 0;
     margin-bottom: 8px;
     font-weight: 500;
-    font-size: 13px;
+    font-size: var(--messageBox-title-font-size);
     color: var(--messageBox-title-color);
     user-select: none;
     cursor: pointer;
@@ -149,7 +149,7 @@
 
 .letstalk-mbox-status {
     margin-left: 3px;
-    font-size: 15px;
+    font-size: var(--messageBox-font-size);
 }
 
 .letstalk-mbox-title > .letstalk-avatar-container {

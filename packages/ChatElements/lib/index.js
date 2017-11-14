@@ -1,5 +1,5 @@
 import ChatIcon from './components/ChatIcon/ChatIcon';
-import Avatar from './components/Avatar/Avatar';
+import Avatar from './components/Avatar';
 import Loader from './components/Loader/Loader';
 
 module.exports = {

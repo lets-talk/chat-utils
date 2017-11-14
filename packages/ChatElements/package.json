@@ -7,7 +7,6 @@
     "lib": "lib"
   },
   "scripts": {
-    "buildORI": "babel lib -d build",
     "build": "webpack --config webpack.config.dev.js --progress --profile --colors",
     "build-prod": "webpack --config webpack.config.prod.js --progress --profile --colors",
     "build:watch": "babel lib -w -d build",

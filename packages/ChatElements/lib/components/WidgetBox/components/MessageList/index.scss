@@ -4,6 +4,7 @@
 .letstalk-messages-container {
   background-color: var(--color-white);
   height: 50vh;
+  min-height: 200px;
   max-height: 410px;
   overflow-y: scroll;
   padding-top: 10px;

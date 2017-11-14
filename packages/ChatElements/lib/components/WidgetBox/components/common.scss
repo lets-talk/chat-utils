@@ -3,8 +3,12 @@
 :root {
   --chatBox-Header-background: var(--palette-orange-900);
   --chatBox-Header-color: var(--color-white);
-  --chatBox-Header-fontsize: var(--font-size-small);
-  --chatBox-Sender-background: var(--palette-grey-200);
+  --chatBox-Header-fontsize: var(--font-size-normal);
+  --chatBox-Header-text-align: center;
+  --chatBox-Header-title-fontsize: var(--font-size-big);
+  --chatBox-Header-subtitle-fontsize: var(--font-size-small);
+  --widgetBox-Sender-background: var(--palette-blue-grey-50);
+  --widgetBox-Sender-color: var(--palette-grey-custom);
 }
 
 @mixin letstalk-message-bubble($color) {
@@ -28,20 +32,35 @@
 }
 
 @mixin letstalk-title {
-  font-size: var(--chatBox-Header-fontsize);
+  font-size: var(--chatBox-Header-title-fontsize);
 }
 
-@mixin letstalk-close-button {
+@mixin letstalk-minimize-button {
+  background-color: var(--palette-white-900);
+  border: 0;
+  display: block;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 40px;
+}
+
+@mixin letstalk-minimize {
+  width: 20px;
+  height: 20px;
+}
+
+@mixin letstalk-menu-button {
   background-color: var(--palette-white-900);
   border: 0;
   display: block;
   position: absolute;
   right: 10px;
-  top: 20px;
+  top: 10px;
   width: 40px;
 }
 
-@mixin letstalk-close {
+@mixin letstalk-menu {
   width: 20px;
   height: 20px;
 }
