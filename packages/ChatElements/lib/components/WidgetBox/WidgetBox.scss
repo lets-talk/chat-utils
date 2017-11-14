@@ -2,6 +2,10 @@
 @import '../../common/styles/animations.scss';
 @import './config.scss';
 
+.widgetbox-container * {
+  font-family: var(--widgetBox-font-familiy);
+}
+
 .widgetbox-container {
   @include animation(0, 0.5s, slide-in);
   border-radius: 10px 10px 0px 0px;

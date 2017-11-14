@@ -1,0 +1,22 @@
+@mixin letstalk-global-animation() {
+  animation-fill-mode: both;
+}
+
+@mixin letstalk-balls() {
+  margin: var(--loader-margin);
+  background-color: var(--color);
+}
+
+@mixin letstalk-zindex($layer, $positionInside) {
+  z-index: 10 * $layer + $positionInside % 10;
+}
+
+// This is used to generate differnet ball sizes
+@mixin generateBallSize($ballType, $size) {
+  .letstalk-#{$ballType}.#{$size},
+  .letstalk-#{$ballType}.#{$size} > div {
+      min-width: var(--loader-size-#{$size});
+      min-height: var(--loader-size-#{$size});
+      border-width: calc(var(--loader-size-#{$size}) / 16);
+  }
+}

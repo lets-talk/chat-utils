@@ -1,8 +1,8 @@
 @import '../../common/styles/variables.css';
 
 :root {
-  --messageBox-background: var(--palette-orange-900);
-  --messageBox-color: var(--color-white);
+  --messageBox-background: var(--color-background);
+  --messageBox-color: var(--color-text);
   --messageBox-agent-background: var(--color-background-secondary);
   --messageBox-agent-color: var(--color-text-secondary);
 

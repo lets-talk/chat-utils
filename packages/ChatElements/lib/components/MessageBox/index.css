@@ -62,19 +62,23 @@
 }
 
 .letstalk-mbox {
-    position: relative;
-    background-color: var(--messageBox-background);
-    color: var(--messageBox-color);
-    border-radius: var(--messageBox-border-radius);
-    box-shadow: var(--messageBox-box-shadow);
-    margin-left: var(--messageBox-side-margin);
-    margin-right: 5px;
-    margin-top: 3px;
-    flex-direction: column;
-    margin-bottom: 3px;
-    padding: 6px 9px 8px 9px;
-    float: left;
-    min-width: 140px;
+  position: relative;
+  background-color: var(--messageBox-background);
+  color: var(--messageBox-color);
+  border-radius: var(--messageBox-border-radius);
+  box-shadow: var(--messageBox-box-shadow);
+  margin-left: var(--messageBox-side-margin);
+  margin-right: 5px;
+  margin-top: 3px;
+  flex-direction: column;
+  margin-bottom: 3px;
+  padding: 6px 9px 8px 9px;
+  float: left;
+}
+
+.letstalk-mbox.letstalk-mbox-agent {
+  background-color: var(--messageBox-agent-background);
+  color: var(--messageBox-agent-color);
 }
 
 .letstalk-mbox-body {
@@ -89,7 +93,8 @@
     margin-right: var(--messageBox-side-margin);
 }
 
-.letstalk-mbox-text {
+.letstalk-mbox-text,
+.letstalk-mbox-typing {
     font-size: --messageBox-font-size;
     word-break: break-word;
 }

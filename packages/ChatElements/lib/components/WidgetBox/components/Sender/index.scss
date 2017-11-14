@@ -8,12 +8,16 @@
   background-color: var(--widgetBox-Sender-background);
   height: 40px;
   padding: 5px;
+
+  &:focus {
+    background: var(--widgetBox-Sender-background-active);
+  }
 }
 
 .letstalk-new-message {
   width: 100%;
   border: 0;
-  background-color: var(--widgetBox-Sender-background);
+  background-color: inherit;
   height: 30px;
   padding-left: 15px;
 
@@ -23,7 +27,7 @@
 }
 
 .letstalk-send {
-  background: var(--widgetBox-Sender-background);
+  background: transparent;
   border: 0;
 
   .letstalk-send-icon {

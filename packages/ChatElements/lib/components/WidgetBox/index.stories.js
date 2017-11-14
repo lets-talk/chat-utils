@@ -19,7 +19,7 @@ const themes = {
 };
 
 const loremIpsum = (count, units) => 'I am a random string';
-const photo = () => 'http://i46.tinypic.com/sexbb8.png';
+const photo = (avatar = false) => avatar ? 'http://i46.tinypic.com/sexbb8.png' : 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg';
 
 const getRandomColor = () => {
   const letters = '0123456789ABCDEF';
@@ -68,7 +68,7 @@ const random = (type) => {
         // titleColor: getRandomColor(),
         text: loremIpsum({ count: 1, units: 'sentences' }),
         data: {
-          uri: `${photo()}`,
+          uri: type !== 'photo' ? `${photo()}` : `${photo(true)}`,
           status: {
             click: false,
             loading: 0,
@@ -130,7 +130,7 @@ for (let i = 1; i < 15; i += 1) {
 }
 
 stories.addWithInfo(
-  'Basic Usage - Just opened',
+  'Chat Widget - 2',
   'This is the basic usage of a Widget Box.',
   () => (
     <ThemeProvider theme={themes[select('Theme', { light: 'LightTheme', dark: 'DarkTheme' }, 'light')]}>
@@ -158,13 +158,78 @@ stories.addWithInfo(
   )
 );
 
+const story3Messages = [
+  {
+    position: 'left',
+    forwarded: true,
+    type: 'system',
+    theme: 'white',
+    view: 'list',
+    text: '23/08/2017',
+    status: 'received',
+    date: '2017-11-14T03:40:45.298Z',
+    dateString: '00:40',
+  },
+  {
+    position: 'right',
+    forwarded: true,
+    type: 'text',
+    theme: 'white',
+    view: 'list',
+    title: '',
+    text: 'Buenos días!',
+    status: 'read',
+    date: '2017-11-14T18:24:22.133Z',
+    dateString: '18:24',
+  },
+  {
+    position: 'right',
+    forwarded: true,
+    type: 'text',
+    theme: 'white',
+    view: 'list',
+    title: '',
+    text: 'Por favor necesito ayuda, perdí mi tarjeta de crédito',
+    status: 'read',
+    date: '2017-11-14T18:24:22.133Z',
+    dateString: '18:24',
+  },
+  {
+    position: 'left',
+    forwarded: true,
+    type: 'text',
+    theme: 'white',
+    view: 'list',
+    title: '',
+    text: 'Buenos días!',
+    status: 'read',
+    date: '2017-11-14T18:25:22.133Z',
+    dateString: '18:25',
+    avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+    user_type: 'agent',
+  },
+  {
+    position: 'left',
+    forwarded: true,
+    type: 'typing',
+    theme: 'white',
+    view: 'list',
+    title: '',
+    text: '',
+    status: 'read',
+    date: '2017-11-14T18:25:22.133Z',
+    dateString: '18:25',
+    avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+    user_type: 'agent',
+  },
+];
 stories.addWithInfo(
-  'Advanced Usage - With Avatar',
+  'Chat widget - 3',
   'This is the usage using the user Avatar.',
   () => (
     <ThemeProvider theme={themes[select('Theme', { light: 'LightTheme', dark: 'DarkTheme' }, 'light')]}>
       <WidgetBox
-        title={text('Title', 'Sandino Núñez')}
+        title={text('Title', 'Georgia Harmon')}
         subtitle={text('Subtitle', 'Emergencia Bancaria')}
         sendMessage={(e) => {
           e.preventDefault();
@@ -180,8 +245,8 @@ stories.addWithInfo(
         showMenuButton={boolean('Show Menu Button', true)}
         showMinimizeButton={boolean('Show Minimize Button', true)}
         disabledInput={boolean('Disable Input', false)}
-        avatar={text('Avatar', 'https://lh3.googleusercontent.com/-bKkhkiZr3lE/AAAAAAAAAAI/AAAAAAAAAAA/ANQ0kf70goDRcuSW0oKG8C0x7TprJwFOOQ/mo/photo.jpg?sz=512')}
-        messages={[]}
+        avatar={text('Avatar', 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg')}
+        messages={story3Messages}
       >
       </WidgetBox>
     </ThemeProvider>
@@ -207,7 +272,7 @@ stories.addWithInfo(
           addMessage();
           return false;
         }}
-        showCloseButton={boolean('Show Minimize Button', true)}
+        showMinimizeButton={boolean('Show Minimize Button', true)}
         showMenuButton={boolean('Show Menu Button', true)}
         disabledInput={boolean('Disable Input', false)}
         messages={object('Messages', messages)}

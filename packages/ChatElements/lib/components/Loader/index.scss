@@ -1,0 +1,41 @@
+@import './config.css';
+/**
+ * Dots Animations - Adding new animations types is just adding a scss file to
+ * the animations folder. Then calling the Loader component with the new type name
+ */
+@import 'animations/ball-beat';
+@import 'animations/ball-pulse';
+@import 'animations/ball-pulse-sync';
+@import 'animations/ball-clip-rotate';
+@import 'animations/single-ball-beat';
+
+.letstalk-loader {
+  &-hidden {
+    display: none;
+  }
+
+  &-active {
+    display: block;
+
+    &-full-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      opacity: 0.5;
+      background: none repeat scroll 0 0 var(--color-black);
+      width: 100%;
+      height: 100%;
+
+      z-index: 100;
+    }
+  }
+
+
+  &-inner {
+    display: flex;
+    justify-content: center;
+  }
+}

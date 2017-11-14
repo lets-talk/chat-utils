@@ -1,0 +1,45 @@
+@import '../../common/styles/functions';
+@import 'mixins/mixins';
+
+@keyframes letstalk-single-ball-beat {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.letstalk-single-ball-beat {
+  position: relative;
+  min-width: var(--loader-ball-size);
+  min-height: var(--loader-ball-size);
+
+  > div {
+    @include letstalk-balls();
+    @include letstalk-global-animation();
+
+    display: inline-block;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -(calc(var(--loader-ball-size)/2));
+
+    &:first-child {
+      opacity: 0.5;
+      animation: letstalk-single-ball-beat var(--loader-animation-duration) infinite;
+    }
+  }
+}
+
+@include generateBallSize('single-ball-beat', 'xsmall');
+@include generateBallSize('single-ball-beat', 'small');
+@include generateBallSize('single-ball-beat', 'medium');
+@include generateBallSize('single-ball-beat', 'large');
+@include generateBallSize('single-ball-beat', 'xlarge');
