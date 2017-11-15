@@ -1,10 +1,12 @@
+@import "../../config.scss";
+
 @mixin letstalk-global-animation() {
   animation-fill-mode: both;
 }
 
 @mixin letstalk-balls() {
-  margin: var(--loader-margin);
-  background-color: var(--color);
+  margin: $loader-margin;
+  background-color: $loader-fullscreen-background;
 }
 
 @mixin letstalk-zindex($layer, $positionInside) {
@@ -12,11 +14,11 @@
 }
 
 // This is used to generate differnet ball sizes
-@mixin generateBallSize($ballType, $size) {
-  .letstalk-#{$ballType}.#{$size},
-  .letstalk-#{$ballType}.#{$size} > div {
-      min-width: var(--loader-size-#{$size});
-      min-height: var(--loader-size-#{$size});
-      border-width: calc(var(--loader-size-#{$size}) / 16);
+@mixin generateBallSize($ballType, $sizeName, $sizeVal) {
+  .letstalk-#{$ballType}.#{$sizeName},
+  .letstalk-#{$ballType}.#{$sizeName} > div {
+      min-width: $sizeVal;
+      min-height: $sizeVal;
+      border-width: calc(#{$sizeVal} / 16);
   }
 }

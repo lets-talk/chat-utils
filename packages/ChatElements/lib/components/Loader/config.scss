@@ -1,0 +1,13 @@
+@import "../../common/styles/colors";
+@import "../../common/styles/variables";
+
+$loader-size-xsmall: calc(0.8 * #{$unit});
+$loader-size-small: calc(2 * #{$unit});
+$loader-size-medium: calc(3 * #{$unit});
+$loader-size-large: calc(5 * #{$unit});
+$loader-size-xlarge: calc(8 * #{$unit});
+
+$loader-ball-size: 14px;
+$loader-margin: 2px;
+$loader-animation-duration: 2s;
+$loader-fullscreen-background: $color-black;

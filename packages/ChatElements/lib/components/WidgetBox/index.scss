@@ -1,7 +1,7 @@
 @import './config.scss';
 
 .widgetbox-container * {
-  font-family: var(--widgetBox-font-familiy);
+  font-family: $widgetBox-font-familiy;
 }
 
 .widgetbox-container {

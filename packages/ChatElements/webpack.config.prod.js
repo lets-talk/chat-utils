@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
-const autoprefixer = require('autoprefixer');
 const postcssflexbugsfixes = require('postcss-flexbugs-fixes');
+const postcssnext = require('postcss-cssnext');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 
@@ -84,16 +84,14 @@ module.exports = {
                     ident: 'postcss',
                     plugins: () => [
                       postcssflexbugsfixes,
-                      require('postcss-cssnext')(
-                        {
-                          browsers: [
-                            '>1%',
-                            'last 3 versions',
-                            'Firefox ESR',
-                            'not ie < 9', // React doesn't support IE8 anyway
-                          ],
-                        }
-                      ),
+                      postcssnext({
+                        browsers: [
+                          '>1%',
+                          'last 3 versions',
+                          'Firefox ESR',
+                          'not ie < 9', // React doesn't support IE8 anyway
+                        ],
+                      }),
                     ],
                   },
                 },
@@ -114,8 +112,8 @@ module.exports = {
           {
             test: /\.(jpg|png|gif|svg)$/,
             use: {
-              loader: 'url-loader'
-            }
+              loader: 'url-loader',
+            },
           },
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.

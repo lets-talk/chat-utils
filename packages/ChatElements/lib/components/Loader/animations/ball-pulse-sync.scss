@@ -1,4 +1,4 @@
-@import '../../common/styles/functions';
+@import '../../../common/styles/functions';
 @import 'mixins/mixins';
 
 $amount: 10px;
@@ -22,7 +22,7 @@ $amount: 10px;
     > div:nth-child(#{$i}) {
       animation:
         letstalk-ball-pulse-sync
-        var(--loader-animation-duration)
+        $loader-animation-duration
         letstalk-delay(0.07s, $n, $i)
         infinite ease-in-out;
     }
@@ -41,8 +41,8 @@ $amount: 10px;
   }
 }
 
-@include generateBallSize('ball-pulse-sync', 'xsmall');
-@include generateBallSize('ball-pulse-sync', 'small');
-@include generateBallSize('ball-pulse-sync', 'medium');
-@include generateBallSize('ball-pulse-sync', 'large');
-@include generateBallSize('ball-pulse-sync', 'xlarge');
+@include generateBallSize('ball-pulse-sync', 'xsmall', $loader-size-xsmall);
+@include generateBallSize('ball-pulse-sync', 'small', $loader-size-small);
+@include generateBallSize('ball-pulse-sync', 'medium', $loader-size-medium);
+@include generateBallSize('ball-pulse-sync', 'large', $loader-size-large);
+@include generateBallSize('ball-pulse-sync', 'xlarge', $loader-size-xlarge);

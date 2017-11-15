@@ -5,7 +5,7 @@ import FaCloudDownload from 'react-icons/lib/fa/cloud-download';
 import FaFile from 'react-icons/lib/fa/file';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import './index.css';
+import './index.scss';
 
 export class FileMessage extends Component {
   constructor(props) {

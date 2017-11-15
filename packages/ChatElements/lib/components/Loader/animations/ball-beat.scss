@@ -1,3 +1,4 @@
+@import '../../../common/styles/functions';
 @import 'mixins/mixins';
 
 @keyframes letstalk-ball-beat {
@@ -19,16 +20,16 @@
 
     display: inline-block;
     border-radius: 100%;
-    animation: letstalk-ball-beat var(--loader-animation-duration) 1s infinite linear;
+    animation: letstalk-ball-beat $loader-animation-duration 1s infinite linear;
 
     &:nth-child(2n-1) {
-      animation-delay: calc(var(--loader-animation-duration) / 2) !important;
+      animation-delay: calc(#{$loader-animation-duration} / 2) !important;
     }
   }
 }
 
-@include generateBallSize('ball-beat', 'xsmall');
-@include generateBallSize('ball-beat', 'small');
-@include generateBallSize('ball-beat', 'medium');
-@include generateBallSize('ball-beat', 'large');
-@include generateBallSize('ball-beat', 'xlarge');
+@include generateBallSize('ball-beat', 'xsmall', $loader-size-xsmall);
+@include generateBallSize('ball-beat', 'small', $loader-size-small);
+@include generateBallSize('ball-beat', 'medium', $loader-size-medium);
+@include generateBallSize('ball-beat', 'large', $loader-size-large);
+@include generateBallSize('ball-beat', 'xlarge', $loader-size-xlarge);

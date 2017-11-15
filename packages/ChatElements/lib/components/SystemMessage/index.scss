@@ -1,3 +1,5 @@
+@import './config.scss';
+
 .letstalk-container-smsg {
     display: flex;
     align-items: center;
@@ -6,7 +8,7 @@
 
 .letstalk-smsg {
     position: relative;
-    background: var(--systemMessage-background);
+    background: $systemMessage-background;
     border-radius: 10px;
     box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2);
     display: flex;
@@ -22,5 +24,5 @@
 .letstalk-smsg-text {
     text-align: center;
     display: inline-block;
-    font-size: var(--systemMessage-font-size);
+    font-size: $systemMessage-font-size;
 }

@@ -1,0 +1,6 @@
+@import "../../common/styles/variables";
+
+$chatIcon-color: $color-white;
+$chatIcon-background: $palette-orange-900;
+$chatIcon-size: calc(4 * #{$unit});
+$chatIcon-font-size: $font-size-small;

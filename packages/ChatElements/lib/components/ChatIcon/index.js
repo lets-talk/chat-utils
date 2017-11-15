@@ -8,7 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 // Stylesheet
-import './index.css';
+import './index.scss';
 
 const ChatIcon = (props) => {
   // Show the toggle icon only when widget is hidden or minimized and

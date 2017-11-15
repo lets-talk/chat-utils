@@ -1,4 +1,4 @@
-@import '../../common/styles/functions';
+@import '../../../common/styles/functions';
 @import 'mixins/mixins';
 
 @keyframes letstalk-single-ball-beat {
@@ -17,8 +17,8 @@
 
 .letstalk-single-ball-beat {
   position: relative;
-  min-width: var(--loader-ball-size);
-  min-height: var(--loader-ball-size);
+  min-width: $loader-ball-size;
+  min-height: $loader-ball-size;
 
   > div {
     @include letstalk-balls();
@@ -29,17 +29,17 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -(calc(var(--loader-ball-size)/2));
+    margin: -(calc(#{$loader-ball-size}/2));
 
     &:first-child {
       opacity: 0.5;
-      animation: letstalk-single-ball-beat var(--loader-animation-duration) infinite;
+      animation: letstalk-single-ball-beat $loader-animation-duration infinite;
     }
   }
 }
 
-@include generateBallSize('single-ball-beat', 'xsmall');
-@include generateBallSize('single-ball-beat', 'small');
-@include generateBallSize('single-ball-beat', 'medium');
-@include generateBallSize('single-ball-beat', 'large');
-@include generateBallSize('single-ball-beat', 'xlarge');
+@include generateBallSize('single-ball-beat', 'xsmall', $loader-size-xsmall);
+@include generateBallSize('single-ball-beat', 'small', $loader-size-small);
+@include generateBallSize('single-ball-beat', 'medium', $loader-size-medium);
+@include generateBallSize('single-ball-beat', 'large', $loader-size-large);
+@include generateBallSize('single-ball-beat', 'xlarge', $loader-size-xlarge);

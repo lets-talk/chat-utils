@@ -1,4 +1,5 @@
-@import './config.css';
+@import "../../common/styles/variables";
+@import './config.scss';
 
 @keyframes single-ball-beat {
   0% {
@@ -17,22 +18,22 @@
   }
 }
 // This is used to generate differnet avatar sizes
-@mixin avatarStyle($size) {
-  .letstalk-avatar-container.#{$size} {
-      width: var(--avatar-size-#{$size});
-      height: var(--avatar-size-#{$size});
+@mixin avatarStyle($sizeName, $sizeValue) {
+  .letstalk-avatar-container.#{$sizeName} {
+      width: $sizeValue;
+      height: $sizeValue;
   }
 
-  .letstalk-avatar-container.#{$size} .letstalk-avatar-image{
-      width: calc(var(--avatar-size-#{$size}) - 5px);
-      height: calc(var(--avatar-size-#{$size}) - 5px);
+  .letstalk-avatar-container.#{$sizeName} .letstalk-avatar-image{
+      width: calc(#{$sizeValue} - 5px);
+      height: calc(#{$sizeValue} - 5px);
   }
 
-  .letstalk-avatar-container.#{$size} .letstalk-avatar-status {
-    width: calc(var(--avatar-size-#{$size}) / 10);
-    height: calc(var(--avatar-size-#{$size}) / 10);
-    bottom: calc(var(--avatar-size-#{$size}) / 13);
-    right: calc(var(--avatar-size-#{$size}) / 9);
+  .letstalk-avatar-container.#{$sizeName} .letstalk-avatar-status {
+    width: calc(#{$sizeValue} / 10);
+    height: calc(#{$sizeValue} / 10);
+    bottom: calc(#{$sizeValue} / 13);
+    right: calc(#{$sizeValue} / 9);
   }
 }
 
@@ -76,11 +77,11 @@
   }
 }
 
-@include avatarStyle('xsmall');
-@include avatarStyle('small');
-@include avatarStyle('medium');
-@include avatarStyle('large');
-@include avatarStyle('xlarge');
+@include avatarStyle('xsmall', $avatar-size-xsmall);
+@include avatarStyle('small', $avatar-size-small);
+@include avatarStyle('medium', $avatar-size-medium);
+@include avatarStyle('large', $avatar-size-large);
+@include avatarStyle('xlarge', $avatar-size-xlarge);
 
 .letstalk-avatar-status {
   position: absolute;
@@ -97,13 +98,13 @@
 }
 
 .letstalk-avatar-status.online {
-  background-color: var(--avatar-status-online);
+  background-color: $avatar-status-online;
 }
 
 .letstalk-avatar-status.offline {
-  background-color: var(--avatar-status-offline);
+  background-color: $avatar-status-offline;
 }
 
 .letstalk-avatar-status.sleeping {
-  background-color: var(--avatar-status-sleeping);
+  background-color: $avatar-status-sleeping;
 }

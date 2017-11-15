@@ -1,4 +1,4 @@
-@import '../../common/styles/functions';
+@import '../../../common/styles/functions';
 @import 'mixins/mixins';
 
 @keyframes letstalk-loader-scale {
@@ -31,7 +31,7 @@
     > div:nth-child(#{$i}) {
       animation:
         letstalk-loader-scale
-        var(--loader-animation-duration)
+        $loader-animation-duration
         letstalk-delay(0.12s, $n, $i)
         infinite;
     }
@@ -50,8 +50,8 @@
   }
 }
 
-@include generateBallSize('ball-pulse', 'xsmall');
-@include generateBallSize('ball-pulse', 'small');
-@include generateBallSize('ball-pulse', 'medium');
-@include generateBallSize('ball-pulse', 'large');
-@include generateBallSize('ball-pulse', 'xlarge');
+@include generateBallSize('ball-pulse', 'xsmall', $loader-size-xsmall);
+@include generateBallSize('ball-pulse', 'small', $loader-size-small);
+@include generateBallSize('ball-pulse', 'medium', $loader-size-medium);
+@include generateBallSize('ball-pulse', 'large', $loader-size-large);
+@include generateBallSize('ball-pulse', 'xlarge', $loader-size-xlarge);
