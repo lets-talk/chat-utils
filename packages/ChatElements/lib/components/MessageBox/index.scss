@@ -1,4 +1,4 @@
-@import './config.css';
+@import './config';
 
 .letstalk-container-mbox {
     flex-direction: column;
@@ -63,11 +63,11 @@
 
 .letstalk-mbox {
   position: relative;
-  background-color: var(--messageBox-background);
-  color: var(--messageBox-color);
-  border-radius: var(--messageBox-border-radius);
-  box-shadow: var(--messageBox-box-shadow);
-  margin-left: var(--messageBox-side-margin);
+  background-color: $messageBox-background;
+  color: $messageBox-color;
+  border-radius: $messageBox-border-radius;
+  box-shadow: $messageBox-box-shadow;
+  margin-left: $messageBox-side-margin;
   margin-right: 5px;
   margin-top: 3px;
   flex-direction: column;
@@ -77,8 +77,8 @@
 }
 
 .letstalk-mbox.letstalk-mbox-agent {
-  background-color: var(--messageBox-agent-background);
-  color: var(--messageBox-agent-color);
+  background-color: $messageBox-agent-background;
+  color: $messageBox-agent-color;
 }
 
 .letstalk-mbox-body {
@@ -90,7 +90,7 @@
 .letstalk-mbox.letstalk-mbox-right {
     float: right;
     margin-left: 5px;
-    margin-right: var(--messageBox-side-margin);
+    margin-right: $messageBox-side-margin;
 }
 
 .letstalk-mbox-text,
@@ -107,7 +107,7 @@
   display: inline-block;
   width: 50px;
   text-align: right;
-  font-size: var(--font-size-tiny);
+  font-size: $font-size-tiny;
   position: relative;
 }
 
@@ -128,13 +128,13 @@
 }
 
 .letstalk-mbox .letstalk-mbox-time {
-  color: color(var(--messageBox-color) lightness(+50%));
-  color: color(#222 contrast(50%));
+  //color: color($messageBox-color lightness(+50%));
+  // color: color(rgb(34, 33, 17) lightness(+50%));
 }
 
 .letstalk-mbox-agent .letstalk-mbox-time {
-  color: color(var(--messageBox-agent-color) lightness(+50%));
-  color: color(#222 contrast(50%));
+  // color: color($messageBox-agent-color lightness(+50%));
+  // color: color(rgb(34, 33, 17) lightness(+50%));
 }
 
 .letstalk-mbox--clear-padding {
@@ -145,8 +145,8 @@
     margin: 0;
     margin-bottom: 8px;
     font-weight: 500;
-    font-size: var(--messageBox-title-font-size);
-    color: var(--messageBox-title-color);
+    font-size: $messageBox-title-font-size;
+    color: $messageBox-title-color;
     user-select: none;
     cursor: pointer;
     display: flex;
@@ -163,7 +163,7 @@
 
 .letstalk-mbox-status {
     margin-left: 3px;
-    font-size: var(--messageBox-font-size);
+    font-size: $messageBox-font-size;
 }
 
 .letstalk-mbox-title > .letstalk-avatar-container {

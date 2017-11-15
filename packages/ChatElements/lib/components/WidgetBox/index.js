@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Header from './components/Header';
 import MessageList from './components/MessageList';
@@ -7,24 +8,39 @@ import Sender from './components/Sender';
 import './index.scss';
 
 const WidgetBox = (props) => {
+  const {
+    messages,
+    title,
+    subtitle,
+    avatar,
+    senderPlaceHolder,
+    className,
+    toggleChat,
+    disabledInput,
+    openMenu,
+    showMinimizeButton,
+    showMenuButton,
+    sendMessage,
+  } = props;
+
   return (
-    <div className="widgetbox-container">
+    <div className={classNames('widgetbox-container', className)}>
       <Header
-        title={props.title}
-        subtitle={props.subtitle}
-        avatar={props.avatar}
-        toggleChat={props.toggleChat}
-        openMenu={props.openMenu}
-        showMinimizeButton={props.showMinimizeButton}
-        showMenuButton={props.showMenuButton}
+        title={title}
+        subtitle={subtitle}
+        avatar={avatar}
+        toggleChat={toggleChat}
+        openMenu={openMenu}
+        showMinimizeButton={showMinimizeButton}
+        showMenuButton={showMenuButton}
       />
       <MessageList
-        messages={props.messages}
+        messages={messages}
       />
       <Sender
-        sendMessage={props.sendMessage}
-        placeholder={props.senderPlaceHolder}
-        disabledInput={props.disabledInput}
+        sendMessage={sendMessage}
+        placeholder={senderPlaceHolder}
+        disabledInput={disabledInput}
       />
     </div>
   );
@@ -34,6 +50,8 @@ WidgetBox.propTypes = {
   messages: PropTypes.array,
   title: PropTypes.string,
   subtitle: PropTypes.string,
+  avatar: PropTypes.string,
+  className: PropTypes.string,
   sendMessage: PropTypes.func,
   senderPlaceHolder: PropTypes.string,
   toggleChat: PropTypes.func,

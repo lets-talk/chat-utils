@@ -1,0 +1,15 @@
+@import "../../common/styles/variables";
+
+$messageBox-background: $color-background;
+$messageBox-color: $color-text;
+$messageBox-agent-background: $color-background-secondary;
+$messageBox-agent-color: $color-text-secondary;
+
+$messageBox-font-size: $font-size-small;
+$messageBox-title-font-size: $font-size-normal;
+$messageBox-title-color: $color-white;
+$messageBox-time-font-size: $font-size-tiny;
+
+$messageBox-side-margin: 10px;
+$messageBox-border-radius: 5px;
+$messageBox-box-shadow: 0px rgba(0, 0, 0, .2);

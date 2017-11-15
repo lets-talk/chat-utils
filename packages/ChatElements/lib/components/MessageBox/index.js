@@ -17,7 +17,7 @@ import Avatar from '../Avatar';
 import Loader from '../Loader';
 
 // Component styles
-import './index.css';
+import './index.scss';
 
 const MessageBox = (props) => {
   const positionCls = classNames('letstalk-mbox', {

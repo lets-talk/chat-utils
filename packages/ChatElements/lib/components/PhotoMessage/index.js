@@ -1,26 +1,12 @@
 import React from 'react';
-
-import './index.css';
+import PropTypes from 'prop-types';
 
 import FaCloudDownload from 'react-icons/lib/fa/cloud-download';
-
 import CircularProgress from 'material-ui/CircularProgress';
 
+import './index.scss';
+
 const PhotoMessage = (props) => {
-  const progressOptions = {
-    strokeWidth: 2.3,
-    color: '#efe',
-    trailColor: '#aaa',
-    trailWidth: 1,
-    step: (state, circle) => {
-      circle.path.setAttribute('trail', state.color);
-      circle.path.setAttribute('trailwidth-width', state.width);
-
-      const value = Math.round(circle.value() * 100);
-      if (value === 0) { circle.setText(''); } else { circle.setText(value); }
-    },
-  };
-
   return (
     <div className="letstalk-mbox-photo">
       <div
@@ -88,5 +74,11 @@ PhotoMessage.defaultProps = {
   onOpen: null,
 };
 
+PhotoMessage.propTypes = {
+  text: PropTypes.string,
+  data: PropTypes.object,
+  onDownload: PropTypes.func,
+  onOpen: PropTypes.func,
+};
 
 export default PhotoMessage;

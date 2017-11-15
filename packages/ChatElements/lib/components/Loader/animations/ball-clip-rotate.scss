@@ -1,4 +1,4 @@
-@import '../../common/styles/functions';
+@import '../../../common/styles/functions';
 @import 'mixins/mixins';
 
 @keyframes letstalk-ball-clip-rotate {
@@ -21,8 +21,8 @@
     @include letstalk-balls();
     @include letstalk-global-animation();
 
-    width: var(--loader-ball-size);
-    height: var(--loader-ball-size);
+    width: $loader-ball-size;
+    height: $loader-ball-size;
 
     background: transparent;
 
@@ -31,12 +31,12 @@
     border-bottom-color: transparent;
     border-radius: 100%;
 
-    animation: letstalk-ball-clip-rotate calc(var(--loader-animation-duration) / 2) linear infinite;
+    animation: letstalk-ball-clip-rotate calc(#{$loader-animation-duration} / 2) linear infinite;
   }
 }
 
-@include generateBallSize('ball-clip-rotate', 'xsmall');
-@include generateBallSize('ball-clip-rotate', 'small');
-@include generateBallSize('ball-clip-rotate', 'medium');
-@include generateBallSize('ball-clip-rotate', 'large');
-@include generateBallSize('ball-clip-rotate', 'xlarge');
+@include generateBallSize('ball-clip-rotate', 'xsmall', $loader-size-xsmall);
+@include generateBallSize('ball-clip-rotate', 'small', $loader-size-small);
+@include generateBallSize('ball-clip-rotate', 'medium', $loader-size-medium);
+@include generateBallSize('ball-clip-rotate', 'large', $loader-size-large);
+@include generateBallSize('ball-clip-rotate', 'xlarge', $loader-size-xlarge);

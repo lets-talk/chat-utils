@@ -56,7 +56,7 @@ Avatar.propTypes = {
   /**
    * Image alt attribute.
    */
-  alt: PropTypes.object,
+  alt: PropTypes.string,
 };
 
 export default Avatar;

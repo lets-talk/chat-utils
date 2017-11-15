@@ -1,24 +1,24 @@
 @import "../common.scss";
 
 .letstalk-header {
-  background-color: var(--widgetBox-Header-background);
+  background-color: $widgetBox-Header-background;
   border-radius: 10px 10px 0 0;
   color: white;
   display: flex;
   flex-direction: column;
-  text-align: var(--widgetBox-Header-text-align);
+  text-align: $widgetBox-Header-text-align;
   padding: 15px 20px;
 }
 
 .letstalk-title {
-  font-size: var(--widgetBox-Header-title-fontsize);
+  font-size: $widgetBox-Header-title-fontsize;
   font-weight: normal;
   margin: 0 40px;
   padding: 5px 10px;
 }
 
 .letstalk-subtitle {
-  font-size: var(--widgetBox-Header-subtitle-fontsize);
+  font-size: $widgetBox-Header-subtitle-fontsize;
 }
 
 .letstalk-minimize-button {

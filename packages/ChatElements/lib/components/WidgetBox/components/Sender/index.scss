@@ -3,14 +3,10 @@
 .letstalk-sender {
   align-items: center;
   display: flex;
-  color: var(--widgetBox-Sender-color);
-  background-color: var(--widgetBox-Sender-background);
+  color: $widgetBox-Sender-color;
+  background-color: $widgetBox-Sender-background;
   height: 40px;
   padding: 5px;
-
-  &:focus {
-    background: var(--widgetBox-Sender-background-active);
-  }
 }
 
 .letstalk-new-message {

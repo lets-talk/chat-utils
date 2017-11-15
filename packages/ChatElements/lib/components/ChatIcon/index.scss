@@ -1,4 +1,4 @@
-@import './config.css';
+@import './config.scss';
 
 .letstalk-ChatIconContainer {
   position: relative;
@@ -8,13 +8,13 @@
   position: relative;
   float: right;
   margin: 0 10px 50px 0;
-  color: var(--color-primary);
-  background-color: var(--chatIcon-background);
+  color: $color-primary;
+  background-color: $chatIcon-background;
   border-radius: 50%;
   box-shadow: 0px 20px 13px -15px rgba(0,0,0,0.44);
 
   box-sizing: border-box;
-  font-family: var(--preferred-font);
+  font-family: $preferred-font;
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
   text-size-adjust: 100%;
@@ -31,10 +31,10 @@
 }
 
 .letstalk-ChatIcon span.intro-message {
-  font-size: var(--chatIcon-font-size);
+  font-size: $chatIcon-font-size;
   float: left;
   text-align: left;
-  color: var(--chatIcon-color);
+  color: $chatIcon-color;
   width: calc(100% - 50px);
   white-space: nowrap;
   overflow: hidden;
