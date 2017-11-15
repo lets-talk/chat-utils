@@ -105,14 +105,14 @@ const MessageBox = (props) => {
 
               {
                 props.type === 'text' &&
-                  <div className="letstalk-mbox-text">
+                  <div className={classNames('letstalk-mbox-content', 'letstalk-mbox-text')}>
                     {props.text}
                   </div>
               }
 
               {
                 props.type === 'typing' &&
-                  <div className="letstalk-mbox-typing">
+                  <div className={classNames('letstalk-mbox-content', 'letstalk-mbox-typing')}>
                     <Loader active type="ball-pulse" size="xsmall" color="rgb(113, 131, 150)" />
                   </div>
               }
@@ -174,6 +174,7 @@ const MessageBox = (props) => {
                   }
                 </div>
               }
+
             </div>
           </div>
       }

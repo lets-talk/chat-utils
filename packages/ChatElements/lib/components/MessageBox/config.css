@@ -1,5 +1,3 @@
-@import '../../common/styles/variables.css';
-
 :root {
   --messageBox-background: var(--color-background);
   --messageBox-color: var(--color-text);
@@ -10,7 +8,7 @@
   --messageBox-title-font-size: var(--font-size);
   --messageBox-title-color: var(--color-white);
   --messageBox-time-font-size: var(--font-size-tiny);
-  --messageBox-time-color: var(--color-white);
+
   --messageBox-side-margin: 10px;
   --messageBox-border-radius: 5px;
   --messageBox-box-shadow: 0px rgba(0, 0, 0, .2);

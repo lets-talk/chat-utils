@@ -8,7 +8,7 @@ import Avatar from '../../../Avatar';
 import './index.scss';
 
 const Header = ({
-  title, subtitle, avatar, toggleChat, showMinimizeButton, showMenuButton,
+  title, subtitle, avatar, toggleChat, openMenu, showMinimizeButton, showMenuButton,
 }) =>
   (
     <div className="letstalk-header">
@@ -23,7 +23,7 @@ const Header = ({
       }
       {
         showMenuButton &&
-        <button className="letstalk-menu-button" onClick={toggleChat}>
+        <button className="letstalk-menu-button" onClick={openMenu}>
           <MdMenu size={20} color="white" />
         </button>
       }
@@ -35,6 +35,7 @@ Header.propTypes = {
   subtitle: PropTypes.string,
   avatar: PropTypes.string,
   toggleChat: PropTypes.func,
+  openMenu: PropTypes.func,
   showMinimizeButton: PropTypes.bool,
   showMenuButton: PropTypes.bool,
 };

@@ -84,15 +84,16 @@ module.exports = {
                     ident: 'postcss',
                     plugins: () => [
                       postcssflexbugsfixes,
-                      autoprefixer({
-                        browsers: [
-                          '>1%',
-                          'last 4 versions',
-                          'Firefox ESR',
-                          'not ie < 9', // React doesn't support IE8 anyway
-                        ],
-                        flexbox: 'no-2009',
-                      }),
+                      require('postcss-cssnext')(
+                        {
+                          browsers: [
+                            '>1%',
+                            'last 3 versions',
+                            'Firefox ESR',
+                            'not ie < 9', // React doesn't support IE8 anyway
+                          ],
+                        }
+                      ),
                     ],
                   },
                 },
@@ -109,6 +110,12 @@ module.exports = {
             }, {
               loader: 'sass-loader', // compiles Sass to CSS
             }],
+          },
+          {
+            test: /\.(jpg|png|gif|svg)$/,
+            use: {
+              loader: 'url-loader'
+            }
           },
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.

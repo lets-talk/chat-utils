@@ -3,11 +3,12 @@ import moment from 'moment';
 // Storybook stuff
 import { storiesOf } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
+import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean, number, object, select, color } from '@storybook/addon-knobs';
 
 import { LightTheme, DarkTheme } from '../../../../theme';
 // Component to show on storybook
-import WidgetBox from './WidgetBox';
+import { WidgetBox } from '../../../lib';
 
 
 const stories = storiesOf('WidgetBox', module);
@@ -137,17 +138,10 @@ stories.addWithInfo(
       <WidgetBox
         title={text('Title', 'Ayuda en linea')}
         subtitle={text('Subtitle', '')}
-        sendMessage={(e) => {
-          e.preventDefault();
-          addMessage();
-          return false;
-        }}
+        sendMessage={action('sendMessage')}
         senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
-        toggleChat={(e) => {
-          e.preventDefault();
-          addMessage();
-          return false;
-        }}
+        toggleChat={action('toggleChat')}
+        openMenu={action('openMenu')}
         showMenuButton={boolean('Show Menu Button', true)}
         showMinimizeButton={boolean('Show Minimize Button', true)}
         disabledInput={boolean('Disable Input', false)}
@@ -231,17 +225,10 @@ stories.addWithInfo(
       <WidgetBox
         title={text('Title', 'Georgia Harmon')}
         subtitle={text('Subtitle', 'Emergencia Bancaria')}
-        sendMessage={(e) => {
-          e.preventDefault();
-          addMessage();
-          return false;
-        }}
+        sendMessage={action('sendMessage')}
         senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
-        toggleChat={(e) => {
-          e.preventDefault();
-          addMessage();
-          return false;
-        }}
+        toggleChat={action('toggleChat')}
+        openMenu={action('openMenu')}
         showMenuButton={boolean('Show Menu Button', true)}
         showMinimizeButton={boolean('Show Minimize Button', true)}
         disabledInput={boolean('Disable Input', false)}
@@ -261,17 +248,10 @@ stories.addWithInfo(
       <WidgetBox
         title={text('Title', 'Bienvenido en que podemos ayudar')}
         subtitle={text('Subtitle', 'Subtitulo')}
-        sendMessage={(e) => {
-          e.preventDefault();
-          addMessage();
-          return false;
-        }}
+        sendMessage={action('sendMessage')}
         senderPlaceHolder={text('Sender PlaceHolder', 'Enviar')}
-        toggleChat={(e) => {
-          e.preventDefault();
-          addMessage();
-          return false;
-        }}
+        toggleChat={action('toggleChat')}
+        openMenu={action('openMenu')}
         showMinimizeButton={boolean('Show Minimize Button', true)}
         showMenuButton={boolean('Show Menu Button', true)}
         disabledInput={boolean('Disable Input', false)}

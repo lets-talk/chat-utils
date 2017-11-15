@@ -1,9 +1,13 @@
-import ChatIcon from './components/ChatIcon/ChatIcon';
 import Avatar from './components/Avatar';
-import Loader from './components/Loader/Loader';
+import ChatIcon from './components/ChatIcon';
+import Loader from './components/Loader';
+import WidgetBox from './components/WidgetBox';
+
+import './config.css';
 
 module.exports = {
   Avatar,
   ChatIcon,
   Loader,
+  WidgetBox,
 };

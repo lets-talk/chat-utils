@@ -16,15 +16,10 @@
 .letstalk-ball-clip-rotate {
   display: block;
   font-size: 0;
-  width: var(--loader-ball-size);
-  height: var(--loader-ball-size);
 
   > div {
     @include letstalk-balls();
     @include letstalk-global-animation();
-    float: none;
-    display: inline-block;
-    position: relative;
 
     width: var(--loader-ball-size);
     height: var(--loader-ball-size);
@@ -36,7 +31,7 @@
     border-bottom-color: transparent;
     border-radius: 100%;
 
-    animation: letstalk-ball-clip-rotate var(--loader-animation-duration) linear infinite;
+    animation: letstalk-ball-clip-rotate calc(var(--loader-animation-duration) / 2) linear infinite;
   }
 }
 

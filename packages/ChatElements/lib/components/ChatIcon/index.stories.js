@@ -6,7 +6,7 @@ import { withKnobs, text, boolean, number, object, select, color } from '@storyb
 
 import { LightTheme, DarkTheme } from '../../../../theme';
 // Component to show on storybook
-import ChatIcon from './ChatIcon';
+import { ChatIcon } from '../../../lib';
 
 
 const stories = storiesOf('ChatIcon', module);
