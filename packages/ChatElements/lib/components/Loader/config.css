@@ -1,7 +1,5 @@
-@import '../../common/styles/variables.css';
-
 :root {
-  --loader-size-xsmall: calc(1 * var(--unit));
+  --loader-size-xsmall: calc(0.8 * var(--unit));
   --loader-size-small: calc(2 * var(--unit));
   --loader-size-medium: calc(3 * var(--unit));
   --loader-size-large: calc(5 * var(--unit));

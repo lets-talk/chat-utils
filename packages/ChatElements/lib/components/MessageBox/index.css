@@ -72,7 +72,7 @@
   margin-top: 3px;
   flex-direction: column;
   margin-bottom: 3px;
-  padding: 6px 9px 8px 9px;
+  padding: 15px;
   float: left;
 }
 
@@ -95,21 +95,20 @@
 
 .letstalk-mbox-text,
 .letstalk-mbox-typing {
-    font-size: --messageBox-font-size;
     word-break: break-word;
 }
 
-.letstalk-mbox-text:after {
-    content: "\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0"
+.letstalk-mbox-content:not(.letstalk-mbox-typing) {
+  display: inline-block;
+  width: calc(100% - 50px);
 }
 
 .letstalk-mbox-time {
-    text-align: right;
-    color: var(--messageBox-time-color);
-    font-size: var(--font-size-tiny);
-    position: relative;
-    right: -4px;
-    bottom: -5px;
+  display: inline-block;
+  width: 50px;
+  text-align: right;
+  font-size: var(--font-size-tiny);
+  position: relative;
 }
 
 .letstalk-mbox-time-block {
@@ -126,6 +125,16 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     color: #fff;
+}
+
+.letstalk-mbox .letstalk-mbox-time {
+  color: color(var(--messageBox-color) lightness(+50%));
+  color: color(#222 contrast(50%));
+}
+
+.letstalk-mbox-agent .letstalk-mbox-time {
+  color: color(var(--messageBox-agent-color) lightness(+50%));
+  color: color(#222 contrast(50%));
 }
 
 .letstalk-mbox--clear-padding {
