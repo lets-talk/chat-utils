@@ -1,7 +1,13 @@
 @import "colors";
 
-$color-divider: $palette-grey-200;
 $color-text: $color-white;
+$color-text-primary: $palette-indigo-500;
+$color-text-secondary: lighten($color-text-primary, 70%);
+$color-text-disabled: lighten($color-text-primary, 30%);
+$color-text-hint: $color-text-disabled;
+$color-divider: lighten($color-text-primary, 10%);
+
+
 $color-background: rgb(252, 88, 48);
 $color-text-secondary: rgb(22, 53, 84);
 $color-background-secondary: rgb(233, 237, 239);

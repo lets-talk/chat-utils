@@ -112,19 +112,14 @@
 }
 
 .letstalk-mbox-time-block {
-    /*position: relative;*/
-    right: 0;
-    bottom: 0;
-    left: 0;
+    position: relative;
+    display: inline-block;
+    float: right;
     margin-right: -6px;
     margin-left: -6px;
     padding-top: 5px;
     padding-right: 3px;
     padding-bottom: 2px;
-    background: linear-gradient(to top, rgba(0,0,0,0.33), transparent);
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    color: #fff;
 }
 
 .letstalk-mbox .letstalk-mbox-time {

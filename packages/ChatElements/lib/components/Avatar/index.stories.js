@@ -31,8 +31,7 @@ stories.addWithInfo(
         status={select('Status', {
           online: 'online', offline: 'offline', sleeping: 'sleeping',
         }, 'online')}
-      >
-      </Avatar>
+      />
     </ThemeProvider>
   )
 );

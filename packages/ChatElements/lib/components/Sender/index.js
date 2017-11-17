@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import send from '../../../../assets/send_button.svg';
+import MdSend from 'react-icons/lib/md/send';
 import './index.scss';
 
 const Sender = ({ sendMessage, placeholder, disabledInput }) =>
@@ -9,7 +9,7 @@ const Sender = ({ sendMessage, placeholder, disabledInput }) =>
     <form className="letstalk-sender" onSubmit={sendMessage}>
       <input type="text" className="letstalk-new-message" name="message" placeholder={placeholder} disabled={disabledInput} autoFocus autoComplete="off" />
       <button type="submit" className="letstalk-send">
-        <img src={send} className="letstalk-send-icon" alt="send" />
+        <MdSend size={32} color="#c2cdd3" />
       </button>
     </form>
   );

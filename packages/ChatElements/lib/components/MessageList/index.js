@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import ImmutablePropTypes from 'react-immutable-proptypes';
-import MessageBox from '../../../MessageBox';
+import MessageBox from '../MessageBox';
 import './index.scss';
 
 const scrollToBottom = () => {

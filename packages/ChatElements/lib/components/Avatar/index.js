@@ -11,7 +11,6 @@ const Avatar = (props) =>
         <div className="letstalk-avatar-image-container">
           <img alt={props.alt} src={props.src} className="letstalk-avatar-image" />
           <div className="letstalk-avatar-image-div"></div>
-          {props.sideElement}
         </div>
       </div>
 

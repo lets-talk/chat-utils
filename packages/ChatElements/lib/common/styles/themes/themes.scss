@@ -1,0 +1,22 @@
+$themes: (
+  light: (
+    color-text: $color-white,
+    color-text-primary: $palette-orange-900,
+    color-text-secondary: lighten($palette-orange-900, 70%),
+    color-text-disabled: lighten($palette-orange-900, 30%),
+    color-text-hint: lighten($palette-orange-900, 30%),
+    color-divider: lighten($palette-orange-900, 10%),
+    color-background-primary: $palette-orange-900,
+    color-background-secondary: $palette-indigo-500,
+  ),
+  dark: (
+    color-text: $color-white,
+    color-text-primary: $palette-red-500,
+    color-text-secondary: lighten($color-text-primary, 70%),
+    color-text-disabled: lighten($color-text-primary, 30%),
+    color-text-hint: lighten($color-text-primary, 30%),
+    color-divider: lighten($color-text-primary, 10%),
+    color-background-primary: $palette-blue-500,
+    color-background-secondary: $palette-green-500,
+  ),
+);

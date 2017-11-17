@@ -3,24 +3,21 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Header from '../Header';
-import MessageList from '../MessageList';
-import Sender from '../Sender';
+import ConversationList from '../ConversationList';
+import Button from '../Button';
 import './index.scss';
 
-const WidgetBox = (props) => {
+const ConversationListBox = (props) => {
   const {
-    messages,
+    conversations,
     title,
     subtitle,
     avatar,
-    senderPlaceHolder,
     className,
     toggleChat,
-    disabledInput,
     openMenu,
     showMinimizeButton,
     showMenuButton,
-    sendMessage,
   } = props;
 
   return (
@@ -34,31 +31,31 @@ const WidgetBox = (props) => {
         showMinimizeButton={showMinimizeButton}
         showMenuButton={showMenuButton}
       />
-      <MessageList
-        messages={messages}
+      <ConversationList
+        conversations={conversations}
       />
-      <Sender
-        sendMessage={sendMessage}
-        placeholder={senderPlaceHolder}
-        disabledInput={disabledInput}
+      <Button
+        value="Nueva Conversacion"
       />
     </div>
   );
 };
 
-WidgetBox.propTypes = {
-  messages: PropTypes.array,
+ConversationListBox.propTypes = {
+  conversations: PropTypes.array.isRequired,
   title: PropTypes.string,
   subtitle: PropTypes.string,
   avatar: PropTypes.string,
   className: PropTypes.string,
-  sendMessage: PropTypes.func,
-  senderPlaceHolder: PropTypes.string,
   toggleChat: PropTypes.func,
   openMenu: PropTypes.func,
   showMinimizeButton: PropTypes.bool,
   showMenuButton: PropTypes.bool,
-  disabledInput: PropTypes.bool,
 };
 
-export default WidgetBox;
+ConversationListBox.defaultProps = {
+  showMinimizeButton: false,
+  showMenuButton: false,
+};
+
+export default ConversationListBox;

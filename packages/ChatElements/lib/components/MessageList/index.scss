@@ -1,4 +1,10 @@
-@import "../common.scss";
+@import "./config.scss";
+
+@mixin letstalk-messages-container {
+  height: 100%;
+  max-height: none;
+  font-size: $font-size-normal;
+}
 
 .letstalk-messages-container {
   background-color: $widgetBox-MessageList-background;
