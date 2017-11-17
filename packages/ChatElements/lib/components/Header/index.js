@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import MdKeyboardArrowDown from 'react-icons/lib/md/keyboard-arrow-down';
 import MdMenu from 'react-icons/lib/md/menu';
-import Avatar from '../../../Avatar';
+import Avatar from '../Avatar';
 
 import './index.scss';
 

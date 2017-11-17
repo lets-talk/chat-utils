@@ -6,6 +6,7 @@ import MessageBox from './components/MessageBox';
 import PhotoMessage from './components/PhotoMessage';
 import SystemMessage from './components/SystemMessage';
 import WidgetBox from './components/WidgetBox';
+import ConversationListBox from './components/ConversationListBox';
 
 import './index.scss';
 
@@ -18,4 +19,5 @@ module.exports = {
   PhotoMessage,
   SystemMessage,
   WidgetBox,
+  ConversationListBox,
 };

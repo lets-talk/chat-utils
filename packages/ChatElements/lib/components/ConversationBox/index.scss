@@ -1,0 +1,31 @@
+@import './config';
+
+.letstalk-container-cbox {
+    flex-direction: column;
+    display: block;
+    overflow: hidden;
+    min-width: 200px;
+}
+
+.letstalk-cbox {
+  position: relative;
+  background-color: $messageBox-background;
+  color: $messageBox-color;
+  border-radius: $messageBox-border-radius;
+  box-shadow: $messageBox-box-shadow;
+  margin-left: $messageBox-side-margin;
+  margin-right: 5px;
+  margin-top: 3px;
+  flex-direction: column;
+  margin-bottom: 3px;
+  padding: 15px;
+  float: left;
+}
+
+.letstalk-cbox-time {
+  display: inline-block;
+  width: 50px;
+  text-align: right;
+  font-size: $font-size-tiny;
+  position: relative;
+}

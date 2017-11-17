@@ -1,0 +1,110 @@
+@import "../../common/styles/variables";
+@import './config.scss';
+
+@keyframes single-ball-beat {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+// This is used to generate differnet avatar sizes
+@mixin avatarStyle($sizeName, $sizeValue) {
+  .letstalk-avatar-container.#{$sizeName} {
+      width: $sizeValue;
+      height: $sizeValue;
+  }
+
+  .letstalk-avatar-container.#{$sizeName} .letstalk-avatar-image{
+      width: calc(#{$sizeValue} - 5px);
+      height: calc(#{$sizeValue} - 5px);
+  }
+
+  .letstalk-avatar-container.#{$sizeName} .letstalk-avatar-status {
+    width: calc(#{$sizeValue} / 10);
+    height: calc(#{$sizeValue} / 10);
+    bottom: calc(#{$sizeValue} / 13);
+    right: calc(#{$sizeValue} / 9);
+  }
+}
+
+.letstalk-avatar-container {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  overflow: hidden;
+
+  .letstalk-avatar-image-container {
+    position: relative;
+
+    .letstalk-avatar-image-div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .letstalk-avatar-image {
+      width: 100%;
+      height: 100%;
+      background-color: rgb(188, 188, 188);
+    }
+  }
+}
+
+.letstalk-avatar-container.rounded {
+  .letstalk-avatar-image {
+    border-radius: 5px;
+  }
+}
+
+.letstalk-avatar-container.circle {
+  .letstalk-avatar-image {
+      border-radius: 50%;
+  }
+}
+
+@include avatarStyle('xsmall', $avatar-size-xsmall);
+@include avatarStyle('small', $avatar-size-small);
+@include avatarStyle('medium', $avatar-size-medium);
+@include avatarStyle('large', $avatar-size-large);
+@include avatarStyle('xlarge', $avatar-size-xlarge);
+
+.letstalk-avatar-status {
+  position: absolute;
+  right: 0px;
+  border-radius: 100%;
+  padding: 1px;
+  font-weight: 600;
+  border: 2px solid #FFFFFF;
+}
+
+.letstalk-avatar-status.live {
+  opacity: 0.5;
+  animation: single-ball-beat 3s infinite;
+}
+
+.letstalk-avatar-status.online {
+  background-color: $avatar-status-online;
+}
+
+.letstalk-avatar-status.offline {
+  background-color: $avatar-status-offline;
+}
+
+.letstalk-avatar-status.sleeping {
+  background-color: $avatar-status-sleeping;
+}

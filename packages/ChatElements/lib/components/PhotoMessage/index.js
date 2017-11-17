@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import FaCloudDownload from 'react-icons/lib/fa/cloud-download';
-import CircularProgress from 'material-ui/CircularProgress';
 
 import './index.scss';
 
 const PhotoMessage = (props) => {
   return (
-    <div className="letstalk-mbox-photo">
+    <div className={classNames('letstalk-mbox-attachment', 'letstalk-mbox-photo')}>
       <div
         className="letstalk-mbox-photo--img"
         style={props.data.width && props.data.height && {
@@ -39,20 +39,7 @@ const PhotoMessage = (props) => {
               {
                 typeof props.data.status.loading === 'number' &&
                     props.data.status.loading !== 0 &&
-                    <CircularProgress
-                      mode="determinate"
-                      value={props.data.status.loading}
-                      size={80}
-                      thickness={5}
-                      style={{
-                        width: '100px',
-                        height: '100px',
-                      }}
-                      innerStyle={{
-                        margin: 'auto',
-                        cursor: 'pointer',
-                      }}
-                    />
+                    <div />
               }
             </div>
         }

@@ -24,7 +24,7 @@ const MessageBox = (props) => {
     'letstalk-mbox-right': props.position === 'right',
     'letstalk-mbox-agent': props.user_type === 'agent',
   });
-  const thatAbsoluteTime = props.type !== 'text' && props.type !== 'file' && props.type !== 'typing';
+  const thatAbsoluteTime = props.type !== 'text' && props.type !== 'typing';
   return (
     <div
       role="button"

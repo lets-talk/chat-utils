@@ -1,16 +1,20 @@
 @import './config.scss';
+@import "../../common/styles/themes/themify";
 
 .letstalk-ChatIconContainer {
   position: relative;
 }
 
 .letstalk-ChatIcon {
+  @include themify($themes) {
+    color: themed('color-text');
+    background-color: themed('color-background-primary');
+  }
   position: relative;
   float: right;
   margin: 0 10px 50px 0;
   color: $color-primary;
   background-color: $chatIcon-background;
-  border-radius: 50%;
   box-shadow: 0px 20px 13px -15px rgba(0,0,0,0.44);
 
   box-sizing: border-box;
@@ -35,7 +39,6 @@
   float: left;
   text-align: left;
   color: $chatIcon-color;
-  width: calc(100% - 50px);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -48,6 +51,16 @@
 .letstalk-ChatIcon.default{
   border-radius: 0;
 }
+
+.letstalk-ChatIcon.rounded{
+  border-radius: 5px 5px 0 0;
+}
+
+.letstalk-ChatIcon.circle{
+  border-radius: 50%;
+}
+
+
 
 .letstalk-ChatIcon:focus {
   outline: none;

@@ -217,6 +217,7 @@ const story3Messages = [
     user_type: 'agent',
   },
 ];
+
 stories.addWithInfo(
   'Chat widget - 3',
   'This is the usage using the user Avatar.',
@@ -234,6 +235,78 @@ stories.addWithInfo(
         disabledInput={boolean('Disable Input', false)}
         avatar={text('Avatar', 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg')}
         messages={story3Messages}
+      >
+      </WidgetBox>
+    </ThemeProvider>
+  )
+);
+
+const fileMessages = [
+  {
+    position: 'left',
+    forwarded: true,
+    type: 'file',
+    theme: 'white',
+    view: 'list',
+    title: 'Solicitud de nueva tarjeta Banco',
+    text: 'Solicitud de nueva tarjeta Banco',
+    data: {
+      uri: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      status: {
+        click: true,
+        loading: 70,
+      },
+      width: 300,
+      height: 300,
+      size: '2Mb',
+    },
+    status: 'sent',
+    date: '2017-11-15T20:34:27.173Z',
+    dateString: '17:34',
+    avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+  },
+  {
+    position: 'right',
+    forwarded: false,
+    type: 'file',
+    theme: 'white',
+    view: 'list',
+    title: 'Datos Contacto',
+    text: 'Datos Contacto',
+    data: {
+      uri: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      status: {
+        click: true,
+        loading: 0,
+      },
+      width: 300,
+      height: 300,
+      size: '12Kb',
+    },
+    status: 'waiting',
+    date: '2017-11-15T20:34:27.173Z',
+    dateString: '17:34',
+    avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+  },
+];
+
+stories.addWithInfo(
+  'Only File messages',
+  'This is the advanced usage of a Widget Box showing file messages.',
+  () => (
+    <ThemeProvider theme={themes[select('Theme', { light: 'LightTheme', dark: 'DarkTheme' }, 'light')]}>
+      <WidgetBox
+        title={text('Title', 'Georgia Harmon')}
+        subtitle={text('Subtitle', 'Emergencia Bancaria')}
+        sendMessage={action('sendMessage')}
+        senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
+        toggleChat={action('toggleChat')}
+        openMenu={action('openMenu')}
+        showMenuButton={boolean('Show Menu Button', true)}
+        showMinimizeButton={boolean('Show Minimize Button', true)}
+        disabledInput={boolean('Disable Input', false)}
+        avatar={text('Avatar', 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg')}
+        messages={fileMessages}
       >
       </WidgetBox>
     </ThemeProvider>

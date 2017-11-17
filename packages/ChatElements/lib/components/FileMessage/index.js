@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import FaCloudDownload from 'react-icons/lib/fa/cloud-download';
 import FaFile from 'react-icons/lib/fa/file';
-import CircularProgress from 'material-ui/CircularProgress';
 
 import './index.scss';
 
@@ -25,7 +25,7 @@ export class FileMessage extends Component {
 
   render() {
     return (
-      <div className="letstalk-mbox-file">
+      <div className={classNames('letstalk-mbox-attachment', 'letstalk-mbox-file')}>
         <button onClick={this.onClick}>
           <div className="letstalk-mbox-file--icon">
             <FaFile
@@ -51,12 +51,7 @@ export class FileMessage extends Component {
               this.props.data.status &&
                 typeof this.props.data.status.loading === 'number' &&
                 this.props.data.status.loading !== 0 &&
-                <CircularProgress
-                  mode="determinate"
-                  value={this.props.data.status.loading}
-                  size={80}
-                  thickness={5}
-                />
+                <div />
             }
           </div>
         </button>
@@ -81,5 +76,12 @@ FileMessage.defaultProps = {
   onOpen: null,
 };
 
+
+// <CircularProgress
+//   mode="determinate"
+//   value={this.props.data.status.loading}
+//   size={80}
+//   thickness={5}
+// />
 
 export default FileMessage;

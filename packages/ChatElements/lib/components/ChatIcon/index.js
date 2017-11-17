@@ -2,11 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import classnames from 'classnames';
-import IconButton from 'material-ui/IconButton';
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+import MdChat from 'react-icons/lib/md/chat';
 // Stylesheet
 import './index.scss';
 
@@ -67,10 +63,11 @@ const ChatIcon = (props) => {
   const Button = styled.button`
     color: ${(props) => props.theme.palette.primary1Color};
     background-color: ${(props) => props.theme.palette.primary1Color};
-    width: ${props.width};
-    height: ${props.height};
+    width: ${props.width}px;
+    height: ${props.height}px;
     margin: ${props.margin};
-    border-radius: calc(${props.height} / 2);
+    border-radius: calc(${props.height}px / 2);
+    line-height: calc(${props.height}px / 2);
 
     &:active {
       border-style: none;
@@ -81,41 +78,22 @@ const ChatIcon = (props) => {
     }
 `;
 
+  const StyledSpan = styled.span`
+    width: calc(100% - ${props.height}px);
+  `;
+
   const defaultIcon = (
     <div className="letstalk-ChatIconContainer">
       <Button
         className={classnames('letstalk-ChatIcon', props.type)}
         onTouchTap={(a) => a}
       >
-        <i className="md-icon-chat" style={{ backgroundColor: 'transparent' }}></i>
-        <span className="intro-message">{props.text}</span>
+        <StyledSpan className="intro-message">{props.text}</StyledSpan>
+        {props.showIcon && <MdChat size={props.height / 2.5} color="white" />}
       </Button>
       { props.newMessages > 0 && messagesBubble }
     </div>
   );
-
-  // const defaultIcon2 = (
-  //   <MuiThemeProvider muiTheme={getMuiTheme(props.theme)}>
-  //     <div>
-  //       <IconButton
-  //         className="chat-icon"
-  //         style={{
-  //           position: 'relative',
-  //           marginBottom: '50px',
-  //           height: '50px',
-  //           float: 'right',
-  //           marginRight: '10px',
-  //           backgroundColor: props.theme.palette.primary1Color,
-  //           borderRadius: '50%',
-  //           boxShadow: '0px 20px 13px -15px rgba(0,0,0,0.44)',
-  //         }}
-  //       >
-  //         <i className="md-icon-chat" style={{ backgroundColor: 'transparent' }}></i>
-  //       </IconButton>
-  //       { props.newMessages > 0 && messagesBubble }
-  //     </div>
-  //   </MuiThemeProvider>
-  // );
 
   const imageIcon = (
     <div
@@ -161,7 +139,7 @@ const ChatIcon = (props) => {
 
 ChatIcon.propTypes = {
   /**
-   * types: default, rounded
+   * types: default, rounded, circle
    */
   type: PropTypes.string,
   /**
@@ -169,13 +147,17 @@ ChatIcon.propTypes = {
    */
   text: PropTypes.string,
   /**
+   * showIcon: Wheter or not display the chat icon
+   */
+  showIcon: PropTypes.bool,
+  /**
    * width: Set the width of the button
    */
-  width: PropTypes.string,
+  width: PropTypes.number,
   /**
    * height: Set the height of the button
    */
-  height: PropTypes.string,
+  height: PropTypes.number,
   /**
    * margin: Set the margin of the button
    */
@@ -201,8 +183,9 @@ ChatIcon.propTypes = {
 ChatIcon.defaultProps = {
   type: 'rounded',
   text: '',
-  height: '50px',
-  width: '250px',
+  showIcon: true,
+  height: 50,
+  width: 250,
   margin: '',
   theme: {
     palette: {
