@@ -1,10 +1,16 @@
 @import "./config.scss";
+@import "../../common/styles/themes/themify";
 
 .letstalk-sender {
   align-items: center;
   display: flex;
   color: $widgetBox-Sender-color;
   background-color: $widgetBox-Sender-background;
+
+  @include themify($themes) {
+    color: themed('color-secondary');
+    background-color: themed('color-background-secondary');
+  }
   height: 40px;
   padding: 5px;
 }

@@ -1,22 +1,24 @@
 $themes: (
   light: (
+    // Text & Colors
     color-text: $color-white,
-    color-text-primary: $palette-orange-900,
-    color-text-secondary: lighten($palette-orange-900, 70%),
-    color-text-disabled: lighten($palette-orange-900, 30%),
-    color-text-hint: lighten($palette-orange-900, 30%),
-    color-divider: lighten($palette-orange-900, 10%),
+    color-primary: $color-primary,
+    color-secondary: lighten($color-primary, 70%),
+    color-disabled: lighten($color-primary, 30%),
+    color-hint: lighten($color-primary, 30%),
+    color-divider: lighten($color-primary, 10%),
     color-background-primary: $palette-orange-900,
-    color-background-secondary: $palette-indigo-500,
+    color-background-secondary: rgb(237, 240, 241),
   ),
   dark: (
+    // Text & Colors
     color-text: $color-white,
-    color-text-primary: $palette-red-500,
-    color-text-secondary: lighten($color-text-primary, 70%),
-    color-text-disabled: lighten($color-text-primary, 30%),
-    color-text-hint: lighten($color-text-primary, 30%),
-    color-divider: lighten($color-text-primary, 10%),
+    color-primary: $palette-grey-900,
+    color-secondary: lighten($color-secondary, 70%),
+    color-disabled: lighten($color-secondary, 30%),
+    color-hint: lighten($color-secondary, 30%),
+    color-divider: lighten($color-secondary, 10%),
     color-background-primary: $palette-blue-500,
-    color-background-secondary: $palette-green-500,
+    color-background-secondary: $palette-blue-a400,
   ),
 );

@@ -81,7 +81,7 @@ class ConversationList extends Component {
         {
           this.props.conversations.map((conversation, index) =>
             (
-              <div className="letstalk-conversation" key={index}>
+              <div className="letstalk-conversation-container" key={index}>
                 <ConversationBox
                   conversation={conversation}
                   key={`conversation-${index}`}

@@ -63,8 +63,10 @@
 
 .letstalk-mbox {
   position: relative;
-  background-color: $messageBox-background;
-  color: $messageBox-color;
+  @include themify($themes) {
+    color: themed('color-text');
+    background-color: themed('color-background-primary');
+  }
   border-radius: $messageBox-border-radius;
   box-shadow: $messageBox-box-shadow;
   margin-left: $messageBox-side-margin;
@@ -77,8 +79,10 @@
 }
 
 .letstalk-mbox.letstalk-mbox-agent {
-  background-color: $messageBox-agent-background;
-  color: $messageBox-agent-color;
+  @include themify($themes) {
+    color: themed('color-primary');
+    background-color: themed('color-background-secondary');
+  }
 }
 
 .letstalk-mbox-body {

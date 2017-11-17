@@ -1,8 +1,6 @@
-@import '../../common/styles/colors';
 @import '../../common/styles/variables';
+@import "../../common/styles/themes/themify";
 
-$widgetBox-Header-background: $color-background;
-$widgetBox-Header-color: $color-white;
 $widgetBox-Header-fontsize: $font-size-normal;
 $widgetBox-Header-text-align: center;
 $widgetBox-Header-title-fontsize: $font-size-big;

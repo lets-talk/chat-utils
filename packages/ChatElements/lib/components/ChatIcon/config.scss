@@ -5,10 +5,3 @@ $chatIcon-color: $color-white;
 $chatIcon-background: $palette-orange-900;
 $chatIcon-size: calc(4 * #{$unit});
 $chatIcon-font-size: $font-size-small;
-
-// @include themify($themes) {
-//   $chatIcon-color: themed('color-text');
-//   $chatIcon-background: themed('color-background-primary');
-//   $chatIcon-size: calc(4 * #{$unit});
-//   $chatIcon-font-size: $font-size-small;
-// }
