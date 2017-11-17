@@ -1,7 +1,7 @@
 {
   "name": "@letstalk/ChatElements",
   "version": "1.1.0",
-  "description": "",
+  "description": "React Component that help implment LetsTalk interfaces.",
   "main": "build/index.js",
   "directories": {
     "lib": "lib"
@@ -14,7 +14,12 @@
     "lint:watch": "esw -w lib/**",
     "prepublish": "npm run build"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "react-component",
+    "letstalk toolkit",
+    "lt-tool-kit"
+  ],
   "author": "Sandino Nunez",
   "license": "ISC",
   "devDependencies": {
@@ -46,11 +51,18 @@
     "classnames": "^2.2.5",
     "polished": "^1.1.3",
     "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
     "react-icons": "^2.2.7",
     "react-transition-group": "^2.2.1",
     "styled-components": "^2.2.3"
+  },
+  "peerDependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lets-talk/lt-tool-kit.git"
   },
   "eslintConfig": {
     "parser": "babel-eslint",

@@ -1,32 +1,19 @@
 @import "colors";
+// Colors
+$color-primary: $palette-blue-grey-custom;
+$color-secondary: $palette-indigo-700;
+$color-terciary: $palette-pink-700;
 
-$color-text: $color-white;
-$color-text-primary: $palette-indigo-500;
-$color-text-secondary: lighten($color-text-primary, 70%);
-$color-text-disabled: lighten($color-text-primary, 30%);
-$color-text-hint: $color-text-disabled;
-$color-divider: lighten($color-text-primary, 10%);
+// Fonts
+$fontUnit: 10px;
+$unit: 8px;
 
-
-$color-background: rgb(252, 88, 48);
-$color-text-secondary: rgb(22, 53, 84);
-$color-background-secondary: rgb(233, 237, 239);
-
-$color-primary: $palette-indigo-500;
-$color-primary-dark: $palette-indigo-700;
-$color-accent: $palette-pink-a200;
-$color-accent-dark: $palette-pink-700;
-$color-primary-contrast: $color-dark-contrast;
-$color-accent-contrast: $color-dark-contrast;
-
-$unit: 10px;
-
-$preferred-font: 'Nimbus sans-serif', 'Helvetica', Arial;
-$font-size: calc(1.4 * #{$unit});
-$font-size-tiny: calc(1 * #{$unit});
-$font-size-small: calc(1.2 * #{$unit});
+$preferred-font: 'Nimbus sans-serif', 'Sans', 'Helvetica', Arial;
+$font-size: calc(1.4 * #{$fontUnit});
+$font-size-tiny: calc(1 * #{$fontUnit});
+$font-size-small: calc(1.2 * #{$fontUnit});
 $font-size-normal: $font-size;
-$font-size-big: calc(1.4 * #{$unit});
+$font-size-big: calc(1.4 * #{$fontUnit});
 $font-weight-thin: 300;
 $font-weight-normal: 400;
 $font-weight-semi-bold: 500;

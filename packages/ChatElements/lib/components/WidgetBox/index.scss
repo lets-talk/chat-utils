@@ -5,6 +5,7 @@
 }
 
 .widgetbox-container {
+  @include widgetbox-container-fs;
   @include animation(0, 0.5s, slide-in);
   border-radius: 10px 10px 0px 0px;
   box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.44);
@@ -12,16 +13,4 @@
 
 .slide-out {
   @include animation(0, 0.5s, slide-out);
-}
-
-.full-screen {
-  & .widgetbox-container {
-    @include widgetbox-container-fs;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .widgetbox-container {
-    @include widgetbox-container-fs;
-  }
 }

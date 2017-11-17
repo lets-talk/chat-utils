@@ -19,11 +19,6 @@
   width: 40px;
 }
 
-@mixin letstalk-minimize {
-  width: 20px;
-  height: 20px;
-}
-
 @mixin letstalk-menu-button {
   background-color: transparent;
   border: 0;
@@ -35,7 +30,11 @@
 }
 
 .letstalk-header {
-  background-color: $widgetBox-Header-background;
+  @include letstalk-header;
+  @include themify($themes) {
+    color: themed('color-text');
+    background-color: themed('color-background-primary');
+  }
   border-radius: 10px 10px 0 0;
   color: white;
   display: flex;
@@ -45,6 +44,7 @@
 }
 
 .letstalk-title {
+  @include letstalk-title;
   font-size: $widgetBox-Header-title-fontsize;
   font-weight: normal;
   margin: 0 40px;
@@ -56,27 +56,9 @@
 }
 
 .letstalk-minimize-button {
-  display: none;
+  @include letstalk-minimize-button;
 }
 
-@media screen and (max-width: 800px) {
-  .letstalk-header {
-    @include letstalk-header;
-  }
-
-  .letstalk-title {
-    @include letstalk-title;
-  }
-
-  .letstalk-minimize-button {
-    @include letstalk-minimize-button;
-  }
-
-  .letstalk-minimize {
-    @include letstalk-minimize;
-  }
-
-  .letstalk-menu-button {
-    @include letstalk-menu-button;
-  }
+.letstalk-menu-button {
+  @include letstalk-menu-button;
 }

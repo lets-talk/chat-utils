@@ -35,7 +35,7 @@ stories.addWithInfo(
           'single-ball-beat': 'single-ball-beat',
           'ball-clip-rotate': 'ball-clip-rotate',
         }, 'ball-beat')}
-        color={color('Color', '#FFF')}
+        color={color('Color', false)}
       >
       </Loader>
     </ThemeProvider>
