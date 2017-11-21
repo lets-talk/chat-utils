@@ -38,4 +38,22 @@
     display: flex;
     justify-content: center;
   }
+
+  .letstalk-loader-inner:not(.letstalk-ball-clip-rotate) {
+    .letstalk-ball-div {
+      @include themify($themes) {
+        background-color: themed('loader', 'background-color');
+      }
+    }
+  }
+
+  .letstalk-loader-inner.letstalk-ball-clip-rotate {
+    .letstalk-ball-div {
+      @include themify($themes) {
+        border-top-color: themed('loader', 'background-color');
+        border-right-color: themed('loader', 'background-color');
+        border-left-color: themed('loader', 'background-color');
+      }
+    }
+  }
 }

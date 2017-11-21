@@ -1,28 +1,10 @@
 @import "./config.scss";
 
-@mixin letstalk-messages-container {
-  height: 100%;
-  max-height: none;
-  font-size: $font-size-normal;
-}
-
 .letstalk-messages-container {
+  font-size: $font-size-normal;
   background-color: $widgetBox-MessageList-background;
   height: 50vh;
   min-height: 200px;
-  max-height: 410px;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 10px;
-}
-
-.full-screen {
-  .letstalk-messages-container {
-    @include letstalk-messages-container;
-  }
-}
-
-@media screen and (max-width: 800px)  {
-  .letstalk-messages-container {
-    @include letstalk-messages-container;
-  }
 }

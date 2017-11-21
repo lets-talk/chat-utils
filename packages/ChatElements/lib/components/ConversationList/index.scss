@@ -3,13 +3,48 @@
 @mixin letstalk-conversations-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
   max-height: none;
   font-size: $font-size-normal;
+  @include animation(0, 0.5s, slide-in);
 }
 
 .letstalk-conversations-container {
   @include letstalk-conversations-container;
   background-color: $widgetBox-MessageList-background;
-  overflow-y: scroll;
+  min-height: 200px;
+  overflow-y: auto;
+  height: 50vh;
+  min-height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.conversations-list-separator {
+  font-weight: $font-weight-thin;
+  margin-top: 10px;
+  margin-left: 80px;
+  padding: 20px 0px;
+
+  @include themify($themes) {
+    color: themed('color-divider');
+    border-top: 1px solid themed('color-divider');
+  }
+}
+
+.letstalk-conversations-empty-state-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center; /*centers items on the line (the x-axis by default)*/
+  align-items: center; /*centers items on the cross-axis (y by default)*/
+  flex-direction: column;
+
+  .svg-container {
+    margin-bottom: 10px;
+  }
+
+  .empty-state {
+    max-width: 80%;
+  }
 }

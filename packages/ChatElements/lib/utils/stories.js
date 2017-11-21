@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // Storybook stuff
 import { ThemeProvider } from 'styled-components';
-import { LightTheme, DarkTheme } from '../../../theme';
+import { LightTheme, DarkTheme, DefaultTheme } from '../../../theme';
 
 const themes = {
+  default: DefaultTheme,
   light: LightTheme,
   dark: DarkTheme,
 };

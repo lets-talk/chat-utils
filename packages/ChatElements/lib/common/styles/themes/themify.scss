@@ -1,5 +1,17 @@
 @import 'themes.scss';
 
+// Map deep get
+// @access public
+// @param {Map} $map - Map
+// @param {Arglist} $keys - Key chain
+// @return {*} - Desired value
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+      $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
 @mixin themify($themes: $themes) {
   @each $theme, $map in $themes {
 
@@ -17,6 +29,6 @@
   }
 }
 
-@function themed($key) {
-  @return map-get($theme-map, $key);
+@function themed($keys...) {
+  @return map-deep-get($theme-map, $keys...);
 }

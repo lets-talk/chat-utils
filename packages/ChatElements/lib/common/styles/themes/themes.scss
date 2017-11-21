@@ -1,5 +1,5 @@
 $themes: (
-  light: (
+  default: (
     // Text & Colors
     color-text: $color-white,
     color-primary: $color-primary,
@@ -9,8 +9,37 @@ $themes: (
     color-divider: lighten($color-primary, 10%),
     color-background-primary: $palette-orange-900,
     color-background-secondary: rgb(237, 240, 241),
+    // Messages Types
+    messages: (
+      internal-background-color: #fffae6,
+      important-background-color: #fff6f4,
+    ),
+    // COMPONENTS STYLES
+    loader: (
+      background-color: #fc5830,
+    )
   ),
   dark: (
+    // Text & Colors
+    color-text: $color-white,
+    color-primary: $palette-grey-900,
+    color-secondary: darken($color-secondary, 70%),
+    color-disabled: darken($color-secondary, 30%),
+    color-hint: darken($color-secondary, 30%),
+    color-divider: darken($color-secondary, 10%),
+    color-background-primary: darken($palette-blue-500, 40%),
+    color-background-secondary: darken($palette-blue-a400, 30%),
+    // Messages Types
+    messages: (
+      internal-background-color: darken(grey, 10%),
+      important-background-color: darken(red, 10%),
+    ),
+    // COMPONENTS STYLES
+    loader: (
+      background-color: darken($palette-blue-500, 30%),
+    )
+  ),
+  light: (
     // Text & Colors
     color-text: $color-white,
     color-primary: $palette-grey-900,
@@ -20,5 +49,14 @@ $themes: (
     color-divider: lighten($color-secondary, 10%),
     color-background-primary: $palette-blue-500,
     color-background-secondary: $palette-blue-a400,
+    // Messages Types
+    messages: (
+      internal-background-color: lighten(grey, 40%),
+      important-background-color: lighten(red, 40%),
+    ),
+    // COMPONENTS STYLES
+    loader: (
+      background-color: $palette-blue-500,
+    )
   ),
 );
