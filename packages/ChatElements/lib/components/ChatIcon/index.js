@@ -44,7 +44,7 @@ const ChatIcon = (props) => {
     position: absolute;
     top: 0px;
     right: 0px;
-    background-color: #f33535;
+    background-color: #000;
     color: white;
     border-radius: 50%;
     padding: 1px;
@@ -172,7 +172,6 @@ ChatIcon.propTypes = {
       counterText: PropTypes.string,
     }),
   }),
-  bubbleMessageStyle: PropTypes.object,
   chat_icon_pic: PropTypes.string,
   chatIconRadius: PropTypes.string,
   display: PropTypes.string,
@@ -193,21 +192,6 @@ ChatIcon.defaultProps = {
       cntColor: 'white',
       counterText: '',
     },
-  },
-  bubbleMessageStyle: {
-    position: 'absolute',
-    top: '0px',
-    right: '0px',
-    backgroundColor: '#f33535',
-    color: 'white',
-    borderRadius: '20px',
-    padding: '1px',
-    minWidth: '24px',
-    textAlign: 'center',
-    fontSize: '12px',
-    fontFamily: 'sans-serif',
-    lineHeight: '24px',
-    fontWeight: '600',
   },
   chat_icon_pic: '',
   display: 'minimized',

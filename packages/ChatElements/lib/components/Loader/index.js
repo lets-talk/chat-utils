@@ -24,7 +24,7 @@ const Loader = (props) => {
       styles.borderRightColor = props.color;
       styles.borderLeftColor = props.color;
     }
-    return <div key={n} style={styles} />;
+    return <div key={n} className="letstalk-ball-div" style={styles} />;
   };
 
   const {

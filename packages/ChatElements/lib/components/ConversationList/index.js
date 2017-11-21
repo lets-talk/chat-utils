@@ -1,94 +1,48 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import ImmutablePropTypes from 'react-immutable-proptypes';
+import MdChatBubble from 'react-icons/lib/md/chat-bubble';
+
+import { withAutoScroll } from '../../utils/hoc';
+
 import ConversationBox from '../ConversationBox';
 import './index.scss';
 
-
 class ConversationList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      scrollBottom: 0,
-    };
-  }
-
-  componentWillReceiveProps() {
-    if (!this.mlistRef) { return; }
-    this.setState({
-      scrollBottom: this.getBottom(this.mlistRef),
-    });
-  }
-
-  componentDidUpdate() {
-    const e = this.mlistRef;
-    if (!e) { return; }
-
-    const bottom = this.getBottom(e);
-    if (this.props.toBottomHeight === '100%' || bottom < this.props.toBottomHeight) {
-      // scroll to bottom
-      e.scrollTop = e.scrollHeight;
-    } else if (this.props.lockable === true) {
-      e.scrollTop = e.scrollHeight - e.offsetHeight - this.state.scrollBottom;
-    }
-  }
-
-  onOpen(item, i, e) {
-    if (this.props.onOpen instanceof Function) {
-      this.props.onOpen(item, i, e);
-    }
-  }
-
-  onDownload(item, i, e) {
-    if (this.props.onDownload instanceof Function) {
-      this.props.onDownload(item, i, e);
-    }
-  }
-
   onClick(item, i, e) {
-    if (this.props.onClick instanceof Function) {
-      this.props.onClick(item, i, e);
+    if (this.props.clickItem instanceof Function) {
+      this.props.clickItem(item, i, e);
     }
   }
-
-  onTitleClick(item, i, e) {
-    if (this.props.onTitleClick instanceof Function) {
-      this.props.onTitleClick(item, i, e);
-    }
-  }
-
-  onForwardClick(item, i, e) {
-    if (this.props.onForwardClick instanceof Function) {
-      this.props.onForwardClick(item, i, e);
-    }
-  }
-
-  getBottom(e) {
-    return e.scrollHeight - e.scrollTop - e.offsetHeight;
-  }
-
-  // componentDidMount() {
-  //   scrollToBottom();
-  // }
-  //
-  // componentDidUpdate() {
-  //   scrollToBottom();
-  // }
 
   render() {
     return (
-      <div id="conversations" className="letstalk-conversations-container">
-        {
-          this.props.conversations.map((conversation, index) =>
-            (
-              <div className="letstalk-conversation-container" key={index}>
-                <ConversationBox
-                  conversation={conversation}
-                  key={`conversation-${index}`}
-                  onClick={this.props.onClick && ((e) => this.onClick(conversation, index, e))}
-                />
-              </div>
-            ))
+      <div ref={this.props.cmpRef} id="conversations" className="letstalk-conversations-container">
+        {this.props.conversations.length > 0 &&
+          <div className="letstalk-conversations-list">
+            {this.props.conversations.map((conversation, index) =>
+              (
+                <div className="letstalk-conversation-container" key={index}>
+                  <ConversationBox
+                    conversation={conversation}
+                    key={`conversation-${index}`}
+                    onClick={this.props.clickItem && ((e) => this.onClick(conversation, index, e))}
+                  />
+                </div>
+              ))
+            }
+            <div className="conversations-list-separator">{this.props.noMoreDataText}</div>
+          </div>
+        }
+
+        {this.props.conversations.length === 0 &&
+          <div className="letstalk-conversations-empty-state-container">
+            <div className="svg-container">
+              <MdChatBubble color="#e5e9ec" size={40} />
+            </div>
+            <div className="empty-state">
+              {this.props.emptyStateText}
+            </div>
+          </div>
         }
       </div>
     );
@@ -97,14 +51,21 @@ class ConversationList extends Component {
 
 ConversationList.propTypes = {
   conversations: PropTypes.array,
-  onClick: PropTypes.func,
-  toBottomHeight: PropTypes.number,
+  clickItem: PropTypes.func,
+  emptyStateText: PropTypes.string,
+  /**
+   * cmpRef is a function that is called by anyone
+   * that needs an instance ref of this component
+   */
+  cmpRef: PropTypes.func,
 };
 
 ConversationList.defaultProps = {
   conversations: [],
-  onClick: null,
-  toBottomHeight: 300,
+  clickItem: null,
+  cmpRef: null,
+  emptyStateText: '',
 };
 
-export default ConversationList;
+const autoScrollOptions = { threshold: '100%', direction: 'top' };
+export default withAutoScroll(autoScrollOptions)(ConversationList);

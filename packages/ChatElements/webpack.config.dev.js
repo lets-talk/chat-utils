@@ -2,6 +2,7 @@ const path = require('path');
 const postcssflexbugsfixes = require('postcss-flexbugs-fixes');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   entry: [
@@ -91,6 +92,9 @@ module.exports = {
       filename: 'main.css',
       allChunks: true,
       ignoreOrder: true,
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
     }),
   ],
 };

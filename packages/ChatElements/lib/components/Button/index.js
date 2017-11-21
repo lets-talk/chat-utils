@@ -1,8 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
+import './index.scss';
 
 const DELAY = 300;
 const LOADER_DELAY = 900;
-const CLASS_NAME = 'button';
+
 
 class Button extends Component {
   constructor(props) {
@@ -43,16 +47,17 @@ class Button extends Component {
     const {
       type, className, disabled, value,
     } = this.props;
-    const classNames = !className ? CLASS_NAME : `${CLASS_NAME} ${className}`;
 
     return (
-      <input
-        type={type}
-        className={classNames}
-        value={this.state.showLoading === true ? 'Processing...' : value}
-        disabled={disabled === true ? disabled : this.state.disabled}
-        onClick={(event) => this.onClick(event)}
-      />
+      <div className="letstalk-button-container">
+        <input
+          type={type}
+          className={classNames('letstalk-button', className)}
+          value={this.state.showLoading === true ? 'Processing...' : value}
+          disabled={disabled === true ? disabled : this.state.disabled}
+          onClick={(event) => this.onClick(event)}
+        />
+      </div>
     );
   }
 }

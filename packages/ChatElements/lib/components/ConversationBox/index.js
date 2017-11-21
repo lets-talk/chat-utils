@@ -14,19 +14,25 @@ const ConversationBox = (props) => {
   const tags = conversation.tags ? [conversation.tags[0]] : [];
   const lastMessageType = conversation.last_message.type ? conversation.last_message.type : '';
   const lastMessageReaded = conversation.last_message.readed;
+  const timeAgo = moment(conversation.last_message.created_at).fromNow(true);
 
   return (
     <div
       role="button"
       tabIndex="-3"
-      className={classNames('letstalk-cbox', lastMessageType, props.className)}
+      className={classNames(
+        'letstalk-cbox', lastMessageType, props.className,
+        {
+          'not-read': !lastMessageReaded,
+        }
+      )}
       onClick={props.onClick}
       onKeyPress={props.onClick}
     >
       {
         conversation.client.avatar &&
         <div
-          className={classNames('left', 'letstalk-cbox-avatar-container')}
+          className={classNames('cbox-left', 'letstalk-cbox-avatar-container')}
         >
           <Avatar
             src={conversation.client.avatar}
@@ -38,19 +44,19 @@ const ConversationBox = (props) => {
       }
 
       <div
-        className={classNames('right', 'cbox-row')}
+        className={classNames('cbox-right', 'cbox-row')}
       >
         <div className="cbox-column">
-          <div className="title">{conversation.client.name}</div>
-          <div className="time-info-col">{!lastMessageReaded && <div className="not-read-circle">&nbsp;</div>}
-            <div className="time">2 min ago</div>
+          <div className="cbox-title">{conversation.client.name}</div>
+          <div className="cbox-time-info-col">{!lastMessageReaded && <div className="cbox-circle">&nbsp;</div>}
+            <div className="cbox-time">{timeAgo}</div>
           </div>
         </div>
 
         <div className="cbox-row">
           <div className="cbox-column">
-            <div className="subtitle">{conversation.last_message.content}</div>
-            <div className="tags">
+            <div className="cbox-subtitle">{conversation.last_message.content}</div>
+            <div className="cbox-tags">
               {tags.map((tag, index) => (
                 <span className="cbox-tag">
                   {tag.name}

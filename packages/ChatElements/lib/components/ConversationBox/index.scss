@@ -3,6 +3,7 @@
 
 .letstalk-conversation-container {
   display: flex;
+  flex: 1;
 }
 
 .letstalk-cbox {
@@ -11,23 +12,42 @@
   flex-wrap: nowrap;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: stretch;
+  min-height: 50px;
+
 
   &.internal {
-    background-color: #fff6f4;
+    @include themify($themes) {
+      background-color: themed('messages', 'internal-background-color');
+    }
   }
 
   &.important {
-    background-color: #fffae6;
+    @include themify($themes) {
+      background-color: themed('messages', 'important-background-color');
+    }
   }
 
-  .left {
+  &.not-read {
+    .cbox-circle {
+      @include themify($themes) {
+        background-color: themed('color-background-primary');
+      }
+    }
+
+    .cbox-time-info-col {
+      @include themify($themes) {
+        color: themed('color-background-primary');
+      }
+    }
+  }
+
+  .cbox-left {
     width: 50px;
     order: 1;
     padding: 10px;
   }
 
-  .right {
+  .cbox-right {
     flex-basis: 1;
     order: 2;
     padding: 10px;
@@ -49,7 +69,7 @@
     flex-direction: row;
   }
 
-  .title {
+  .cbox-title {
     flex: 1;
     order: 1;
     @include themify($themes) {
@@ -58,7 +78,7 @@
     font-weight: $font-weight-bold;
   }
 
-  .subtitle {
+  .cbox-subtitle {
     flex: 1;
     order: 1;
     @include themify($themes) {
@@ -68,27 +88,25 @@
     @include ellipsis(calc(100% - 20px));
   }
 
-  .time-info-col {
+  .cbox-time-info-col {
     display: flex;
     align-items: center;
     order: 2;
     font-size: $time-font-size;
     @include themify($themes) {
-      color: themed('color-background-primary');
+      color: themed('color-primary');
     }
+    font-weight: $font-weight-thin;
   }
 
-  .not-read-circle {
+  .cbox-circle {
     width: 6px;
     height: 6px;
     border-radius: 50%;
     margin-right: 3px;
-    @include themify($themes) {
-      background-color: themed('color-background-primary');
-    }
   }
 
-  .tags {
+  .cbox-tags {
     order: 2;
     margin: 5px;
   }

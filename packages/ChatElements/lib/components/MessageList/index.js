@@ -1,42 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import ImmutablePropTypes from 'react-immutable-proptypes';
+
+import { withAutoScroll } from '../../utils/hoc';
+
 import MessageBox from '../MessageBox';
 import './index.scss';
 
-const scrollToBottom = () => {
-  const messagesDiv = document.getElementById('messages');
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
-};
-
 class MessageList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      scrollBottom: 0,
-    };
-  }
-
-  componentWillReceiveProps() {
-    if (!this.mlistRef) { return; }
-    this.setState({
-      scrollBottom: this.getBottom(this.mlistRef),
-    });
-  }
-
-  componentDidUpdate() {
-    const e = this.mlistRef;
-    if (!e) { return; }
-
-    const bottom = this.getBottom(e);
-    if (this.props.toBottomHeight === '100%' || bottom < this.props.toBottomHeight) {
-      // scroll to bottom
-      e.scrollTop = e.scrollHeight;
-    } else if (this.props.lockable === true) {
-      e.scrollTop = e.scrollHeight - e.offsetHeight - this.state.scrollBottom;
-    }
-  }
-
   onOpen(item, i, e) {
     if (this.props.onOpen instanceof Function) { this.props.onOpen(item, i, e); }
   }
@@ -57,21 +27,9 @@ class MessageList extends Component {
     if (this.props.onForwardClick instanceof Function) { this.props.onForwardClick(item, i, e); }
   }
 
-  getBottom(e) {
-    return e.scrollHeight - e.scrollTop - e.offsetHeight;
-  }
-
-  // componentDidMount() {
-  //   scrollToBottom();
-  // }
-  //
-  // componentDidUpdate() {
-  //   scrollToBottom();
-  // }
-
   render() {
     return (
-      <div id="messages" className="letstalk-messages-container">
+      <div ref={this.props.cmpRef} id="messages" className="letstalk-messages-container">
         {
           this.props.messages.map((message, index) =>
             (
@@ -100,8 +58,7 @@ MessageList.propTypes = {
   onForwardClick: PropTypes.func,
   onOpen: PropTypes.func,
   onDownload: PropTypes.func,
-  lockable: PropTypes.bool,
-  toBottomHeight: PropTypes.number,
+  cmpRef: PropTypes.func,
 };
 
 MessageList.defaultProps = {
@@ -111,8 +68,8 @@ MessageList.defaultProps = {
   onForwardClick: null,
   onOpen: null,
   onDownload: null,
-  lockable: false,
-  toBottomHeight: 300,
+  cmpRef: null,
 };
 
-export default MessageList;
+const autoScrollOptions = { threshold: '100%', direction: 'bottom' };
+export default withAutoScroll(autoScrollOptions)(MessageList);

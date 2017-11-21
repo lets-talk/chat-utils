@@ -1,11 +1,12 @@
 @import "../../common/styles/variables";
+@import '../../common/styles/animations.scss';
 
-$avatar-size-xsmall: calc(4 * #{$unit});
-$avatar-size-small: calc(5 * #{$unit});
-$avatar-size-medium: calc(7 * #{$unit});
-$avatar-size-large: calc(13 * #{$unit});
-$avatar-size-xlarge: calc(21 * #{$unit});
-
-$avatar-status-online: $palette-green-600;
-$avatar-status-offline: $palette-red-600;
-$avatar-status-sleeping: $palette-yellow-600;
+@mixin conversation-listbox-container-fs {
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.44);
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  max-width: none;
+  padding-bottom: 10px;
+}

@@ -1,5 +1,6 @@
 @import "../../common/styles/colors";
 @import "../../common/styles/variables";
+@import "../../common/styles/themes/themify";
 
 $loader-size-xsmall: calc(0.8 * #{$unit});
 $loader-size-small: calc(2 * #{$unit});

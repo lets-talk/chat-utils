@@ -2,7 +2,7 @@ import React from 'react';
 // Storybook stuff
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, text, boolean, select } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean, select, object } from '@storybook/addon-knobs';
 
 import { wrapWithThemes } from '../../utils/stories';
 // Component to show on storybook
@@ -19,6 +19,7 @@ const conversationList = [
     },
     last_message: {
       content: 'Lorem ipusum la la ejemplo largo',
+      created_at: '2017-11-20T09:43:57.000-0300',
     },
     tags: [
       {
@@ -35,6 +36,7 @@ const conversationList = [
       type: 'important',
       readed: true,
       content: 'Lorem ipusum la la ejemplo largo',
+      created_at: '2017-11-20T09:40:57.000-0300',
     },
     tags: null,
   },
@@ -46,6 +48,7 @@ const conversationList = [
     last_message: {
       readed: false,
       content: 'Lorem ipusum la la ejemplo largo',
+      created_at: '2017-11-20T09:33:57.000-0300',
     },
     tags: [
       {
@@ -61,6 +64,7 @@ const conversationList = [
     last_message: {
       readed: true,
       content: 'Lorem ipusum la la ejemplo largo',
+      created_at: '2017-11-19T09:43:57.000-0300',
     },
     tags: [
       {
@@ -77,6 +81,7 @@ const conversationList = [
       type: 'internal',
       readed: true,
       content: 'Lorem ipusum la la ejemplo largo',
+      created_at: '2017-11-19T09:41:57.000-0300',
     },
     tags: [
       {
@@ -94,6 +99,7 @@ const conversationList = [
     },
     last_message: {
       content: 'Lorem ipusum la la ejemplo largo',
+      created_at: '2017-11-19T09:42:50.000-0300',
     },
   },
 ];
@@ -106,16 +112,23 @@ stories.addWithInfo(
   'Simple Conversation List',
   'This is the basic usage of a ConversationList with providing a label to show the text.',
   () => (
-    <ConversationListBoxWithTheme
-      themeName={select('Theme', { light: 'LightTheme', dark: 'DarkTheme' }, 'light')}
-      title={text('Title', 'Conversaciones')}
-      subtitle={text('Subtitle', '')}
-      senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
-      toggleChat={action('toggleChat')}
-      openMenu={action('openMenu')}
-      showMenuButton={boolean('Show Menu Button', false)}
-      showMinimizeButton={boolean('Show Minimize Button', false)}
-      conversations={conversationList}
-    />
+    <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
+      <ConversationListBoxWithTheme
+        themeName={select('Theme', { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' }, 'default')}
+        title={text('Title', 'Conversaciones')}
+        subtitle={text('Subtitle', '')}
+        senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
+        toggleChat={action('toggleChat')}
+        openMenu={action('openMenu')}
+        clickConversationHandler={action('clickConversationHandler')}
+        newConversationHandler={action('newConversationHandler')}
+        showMenuButton={boolean('Show Menu Button', false)}
+        showMinimizeButton={boolean('Show Minimize Button', false)}
+        emptyStateText={text('Empty state text', 'Sin conversaciones abiertas')}
+        noMoreDataText={text('No more data text', 'No hay mas conversaciones')}
+        conversations={object('conversations', conversationList)}
+        toBottomHeight="100%"
+      />
+    </div>
   )
 );
