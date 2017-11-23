@@ -30,8 +30,8 @@
   }
 
   .letstalk-avatar-container.#{$sizeName} .letstalk-avatar-status {
-    width: calc(#{$sizeValue} / 10);
-    height: calc(#{$sizeValue} / 10);
+    width: calc(#{$sizeValue} / 9);
+    height: calc(#{$sizeValue} / 9);
     bottom: calc(#{$sizeValue} / 13);
     right: calc(#{$sizeValue} / 9);
   }

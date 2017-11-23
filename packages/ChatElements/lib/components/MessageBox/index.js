@@ -15,16 +15,19 @@ import SystemMessage from '../SystemMessage';
 import PhotoMessage from '../PhotoMessage';
 import Avatar from '../Avatar';
 import Loader from '../Loader';
+import ActionableMessageBox from '../ActionableMessageBox';
 
 // Component styles
 import './index.scss';
 
 const MessageBox = (props) => {
-  const positionCls = classNames('letstalk-mbox', {
-    'letstalk-mbox-right': props.position === 'right',
+  const positionCls = classNames('letstalk-mbox', `letstalk-mbox-${props.position}`, {
     'letstalk-mbox-agent': props.user_type === 'agent',
+    'letstalk-mbox-bot': props.user_type === 'bot',
+    'letstalk-mbox-actionable': props.type === 'actionable',
   });
   const thatAbsoluteTime = props.type !== 'text' && props.type !== 'typing';
+
   return (
     <div
       role="button"
@@ -139,7 +142,15 @@ const MessageBox = (props) => {
                   />
               }
 
-              {props.type !== 'typing' &&
+              {
+                props.type === 'actionable' &&
+                  <ActionableMessageBox
+                    data={props.data}
+                    onClickAction={props.onActionMessageClick}
+                  />
+              }
+
+              {props.type !== 'typing' && props.type !== 'actionable' &&
                 <div className={classNames('letstalk-mbox-time', { 'letstalk-mbox-time-block': thatAbsoluteTime })}>
                   {
                     props.date && (props.type !== 'typing') &&
@@ -193,6 +204,7 @@ MessageBox.propTypes = {
   date: PropTypes.date,
   data: PropTypes.object,
   onClick: PropTypes.func,
+  onActionMessageClick: PropTypes.func,
   onOpen: PropTypes.func,
   onDownload: PropTypes.func,
   forwarded: PropTypes.bool,
@@ -209,6 +221,7 @@ MessageBox.defaultProps = {
   title: null,
   titleColor: null,
   onTitleClick: null,
+  onActionMessageClick: null,
   onForwardClick: null,
   date: new Date(),
   data: {},

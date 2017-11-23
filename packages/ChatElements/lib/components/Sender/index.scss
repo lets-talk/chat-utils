@@ -1,44 +1,75 @@
 @import "./config.scss";
 @import "../../common/styles/themes/themify";
 
-.letstalk-sender {
+
+.letstalk-sender-container {
+  min-height: 56px;
+  max-height: 200px;
+  @include themify($themes) {
+    color: themed('color-hint-primary');
+  }
   align-items: center;
   display: flex;
-  color: $widgetBox-Sender-color;
   background-color: $widgetBox-Sender-background;
 
-  @include themify($themes) {
-    color: themed('color-secondary');
-    background-color: themed('color-background-secondary');
-  }
-  height: 40px;
-  padding: 5px;
-}
+  border-radius: 0;
+  flex-shrink: 0;
 
-.letstalk-new-message {
-  width: 100%;
-  border: 0;
-  background-color: inherit;
-  height: 30px;
-  padding-left: 15px;
+  .letstalk-sender-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 
-  &:focus {
-    outline: none;
-  }
-}
+    min-height: 56px;
+    max-height: 200px;
 
-.letstalk-send {
-  background: transparent;
-  border: 0;
+    textarea {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border: 0;
+      box-sizing: border-box;
+      padding: 22px 100px 10px 30px;
+      width: 100%;
+      height: 100%;
 
-  .letstalk-send-icon {
-    height: 25px;
-  }
-}
+      font-weight: $font-weight-normal;
+      white-space: pre-wrap;
 
-@media screen and (max-width: 800px)  {
-  .letstalk-sender {
-    border-radius: 0;
-    flex-shrink: 0;
+      @include themify($themes) {
+        color: themed('color-primary');
+      }
+
+      background-color: rgba(94, 124, 139, 0.1);
+      resize: none;
+      border: none;
+    }
+
+    textarea:focus {
+      background-color: #FFF;
+      outline: none;
+      box-shadow: $textarea-sender-focus-box-shadow;
+      transition: background-color .2s ease,box-shadow .2s ease,-webkit-box-shadow .2s ease;
+    }
+
+    textarea::placeholder {
+      @include themify($themes) {
+        color: themed('color-disabled');
+      }
+    }
+
+    .letstalk-sender-buttons {
+      position: absolute;
+      top: 0px;
+      right: 30px;
+      height: 56px;
+      line-height: 56px;
+
+      .letstalk-send-button {
+        border: none;
+        background: transparent;
+      }
+    }
   }
 }

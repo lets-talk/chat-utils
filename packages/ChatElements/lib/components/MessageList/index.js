@@ -42,6 +42,7 @@ class MessageList extends Component {
                   onTitleClick={this.props.onDownload && ((e) => this.onTitleClick(message, index, e))}
                   onForwardClick={this.props.onForwardClick && ((e) => this.onForwardClick(message, index, e))}
                   onClick={this.props.onClick && ((e) => this.onClick(message, index, e))}
+                  onActionMessageClick={this.props.onActionMessageClick}
                 />
               </div>
             ))
@@ -58,6 +59,7 @@ MessageList.propTypes = {
   onForwardClick: PropTypes.func,
   onOpen: PropTypes.func,
   onDownload: PropTypes.func,
+  onActionMessageClick: PropTypes.func,
   cmpRef: PropTypes.func,
 };
 
@@ -68,8 +70,9 @@ MessageList.defaultProps = {
   onForwardClick: null,
   onOpen: null,
   onDownload: null,
+  onActionMessageClick: null,
   cmpRef: null,
 };
 
-const autoScrollOptions = { threshold: '100%', direction: 'bottom' };
+const autoScrollOptions = { threshold: 300, direction: 'bottom' };
 export default withAutoScroll(autoScrollOptions)(MessageList);

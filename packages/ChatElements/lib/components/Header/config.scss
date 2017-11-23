@@ -1,7 +1,7 @@
 @import '../../common/styles/variables';
 @import "../../common/styles/themes/themify";
 
-$widgetBox-Header-fontsize: $font-size-normal;
+$widgetBox-Header-fontsize: $font-size-body;
 $widgetBox-Header-text-align: center;
-$widgetBox-Header-title-fontsize: $font-size-big;
-$widgetBox-Header-subtitle-fontsize: $font-size-small;
+$widgetBox-Header-title-fontsize: $font-size-body;
+$widgetBox-Header-subtitle-fontsize: $font-size-caption;

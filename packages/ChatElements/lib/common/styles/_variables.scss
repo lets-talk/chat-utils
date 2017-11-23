@@ -1,6 +1,6 @@
 @import "colors";
 // Colors
-$color-primary: $palette-blue-grey-custom;
+$color-primary: rgb(4, 38, 73);
 $color-secondary: $palette-indigo-700;
 $color-terciary: $palette-pink-700;
 
@@ -9,11 +9,16 @@ $fontUnit: 10px;
 $unit: 8px;
 
 $preferred-font: 'Nimbus sans-serif', 'Sans', 'Helvetica', Arial;
-$font-size: calc(1.4 * #{$fontUnit});
-$font-size-tiny: calc(1 * #{$fontUnit});
-$font-size-small: calc(1.2 * #{$fontUnit});
-$font-size-normal: $font-size;
-$font-size-big: calc(1.4 * #{$fontUnit});
+$font-size-default: calc(1 * #{$fontUnit});
+$font-size-small: calc(1 * #{$fontUnit});
+$font-size-caption: calc(1.2 * #{$fontUnit});
+$font-size-body: calc(1.6 * #{$fontUnit});
+$font-size-footnote: calc(1.4 * #{$fontUnit});
+$font-size-sub-head: calc(1.8 * #{$fontUnit});
+$font-size-sub-title: calc(2 * #{$fontUnit});
+$font-size-sub-headline: calc(2.4 * #{$fontUnit});
+$font-size-jumbo: calc(4.4 * #{$fontUnit});
+
 $font-weight-thin: 300;
 $font-weight-normal: 400;
 $font-weight-semi-bold: 500;

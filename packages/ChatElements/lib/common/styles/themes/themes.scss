@@ -2,16 +2,19 @@ $themes: (
   default: (
     // Text & Colors
     color-text: $color-white,
-    color-primary: $color-primary,
-    color-secondary: lighten($color-primary, 70%),
-    color-disabled: lighten($color-primary, 30%),
-    color-hint: lighten($color-primary, 30%),
-    color-divider: lighten($color-primary, 10%),
-    color-background-primary: $palette-orange-900,
-    color-background-secondary: rgb(237, 240, 241),
+    color-primary: rgb(4, 38, 73),
+    color-secondary: rgba(4, 38, 73, .7),
+    color-disabled: rgba(4, 38, 73, .3),
+    color-hint-primary: rgba(4, 38, 73, .3),
+    color-hint-secondary: rgba(255, 255, 255, .65),
+    color-divider: rgba(4, 38, 73, .1),
+    color-background-primary: rgb(255, 87, 34),//#FF5722,
+    color-background-secondary: rgba(94, 124, 139, .1),
+    color-bot-agent: rgb(94, 124, 139),
     // Messages Types
     messages: (
-      internal-background-color: #fffae6,
+      external-background-color: rgba(94, 124, 139, .1),
+      internal-background-color: rgba(255, 213, 0, .2),
       important-background-color: #fff6f4,
     ),
     // COMPONENTS STYLES
@@ -25,10 +28,12 @@ $themes: (
     color-primary: $palette-grey-900,
     color-secondary: darken($color-secondary, 70%),
     color-disabled: darken($color-secondary, 30%),
-    color-hint: darken($color-secondary, 30%),
+    color-hint-primary: darken($color-primary, 30%),
+    color-hint-secondary: darken($color-secondary, 30%),
     color-divider: darken($color-secondary, 10%),
     color-background-primary: darken($palette-blue-500, 40%),
     color-background-secondary: darken($palette-blue-a400, 30%),
+    color-bot-agent: rgb(94,124, 139),
     // Messages Types
     messages: (
       internal-background-color: darken(grey, 10%),
@@ -45,10 +50,12 @@ $themes: (
     color-primary: $palette-grey-900,
     color-secondary: lighten($color-secondary, 70%),
     color-disabled: lighten($color-secondary, 30%),
-    color-hint: lighten($color-secondary, 30%),
+    color-hint-primary: lighten($color-primary, 30%),
+    color-hint-secondary: lighten($color-secondary, 30%),
     color-divider: lighten($color-secondary, 10%),
     color-background-primary: $palette-blue-500,
     color-background-secondary: $palette-blue-a400,
+    color-bot-agent: rgb(94,124, 139),
     // Messages Types
     messages: (
       internal-background-color: lighten(grey, 40%),

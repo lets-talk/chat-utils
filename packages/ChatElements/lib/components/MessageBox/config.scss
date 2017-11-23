@@ -1,10 +1,10 @@
 @import "../../common/styles/variables";
 @import "../../common/styles/themes/themify";
 
-$messageBox-font-size: $font-size-small;
-$messageBox-title-font-size: $font-size-normal;
+$messageBox-title-font-size: $font-size-caption;
+$messageBox-title-font-weight: $font-weight-semi-bold;
 $messageBox-title-color: $color-white;
-$messageBox-time-font-size: $font-size-tiny;
+$messageBox-time-font-size: $font-size-caption;
 
 $messageBox-side-margin: 10px;
 $messageBox-border-radius: 5px;

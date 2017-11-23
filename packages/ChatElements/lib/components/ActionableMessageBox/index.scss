@@ -1,0 +1,31 @@
+@import './config.scss';
+
+.letstalk-actionable-mbox {
+  display: block;
+  cursor: pointer;
+  padding: 0;
+  background-color: $color-white;
+  font-size: $font-size-caption;
+  font-weight: $font-weight-semi-bold;
+
+  li.letstalk-actionable-item {
+    list-style: none;
+    padding: 15px;
+    @include themify($themes) {
+      color: themed('color-background-primary');
+    }
+  }
+
+  li.letstalk-actionable-item:hover {
+    @include themify($themes) {
+      background-color: themed('color-background-secondary');
+    }
+  }
+
+  li.letstalk-actionable-item:not(:last-child) {
+    @include themify($themes) {
+      border-bottom: 1px solid themed('color-divider');
+    }
+  }
+
+}

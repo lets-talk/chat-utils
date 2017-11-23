@@ -4,19 +4,15 @@
   display: flex;
   flex-direction: column;
   max-height: none;
-  font-size: $font-size-normal;
   @include animation(0, 0.5s, slide-in);
 }
 
 .letstalk-conversations-container {
   @include letstalk-conversations-container;
   background-color: $widgetBox-MessageList-background;
-  min-height: 200px;
-  overflow-y: auto;
   height: 50vh;
   min-height: 200px;
   overflow-y: auto;
-  padding: 10px;
 }
 
 .conversations-list-separator {
@@ -26,7 +22,7 @@
   padding: 20px 0px;
 
   @include themify($themes) {
-    color: themed('color-divider');
+    color: themed('color-hint-primary');
     border-top: 1px solid themed('color-divider');
   }
 }

@@ -313,6 +313,111 @@ stories.addWithInfo(
   )
 );
 
+const actionableMessages = [
+  {
+    position: 'left',
+    forwarded: true,
+    type: 'text',
+    theme: 'white',
+    view: 'list',
+    title: 'TalkBot',
+    text: 'Buenos días!',
+    data: {
+      uri: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      status: {
+        click: true,
+        loading: 70,
+      },
+      width: 300,
+      height: 300,
+      size: '2Mb',
+    },
+    status: 'sent',
+    date: '2017-11-15T20:34:27.173Z',
+    dateString: '18:23',
+    user_type: 'bot',
+  },
+  {
+    position: 'left',
+    forwarded: true,
+    type: 'text',
+    theme: 'white',
+    view: 'list',
+    title: '',
+    text: 'Por favor cuentame en que te podemos ayudar?',
+    data: {
+      uri: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      status: {
+        click: true,
+        loading: 70,
+      },
+      width: 300,
+      height: 300,
+      size: '2Mb',
+    },
+    status: 'sent',
+    date: '2017-11-15T20:34:27.173Z',
+    dateString: '18:23',
+    user_type: 'bot',
+  },
+  {
+    position: 'left',
+    forwarded: false,
+    type: 'actionable',
+    theme: 'white',
+    view: 'list',
+    text: 'Datos Contacto',
+    data: {
+      actions: [
+        {
+          id: 1,
+          name: 'Emergencia Bancaria',
+        },
+        {
+          id: 2,
+          name: 'Tarjeta de crédito',
+        },
+        {
+          id: 3,
+          name: 'Crédito Personal',
+        },
+        {
+          id: 4,
+          name: 'Otro',
+        },
+      ],
+    },
+    status: 'waiting',
+    date: '2017-11-15T20:34:27.173Z',
+    dateString: '18:23',
+    avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+  },
+];
+
+stories.addWithInfo(
+  'Actionable messages',
+  'This is the advanced usage of a Widget Box showing Actionable messages.',
+  () => (
+    <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
+      <WidgetBoxWithTheme
+        themeName={select('Theme', themeOptions, defaultTheme)}
+        title={text('Title', 'Georgia Harmon')}
+        subtitle={text('Subtitle', 'Emergencia Bancaria')}
+        sendMessage={action('sendMessage')}
+        senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
+        toggleChat={action('toggleChat')}
+        openMenu={action('openMenu')}
+        onActionMessageClick={action('onActionMessageClick')}
+        showMenuButton={boolean('Show Menu Button', true)}
+        showMinimizeButton={boolean('Show Minimize Button', true)}
+        disabledInput={boolean('Disable Input', false)}
+        avatar={text('Avatar', 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg')}
+        messages={actionableMessages}
+      />
+    </div>
+  )
+);
+
 stories.addWithInfo(
   'Advanced Usage',
   'This is the advanced usage of a Widget Box showing messages.',

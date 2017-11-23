@@ -51,6 +51,7 @@
     flex-basis: 1;
     order: 2;
     padding: 10px;
+    padding-left: 0px;
   }
 }
 
@@ -75,6 +76,7 @@
     @include themify($themes) {
       color: themed('color-primary');
     }
+    font-size: $font-size-body;
     font-weight: $font-weight-bold;
   }
 
@@ -84,6 +86,7 @@
     @include themify($themes) {
       color: themed('color-primary');
     }
+    font-size: $font-size-footnote;
     font-weight: $font-weight-thin;
     @include ellipsis(calc(100% - 20px));
   }
@@ -92,11 +95,18 @@
     display: flex;
     align-items: center;
     order: 2;
-    font-size: $time-font-size;
+    font-size: $font-size-caption;
     @include themify($themes) {
       color: themed('color-primary');
     }
     font-weight: $font-weight-thin;
+
+    .cbox-time {
+      display: inline-block;
+      text-align: right;
+      font-size: $font-size-small;
+      position: relative;
+    }
   }
 
   .cbox-circle {
@@ -112,7 +122,7 @@
   }
 
   .cbox-tag {
-    font-size: $tag-font-size;
+    font-size: $font-size-caption;
     @include themify($themes) {
       color: themed('color-primary');
       background-color: themed('color-background-secondary');
@@ -121,12 +131,4 @@
     padding: 5px;
     border-radius: 2px;
   }
-}
-
-.letstalk-cbox-time {
-  display: inline-block;
-  width: 50px;
-  text-align: right;
-  font-size: $font-size-tiny;
-  position: relative;
 }

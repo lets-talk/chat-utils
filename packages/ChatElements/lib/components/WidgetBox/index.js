@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Header from '../Header';
-import MessageList from '../MessageList';
+import MessageList from '../MessageList/Loadable';
 import Sender from '../Sender';
 import './index.scss';
 
@@ -16,6 +16,7 @@ const WidgetBox = (props) => {
     senderPlaceHolder,
     className,
     toggleChat,
+    onActionMessageClick,
     disabledInput,
     openMenu,
     showMinimizeButton,
@@ -36,6 +37,7 @@ const WidgetBox = (props) => {
       />
       <MessageList
         messages={messages}
+        onActionMessageClick={onActionMessageClick}
       />
       <Sender
         sendMessage={sendMessage}
@@ -56,6 +58,7 @@ WidgetBox.propTypes = {
   senderPlaceHolder: PropTypes.string,
   toggleChat: PropTypes.func,
   openMenu: PropTypes.func,
+  onActionMessageClick: PropTypes.func,
   showMinimizeButton: PropTypes.bool,
   showMenuButton: PropTypes.bool,
   disabledInput: PropTypes.bool,
