@@ -50,8 +50,18 @@ class ConversationList extends Component {
 }
 
 ConversationList.propTypes = {
+  /**
+   * conversations is an array of conversations objects
+   * that will be displayed in the component
+   */
   conversations: PropTypes.array,
+  /**
+   * Callback function to be called when an item is clicked
+   */
   clickItem: PropTypes.func,
+  /**
+   * Text to be used when no conversations
+   */
   emptyStateText: PropTypes.string,
   /**
    * cmpRef is a function that is called by anyone
@@ -67,5 +77,5 @@ ConversationList.defaultProps = {
   emptyStateText: '',
 };
 
-const autoScrollOptions = { threshold: '100%', direction: 'top' };
+const autoScrollOptions = { threshold: 300, direction: 'top' };
 export default withAutoScroll(autoScrollOptions)(ConversationList);

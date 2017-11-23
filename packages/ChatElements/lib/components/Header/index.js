@@ -12,9 +12,6 @@ const Header = ({
 }) =>
   (
     <div className="letstalk-header">
-      {avatar && <Avatar src={avatar} size="medium" withStatus status="online" />}
-      <h4 className="letstalk-title">{title}</h4>
-      <span className="letstalk-subtitle">{subtitle}</span>
       {
         showMinimizeButton &&
         <button className="letstalk-minimize-button" onClick={toggleChat}>
@@ -27,6 +24,16 @@ const Header = ({
           <MdMenu size={20} color="white" />
         </button>
       }
+      {avatar &&
+        <Avatar
+          src={avatar}
+          size="medium"
+          withStatus
+          status="online"
+        />
+      }
+      <h4 className="letstalk-title">{title}</h4>
+      <span className="letstalk-subtitle">{subtitle}</span>
     </div>
   );
 

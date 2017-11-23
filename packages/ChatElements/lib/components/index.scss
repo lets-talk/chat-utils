@@ -6,3 +6,7 @@
 @import "PhotoMessage/index.scss";
 @import "SystemMessage/index.scss";
 @import "WidgetBox/index.scss";
+
+* {
+  font-size: $font-size-body;
+}

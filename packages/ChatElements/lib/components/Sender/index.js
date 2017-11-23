@@ -6,12 +6,24 @@ import './index.scss';
 
 const Sender = ({ sendMessage, placeholder, disabledInput }) =>
   (
-    <form className="letstalk-sender" onSubmit={sendMessage}>
-      <input type="text" className="letstalk-new-message" name="message" placeholder={placeholder} disabled={disabledInput} autoFocus autoComplete="off" />
-      <button type="submit" className="letstalk-send">
-        <MdSend size={32} color="#c2cdd3" />
-      </button>
-    </form>
+    <div className="letstalk-sender-container">
+      <div className="letstalk-sender-wrapper">
+        <form onSubmit={sendMessage}>
+          <textarea
+            type="text"
+            name="message"
+            placeholder={placeholder}
+            disabled={disabledInput}
+            autoComplete="off"
+          />
+          <div className="letstalk-sender-buttons">
+            <button type="submit" className="letstalk-send-button">
+              <MdSend size={20} color="#5e7c8b" />
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 
 Sender.propTypes = {
