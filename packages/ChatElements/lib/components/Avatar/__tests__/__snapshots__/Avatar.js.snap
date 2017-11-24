@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar component should render with data 1`] = `
+<div
+  className="letstalk-avatar-container circle small"
+>
+  <div
+    className="letstalk-avatar-inner"
+  >
+    <div
+      className="letstalk-avatar-image-container"
+    >
+      <img
+        alt="An avatar image"
+        className="letstalk-avatar-image"
+        src="http://i46.tinypic.com/sexbb8.png"
+      />
+      <div
+        className="letstalk-avatar-image-div"
+      />
+    </div>
+  </div>
+  <div
+    className="letstalk-avatar-status online"
+  >
+     
+  </div>
+</div>
+`;
+
+exports[`Avatar component should render without data 1`] = `
+<div
+  className="letstalk-avatar-container circle medium"
+>
+  <div
+    className="letstalk-avatar-inner"
+  >
+    <div
+      className="letstalk-avatar-image-container"
+    >
+      <img
+        alt=""
+        className="letstalk-avatar-image"
+        src=""
+      />
+      <div
+        className="letstalk-avatar-image-div"
+      />
+    </div>
+  </div>
+</div>
+`;

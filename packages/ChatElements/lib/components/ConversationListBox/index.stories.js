@@ -35,7 +35,7 @@ const conversationList = [
     last_message: {
       type: 'important',
       readed: true,
-      content: 'Lorem ipusum la la ejemplo largo',
+      content: 'Lorem ipusum la la ejemplo largo, este es muy largo deberia bloquear el tamaño del mensaje la UI.',
       created_at: '2017-11-20T09:40:57.000-0300',
     },
     tags: null,

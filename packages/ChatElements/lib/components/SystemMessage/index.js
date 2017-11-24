@@ -22,4 +22,5 @@ SystemMessage.propTypes = {
   className: PropTypes.string,
   text: PropTypes.string,
 };
+
 export default SystemMessage;

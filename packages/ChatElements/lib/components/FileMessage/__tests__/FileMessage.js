@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import FileMessage from '../FileMessage';
+import FileMessage from '../index';
 
 describe('FileMessage component', () => {
   it('should render without issues', () => {
