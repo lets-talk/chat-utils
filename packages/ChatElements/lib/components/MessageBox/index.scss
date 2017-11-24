@@ -113,6 +113,10 @@
     @include themify($themes) {
       color: themed('color-hint-secondary');
     }
+
+    &.letstalk-mbox-time-block {
+      float: right;
+    }
   }
 
   &.letstalk-mbox-agent,

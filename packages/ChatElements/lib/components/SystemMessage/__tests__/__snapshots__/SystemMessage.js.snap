@@ -2,13 +2,13 @@
 
 exports[`SystemMessage component should render without issues 1`] = `
 <div
-  className="rce-container-smsg"
+  className="letstalk-container-smsg"
 >
   <div
-    className="rce-smsg"
+    className="letstalk-smsg"
   >
     <div
-      className="rce-smsg-text"
+      className="letstalk-smsg-text"
     />
   </div>
 </div>

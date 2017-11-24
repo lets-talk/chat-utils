@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConversationBox component should render with custom props 1`] = `
+<div
+  className="letstalk-cbox not-read"
+  onClick={[Function]}
+  onKeyPress={[Function]}
+  role="button"
+  tabIndex="-3"
+>
+  <div
+    className="cbox-left letstalk-cbox-avatar-container"
+  >
+    <Avatar
+      alt=""
+      size="small"
+      src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
+      status="online"
+      type="circle"
+      withStatus={false}
+    />
+  </div>
+  <div
+    className="cbox-right cbox-row"
+  >
+    <div
+      className="cbox-column"
+    >
+      <div
+        className="cbox-title"
+      >
+        Georgia Harmon
+      </div>
+      <div
+        className="cbox-time-info-col"
+      >
+        <div
+          className="cbox-circle"
+        >
+           
+        </div>
+        <div
+          className="cbox-time"
+        >
+          4 days
+        </div>
+      </div>
+    </div>
+    <div
+      className="cbox-row"
+    >
+      <div
+        className="cbox-column"
+      >
+        <div
+          className="cbox-subtitle"
+        >
+          Lorem ipusum la la ejemplo largo
+        </div>
+        <div
+          className="cbox-tags"
+        >
+          <span
+            className="cbox-tag"
+            key="0"
+          >
+            SPU-CLAVE
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ConversationBox component should render with minimal props 1`] = `
+<div
+  className="letstalk-cbox not-read"
+  onClick={null}
+  onKeyPress={null}
+  role="button"
+  tabIndex="-3"
+>
+  <div
+    className="cbox-left letstalk-cbox-avatar-container"
+  >
+    <Avatar
+      alt=""
+      size="small"
+      src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
+      status="online"
+      type="circle"
+      withStatus={false}
+    />
+  </div>
+  <div
+    className="cbox-right cbox-row"
+  >
+    <div
+      className="cbox-column"
+    >
+      <div
+        className="cbox-title"
+      >
+        Georgia Harmon
+      </div>
+      <div
+        className="cbox-time-info-col"
+      >
+        <div
+          className="cbox-circle"
+        >
+           
+        </div>
+        <div
+          className="cbox-time"
+        >
+          4 days
+        </div>
+      </div>
+    </div>
+    <div
+      className="cbox-row"
+    >
+      <div
+        className="cbox-column"
+      >
+        <div
+          className="cbox-subtitle"
+        >
+          Lorem ipusum la la ejemplo largo
+        </div>
+        <div
+          className="cbox-tags"
+        >
+          <span
+            className="cbox-tag"
+            key="0"
+          >
+            SPU-CLAVE
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

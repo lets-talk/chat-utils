@@ -126,8 +126,6 @@ const MessageBox = (props) => {
                   onOpen={props.onOpen}
                   onDownload={props.onDownload}
                   data={props.data}
-                  width={props.width}
-                  height={props.height}
                   text={props.text}
                 />
               }
@@ -201,14 +199,14 @@ MessageBox.propTypes = {
   titleColor: PropTypes.string,
   onTitleClick: PropTypes.func,
   onForwardClick: PropTypes.func,
-  date: PropTypes.date,
+  date: PropTypes.instanceOf(Date),
   data: PropTypes.object,
   onClick: PropTypes.func,
   onActionMessageClick: PropTypes.func,
   onOpen: PropTypes.func,
   onDownload: PropTypes.func,
   forwarded: PropTypes.bool,
-  status: PropTypes.bool,
+  status: PropTypes.string,
   dateString: PropTypes.string,
   avatar: PropTypes.object,
   renderAddCmp: PropTypes.object,
@@ -229,7 +227,7 @@ MessageBox.defaultProps = {
   onOpen: null,
   onDownload: null,
   forwarded: false,
-  status: null,
+  status: '',
   dateString: null,
   avatar: null,
   renderAddCmp: null,

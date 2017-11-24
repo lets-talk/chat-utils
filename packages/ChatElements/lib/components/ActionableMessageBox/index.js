@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import FaCloudDownload from 'react-icons/lib/fa/cloud-download';
-
 import './index.scss';
 
 const ActionableMessageBox = (props) => {
@@ -28,12 +26,11 @@ const ActionableMessageBox = (props) => {
 };
 
 ActionableMessageBox.defaultProps = {
-  data: {},
   onClickAction: null,
 };
 
 ActionableMessageBox.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.object.isRequired,
   onClickAction: PropTypes.func,
 };
 

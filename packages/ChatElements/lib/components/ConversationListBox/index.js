@@ -40,7 +40,6 @@ const ConversationListBox = (props) => {
         clickItem={clickConversationHandler}
         noMoreDataText={noMoreDataText}
         emptyStateText={emptyStateText}
-        toBottomHeight={props.toBottomHeight}
       />
       <Button
         type="submit"

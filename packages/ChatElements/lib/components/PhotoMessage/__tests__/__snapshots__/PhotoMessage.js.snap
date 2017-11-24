@@ -2,13 +2,15 @@
 
 exports[`PhotoMessage component should render without issues 1`] = `
 <div
-  className="rce-mbox-photo"
+  className="letstalk-mbox-attachment letstalk-mbox-photo"
 >
   <div
-    className="rce-mbox-photo--img"
+    className="letstalk-mbox-photo--img"
   >
     <img
       onClick={null}
+      onKeyPress={null}
+      role="button"
     />
   </div>
 </div>

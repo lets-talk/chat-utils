@@ -58,7 +58,7 @@ const ConversationBox = (props) => {
             <div className="cbox-subtitle">{conversation.last_message.content}</div>
             <div className="cbox-tags">
               {tags.map((tag, index) => (
-                <span className="cbox-tag">
+                <span key={index} className="cbox-tag">
                   {tag.name}
                 </span>
               ))}

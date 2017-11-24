@@ -14,7 +14,6 @@
   justify-content: flex-start;
   min-height: 50px;
 
-
   &.internal {
     @include themify($themes) {
       background-color: themed('messages', 'internal-background-color');
@@ -88,7 +87,7 @@
     }
     font-size: $font-size-footnote;
     font-weight: $font-weight-thin;
-    @include ellipsis(calc(100% - 20px));
+    @include ellipsis(calc(100% - 50px));
   }
 
   .cbox-time-info-col {
