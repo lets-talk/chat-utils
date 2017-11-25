@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean, select, object } from '@storybook/addon-knobs';
 
-import { wrapWithThemes } from '../../utils/stories';
+import { WrapWithTheme } from '../../utils/stories';
 // Component to show on storybook
 import { ConversationListBox } from '../../../lib';
 
@@ -104,31 +104,30 @@ const conversationList = [
   },
 ];
 
-// This HOC Wraps the Box so it is inside a ThemeProvider for styled-components
-// and also wraps it inside a div with the selected global themes
-const ConversationListBoxWithTheme = wrapWithThemes(ConversationListBox);
-
 stories.addWithInfo(
   'Simple Conversation List',
   'This is the basic usage of a ConversationList with providing a label to show the text.',
   () => (
     <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
-      <ConversationListBoxWithTheme
+      <WrapWithTheme
         themeName={select('Theme', { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' }, 'default')}
-        title={text('Title', 'Conversaciones')}
-        subtitle={text('Subtitle', '')}
-        senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
-        toggleChat={action('toggleChat')}
-        openMenu={action('openMenu')}
-        clickConversationHandler={action('clickConversationHandler')}
-        newConversationHandler={action('newConversationHandler')}
-        showMenuButton={boolean('Show Menu Button', false)}
-        showMinimizeButton={boolean('Show Minimize Button', false)}
-        emptyStateText={text('Empty state text', 'Sin conversaciones abiertas')}
-        noMoreDataText={text('No more data text', 'No hay mas conversaciones')}
-        conversations={object('conversations', conversationList)}
-        toBottomHeight="100%"
-      />
+      >
+        <ConversationListBox
+          title={text('Title', 'Conversaciones')}
+          subtitle={text('Subtitle', '')}
+          senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
+          toggleChat={action('toggleChat')}
+          openMenu={action('openMenu')}
+          clickConversationHandler={action('clickConversationHandler')}
+          newConversationHandler={action('newConversationHandler')}
+          showMenuButton={boolean('Show Menu Button', false)}
+          showMinimizeButton={boolean('Show Minimize Button', false)}
+          emptyStateText={text('Empty state text', 'Sin conversaciones abiertas')}
+          noMoreDataText={text('No more data text', 'No hay mas conversaciones')}
+          conversations={object('conversations', conversationList)}
+          toBottomHeight="100%"
+        />
+      </WrapWithTheme>
     </div>
   )
 );

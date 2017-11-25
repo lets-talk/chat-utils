@@ -4,20 +4,15 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean, object, select } from '@storybook/addon-knobs';
 
-import { wrapWithThemes } from '../../utils/stories';
+import { WrapWithTheme } from '../../utils/stories';
 // Component to show on storybook
 import MessageBox from '.';
-
 
 const stories = storiesOf('MessageBox', module);
 stories.addDecorator(withKnobs);
 
 const themeOptions = { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' };
 const defaultTheme = 'default';
-
-// This HOC Wraps the Box so it is inside a ThemeProvider for styled-components
-// and also wraps it inside a div with the selected global themes
-const MessageBoxWithTheme = wrapWithThemes(MessageBox);
 
 const messages = [
   {
@@ -132,16 +127,19 @@ stories.addWithInfo(
   'TextMessage type use',
   () => (
     <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
-      <MessageBoxWithTheme
+      <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
-        {...messages[0]}
-        onOpen={action('onOpen')}
-        onDownload={action('onDownload')}
-        onTitleClick={action('onTitleClick')}
-        onForwardClick={action('onForwardClick')}
-        onClick={action('onClick')}
-        onActionMessageClick={action('onActionMessageClick')}
-      />
+      >
+        <MessageBox
+          {...messages[0]}
+          onOpen={action('onOpen')}
+          onDownload={action('onDownload')}
+          onTitleClick={action('onTitleClick')}
+          onForwardClick={action('onForwardClick')}
+          onClick={action('onClick')}
+          onActionMessageClick={action('onActionMessageClick')}
+        />
+      </WrapWithTheme>
     </div>
   )
 );
@@ -151,16 +149,19 @@ stories.addWithInfo(
   'FileMessage type use',
   () => (
     <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
-      <MessageBoxWithTheme
+      <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
-        {...messages[1]}
-        onOpen={action('onOpen')}
-        onDownload={action('onDownload')}
-        onTitleClick={action('onTitleClick')}
-        onForwardClick={action('onForwardClick')}
-        onClick={action('onClick')}
-        onActionMessageClick={action('onActionMessageClick')}
-      />
+      >
+        <MessageBox
+          {...messages[1]}
+          onOpen={action('onOpen')}
+          onDownload={action('onDownload')}
+          onTitleClick={action('onTitleClick')}
+          onForwardClick={action('onForwardClick')}
+          onClick={action('onClick')}
+          onActionMessageClick={action('onActionMessageClick')}
+        />
+      </WrapWithTheme>
     </div>
   )
 );
@@ -170,16 +171,19 @@ stories.addWithInfo(
   'Photo type use',
   () => (
     <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
-      <MessageBoxWithTheme
+      <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
-        {...messages[2]}
-        onOpen={action('onOpen')}
-        onDownload={action('onDownload')}
-        onTitleClick={action('onTitleClick')}
-        onForwardClick={action('onForwardClick')}
-        onClick={action('onClick')}
-        onActionMessageClick={action('onActionMessageClick')}
-      />
+      >
+        <MessageBox
+          {...messages[2]}
+          onOpen={action('onOpen')}
+          onDownload={action('onDownload')}
+          onTitleClick={action('onTitleClick')}
+          onForwardClick={action('onForwardClick')}
+          onClick={action('onClick')}
+          onActionMessageClick={action('onActionMessageClick')}
+        />
+      </WrapWithTheme>
     </div>
   )
 );
@@ -189,16 +193,19 @@ stories.addWithInfo(
   'Message of ActionableMessageBox type',
   () => (
     <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
-      <MessageBoxWithTheme
+      <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
-        {...messages[3]}
-        onOpen={action('onOpen')}
-        onDownload={action('onDownload')}
-        onTitleClick={action('onTitleClick')}
-        onForwardClick={action('onForwardClick')}
-        onClick={action('onClick')}
-        onActionMessageClick={action('onActionMessageClick')}
-      />
+      >
+        <MessageBox
+          {...messages[3]}
+          onOpen={action('onOpen')}
+          onDownload={action('onDownload')}
+          onTitleClick={action('onTitleClick')}
+          onForwardClick={action('onForwardClick')}
+          onClick={action('onClick')}
+          onActionMessageClick={action('onActionMessageClick')}
+        />
+      </WrapWithTheme>
     </div>
   )
 );
@@ -208,16 +215,19 @@ stories.addWithInfo(
   'Message of Typing type',
   () => (
     <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
-      <MessageBoxWithTheme
+      <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
-        {...messages[4]}
-        onOpen={action('onOpen')}
-        onDownload={action('onDownload')}
-        onTitleClick={action('onTitleClick')}
-        onForwardClick={action('onForwardClick')}
-        onClick={action('onClick')}
-        onActionMessageClick={action('onActionMessageClick')}
-      />
+      >
+        <MessageBox
+          {...messages[4]}
+          onOpen={action('onOpen')}
+          onDownload={action('onDownload')}
+          onTitleClick={action('onTitleClick')}
+          onForwardClick={action('onForwardClick')}
+          onClick={action('onClick')}
+          onActionMessageClick={action('onActionMessageClick')}
+        />
+      </WrapWithTheme>
     </div>
   )
 );
