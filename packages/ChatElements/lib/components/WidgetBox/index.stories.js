@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean, object, select } from '@storybook/addon-knobs';
 
-import { wrapWithThemes } from '../../utils/stories';
+import { WrapWithTheme } from '../../utils/stories';
 // Component to show on storybook
 import { WidgetBox } from '../../../lib';
 
@@ -15,10 +15,6 @@ stories.addDecorator(withKnobs);
 
 const themeOptions = { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' };
 const defaultTheme = 'default';
-
-// This HOC Wraps the Box so it is inside a ThemeProvider for styled-components
-// and also wraps it inside a div with the selected global themes
-const WidgetBoxWithTheme = wrapWithThemes(WidgetBox);
 
 // Utils functions to generate random data to the stories
 const loremIpsum = (count, units) => 'I am a random string';
@@ -136,19 +132,22 @@ stories.addWithInfo(
   'Chat Widget - 2',
   'This is the basic usage of a Widget Box.',
   () => (
-    <WidgetBoxWithTheme
+    <WrapWithTheme
       themeName={select('Theme', themeOptions, defaultTheme)}
-      title={text('Title', 'Ayuda en linea')}
-      subtitle={text('Subtitle', '')}
-      sendMessage={action('sendMessage')}
-      senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
-      toggleChat={action('toggleChat')}
-      openMenu={action('openMenu')}
-      showMenuButton={boolean('Show Menu Button', true)}
-      showMinimizeButton={boolean('Show Minimize Button', true)}
-      disabledInput={boolean('Disable Input', false)}
-      messages={[]}
-    />
+    >
+      <WidgetBox
+        title={text('Title', 'Ayuda en linea')}
+        subtitle={text('Subtitle', '')}
+        sendMessage={action('sendMessage')}
+        senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
+        toggleChat={action('toggleChat')}
+        openMenu={action('openMenu')}
+        showMenuButton={boolean('Show Menu Button', true)}
+        showMinimizeButton={boolean('Show Minimize Button', true)}
+        disabledInput={boolean('Disable Input', false)}
+        messages={[]}
+      />
+    </WrapWithTheme>
   )
 );
 
@@ -223,20 +222,23 @@ stories.addWithInfo(
   'This is the usage using the user Avatar.',
   () => (
     <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
-      <WidgetBoxWithTheme
+      <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
-        title={text('Title', 'Georgia Harmon')}
-        subtitle={text('Subtitle', 'Emergencia Bancaria')}
-        sendMessage={action('sendMessage')}
-        senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
-        toggleChat={action('toggleChat')}
-        openMenu={action('openMenu')}
-        showMenuButton={boolean('Show Menu Button', true)}
-        showMinimizeButton={boolean('Show Minimize Button', true)}
-        disabledInput={boolean('Disable Input', false)}
-        avatar={text('Avatar', 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg')}
-        messages={story3Messages}
-      />
+      >
+        <WidgetBox
+          title={text('Title', 'Georgia Harmon')}
+          subtitle={text('Subtitle', 'Emergencia Bancaria')}
+          sendMessage={action('sendMessage')}
+          senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
+          toggleChat={action('toggleChat')}
+          openMenu={action('openMenu')}
+          showMenuButton={boolean('Show Menu Button', true)}
+          showMinimizeButton={boolean('Show Minimize Button', true)}
+          disabledInput={boolean('Disable Input', false)}
+          avatar={text('Avatar', 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg')}
+          messages={story3Messages}
+        />
+      </WrapWithTheme>
     </div>
   )
 );
@@ -295,20 +297,23 @@ stories.addWithInfo(
   'This is the advanced usage of a Widget Box showing file messages.',
   () => (
     <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
-      <WidgetBoxWithTheme
+      <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
-        title={text('Title', 'Georgia Harmon')}
-        subtitle={text('Subtitle', 'Emergencia Bancaria')}
-        sendMessage={action('sendMessage')}
-        senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
-        toggleChat={action('toggleChat')}
-        openMenu={action('openMenu')}
-        showMenuButton={boolean('Show Menu Button', true)}
-        showMinimizeButton={boolean('Show Minimize Button', true)}
-        disabledInput={boolean('Disable Input', false)}
-        avatar={text('Avatar', 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg')}
-        messages={fileMessages}
-      />
+      >
+        <WidgetBox
+          title={text('Title', 'Georgia Harmon')}
+          subtitle={text('Subtitle', 'Emergencia Bancaria')}
+          sendMessage={action('sendMessage')}
+          senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
+          toggleChat={action('toggleChat')}
+          openMenu={action('openMenu')}
+          showMenuButton={boolean('Show Menu Button', true)}
+          showMinimizeButton={boolean('Show Minimize Button', true)}
+          disabledInput={boolean('Disable Input', false)}
+          avatar={text('Avatar', 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg')}
+          messages={fileMessages}
+        />
+      </WrapWithTheme>
     </div>
   )
 );
@@ -399,21 +404,24 @@ stories.addWithInfo(
   'This is the advanced usage of a Widget Box showing Actionable messages.',
   () => (
     <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
-      <WidgetBoxWithTheme
+      <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
-        title={text('Title', 'Georgia Harmon')}
-        subtitle={text('Subtitle', 'Emergencia Bancaria')}
-        sendMessage={action('sendMessage')}
-        senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
-        toggleChat={action('toggleChat')}
-        openMenu={action('openMenu')}
-        onActionMessageClick={action('onActionMessageClick')}
-        showMenuButton={boolean('Show Menu Button', true)}
-        showMinimizeButton={boolean('Show Minimize Button', true)}
-        disabledInput={boolean('Disable Input', false)}
-        avatar={text('Avatar', 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg')}
-        messages={actionableMessages}
-      />
+      >
+        <WidgetBox
+          title={text('Title', 'Georgia Harmon')}
+          subtitle={text('Subtitle', 'Emergencia Bancaria')}
+          sendMessage={action('sendMessage')}
+          senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
+          toggleChat={action('toggleChat')}
+          openMenu={action('openMenu')}
+          onActionMessageClick={action('onActionMessageClick')}
+          showMenuButton={boolean('Show Menu Button', true)}
+          showMinimizeButton={boolean('Show Minimize Button', true)}
+          disabledInput={boolean('Disable Input', false)}
+          avatar={text('Avatar', 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg')}
+          messages={actionableMessages}
+        />
+      </WrapWithTheme>
     </div>
   )
 );
@@ -423,19 +431,22 @@ stories.addWithInfo(
   'This is the advanced usage of a Widget Box showing messages.',
   () => (
     <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
-      <WidgetBoxWithTheme
+      <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
-        title={text('Title', 'Bienvenido en que podemos ayudar')}
-        subtitle={text('Subtitle', 'Subtitulo')}
-        sendMessage={action('sendMessage')}
-        senderPlaceHolder={text('Sender PlaceHolder', 'Enviar')}
-        toggleChat={action('toggleChat')}
-        openMenu={action('openMenu')}
-        showMinimizeButton={boolean('Show Minimize Button', true)}
-        showMenuButton={boolean('Show Menu Button', true)}
-        disabledInput={boolean('Disable Input', false)}
-        messages={object('Messages', messages)}
-      />
+      >
+        <WidgetBox
+          title={text('Title', 'Bienvenido en que podemos ayudar')}
+          subtitle={text('Subtitle', 'Subtitulo')}
+          sendMessage={action('sendMessage')}
+          senderPlaceHolder={text('Sender PlaceHolder', 'Enviar')}
+          toggleChat={action('toggleChat')}
+          openMenu={action('openMenu')}
+          showMinimizeButton={boolean('Show Minimize Button', true)}
+          showMenuButton={boolean('Show Menu Button', true)}
+          disabledInput={boolean('Disable Input', false)}
+          messages={object('Messages', messages)}
+        />
+      </WrapWithTheme>
     </div>
   )
 );

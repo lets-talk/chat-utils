@@ -26,6 +26,7 @@
     "style-loader": "^0.19.0"
   },
   "scripts": {
+    "postinstall": "node postinstall.js",
     "storybook": "cross-env NODE_ENV=development start-storybook -p 9001 -c .storybook",
     "test": "npm run test --prefix ./packages/ChatElements/",
     "test:update": "npm run test:update --prefix ./packages/ChatElements/",

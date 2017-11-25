@@ -10,33 +10,24 @@ const themes = {
   dark: DarkTheme,
 };
 
-const wrapWithThemes = (ComponentToWrap) => {
-  // information that we don’t want everything to access
-
-  // return a newly generated React component
-  // using a functional, stateless component
-
-  const Wrapee = (props) => {
-    const { themeName } = props;
-    const theme = themes[themeName];
-    // Wrapp it and pass all the other props that we might be given
-    return (
-      <div className={`theme-${themeName}`}>
-        <ThemeProvider theme={theme}>
-          <ComponentToWrap {...props} />
-        </ThemeProvider>
-      </div>
-    );
-  };
-
-  Wrapee.propTypes = {
-    themeName: PropTypes.string,
-  };
-
-  return Wrapee;
+const WrapWithTheme = (props) => {
+  const { themeName } = props;
+  const theme = themes[themeName];
+  // Wrapp it and pass all the other props that we might be given
+  return (
+    <div className={`theme-${themeName}`}>
+      <ThemeProvider theme={theme}>
+        {props.children}
+      </ThemeProvider>
+    </div>
+  );
 };
 
+WrapWithTheme.propTypes = {
+  children: PropTypes.node,
+  themeName: PropTypes.string,
+};
 
 export {
-  wrapWithThemes,
+  WrapWithTheme,
 };
