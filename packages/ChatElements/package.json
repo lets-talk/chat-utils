@@ -1,6 +1,6 @@
 {
   "name": "@letstalk/ChatElements",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "React Component that help implment LetsTalk interfaces.",
   "main": "build/index.js",
   "directories": {
@@ -84,7 +84,11 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/lib/test-utils/jest.setup.js",
-    "testMatch": ["<rootDir>/lib/components/**/__tests__/**/*.js?(x)", "<rootDir>/lib/utils/**/__tests__/**/*.js?(x)", "**/?(*.).js?(x)"],
+    "testMatch": [
+      "<rootDir>/lib/components/**/__tests__/**/*.js?(x)",
+      "<rootDir>/lib/utils/**/__tests__/**/*.js?(x)",
+      "**/?(*.).js?(x)"
+    ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/lib/test-utils/__mocks__/fileMock.js",
       "\\.(css|less|scss)$": "<rootDir>/lib/test-utils/__mocks__/styleMock.js"
@@ -187,7 +191,10 @@
     }
   },
   "lint-staged": {
-    "*.js": ["eslint --fix", "git add"]
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "publishConfig": {
     "registry": "http://localhost:4873/"
