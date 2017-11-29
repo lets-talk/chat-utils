@@ -1,10 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`FileMessage component should render with data props 1`] = `
+<div
+  className="letstalk-mbox-attachment letstalk-mbox-file"
+>
+  <button
+    className="letstalk-mbox-file-download"
+    onClick={[Function]}
+  >
+    <div
+      className="letstalk-mbox-file--icon"
+    >
+      <FaFile
+        color="#aaa"
+      />
+      <div
+        className="letstalk-mbox-file--size"
+      >
+        2Mb
+      </div>
+    </div>
+    <div
+      className="letstalk-mbox-file--text"
+    />
+    <div
+      className="letstalk-mbox-file--buttons"
+    >
+      <div />
+    </div>
+  </button>
+</div>
+`;
+
 exports[`FileMessage component should render without issues 1`] = `
 <div
   className="letstalk-mbox-attachment letstalk-mbox-file"
 >
   <button
+    className="letstalk-mbox-file-download"
     onClick={[Function]}
   >
     <div

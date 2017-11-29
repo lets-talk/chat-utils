@@ -9,19 +9,19 @@ import './index.scss';
 const PhotoMessage = (props) => (
   <div className={classNames('letstalk-mbox-attachment', 'letstalk-mbox-photo')}>
     <div
+      tabIndex="0"
+      role="button"
       className="letstalk-mbox-photo--img"
       style={props.data.width && props.data.height && {
         width: props.data.width,
         height: props.data.height,
       }}
+      onClick={props.onOpen}
+      onKeyPress={props.onOpen}
     >
       <img
-        tabIndex={0}
-        role="button"
         src={props.data.uri}
         alt={props.data.alt}
-        onClick={props.onOpen}
-        onKeyPress={props.onOpen}
       />
       {
         props.data.status &&
@@ -39,7 +39,7 @@ const PhotoMessage = (props) => (
             {
               typeof props.data.status.loading === 'number' &&
                   props.data.status.loading !== 0 &&
-                  <div />
+                  <div>{props.data.status.loading}</div>
             }
           </div>
       }

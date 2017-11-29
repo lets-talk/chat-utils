@@ -6,6 +6,7 @@ exports[`ConversationListBox component should render with custom props 1`] = `
 >
   <Header
     avatar=""
+    avatarStatus=""
     openMenu={null}
     showMenuButton={false}
     showMinimizeButton={false}
@@ -51,6 +52,7 @@ exports[`ConversationListBox component should render with minimal props 1`] = `
 >
   <Header
     avatar=""
+    avatarStatus=""
     openMenu={null}
     showMenuButton={false}
     showMinimizeButton={false}

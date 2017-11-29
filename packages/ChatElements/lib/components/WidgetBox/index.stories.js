@@ -352,6 +352,88 @@ stories.addWithInfo(
   )
 );
 
+const photoMessages = [
+  {
+    position: 'left',
+    forwarded: true,
+    type: 'Photo',
+    theme: 'white',
+    view: 'list',
+    title: 'Solicitud de nueva tarjeta Banco',
+    text: 'Solicitud de nueva tarjeta Banco',
+    data: {
+      uri: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      status: {
+        click: false,
+      },
+      width: 100,
+      height: 100,
+      size: '1Mb',
+    },
+    status: 'sent',
+    date: '2017-11-15T20:34:27.173Z',
+    dateString: '17:34',
+    person: {
+      avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      email: '',
+      type: 'Client',
+    },
+  },
+  {
+    position: 'right',
+    forwarded: true,
+    type: 'Photo',
+    theme: 'white',
+    view: 'list',
+    title: 'Solicitud de nueva tarjeta Banco',
+    text: 'Solicitud de nueva tarjeta Banco',
+    data: {
+      uri: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      status: {
+        click: true,
+        loading: 70,
+      },
+      width: 300,
+      height: 300,
+      size: '2Mb',
+    },
+    status: 'sent',
+    date: '2017-11-15T20:34:27.173Z',
+    dateString: '17:34',
+    person: {
+      avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      email: '',
+      type: 'Client',
+    },
+  },
+];
+
+stories.addWithInfo(
+  'Only Photo messages',
+  'This is the advanced usage of a Widget Box showing photo messages.',
+  () => (
+    <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
+      <WrapWithTheme
+        themeName={select('Theme', themeOptions, defaultTheme)}
+      >
+        <WidgetBox
+          title={text('Title', 'Georgia Harmon')}
+          subtitle={text('Subtitle', 'Emergencia Bancaria')}
+          sendMessage={action('sendMessage')}
+          senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
+          toggleChat={action('toggleChat')}
+          openMenu={action('openMenu')}
+          showMenuButton={boolean('Show Menu Button', true)}
+          showMinimizeButton={boolean('Show Minimize Button', true)}
+          disabledInput={boolean('Disable Input', false)}
+          avatar={text('Avatar', 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg')}
+          messages={photoMessages}
+        />
+      </WrapWithTheme>
+    </div>
+  )
+);
+
 const actionableMessages = [
   {
     position: 'left',

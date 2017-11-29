@@ -48,4 +48,15 @@ Header.propTypes = {
   showMenuButton: PropTypes.bool,
 };
 
+Header.defaultProps = {
+  title: '',
+  subtitle: '',
+  avatar: '',
+  avatarStatus: '',
+  toggleChat: null,
+  openMenu: null,
+  showMinimizeButton: true,
+  showMenuButton: true,
+};
+
 export default Header;

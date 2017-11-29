@@ -15,10 +15,9 @@ export class FileMessage extends Component {
 
   onClick() {
     if (!this.props.data.status) { return; }
-
-    if (!this.props.data.status.download && this.props.onDownload instanceof Function) {
+    if (!this.props.data.status.download && this.props.onDownload) {
       this.props.onDownload();
-    } else if (this.props.data.status.download && this.props.onOpen instanceof Function) {
+    } else if (this.props.data.status.download && this.props.onOpen) {
       this.props.onOpen();
     }
   }
@@ -26,7 +25,7 @@ export class FileMessage extends Component {
   render() {
     return (
       <div className={classNames('letstalk-mbox-attachment', 'letstalk-mbox-file')}>
-        <button onClick={this.onClick}>
+        <button className="letstalk-mbox-file-download" onClick={this.onClick}>
           <div className="letstalk-mbox-file--icon">
             <FaFile
               color="#aaa"
