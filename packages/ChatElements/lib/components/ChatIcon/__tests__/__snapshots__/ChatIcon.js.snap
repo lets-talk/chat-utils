@@ -7,7 +7,6 @@ exports[`ChatIcon component should render with custom props 1`] = `
   >
     <styled.button
       className="letstalk-ChatIcon circle"
-      onTouchTap={[Function]}
     >
       <styled.span
         className="intro-message"
@@ -28,7 +27,6 @@ exports[`ChatIcon component should render with no props 1`] = `
   >
     <styled.button
       className="letstalk-ChatIcon rounded"
-      onTouchTap={[Function]}
     >
       <styled.span
         className="intro-message"

@@ -4,11 +4,13 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, text, boolean, number, select } from '@storybook/addon-knobs';
 
 import { WrapWithTheme } from '../../utils/stories';
+import withTests from '../../test-utils/storiesWithTest';
 // Component to show on storybook
 import { ChatIcon } from '../../../lib';
 
 const stories = storiesOf('ChatIcon', module);
 stories.addDecorator(withKnobs);
+stories.addDecorator(withTests('ChatIcon'));
 
 stories.addWithInfo(
   'ChatIcon',

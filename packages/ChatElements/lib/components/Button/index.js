@@ -7,7 +7,6 @@ import './index.scss';
 const DELAY = 300;
 const LOADER_DELAY = 900;
 
-
 class Button extends Component {
   constructor(props) {
     super(props);
@@ -26,10 +25,8 @@ class Button extends Component {
     this.setState({ disabled: true });
 
     const handler = clickHandler();
-
     if (handler && handler instanceof Promise) {
       const loader = setTimeout(() => this.setState({ showLoading: true }), LOADER_DELAY);
-
       handler.then(() => {
         clearTimeout(loader);
 

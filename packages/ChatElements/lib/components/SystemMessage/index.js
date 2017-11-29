@@ -12,7 +12,7 @@ const SystemMessage = (props) =>
         className="letstalk-smsg"
       >
         <div className="letstalk-smsg-text">
-          {props.text}
+          <span>{props.text}</span>
         </div>
       </div>
     </div>

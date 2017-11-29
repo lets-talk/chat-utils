@@ -35,9 +35,7 @@
   font-size: $chatIcon-font-size;
   float: left;
   text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  @include ellipsis(100%);
 }
 
 .letstalk-ChatIcon i.md-icon-chat {

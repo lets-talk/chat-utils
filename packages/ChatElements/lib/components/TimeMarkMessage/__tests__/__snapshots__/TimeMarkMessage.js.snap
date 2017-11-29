@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimeMarkMessage component should render with data 1`] = `
+<div
+  className="letstalk-container-timemark"
+>
+  <div
+    className="letstalk-timemark"
+  >
+    <div
+      className="letstalk-timemark-text"
+    >
+      28/11/2017
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TimeMarkMessage component should render without data 1`] = `
+<div
+  className="letstalk-container-timemark"
+>
+  <div
+    className="letstalk-timemark"
+  >
+    <div
+      className="letstalk-timemark-text"
+    />
+  </div>
+</div>
+`;

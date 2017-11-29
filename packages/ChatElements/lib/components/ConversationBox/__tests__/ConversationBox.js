@@ -4,6 +4,9 @@ import toJson from 'enzyme-to-json';
 import ConversationBox from '../index';
 
 describe('ConversationBox component', () => {
+  // Fake the Date.now so test always returns 9 hours
+  // This is equivalent to the 19/11/2017 -> 1511136000000
+  Date.now = jest.fn(() => new Date(Date.UTC(2017, 10, 20)).valueOf());
   const conversation = {
     client: {
       name: 'Georgia Harmon',

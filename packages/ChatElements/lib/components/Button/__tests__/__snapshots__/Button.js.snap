@@ -6,7 +6,7 @@ exports[`Button component should render with data 1`] = `
 >
   <input
     className="letstalk-button my-custom-button-class"
-    disabled={false}
+    disabled={true}
     onClick={[Function]}
     type="button"
     value="custom"

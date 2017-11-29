@@ -35,3 +35,12 @@ exports[`ConversationList component should render with empty props 1`] = `
   emptyStateText=""
 />
 `;
+
+exports[`ConversationList component should render with no conversation the empty state 1`] = `
+<ConversationList
+  clickItem={null}
+  cmpRef={null}
+  conversations={Array []}
+  emptyStateText="No hay mas conversaciones"
+/>
+`;

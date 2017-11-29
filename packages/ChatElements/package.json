@@ -14,11 +14,14 @@
     "build:watch": "babel lib -w -d build",
     "lint": "eslint lib/**; exit 0",
     "lint:watch": "esw -w lib/**",
+    "changelog": "pr-log --sloppy",
+    "precommit": "lint-staged",
     "prepublish": "npm run build",
     "test": "jest",
-    "test:update": "jest -- -u",
+    "test:update": "jest --updateSnapshot",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:generate-output": "jest --json --outputFile=tests-results/jest-test-results.json"
   },
   "keywords": [
     "react",
@@ -81,6 +84,7 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/lib/test-utils/jest.setup.js",
+    "testMatch": ["<rootDir>/lib/components/**/__tests__/**/*.js?(x)", "<rootDir>/lib/utils/**/__tests__/**/*.js?(x)", "**/?(*.).js?(x)"],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/lib/test-utils/__mocks__/fileMock.js",
       "\\.(css|less|scss)$": "<rootDir>/lib/test-utils/__mocks__/styleMock.js"
@@ -181,6 +185,9 @@
       "react/self-closing-comp": 0,
       "require-yield": 0
     }
+  },
+  "lint-staged": {
+    "*.js": ["eslint --fix", "git add"]
   },
   "publishConfig": {
     "registry": "http://localhost:4873/"

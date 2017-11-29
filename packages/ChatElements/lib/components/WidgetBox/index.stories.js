@@ -13,6 +13,7 @@ import { WidgetBox } from '../../../lib';
 const stories = storiesOf('WidgetBox', module);
 stories.addDecorator(withKnobs);
 
+
 const themeOptions = { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' };
 const defaultTheme = 'default';
 
@@ -40,19 +41,19 @@ const random = (type) => {
       var status = 'waiting';
       switch (type) {
         case 0:
-          type = 'photo';
+          type = 'Photo';
           status = 'waiting';
           break;
         case 1:
-          type = 'file';
+          type = 'File';
           status = 'sent';
           break;
         case 2:
-          type = 'system';
+          type = 'Time';
           status = 'received';
           break;
         default:
-          type = 'text';
+          type = 'Text';
           status = 'read';
           break;
       }
@@ -67,7 +68,7 @@ const random = (type) => {
         // titleColor: getRandomColor(),
         text: loremIpsum({ count: 1, units: 'sentences' }),
         data: {
-          uri: type !== 'photo' ? `${photo()}` : `${photo(true)}`,
+          uri: type !== 'Photo' ? `${photo()}` : `${photo(true)}`,
           status: {
             click: false,
             loading: 0,
@@ -80,7 +81,11 @@ const random = (type) => {
         status,
         date: new Date(),
         dateString: moment(new Date()).format('HH:mm'),
-        avatar: `${photo()}`,
+        person: {
+          avatar: `${photo()}`,
+          email: '',
+          type: 'Client',
+        },
       };
     case 'chat':
       return {
@@ -129,7 +134,7 @@ for (let i = 1; i < 15; i += 1) {
 }
 
 stories.addWithInfo(
-  'Chat Widget - 2',
+  'Basic Usage - Empty WidgetBox',
   'This is the basic usage of a Widget Box.',
   () => (
     <WrapWithTheme
@@ -155,18 +160,23 @@ const story3Messages = [
   {
     position: 'left',
     forwarded: true,
-    type: 'system',
+    type: 'Time',
     theme: 'white',
     view: 'list',
     text: '23/08/2017',
     status: 'received',
     date: '2017-11-14T03:40:45.298Z',
     dateString: '00:40',
+    person: {
+      avatar: '',
+      email: '',
+      type: 'Client',
+    },
   },
   {
     position: 'right',
     forwarded: true,
-    type: 'text',
+    type: 'Text',
     theme: 'white',
     view: 'list',
     title: '',
@@ -174,11 +184,16 @@ const story3Messages = [
     status: 'read',
     date: '2017-11-14T18:24:22.133Z',
     dateString: '18:24',
+    person: {
+      avatar: '',
+      email: '',
+      type: 'Client',
+    },
   },
   {
     position: 'right',
     forwarded: true,
-    type: 'text',
+    type: 'Text',
     theme: 'white',
     view: 'list',
     title: '',
@@ -186,11 +201,16 @@ const story3Messages = [
     status: 'read',
     date: '2017-11-14T18:24:22.133Z',
     dateString: '18:24',
+    person: {
+      avatar: '',
+      email: '',
+      type: 'Client',
+    },
   },
   {
     position: 'left',
     forwarded: true,
-    type: 'text',
+    type: 'Text',
     theme: 'white',
     view: 'list',
     title: '',
@@ -198,13 +218,16 @@ const story3Messages = [
     status: 'read',
     date: '2017-11-14T18:25:22.133Z',
     dateString: '18:25',
-    avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
-    user_type: 'agent',
+    person: {
+      avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      email: '',
+      type: 'Agent',
+    },
   },
   {
     position: 'left',
     forwarded: true,
-    type: 'typing',
+    type: 'Typing',
     theme: 'white',
     view: 'list',
     title: '',
@@ -212,14 +235,17 @@ const story3Messages = [
     status: 'read',
     date: '2017-11-14T18:25:22.133Z',
     dateString: '18:25',
-    avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
-    user_type: 'agent',
+    person: {
+      avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      email: '',
+      type: 'Agent',
+    },
   },
 ];
 
 stories.addWithInfo(
-  'Chat widget - 3',
-  'This is the usage using the user Avatar.',
+  'Basic Usage with Agent typing',
+  'This is the usage when agent is typing.',
   () => (
     <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
       <WrapWithTheme
@@ -247,7 +273,7 @@ const fileMessages = [
   {
     position: 'left',
     forwarded: true,
-    type: 'file',
+    type: 'File',
     theme: 'white',
     view: 'list',
     title: 'Solicitud de nueva tarjeta Banco',
@@ -265,12 +291,16 @@ const fileMessages = [
     status: 'sent',
     date: '2017-11-15T20:34:27.173Z',
     dateString: '17:34',
-    avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+    person: {
+      avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      email: '',
+      type: 'Client',
+    },
   },
   {
     position: 'right',
     forwarded: false,
-    type: 'file',
+    type: 'File',
     theme: 'white',
     view: 'list',
     title: 'Datos Contacto',
@@ -288,7 +318,11 @@ const fileMessages = [
     status: 'waiting',
     date: '2017-11-15T20:34:27.173Z',
     dateString: '17:34',
-    avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+    person: {
+      avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      email: '',
+      type: 'Client',
+    },
   },
 ];
 
@@ -322,7 +356,7 @@ const actionableMessages = [
   {
     position: 'left',
     forwarded: true,
-    type: 'text',
+    type: 'Text',
     theme: 'white',
     view: 'list',
     title: 'TalkBot',
@@ -340,12 +374,16 @@ const actionableMessages = [
     status: 'sent',
     date: '2017-11-15T20:34:27.173Z',
     dateString: '18:23',
-    user_type: 'bot',
+    person: {
+      avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      email: '',
+      type: 'Bot',
+    },
   },
   {
     position: 'left',
     forwarded: true,
-    type: 'text',
+    type: 'Text',
     theme: 'white',
     view: 'list',
     title: '',
@@ -363,12 +401,16 @@ const actionableMessages = [
     status: 'sent',
     date: '2017-11-15T20:34:27.173Z',
     dateString: '18:23',
-    user_type: 'bot',
+    person: {
+      avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      email: '',
+      type: 'Bot',
+    },
   },
   {
     position: 'left',
     forwarded: false,
-    type: 'actionable',
+    type: 'Actionable',
     theme: 'white',
     view: 'list',
     text: 'Datos Contacto',
@@ -395,7 +437,11 @@ const actionableMessages = [
     status: 'waiting',
     date: '2017-11-15T20:34:27.173Z',
     dateString: '18:23',
-    avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+    person: {
+      avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      email: '',
+      type: 'Bot',
+    },
   },
 ];
 

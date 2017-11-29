@@ -10,7 +10,9 @@ exports[`ActionableMessageBox component should render with data 1`] = `
     onClick={null}
     role="button"
   >
-    Emergencia Bancaria
+    <span>
+      Emergencia Bancaria
+    </span>
   </li>
   <li
     className="letstalk-actionable-item"
@@ -18,7 +20,9 @@ exports[`ActionableMessageBox component should render with data 1`] = `
     onClick={null}
     role="button"
   >
-    Tarjeta de crédito
+    <span>
+      Tarjeta de crédito
+    </span>
   </li>
   <li
     className="letstalk-actionable-item"
@@ -26,7 +30,9 @@ exports[`ActionableMessageBox component should render with data 1`] = `
     onClick={null}
     role="button"
   >
-    Crédito Personal
+    <span>
+      Crédito Personal
+    </span>
   </li>
   <li
     className="letstalk-actionable-item"
@@ -34,7 +40,9 @@ exports[`ActionableMessageBox component should render with data 1`] = `
     onClick={null}
     role="button"
   >
-    Otro
+    <span>
+      Otro
+    </span>
   </li>
 </ul>
 `;
@@ -49,7 +57,9 @@ exports[`ActionableMessageBox component should render without data 1`] = `
     onClick={null}
     role="button"
   >
-    Emergencia Bancaria
+    <span>
+      Emergencia Bancaria
+    </span>
   </li>
   <li
     className="letstalk-actionable-item"
@@ -57,7 +67,9 @@ exports[`ActionableMessageBox component should render without data 1`] = `
     onClick={null}
     role="button"
   >
-    Tarjeta de crédito
+    <span>
+      Tarjeta de crédito
+    </span>
   </li>
   <li
     className="letstalk-actionable-item"
@@ -65,7 +77,9 @@ exports[`ActionableMessageBox component should render without data 1`] = `
     onClick={null}
     role="button"
   >
-    Crédito Personal
+    <span>
+      Crédito Personal
+    </span>
   </li>
   <li
     className="letstalk-actionable-item"
@@ -73,7 +87,9 @@ exports[`ActionableMessageBox component should render without data 1`] = `
     onClick={null}
     role="button"
   >
-    Otro
+    <span>
+      Otro
+    </span>
   </li>
 </ul>
 `;
