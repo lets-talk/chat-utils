@@ -33,14 +33,3 @@ stories.addWithInfo(
     </WrapWithTheme>
   )
 );
-
-stories.addWithInfo(
-  'Avatar 2',
-  'Demo.',
-  () => (
-    <div id="bodymovin">
-      <img src="example.svg" />
-      <img width="200px" height="200px" src="demosvgator.svg" />
-    </div>
-  )
-);

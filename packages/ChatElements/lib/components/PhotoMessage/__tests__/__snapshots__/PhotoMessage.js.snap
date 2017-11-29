@@ -6,20 +6,20 @@ exports[`PhotoMessage component should render a System message 1`] = `
 >
   <div
     className="letstalk-mbox-photo--img"
+    onClick={null}
+    onKeyPress={null}
+    role="button"
     style={
       Object {
         "height": 50,
         "width": 50,
       }
     }
+    tabIndex="0"
   >
     <img
       alt="Image alt"
-      onClick={null}
-      onKeyPress={null}
-      role="button"
       src=""
-      tabIndex={0}
     />
   </div>
   <div

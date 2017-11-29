@@ -52,7 +52,8 @@ describe('PhotoMessage component', () => {
         uri: '',
         alt: 'Image alt',
         status: {
-          download: true,
+          download: false,
+          click: false,
         },
       },
     };

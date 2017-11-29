@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils/hoc withAutoScroll: should adds autoscroll feature to a wrapper component 1`] = `
+<MySimpleComponent
+  cmpRef={[Function]}
+/>
+`;
+
+exports[`utils/hoc withLoading: should adds loading feature to a wrapper component 1`] = `
+<div>
+  <MySimpleComponent
+    loading={true}
+  />
+  <div
+    className="interactions"
+  />
+</div>
+`;
+
+exports[`utils/hoc withPaginated: should adds loading feature to a wrapper component 1`] = `
+<div>
+  <MySimpleComponent />
+  <div
+    className="interactions"
+  >
+    <button
+      type="button"
+    >
+      More
+    </button>
+  </div>
+</div>
+`;
+
+exports[`utils/hoc withScrollWatch: should adds loading feature to a wrapper component 1`] = `
+<MySimpleComponent
+  x={0}
+  y={0}
+/>
+`;
+
+exports[`utils/hoc withScrollWatch: should adds loading feature to a wrapper component 2`] = `<MySimpleComponent />`;

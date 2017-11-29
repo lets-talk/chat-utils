@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loader component should render a Loader indicator when active is true 1`] = `
+<div
+  className="letstalk-loader letstalk-loader-active"
+>
+  <div
+    className="letstalk-loader-inner letstalk-ball-pulse undefined"
+  >
+    <div
+      className="letstalk-ball-div"
+      key="0"
+      style={Object {}}
+    />
+    <div
+      className="letstalk-ball-div"
+      key="1"
+      style={Object {}}
+    />
+    <div
+      className="letstalk-ball-div"
+      key="2"
+      style={Object {}}
+    />
+  </div>
+</div>
+`;
+
+exports[`Loader component should render correctly with fullScreen 1`] = `
+<div
+  className="letstalk-loader letstalk-loader-active-full-screen letstalk-loader-active"
+>
+  <div
+    className="letstalk-loader-inner letstalk-ball-pulse undefined"
+  >
+    <div
+      className="letstalk-ball-div"
+      key="0"
+      style={Object {}}
+    />
+    <div
+      className="letstalk-ball-div"
+      key="1"
+      style={Object {}}
+    />
+    <div
+      className="letstalk-ball-div"
+      key="2"
+      style={Object {}}
+    />
+  </div>
+</div>
+`;
+
+exports[`Loader component should render correctly with fullScreen 2`] = `
+<div
+  className="letstalk-loader letstalk-loader-active-full-screen letstalk-loader-active customClassName"
+>
+  <div
+    className="letstalk-loader-inner letstalk-ball-pulse undefined"
+  >
+    <div
+      className="letstalk-ball-div"
+      key="0"
+      style={
+        Object {
+          "backgroundColor": "#FEFEFE",
+          "borderLeftColor": "#FEFEFE",
+          "borderRightColor": "#FEFEFE",
+          "borderTopColor": "#FEFEFE",
+        }
+      }
+    />
+    <div
+      className="letstalk-ball-div"
+      key="1"
+      style={
+        Object {
+          "backgroundColor": "#FEFEFE",
+          "borderLeftColor": "#FEFEFE",
+          "borderRightColor": "#FEFEFE",
+          "borderTopColor": "#FEFEFE",
+        }
+      }
+    />
+    <div
+      className="letstalk-ball-div"
+      key="2"
+      style={
+        Object {
+          "backgroundColor": "#FEFEFE",
+          "borderLeftColor": "#FEFEFE",
+          "borderRightColor": "#FEFEFE",
+          "borderTopColor": "#FEFEFE",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`Loader component should render only one div when type is ball-clip-rotate 1`] = `
+<div
+  className="letstalk-loader letstalk-loader-active-full-screen letstalk-loader-active"
+>
+  <div
+    className="letstalk-loader-inner letstalk-ball-clip-rotate undefined"
+  >
+    <div
+      className="letstalk-ball-div"
+      key="0"
+      style={Object {}}
+    />
+  </div>
+</div>
+`;
+
+exports[`Loader component should render with no props 1`] = `
+<div
+  className="letstalk-loader letstalk-loader-hidden"
+>
+  <div
+    className="letstalk-loader-inner letstalk-ball-pulse undefined"
+  >
+    <div
+      className="letstalk-ball-div"
+      key="0"
+      style={Object {}}
+    />
+    <div
+      className="letstalk-ball-div"
+      key="1"
+      style={Object {}}
+    />
+    <div
+      className="letstalk-ball-div"
+      key="2"
+      style={Object {}}
+    />
+  </div>
+</div>
+`;

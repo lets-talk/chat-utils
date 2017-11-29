@@ -124,7 +124,7 @@ const withAutoScroll = ({ direction, threshold, lockable }) => (WrappedComponent
 
   loadRef(ref) {
     this.mlistRef = ref;
-    if (this.props.cmpRef instanceof Function) { this.props.cmpRef(ref); }
+    if (this.props.cmpRef) { this.props.cmpRef(ref); }
   }
 
   render() {
