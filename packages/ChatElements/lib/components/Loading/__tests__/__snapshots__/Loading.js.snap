@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading component should render a Loading indicator when isLoading is true 1`] = `
+<Loader
+  active={true}
+  color={false}
+  fullScreen={false}
+  size="large"
+  type="ball-clip-rotate"
+/>
+`;
+
+exports[`Loading component should render an error when isLoading is true and there is error object 1`] = `
+<p>
+  Error!
+</p>
+`;
+
+exports[`Loading component should render without issues when isLoading is false 1`] = `""`;

@@ -18,7 +18,7 @@ const ActionableMessageBox = (props) => {
             role="button"
             onClick={onClickAction && ((e) => onClickAction(action, index, e))}
           >
-            {action.name}
+            <span>{action.name}</span>
           </li>
         ))}
     </ul>

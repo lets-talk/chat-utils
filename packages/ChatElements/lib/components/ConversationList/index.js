@@ -21,11 +21,17 @@ class ConversationList extends Component {
           <div className="letstalk-conversations-list">
             {this.props.conversations.map((conversation, index) =>
               (
-                <div className="letstalk-conversation-container" key={index}>
+                <div
+                  role="button"
+                  tabIndex={index + 1}
+                  className="letstalk-conversation-container"
+                  key={conversation.id}
+                  onClick={this.props.clickItem && ((e) => this.onClick(conversation, index, e))}
+                  onKeyPress={this.props.clickItem && ((e) => this.onClick(conversation, index, e))}
+                >
                   <ConversationBox
                     conversation={conversation}
                     key={`conversation-${index}`}
-                    onClick={this.props.clickItem && ((e) => this.onClick(conversation, index, e))}
                   />
                 </div>
               ))

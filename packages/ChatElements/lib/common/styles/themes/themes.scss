@@ -2,13 +2,13 @@ $themes: (
   default: (
     // Text & Colors
     color-text: $color-white,
-    color-primary: rgb(4, 38, 73),
-    color-secondary: rgba(4, 38, 73, .7),
-    color-disabled: rgba(4, 38, 73, .3),
-    color-hint-primary: rgba(4, 38, 73, .3),
+    color-primary: $color-primary,
+    color-secondary: rgba($color-primary, .7),
+    color-disabled: rgba($color-primary, .3),
+    color-hint-primary: rgba($color-primary, .3),
     color-hint-secondary: rgba(255, 255, 255, .65),
-    color-divider: rgba(4, 38, 73, .1),
-    color-background-primary: rgb(255, 87, 34),//#FF5722,
+    color-divider: rgba($color-primary, .1),
+    color-background-primary: rgb(255, 87, 34),
     color-background-secondary: rgba(94, 124, 139, .1),
     color-bot-agent: rgb(94, 124, 139),
     // Messages Types
@@ -48,18 +48,18 @@ $themes: (
     // Text & Colors
     color-text: $color-white,
     color-primary: $palette-grey-900,
-    color-secondary: lighten($color-secondary, 70%),
-    color-disabled: lighten($color-secondary, 30%),
-    color-hint-primary: lighten($color-primary, 30%),
-    color-hint-secondary: lighten($color-secondary, 30%),
-    color-divider: lighten($color-secondary, 10%),
+    color-secondary: rgba($color-secondary, .7),
+    color-disabled: rgba($color-secondary, .3),
+    color-hint-primary: rgba($color-primary, .3),
+    color-hint-secondary: rgba($color-secondary, .3),
+    color-divider: rgba($color-secondary, .1),
     color-background-primary: $palette-blue-500,
     color-background-secondary: $palette-blue-a400,
     color-bot-agent: rgb(94,124, 139),
     // Messages Types
     messages: (
-      internal-background-color: lighten(grey, 40%),
-      important-background-color: lighten(red, 40%),
+      internal-background-color: rgba(grey, .4),
+      important-background-color: rgba(red, .4),
     ),
     // COMPONENTS STYLES
     loader: (

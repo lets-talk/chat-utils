@@ -8,7 +8,7 @@ import Avatar from '../Avatar';
 import './index.scss';
 
 const Header = ({
-  title, subtitle, avatar, toggleChat, openMenu, showMinimizeButton, showMenuButton,
+  title, subtitle, avatar, avatarStatus, toggleChat, openMenu, showMinimizeButton, showMenuButton,
 }) =>
   (
     <div className="letstalk-header">
@@ -28,8 +28,8 @@ const Header = ({
         <Avatar
           src={avatar}
           size="medium"
-          withStatus
-          status="online"
+          withStatus={avatarStatus.length > 0}
+          status={avatarStatus}
         />
       }
       <h4 className="letstalk-title">{title}</h4>
@@ -41,6 +41,7 @@ Header.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   avatar: PropTypes.string,
+  avatarStatus: PropTypes.string,
   toggleChat: PropTypes.func,
   openMenu: PropTypes.func,
   showMinimizeButton: PropTypes.bool,

@@ -34,11 +34,13 @@ exports[`ConversationListBox component should render with custom props 1`] = `
         },
       ]
     }
+    emptyStateText=""
+    noMoreDataText=""
   />
   <Button
     clickHandler={[Function]}
     type="submit"
-    value="Nueva conversación"
+    value=""
   />
 </div>
 `;
@@ -77,11 +79,13 @@ exports[`ConversationListBox component should render with minimal props 1`] = `
         },
       ]
     }
+    emptyStateText=""
+    noMoreDataText=""
   />
   <Button
     clickHandler={[Function]}
     type="submit"
-    value="Nueva conversación"
+    value=""
   />
 </div>
 `;

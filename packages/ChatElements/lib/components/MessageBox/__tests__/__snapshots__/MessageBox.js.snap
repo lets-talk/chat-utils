@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`MessageBox component should render a System message 1`] = `
+<div
+  className="letstalk-container-mbox"
+  onClick={null}
+  onKeyPress={null}
+  role="button"
+  tabIndex="-3"
+>
+  <SystemMessage
+    text=""
+  />
+</div>
+`;
+
 exports[`MessageBox component should render without issues 1`] = `
 <div
   className="letstalk-container-mbox"
@@ -9,16 +23,25 @@ exports[`MessageBox component should render without issues 1`] = `
   tabIndex="-3"
 >
   <div
-    className="letstalk-mbox letstalk-mbox-left"
+    className="letstalk-mbox-avatar-container letstalk-mbox-avatar-container-left"
+  >
+    <Avatar
+      alt=""
+      size="xsmall"
+      src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
+      status="online"
+      type="circle"
+      withStatus={false}
+    />
+  </div>
+  <div
+    className="letstalk-mbox letstalk-mbox-left letstalk-mbox--clear-padding"
   >
     <div
       className="letstalk-mbox-body"
     >
       <div
-        className="letstalk-mbox-content letstalk-mbox-text"
-      />
-      <div
-        className="letstalk-mbox-time"
+        className="letstalk-mbox-time letstalk-mbox-time-block"
       >
         a few seconds ago
         <span
@@ -31,5 +54,31 @@ exports[`MessageBox component should render without issues 1`] = `
       </div>
     </div>
   </div>
+</div>
+`;
+
+exports[`MessageBox component should render without issues 2`] = `
+<div
+  className="letstalk-container-mbox"
+  onClick={null}
+  onKeyPress={null}
+  role="button"
+  tabIndex="-3"
+>
+  <div
+    className="letstalk-mbox-avatar-container letstalk-mbox-avatar-container-left"
+  >
+    <Avatar
+      alt=""
+      size="xsmall"
+      src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
+      status="online"
+      type="circle"
+      withStatus={false}
+    />
+  </div>
+  <TimeMarkMessage
+    text=""
+  />
 </div>
 `;

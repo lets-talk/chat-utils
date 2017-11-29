@@ -9,7 +9,9 @@ exports[`SystemMessage component should render without issues 1`] = `
   >
     <div
       className="letstalk-smsg-text"
-    />
+    >
+      <span />
+    </div>
   </div>
 </div>
 `;

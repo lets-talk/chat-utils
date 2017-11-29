@@ -42,4 +42,33 @@ describe('ConversationList component', () => {
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
   });
+
+  it('should render with no conversation the empty state', () => {
+    const props = {
+      conversations: [],
+      clickItem: null,
+      cmpRef: null,
+      emptyStateText: 'No hay mas conversaciones',
+    };
+
+    const component = shallow(<ConversationList {...props} />);
+
+    expect(component.length).toBe(1);
+    expect(toJson(component)).toMatchSnapshot();
+  });
+
+  it('Test onClick event ', () => {
+    const mockCallBack = jest.fn();
+    const fakeEventObject = { preventDefault() {}, stopPropagation() {} };
+
+    const props = {
+      conversations,
+      cmpRef: null,
+      emptyStateText: 'No hay mas conversaciones',
+    };
+
+    const component = shallow(<ConversationList clickItem={mockCallBack} {...props} />);
+    component.find('.letstalk-conversation-container').first().simulate('click', fakeEventObject);
+    expect(mockCallBack.mock.calls.length).toEqual(1);
+  });
 });

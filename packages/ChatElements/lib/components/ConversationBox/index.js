@@ -18,16 +18,12 @@ const ConversationBox = (props) => {
 
   return (
     <div
-      role="button"
-      tabIndex="-3"
       className={classNames(
         'letstalk-cbox', lastMessageType, props.className,
         {
           'not-read': !lastMessageReaded,
         }
       )}
-      onClick={props.onClick}
-      onKeyPress={props.onClick}
     >
       {
         conversation.client.avatar &&

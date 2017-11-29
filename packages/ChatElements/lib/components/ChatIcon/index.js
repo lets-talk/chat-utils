@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import MdChat from 'react-icons/lib/md/chat';
 // Stylesheet
 import './index.scss';
@@ -61,8 +61,6 @@ const ChatIcon = (props) => {
   );
 
   const Button = styled.button`
-    color: ${(props) => props.theme.palette.primary1Color};
-    background-color: ${(props) => props.theme.palette.primary1Color};
     width: ${props.width}px;
     height: ${props.height}px;
     margin: ${props.margin};
@@ -85,8 +83,7 @@ const ChatIcon = (props) => {
   const defaultIcon = (
     <div className="letstalk-ChatIconContainer">
       <Button
-        className={classnames('letstalk-ChatIcon', props.type)}
-        onTouchTap={(a) => a}
+        className={classNames('letstalk-ChatIcon', props.type)}
       >
         <StyledSpan className="intro-message">{props.text}</StyledSpan>
         {props.showIcon && <MdChat size={props.height / 2.5} color="white" />}
@@ -115,7 +112,6 @@ const ChatIcon = (props) => {
       iconStyle={{
         borderRadius: chatIconRadius, backgroundColor: 'transparent', height: '50px', width: 'auto',
       }}
-      onTouchTap={(a) => a}
     >
       <img
         alt="Launch chat"
@@ -162,16 +158,6 @@ ChatIcon.propTypes = {
    * margin: Set the margin of the button
    */
   margin: PropTypes.string,
-  /**
-   * Description of prop "theme".
-   */
-  theme: PropTypes.shape({
-    palette: PropTypes.shape({
-      primary1Color: PropTypes.string,
-      primary2Color: PropTypes.string,
-      counterText: PropTypes.string,
-    }),
-  }),
   chat_icon_pic: PropTypes.string,
   chatIconRadius: PropTypes.string,
   display: PropTypes.string,
@@ -186,13 +172,6 @@ ChatIcon.defaultProps = {
   height: 50,
   width: 250,
   margin: '',
-  theme: {
-    palette: {
-      primary1Color: '#f33535',
-      cntColor: 'white',
-      counterText: '',
-    },
-  },
   chat_icon_pic: '',
   display: 'minimized',
 };

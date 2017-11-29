@@ -5,14 +5,17 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean, select, object } from '@storybook/addon-knobs';
 
 import { WrapWithTheme } from '../../utils/stories';
+import withTests from '../../test-utils/storiesWithTest';
 // Component to show on storybook
 import { ConversationListBox } from '../../../lib';
 
 const stories = storiesOf('ConversationList', module);
 stories.addDecorator(withKnobs);
+stories.addDecorator(withTests('ConversationListBox'));
 
 const conversationList = [
   {
+    id: 1,
     client: {
       name: 'Georgia Harmon',
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
@@ -28,6 +31,7 @@ const conversationList = [
     ],
   },
   {
+    id: 2,
     client: {
       name: 'Georgia Harmon',
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
@@ -41,6 +45,7 @@ const conversationList = [
     tags: null,
   },
   {
+    id: 3,
     client: {
       name: 'Georgia Harmon',
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
@@ -57,6 +62,7 @@ const conversationList = [
     ],
   },
   {
+    id: 4,
     client: {
       name: 'Georgia Harmon',
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
@@ -73,6 +79,7 @@ const conversationList = [
     ],
   },
   {
+    id: 5,
     client: {
       name: 'Georgia Harmon',
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
@@ -93,6 +100,7 @@ const conversationList = [
     ],
   },
   {
+    id: 6,
     client: {
       name: 'Georgia Harmon',
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
@@ -108,22 +116,29 @@ stories.addWithInfo(
   'Simple Conversation List',
   'This is the basic usage of a ConversationList with providing a label to show the text.',
   () => (
-    <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
+    <div
+      style={{
+        position: 'fixed', bottom: 0, right: '10px', width: '400px',
+      }}
+    >
       <WrapWithTheme
         themeName={select('Theme', { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' }, 'default')}
       >
         <ConversationListBox
-          title={text('Title', 'Conversaciones')}
-          subtitle={text('Subtitle', '')}
-          senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
+          title={text('title', 'Conversaciones')}
+          subtitle={text('subtitle', '')}
           toggleChat={action('toggleChat')}
           openMenu={action('openMenu')}
           clickConversationHandler={action('clickConversationHandler')}
           newConversationHandler={action('newConversationHandler')}
-          showMenuButton={boolean('Show Menu Button', false)}
-          showMinimizeButton={boolean('Show Minimize Button', false)}
-          emptyStateText={text('Empty state text', 'Sin conversaciones abiertas')}
-          noMoreDataText={text('No more data text', 'No hay mas conversaciones')}
+          showMenuButton={boolean('showMenuButton', false)}
+          showMinimizeButton={boolean('showMinimizeButton', false)}
+          showAddConversationButton={boolean('showAddConversationButton', true)}
+          emptyStateText={text('emptyStateText', 'Sin conversaciones abiertas')}
+          avatar={text('avatar', '')}
+          avatarStatus={text('avatarStatus', '')}
+          noMoreDataText={text('noMoreDataText', 'No hay mas conversaciones')}
+          newConversationText={text('newConversationText', 'Nueva conversación')}
           conversations={object('conversations', conversationList)}
           toBottomHeight="100%"
         />
