@@ -1,6 +1,6 @@
 {
   "name": "@letstalk/ChatElements",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "React Component that help implment LetsTalk interfaces.",
   "main": "build/index.js",
   "directories": {
