@@ -1,4 +1,4 @@
-## Icons components to be used on different sites
+## ChatElements components to be used on different sites
 
 A set of UI Icon for use across different web applications.
 

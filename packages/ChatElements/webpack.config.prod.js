@@ -13,7 +13,7 @@ module.exports = {
     path: path.resolve(process.cwd(), 'build'),
     publicPath: '/',
     filename: 'index.js',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'umd',
     library: 'LetsTalkToolkitChatElements',
   }, {}), // Merge with env dependent settings
   module: {
@@ -59,7 +59,7 @@ module.exports = {
           // use the "style" loader inside the async code so CSS from them won't be
           // in the main CSS file.
           {
-            test: /\.css$/,
+            test: /\.scss$/,
             loader: ExtractTextPlugin.extract(Object.assign({
               fallback: {
                 loader: require.resolve('style-loader'),
@@ -95,19 +95,12 @@ module.exports = {
                     ],
                   },
                 },
+                {
+                  loader: 'sass-loader', // compiles Sass to CSS
+                },
               ],
             })),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
-          },
-          {
-            test: /\.scss$/,
-            use: [{
-              loader: 'style-loader', // creates style nodes from JS strings
-            }, {
-              loader: 'css-loader', // translates CSS into CommonJS
-            }, {
-              loader: 'sass-loader', // compiles Sass to CSS
-            }],
           },
           {
             test: /\.(jpg|png|gif|svg)$/,
