@@ -14,7 +14,7 @@ module.exports = {
     publicPath: '/',
     filename: 'index.js',
     libraryTarget: 'umd',
-    library: 'LetsTalkToolkitChatElements',
+    umdNamedDefine: true,
   }, {}), // Merge with env dependent settings
   module: {
 
