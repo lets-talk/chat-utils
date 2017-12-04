@@ -7,9 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "build:analyze": "webpack --config webpack.config.dev.js --progress --profile --colors",
-    "build": "rimraf build && babel ./lib --out-dir ./build",
-    "build:dev": "rimraf build && babel ./lib --out-dir ./build",
+    "build:analyze": "webpack --config webpack.config.dev.js --json > webpack-stats.json",
+    "build:dev": "webpack --config webpack.config.dev.js --progress --colors",
     "build:prod": "webpack --config webpack.config.prod.js --progress --profile --colors",
     "build:watch": "babel lib -w -d build",
     "lint": "eslint lib/**; exit 0",

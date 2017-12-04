@@ -8,11 +8,12 @@ module.exports = {
   entry: [
     path.join(process.cwd(), 'lib/index.js'),
   ],
+  devtool: 'source-map',
   output: Object.assign({ // Compile into js/build.js
     path: path.resolve(process.cwd(), 'build'),
     publicPath: '/',
     filename: 'index.js',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'umd',
     library: 'LetsTalkToolkitChatElements',
   }, {}), // Merge with env dependent settings
   module: {

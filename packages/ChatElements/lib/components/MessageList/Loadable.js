@@ -3,10 +3,8 @@ import path from 'path';
 import Loadable from 'react-loadable';
 import LoadingComponent from '../Loading';
 
-const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
-
 const LoadableMessageList = Loadable({
-  loader: () => sleep(5000).then(() => import('./index')),
+  loader: () => import('./index'),
   loading: LoadingComponent,
   serverSideRequirePath: path.resolve(__dirname, './index'),
 });
