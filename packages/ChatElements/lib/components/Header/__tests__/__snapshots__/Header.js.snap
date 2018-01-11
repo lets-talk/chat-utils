@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component should render with data 1`] = `
+<div
+  className="letstalk-header"
+>
+  <button
+    className="letstalk-minimize-button"
+    onClick={[Function]}
+  >
+    <MdKeyboardArrowDown
+      color="white"
+      size={20}
+    />
+  </button>
+  <button
+    className="letstalk-menu-button"
+    onClick={[Function]}
+  >
+    <MdMenu
+      color="white"
+      size={20}
+    />
+  </button>
+  <h4
+    className="letstalk-title"
+  >
+    Header Title
+  </h4>
+  <span
+    className="letstalk-subtitle"
+  >
+    Header subtitle
+  </span>
+</div>
+`;
+
+exports[`Header component should render with minimal props 1`] = `
+<div
+  className="letstalk-header"
+>
+  <button
+    className="letstalk-minimize-button"
+    onClick={null}
+  >
+    <MdKeyboardArrowDown
+      color="white"
+      size={20}
+    />
+  </button>
+  <button
+    className="letstalk-menu-button"
+    onClick={null}
+  >
+    <MdMenu
+      color="white"
+      size={20}
+    />
+  </button>
+  <h4
+    className="letstalk-title"
+  />
+  <span
+    className="letstalk-subtitle"
+  />
+</div>
+`;

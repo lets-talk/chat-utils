@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import ConversationList from '../index';
 
@@ -67,8 +67,9 @@ describe('ConversationList component', () => {
       emptyStateText: 'No hay mas conversaciones',
     };
 
-    // const component = shallow(<ConversationList clickItem={mockCallBack} {...props} />);
-    // component.find('.letstalk-conversation-container').first().simulate('click', fakeEventObject);
-    // expect(mockCallBack.mock.calls.length).toEqual(1);
+    // Need to call mount because the click is triggered in the child ConversationBox item element
+    const component = mount(<ConversationList {...props} clickItem={() => mockCallBack()} />);
+    component.find('.letstalk-conversation-container').simulate('click', fakeEventObject);
+    expect(mockCallBack.mock.calls.length).toEqual(1);
   });
 });

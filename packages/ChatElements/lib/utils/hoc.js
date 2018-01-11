@@ -96,7 +96,6 @@ const withAutoScroll = ({ direction, threshold, lockable }) => (WrappedComponent
 
   componentDidUpdate() {
     const e = this.mlistRef;
-    // const { direction, threshold, lockable } = this.props;
     if (!e) { return; }
 
     const bottom = this.getBottom(e);
