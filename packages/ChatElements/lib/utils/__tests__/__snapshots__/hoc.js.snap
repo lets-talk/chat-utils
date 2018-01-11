@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`utils/hoc withAutoScroll: should adds autoscroll feature to a wrapper component 1`] = `
-<MySimpleComponent
-  cmpRef={[Function]}
-/>
-`;
+exports[`utils/hoc WithInfiniteScroll: should adds loading feature to a wrapper component 1`] = `<MySimpleComponent />`;
 
 exports[`utils/hoc withLoading: should adds loading feature to a wrapper component 1`] = `
 <div>
@@ -38,5 +34,3 @@ exports[`utils/hoc withScrollWatch: should adds loading feature to a wrapper com
   y={0}
 />
 `;
-
-exports[`utils/hoc withScrollWatch: should adds loading feature to a wrapper component 2`] = `<MySimpleComponent />`;
