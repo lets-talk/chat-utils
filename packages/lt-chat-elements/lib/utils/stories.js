@@ -28,6 +28,4 @@ WrapWithTheme.propTypes = {
   themeName: PropTypes.string,
 };
 
-export {
-  WrapWithTheme,
-};
+export { WrapWithTheme };

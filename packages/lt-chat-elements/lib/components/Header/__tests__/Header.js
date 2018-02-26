@@ -7,7 +7,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
 describe('Header component', () => {
   it('should render with minimal props', () => {
-    const component = shallow(<Header  />);
+    const component = shallow(<Header />);
 
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();

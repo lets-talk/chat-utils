@@ -313,7 +313,11 @@ stories.addWithInfo(
   'MessageBox - System Message Type',
   'Message of System type',
   () => (
-    <div style={{ position: 'fixed', bottom: 0, right: '10px', width: '100%' }}>
+    <div
+      style={{
+        position: 'fixed', bottom: 0, right: '10px', width: '100%',
+      }}
+    >
       <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
