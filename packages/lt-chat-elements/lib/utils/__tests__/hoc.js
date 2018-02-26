@@ -21,9 +21,9 @@ class SimpleListComponent extends Component {
       <div ref={this.props.cmpRef} id="super-simple-list">
         Super Simple
       </div>
-    )
+    );
   }
-};
+}
 
 describe('utils/hoc', () => {
   const MySimpleComponent = () => <div>Super Simple</div>;
@@ -65,8 +65,8 @@ describe('utils/hoc', () => {
   //   expect(mockCallBack.mock.calls.length).toEqual(1);
   // });
 
-  it("Component should call componentWillReceiveProps on update", () => {
-    const spy = sinon.spy(WithAutoScroll.prototype, "componentWillReceiveProps");
+  it('Component should call componentWillReceiveProps on update', () => {
+    const spy = sinon.spy(WithAutoScroll.prototype, 'componentWillReceiveProps');
 
     const props = {
       conversations: [],
