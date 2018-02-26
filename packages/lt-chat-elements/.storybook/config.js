@@ -9,7 +9,7 @@ setDefaults({
 });
 
 // stories loader
-const req = require.context('../packages/ChatElements/lib/components', true, /.stories.js$/);
+const req = require.context('../lib/components', true, /.stories.js$/);
 function loadStories() {
   req.keys().forEach((filename) => req(filename));
 }

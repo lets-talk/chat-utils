@@ -22,31 +22,21 @@
     "lerna": "^2.5.1",
     "lint-staged": "^5.0.0",
     "node-sass": "^4.6.1",
-    "react": "^16.1.1",
+    "react": "^16.2.0",
     "react-autocomplete-cli": "0.0.3",
-    "react-dom": "^16.1.1",
+    "react-dom": "^16.2.0",
     "sass-loader": "^6.0.6",
     "sinon": "^4.1.2",
     "style-loader": "^0.19.0"
   },
   "scripts": {
     "postinstall": "node postinstall.js",
-    "storybook": "cross-env NODE_ENV=development start-storybook -p 9001 -c .storybook -s ./packages/ChatElements/lib/assets",
-    "test": "npm run test --prefix ./packages/ChatElements/",
-    "test:update": "npm run test:update --prefix ./packages/ChatElements/",
-    "test:watch": "npm run test:watch --prefix ./packages/ChatElements/",
-    "test:coverage": "npm run test:coverage --prefix ./packages/ChatElements/",
-    "test:generate-output": "npm run test:generate-output --prefix ./packages/ChatElements/",
     "lerna:bootstrap": "./node_modules/lerna/bin/lerna.js bootstrap",
     "lerna:init": "./node_modules/lerna/bin/lerna.js init",
     "lerna:clean": "./node_modules/lerna/bin/lerna.js clean",
     "lerna:publish": "./node_modules/lerna/bin/lerna.js publish"
   },
   "dependencies": {
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
-    "react-icons": "^2.2.7",
-    "styled-components": "^2.2.3"
   },
   "browserslist": [
     "> 1%",
