@@ -6,10 +6,10 @@ Además de la opción básica, el chat web acepta una serie de parámetros adici
 En las distintas fases y versiones de instalación de hace referencia a variables entre paréntesis cuadrados `[]`, esto quiere decir que se deben usar variables propias de la instancia a implementar. En caso de no contar con estas variables comunicarse con la/el encargada/o del proyecto o con soporte@ltmessenger.com.
 
 ```
-[organization_subdomain]: bci
-[widget_name]: viaje-planes
-[consumer_key]: pr2z4utwkBapd680nc5Jkg
-[consumer_token]: BvNMzM9LfFs8WHbSzee9Rw
+[organization_subdomain]: YOUR_ORGANIZATION_NAME
+[widget_name]: YOUR_WIDGET_NAME
+[consumer_key]: xxxxxxxxxxxxxxxxx
+[consumer_token]: zzzzzzzzzzzzzzzz
 ```
 
 ## Sesión de usuario
