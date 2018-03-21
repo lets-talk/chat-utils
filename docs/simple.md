@@ -7,7 +7,7 @@ Instalación básica copiar el código generado por Let's Talk para los sitios p
 <!-- Begin of LetsTalk script -->
 <script type="application/javascript" async defer>
 //var LT_WIDGET_SRC = 'https://sudominio.com/lets_talk_widget.js';//Descomentar si el js se encuetra en un servidor externo  
-var LT_WIDGET_SRC = 'https://[organization_subdomain].letsta.lk/widget.js';//Comentar si el js se encuetra en nuestro server 
+var LT_WIDGET_SRC = 'https://[organization_subdomain].letsta.lk/widget.js';//Descomentar si el js se encuetra en nuestro server 
 
 (function(l,t){if(l.$LT)return;function ls(){a=!1;s=t.createElement('script');s.type='text/javascript';s.src=LT_WIDGET_SRC;s.async=!0;s.defer=!0;k=document.getElementsByTagName('script')[0];k.parentNode.insertBefore(s,k)}
 var lt=l.$LT=function(callback){if(typeof callback==='function'){mock.initCallBack=callback}}
