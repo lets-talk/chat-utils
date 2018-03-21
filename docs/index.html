@@ -38,9 +38,9 @@
       subMaxLevel: 2,
       plugins: [
         function (hook, vm) {
-          var githubBranc = 'feature/Better-Documentation-Docsify';
+          var githubBranch = 'master';
           hook.beforeEach(function (html) {
-            var url = 'https://github.com/lets-talk/lt-tool-kit/tree/'+githubBranc+'/packages/lt-widget/docs/' + vm.route.file
+            var url = 'https://github.com/lets-talk/lt-tool-kit/tree/'+githubBranch+'/packages/lt-widget/docs/' + vm.route.file
             var editHtml = '[:memo: Editar Documentación](' + url + ')\n'
             return editHtml
               + html
