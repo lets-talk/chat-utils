@@ -2,7 +2,6 @@
 
   * [Instalación Simple](simple.md)
   * [Instalacion Avanzada](advanced.md)
-  * [Generar Script Instalación](install-script.md)
 
 * API
 
