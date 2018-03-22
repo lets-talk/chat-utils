@@ -1,15 +1,22 @@
-# Chat Box Eventos de Comportamiento
+# Chat Box - Eventos de Comportamiento
 
-Usando el método **window.$LT.on** es posible es posible registrar funciones que son invocadas cuando diferentes eventos del box ocurre. Por ejemplo: Cuando se expande, se minimiza, se oculta o se muestra:
+Cuando se instancia un widget es posible definir funciones propias(código propio de la lógica de su sitio web) que serán ejecutadas cuando distintos eventos ocurran. Para ello se debe utilizar el método **messenger.on** en el momento de instanciar el widget:
+
+```javascript
+  messenger.on(EVENT_NAME, function() {
+    // Haz algo asombroso cuando este evento ocurre
+    console.info('Ocurrió el evento EVENT_NAME');
+  });
+```
+Valores posibles de EVENT_NAME son: 'api.box.hide', 'api.box.show', 'api.box.minimize', 'api.box.expand'.
+Una clase de eventos a las que el widget permite registrar : Cuando se expande *('api.box.expand')*, se minimiza *('api.box.minimize')*, se oculta *('api.box.hide')* o se muestra *('api.box.show')*
 
 ## api.box.show
 
-
-
 ```javascript
-  messenger.on('api.box.show', function(api.box.show) {
+  messenger.on('api.box.show', function() {
     // Haz algo asombroso cuando este evento suceda
-    console.info('api.box.show executed');
+    console.info('Ocurrió el evento api.box.show');
   });
 ```
 
@@ -18,9 +25,9 @@ Usando el método **window.$LT.on** es posible es posible registrar funciones qu
 Este evento se dispara cuando el widget se oculta. Este evento puede ocurrir por ejemplo cuando se invoca al método [window.$LT.setDisplayState('minimized')](publicapi#windowltsetdisplaystatestring)
 
 ```javascript
-  messenger.on('api.box.hide', function(api.box.hide) {
+  messenger.on('api.box.hide', function() {
     // Haz algo asombroso cuando este evento suceda
-    console.info('api.box.hide executed');
+    console.info('Ocurrió el evento api.box.hide');
   });
 ```
 
@@ -33,7 +40,7 @@ Este evento se dispara cuando el widget se expande. Este evento puede ocurrir cu
 ```javascript
   messenger.on('api.box.expand', function() {
     // Haz algo asombroso cuando este evento suceda
-    console.info('api.box.expand executed');
+    console.info('Ocurrió el evento api.box.expand');
   });
 ```
 
@@ -46,6 +53,6 @@ Este evento se dispara cuando el widget se minimize. Este evento puede ocurrir c
 ```javascript
   messenger.on('api.box.minimize', function() {
     // Haz algo asombroso cuando este evento suceda
-    console.info('api.box.minimize executed');
+    console.info('Ocurrió el evento api.box.minimize');
   });
 ```
