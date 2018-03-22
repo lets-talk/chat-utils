@@ -8,8 +8,9 @@ Cuando se instancia un widget es posible definir funciones propias(código propi
     console.info('Ocurrió el evento EVENT_NAME');
   });
 ```
-Valores posibles de EVENT_NAME son: 'api.box.hide', 'api.box.show', 'api.box.minimize', 'api.box.expand'.
-Una clase de eventos a las que el widget permite registrar : Cuando se expande *('api.box.expand')*, se minimiza *('api.box.minimize')*, se oculta *('api.box.hide')* o se muestra *('api.box.show')*
+Valores posibles de EVENT_NAME son: *'api.box.hide'*, *'api.box.show'*, *'api.box.minimize'*, *'api.box.expand'*.
+
+Estos eventos corresponden a distintos comportamientos del box del widget: cuando se expande *('api.box.expand')*, se minimiza *('api.box.minimize')*, se oculta *('api.box.hide')* o se muestra *('api.box.show')*
 
 ## api.box.show
 
