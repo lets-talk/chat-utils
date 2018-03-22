@@ -3,9 +3,13 @@
 Cuando se instancia un widget es posible definir funciones propias(código propio de la lógica de su sitio web) que serán ejecutadas cuando distintos eventos ocurran. Para ello se debe utilizar el método **messenger.on** en el momento de instanciar el widget:
 
 ```javascript
-  messenger.on(EVENT_NAME, function() {
-    // Haz algo asombroso cuando este evento ocurre
-    console.info('Ocurrió el evento EVENT_NAME');
+  window.$LT(function(messenger) {
+    ...
+    messenger.on(EVENT_NAME, function() {
+      // Haz algo asombroso cuando este evento ocurre
+      console.info('Ocurrió el evento EVENT_NAME');
+    });
+    ...
   });
 ```
 Valores posibles de EVENT_NAME son: *'api.box.hide'*, *'api.box.show'*, *'api.box.minimize'*, *'api.box.expand'*.
