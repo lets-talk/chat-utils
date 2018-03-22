@@ -17,7 +17,7 @@ Estos eventos corresponden a distintos comportamientos del box del widget: cuand
 ```javascript
   messenger.on('api.box.show', function() {
     // Haz algo asombroso cuando este evento suceda
-    console.info('Ocurrió el evento api.box.show');
+    console.info('api.box.show executed');
   });
 ```
 
@@ -28,7 +28,7 @@ Este evento se dispara cuando el widget se oculta. Este evento puede ocurrir por
 ```javascript
   messenger.on('api.box.hide', function() {
     // Haz algo asombroso cuando este evento suceda
-    console.info('Ocurrió el evento api.box.hide');
+    console.info('api.box.hide executed');
   });
 ```
 
@@ -41,7 +41,7 @@ Este evento se dispara cuando el widget se expande. Este evento puede ocurrir cu
 ```javascript
   messenger.on('api.box.expand', function() {
     // Haz algo asombroso cuando este evento suceda
-    console.info('Ocurrió el evento api.box.expand');
+    console.info('api.box.expand executed');
   });
 ```
 
@@ -54,6 +54,6 @@ Este evento se dispara cuando el widget se minimize. Este evento puede ocurrir c
 ```javascript
   messenger.on('api.box.minimize', function() {
     // Haz algo asombroso cuando este evento suceda
-    console.info('Ocurrió el evento api.box.minimize');
+    console.info('api.box.minimize executed');
   });
 ```
