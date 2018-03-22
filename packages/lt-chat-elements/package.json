@@ -17,7 +17,7 @@
     "precommit": "lint-staged",
     "prepublish": "npm run build",
     "storybook": "cross-env NODE_ENV=development start-storybook -p 9001 -c .storybook -s ./lib/assets",
-    "test": "jest",
+    "test": "jest --verbose --coverage",
     "test:update": "jest --updateSnapshot",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",

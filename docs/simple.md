@@ -8,6 +8,10 @@ los datos pedidos no dude en contactar a soporte.
 
 [cinwell website](//codepen.io/sandinosaso/embed/xWdKxv/?height=391&theme-id=dark&default-tab=result&embed-version=2 ':include :type=iframe width=100% height=550px')
 
+## Ejemplo video instalación
+
+![Ejemplo Instalación](_media/installation-example.gif)
+
 ## Insertar en su sitio
 
 Instalación básica copiar el código generado por Let's Talk para los sitios públicos:
