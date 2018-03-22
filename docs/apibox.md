@@ -15,7 +15,7 @@ Usando el método **window.$LT.on** es posible es posible registrar funciones qu
 
 ## api.box.hide
 
-Este evento se dispara cuando el widget se oculta. Este evento puede ocurrir por ejemplo cuando se invoca al método **[window.$LT.setDisplayState('minimized')](publicapi#windowltsetdisplaystatestring)
+Este evento se dispara cuando el widget se oculta. Este evento puede ocurrir por ejemplo cuando se invoca al método [window.$LT.setDisplayState('minimized')](publicapi#windowltsetdisplaystatestring)
 
 ```javascript
   messenger.on('api.box.hide', function(api.box.hide) {
@@ -26,7 +26,7 @@ Este evento se dispara cuando el widget se oculta. Este evento puede ocurrir por
 
 ## api.box.expand
 
-Este evento se dispara cuando el widget se expande. Este evento puede ocurrir cuando el usuario hace click en el widget estando este en el estado minimizado o cuando se invoca al método **[window.$LT.setDisplayState('small')](publicapi#windowltsetdisplaystatestring)
+Este evento se dispara cuando el widget se expande. Este evento puede ocurrir cuando el usuario hace click en el widget estando este en el estado minimizado o cuando se invoca al método [window.$LT.setDisplayState('small')](publicapi#windowltsetdisplaystatestring)
 
 ![Box Expand example](_media/api.box.expand.gif)
 
@@ -39,7 +39,7 @@ Este evento se dispara cuando el widget se expande. Este evento puede ocurrir cu
 
 ## api.box.minimize
 
-Este evento se dispara cuando el widget se minimize. Este evento puede ocurrir cuando el usuario hace click en el widget estando este en el estado expandido o cuando se invoca al método **[window.$LT.setDisplayState('minimized')](publicapi#windowltsetdisplaystatestring)
+Este evento se dispara cuando el widget se minimize. Este evento puede ocurrir cuando el usuario hace click en el widget estando este en el estado expandido o cuando se invoca al método [window.$LT.setDisplayState('minimized')](publicapi#windowltsetdisplaystatestring)
 
 ![Box Minimize example](_media/api.box.minimize.gif)
 
