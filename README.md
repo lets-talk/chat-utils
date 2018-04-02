@@ -1,3 +1,7 @@
+# Project status
+
+[ ![Codeship Status for lets-talk/lt-tool-kit](https://app.codeship.com/projects/ed158f00-18d4-0136-ee8a-726a1cad4289/status)](https://app.codeship.com/projects/283964)
+
 # Build your own React Component library with lerna and storybook
 
 We will be building our own component library in React. We will then publish them on NPM so that they will be available for all.
