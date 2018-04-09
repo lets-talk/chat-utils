@@ -5,7 +5,7 @@ before_install:
   - npm i -g npm
   - cd packages/lt-widget && npm install
 script:
-  - npm run coverage
+  - npm run test:ci
 branches:
   only:
     - master

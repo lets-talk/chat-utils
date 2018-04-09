@@ -22,6 +22,7 @@ jobs:
           command: |
             node --version
             npm --version
+
       - checkout
 
       # Download and cache dependencies
@@ -36,21 +37,22 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "packages/lt-widget/package.json" }}
 
       # run tests!
       - run:
           name: "Running tests"
-          command: |
-            cd packages/lt-widget && npm run coverage
-      
+          environment:
+            JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
+          command: cd packages/lt-widget && npm run test:ci
+
       - persist_to_workspace:
           root: ~/lt-widget-project-local
           paths:
             - node_modules
 
       - store_test_results:
-          path: coverage
+          path: reports/junit
 
       - store_artifacts:
-          path: test-results
+          path: reports/junit
