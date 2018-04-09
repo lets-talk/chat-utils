@@ -35,8 +35,7 @@
     "lerna:init": "./node_modules/lerna/bin/lerna.js init",
     "lerna:clean": "./node_modules/lerna/bin/lerna.js clean",
     "lerna:publish": "./node_modules/lerna/bin/lerna.js publish",
-    "docs": "docsify serve docs --port 3333",
-    "preparecommitmsg": "sh scripts/precommit-hook.sh ${GIT_PARAMS}"
+    "docs": "docsify serve docs --port 3333"
   },
   "dependencies": {},
   "browserslist": [
