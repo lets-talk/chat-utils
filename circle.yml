@@ -43,7 +43,7 @@ jobs:
           name: "Checking Directory"
           command: pwd
 
-      - run: npm run coverage
+      - run: cd ~/packages/lt-widget && npm run coverage
 
       - persist_to_workspace:
           root: ~/lt-widget
