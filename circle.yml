@@ -45,7 +45,7 @@ jobs:
             cd packages/lt-widget && npm run coverage
       
       - persist_to_workspace:
-          root: ~
+          root: ~/lt-widget-project-local
           paths:
             - node_modules
 
