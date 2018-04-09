@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:6.11.4
+      - image: circleci/node:6.14.1-stretch-browsers
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
