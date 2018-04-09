@@ -7,14 +7,14 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:6.14-browsers
+      - image: circleci/node:6.11.4
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
 
-    working_directory: ~/lt-widget
+    working_directory: ~/packages/lt-widget
 
     steps:
       - run:
@@ -28,15 +28,15 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "packages/lt-widget/package.json" }}
+          - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: cd packages/lt-widget && npm install
+      - run: npm install
 
       - save_cache:
           paths:
-            - packages/lt-widget/node_modules
+            - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
@@ -45,7 +45,7 @@ jobs:
       - persist_to_workspace:
           root: ~/lt-widget
           paths:
-            - packages/lt-widget/node_modules
+            - node_modules
 
       - store_test_results:
           path: test-results
