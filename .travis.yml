@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "6"
+before_install:
+  - npm i -g npm
+  - cd packages/lt-widget && npm install
+script:
+  - cd packages/lt-widget && npm run coverage
+branches:
+  only:
+    - master
+    - develop
+cache:
+  directories:
+  - node_modules
