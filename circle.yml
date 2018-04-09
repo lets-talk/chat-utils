@@ -39,6 +39,10 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
+      - run:
+          name: "Checking Directory"
+          command: pwd
+
       - run: npm run coverage
 
       - persist_to_workspace:
@@ -47,7 +51,7 @@ jobs:
             - node_modules
 
       - store_test_results:
-          path: test-results
+          path: coverage
 
       - store_artifacts:
           path: test-results
