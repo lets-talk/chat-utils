@@ -14,7 +14,7 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
 
-    working_directory: ~/packages/lt-widget
+    working_directory: ~/lt-widget-project-local
 
     steps:
       - run:
@@ -27,11 +27,11 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-{{ checksum "packages/lt-widget/package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: npm install
+      - run: cd packages/lt-widget && npm install
 
       - save_cache:
           paths:
@@ -42,14 +42,10 @@ jobs:
       - run:
           name: "Running tests"
           command: |
-            cd ~/packages/lt-widget
-            ls -lash
-            cat package.json
-            npm run test
-            npm run coverage
+            cd packages/lt-widget && npm run coverage
       
       - persist_to_workspace:
-          root: ~/lt-widget
+          root: ~
           paths:
             - node_modules
 
