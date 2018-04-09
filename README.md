@@ -15,7 +15,6 @@ Currently it contains 2 repos:
 [![Travis Build Status](https://travis-ci.com/lets-talk/lt-tool-kit.svg?token=y9PK7HytvkZwLq77jGGy&branch=master)](https://travis-ci.com/lets-talk/lt-tool-kit)
 [![CircleCI](https://circleci.com/gh/lets-talk/lt-tool-kit/tree/master.svg?style=svg&circle-token=6ebeb089b7f69d8ebf1fbfc6cb21f245ddb9e457)](https://circleci.com/gh/lets-talk/lt-tool-kit/tree/master)
 
-
 **LT-Toolkit**
 
 [ ![Codeship Status for lets-talk/lt-tool-kit](https://app.codeship.com/projects/ed158f00-18d4-0136-ee8a-726a1cad4289/status)](https://app.codeship.com/projects/283964)
