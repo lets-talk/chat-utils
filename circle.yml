@@ -40,11 +40,14 @@ jobs:
 
       # run tests!
       - run:
-          name: "Checking Directory"
-          command: pwd
-
-      - run: cd ~/packages/lt-widget && npm run coverage
-
+          name: "Running tests"
+          command: |
+            cd ~/packages/lt-widget
+            ls -lash
+            cat package.json
+            npm run test
+            npm run coverage
+      
       - persist_to_workspace:
           root: ~/lt-widget
           paths:
