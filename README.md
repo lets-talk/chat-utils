@@ -1,6 +1,34 @@
-# Build your own React Component library with lerna and storybook
+# Repository for Let's Talk frontend Projects
+
+This is a *monorepo* holding different frontend projects.
+
+Currently it contains 2 repos:
+
+1. **packages/lt-widget** The widget library that is used to build the file that is shared to clients using our Widget on their website
+2. **packages/lt-tool-kit** A component library for building Chat UI's. It contains reusable components to build web on top of it
+
+# Project status
+
+**LT-Widget**
+
+[ ![Codeship Status for lets-talk/lt-tool-kit](https://app.codeship.com/projects/ed158f00-18d4-0136-ee8a-726a1cad4289/status)](https://app.codeship.com/projects/283964)
+[![Travis Build Status](https://travis-ci.com/lets-talk/lt-tool-kit.svg?token=y9PK7HytvkZwLq77jGGy&branch=master)](https://travis-ci.com/lets-talk/lt-tool-kit)
+
+**LT-Toolkit**
+
+[ ![Codeship Status for lets-talk/lt-tool-kit](https://app.codeship.com/projects/ed158f00-18d4-0136-ee8a-726a1cad4289/status)](https://app.codeship.com/projects/283964)
+[![Travis Build Status](https://travis-ci.com/lets-talk/lt-tool-kit.svg?token=y9PK7HytvkZwLq77jGGy&branch=master)](https://travis-ci.com/lets-talk/lt-tool-kit)
+
+# Documentation:
+
+1. [LT-Widget Documentation](https://lets-talk.github.io/lt-tool-kit/#/)
+2. [LT-Toolkit Documentation](https://lets-talk.github.io/lt-tool-kit/#/)
+
+
+# Repository Tools
 
 We will be building our own component library in React. We will then publish them on NPM so that they will be available for all.
+
 Here are the few libraries we are going to use.
 
 1. Lerna : for publishing npm modules
@@ -57,10 +85,10 @@ git push
 lerna bootstrap
 lerna publish
 ```
-It will check which component has changed,then
-specify the version.
+It will check which component has changed, then specify the version.
 Type y and hit enter
 Packages published to npm registry.
+
 ## In case:
 * You are getting error as you are not authorized to publish . This means that the package name is already taken.
 * If you are using @something/button This means that the package is scoped. This requires an access to private registry account on npm.
