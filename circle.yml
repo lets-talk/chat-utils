@@ -51,7 +51,7 @@ jobs:
           mkdir -p /tmp/test-reports
 
       - persist_to_workspace:
-          root: ~/lt-widget-project-local
+          root: /tmp
           paths:
             - node_modules
 
