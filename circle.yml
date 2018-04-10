@@ -45,6 +45,10 @@ jobs:
           environment:
             JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
           command: cd packages/lt-widget && npm run test:ci
+      # Create temp directories
+      - run: |
+          mkdir -p /tmp/artifacts
+          mkdir -p /tmp/test-reports
 
       - persist_to_workspace:
           root: ~/lt-widget-project-local
@@ -52,7 +56,7 @@ jobs:
             - node_modules
 
       - store_test_results:
-          path: reports/junit
+          path: /tmp/test-reports
 
       - store_artifacts:
-          path: reports/junit
+          path: /tmp/artifacts
