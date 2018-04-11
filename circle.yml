@@ -39,12 +39,18 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "packages/lt-widget/package.json" }}
 
-      # run tests!
+      # Check for updates!
+      - run:
+          name: "Checking for npm packages not uptdated"
+          command: cd packages/lt-widget && npm run check-updates
+
+      # Run tests!
       - run:
           name: "Running tests"
           environment:
             JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
           command: cd packages/lt-widget && npm run test:ci
+
       # Create temp directories
       - run: |
           mkdir -p /tmp/artifacts
