@@ -1,14 +1,5 @@
 # Repository for Let's Talk frontend Projects
 
-This is a *monorepo* holding different frontend projects.
-
-Currently it contains 2 repos:
-
-1. **packages/lt-widget** The widget library that is used to build the file that is shared to clients using our Widget on their website
-2. **packages/lt-tool-kit** A component library for building Chat UI's. It contains reusable components to build web on top of it
-
-# Project status
-
 **LT-Widget**
 
 [![CircleCI](https://circleci.com/gh/lets-talk/lt-tool-kit/tree/master.svg?style=svg&circle-token=6ebeb089b7f69d8ebf1fbfc6cb21f245ddb9e457)](https://circleci.com/gh/lets-talk/lt-tool-kit/tree/master)
@@ -16,7 +7,14 @@ Currently it contains 2 repos:
 
 **LT-Toolkit**
 
-[![CircleCI](https://circleci.com/gh/lets-talk/lt-tool-kit/tree/master.svg?style=svg&circle-token=6ebeb089b7f69d8ebf1fbfc6cb21f245ddb9e457)](https://circleci.com/gh/lets-talk/lt-tool-kit/tree/master)
+*Pending*
+
+This is a *monorepo* holding different frontend projects.
+
+Currently it contains 2 repos:
+
+1. **packages/lt-widget** The widget library that is used to build the file that is shared to clients using our Widget on their website
+2. **packages/lt-tool-kit** A component library for building Chat UI's. It contains reusable components to build web on top of it
 
 # Documentation:
 
