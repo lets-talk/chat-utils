@@ -17,10 +17,10 @@
     "precommit": "lint-staged",
     "prepublish": "npm run build",
     "storybook": "cross-env NODE_ENV=development start-storybook -p 9001 -c .storybook -s ./lib/assets",
-    "test": "jest --verbose --coverage",
+    "test": "jest",
     "test:update": "jest --updateSnapshot",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --verbose --coverage",
     "test:generate-output": "jest --json --outputFile=tests-results/jest-test-results.json"
   },
   "keywords": [
@@ -85,10 +85,6 @@
     "react-loadable": "^5.3.1",
     "react-transition-group": "^2.2.1",
     "styled-components": "^2.2.3"
-  },
-  "peerDependencies": {
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1"
   },
   "readme": "ERROR: No README data found!",
   "repository": {
@@ -204,7 +200,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
+    "lib/*.js": [
       "eslint --fix",
       "git add"
     ]
