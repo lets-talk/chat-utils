@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - run:
-          name: "Checking Versions"
+          name: "Checking Versions (node && npm)"
           command: |
             node --version
             npm --version
@@ -66,3 +66,13 @@ jobs:
 
       - store_artifacts:
           path: /tmp/artifacts
+
+    release:
+      branches:
+        only:
+          - master
+      steps:
+        # Upload to AmazonS3
+        - run:
+            name: "Uploading dist/widget.js to AmazonS3"
+            command: npm run build:release
