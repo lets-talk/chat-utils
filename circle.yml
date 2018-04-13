@@ -22,6 +22,8 @@ jobs:
           command: |
             node --version
             npm --version
+
+      # Checkokut repository
       - checkout
 
       # Download and cache dependencies
@@ -50,11 +52,6 @@ jobs:
             JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
           command: cd packages/lt-widget && npm run test:ci
 
-      # Save build folder for next job
-      - persist_to_workspace:
-          root: ~
-          paths:
-            - lt-tool-kit
       # Create temp directories
       - run: |
           mkdir -p /tmp/artifacts
@@ -68,10 +65,11 @@ jobs:
       # specify the version you desire here
       - image: circleci/node:6.14.1-stretch-browsers
 
+    working_directory: ~/lt-tool-kit
+
     steps:
-      # Save build folder for next job
-      - attach_workspace:
-          at: ~/lt-tool-kit
+      # Checkokut repository
+      - checkout
 
       # Upload to AmazonS3
       - run:
