@@ -118,7 +118,7 @@ stories.addWithInfo(
   () => (
     <div
       style={{
-        position: 'fixed', bottom: 0, right: '10px', width: '400px',
+        position: 'fixed', bottom: 0, right: '10px', width: 'calc(100% - 20px)',
       }}
     >
       <WrapWithTheme
