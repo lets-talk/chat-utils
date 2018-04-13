@@ -80,7 +80,7 @@ jobs:
       # Upload to AmazonS3
       - run:
           name: "Uploading dist/widget.js to AmazonS3"
-          command: cd packages/lt-widget && npm run build:release
+          command: cd packages/lt-widget && npm run build:deploy
 
 
 workflows:
