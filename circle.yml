@@ -33,6 +33,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      # Install project dependencies
       - run: cd packages/lt-widget && npm install
 
       - save_cache:
@@ -52,6 +53,11 @@ jobs:
             JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
           command: cd packages/lt-widget && npm run test:ci
 
+      # Save the generated file for use in the deploy job
+      - persist_to_workspace:
+          root: .
+          paths: packages/lt-widget
+
       # Create temp directories
       - run: |
           mkdir -p /tmp/artifacts
@@ -68,8 +74,8 @@ jobs:
     working_directory: ~/lt-tool-kit
 
     steps:
-      # Checkokut repository
-      - checkout
+      - attach_workspace:
+          at: ~/lt-tool-kit
 
       # Upload to AmazonS3
       - run:
