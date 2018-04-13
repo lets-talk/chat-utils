@@ -25,6 +25,7 @@
     "react": "^16.2.0",
     "react-autocomplete-cli": "0.0.3",
     "react-dom": "^16.2.0",
+    "react-test-renderer": "^16.3.1",
     "sass-loader": "^6.0.6",
     "sinon": "^4.1.2",
     "style-loader": "^0.19.0"

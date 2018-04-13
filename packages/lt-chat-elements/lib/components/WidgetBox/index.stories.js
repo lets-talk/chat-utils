@@ -247,7 +247,11 @@ stories.addWithInfo(
   'Basic Usage with Agent typing',
   'This is the usage when agent is typing.',
   () => (
-    <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
+    <div
+      style={{
+        position: 'fixed', bottom: 0, right: '10px', width: 'calc(100% - 20px)',
+      }}
+    >
       <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
@@ -330,7 +334,11 @@ stories.addWithInfo(
   'Only File messages',
   'This is the advanced usage of a Widget Box showing file messages.',
   () => (
-    <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
+    <div
+      style={{
+        position: 'fixed', bottom: 0, right: '10px', width: 'calc(100% - 20px)',
+      }}
+    >
       <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
@@ -412,7 +420,11 @@ stories.addWithInfo(
   'Only Photo messages',
   'This is the advanced usage of a Widget Box showing photo messages.',
   () => (
-    <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
+    <div
+      style={{
+        position: 'fixed', bottom: 0, right: '10px', width: 'calc(100% - 20px)',
+      }}
+    >
       <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
@@ -444,14 +456,6 @@ const actionableMessages = [
     title: 'TalkBot',
     text: 'Buenos días!',
     data: {
-      uri: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
-      status: {
-        click: true,
-        loading: 70,
-      },
-      width: 300,
-      height: 300,
-      size: '2Mb',
     },
     status: 'sent',
     date: '2017-11-15T20:34:27.173Z',
@@ -471,14 +475,6 @@ const actionableMessages = [
     title: '',
     text: 'Por favor cuentame en que te podemos ayudar?',
     data: {
-      uri: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
-      status: {
-        click: true,
-        loading: 70,
-      },
-      width: 300,
-      height: 300,
-      size: '2Mb',
     },
     status: 'sent',
     date: '2017-11-15T20:34:27.173Z',
@@ -531,7 +527,11 @@ stories.addWithInfo(
   'Actionable messages',
   'This is the advanced usage of a Widget Box showing Actionable messages.',
   () => (
-    <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
+    <div
+      style={{
+        position: 'fixed', bottom: 0, right: '10px', width: 'calc(100% - 20px)',
+      }}
+    >
       <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
@@ -558,7 +558,11 @@ stories.addWithInfo(
   'Advanced Usage',
   'This is the advanced usage of a Widget Box showing messages.',
   () => (
-    <div style={{ position: 'fixed', bottom: 0, right: '10px' }}>
+    <div
+      style={{
+        position: 'fixed', bottom: 0, right: '10px', width: 'calc(100% - 20px)',
+      }}
+    >
       <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
