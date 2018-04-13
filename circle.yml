@@ -56,23 +56,32 @@ jobs:
           mkdir -p /tmp/artifacts
           mkdir -p /tmp/test-reports
 
-      - persist_to_workspace:
-          root: ~/lt-widget-project-local
-          paths:
-            - node_modules
-
       - store_test_results:
           path: /tmp/test-reports
 
       - store_artifacts:
           path: /tmp/artifacts
 
-    release:
-      branches:
-        only:
-          - master
-      steps:
-        # Upload to AmazonS3
-        - run:
-            name: "Uploading dist/widget.js to AmazonS3"
-            command: npm run build:release
+  deploy:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:6.14.1-stretch-browsers
+
+    steps:
+      # Upload to AmazonS3
+      - run:
+          name: "Uploading dist/widget.js to AmazonS3"
+          command: cd packages/lt-widget && npm run build:release
+
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
