@@ -14,7 +14,7 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
 
-    working_directory: ~/lt-widget-project-local
+    working_directory: ~/lt-tool-kit
 
     steps:
       - run:
@@ -22,7 +22,6 @@ jobs:
           command: |
             node --version
             npm --version
-
       - checkout
 
       # Download and cache dependencies
@@ -51,23 +50,29 @@ jobs:
             JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
           command: cd packages/lt-widget && npm run test:ci
 
+      # Save build folder for next job
+      - persist_to_workspace:
+          root: ~
+          paths:
+            - lt-tool-kit
       # Create temp directories
       - run: |
           mkdir -p /tmp/artifacts
           mkdir -p /tmp/test-reports
-
       - store_test_results:
           path: /tmp/test-reports
-
       - store_artifacts:
           path: /tmp/artifacts
-
   deploy:
     docker:
       # specify the version you desire here
       - image: circleci/node:6.14.1-stretch-browsers
 
     steps:
+      # Save build folder for next job
+      - attach_workspace:
+          at: ~/lt-tool-kit
+
       # Upload to AmazonS3
       - run:
           name: "Uploading dist/widget.js to AmazonS3"
