@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const postcssflexbugsfixes = require('postcss-flexbugs-fixes');
 const postcssnext = require('postcss-cssnext');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -17,7 +18,6 @@ module.exports = {
     umdNamedDefine: true,
   }, {}), // Merge with env dependent settings
   module: {
-
     rules: [
       {
         // "oneOf" will traverse all following loaders until one will
@@ -131,25 +131,27 @@ module.exports = {
   },
   plugins: [
     // Minify the code.
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        // Disabled because of an issue with Uglify breaking seemingly valid code:
-        // https://github.com/facebookincubator/create-react-app/issues/2376
-        // Pending further investigation:
-        // https://github.com/mishoo/UglifyJS2/issues/2011
-        comparisons: false,
+    new UglifyJSPlugin({
+      uglifyOptions: {
+        compress: {
+          warnings: false,
+          // Disabled because of an issue with Uglify breaking seemingly valid code:
+          // https://github.com/facebookincubator/create-react-app/issues/2376
+          // Pending further investigation:
+          // https://github.com/mishoo/UglifyJS2/issues/2011
+          comparisons: false,
+        },
+        mangle: {
+          safari10: true,
+        },
+        output: {
+          comments: false,
+          // Turned on because emoji and regex is not minified properly using default
+          // https://github.com/facebookincubator/create-react-app/issues/2488
+          ascii_only: true,
+        },
+        sourceMap: shouldUseSourceMap,
       },
-      mangle: {
-        safari10: true,
-      },
-      output: {
-        comments: false,
-        // Turned on because emoji and regex is not minified properly using default
-        // https://github.com/facebookincubator/create-react-app/issues/2488
-        ascii_only: true,
-      },
-      sourceMap: shouldUseSourceMap,
     }),
     new ExtractTextPlugin({
       filename: 'main.css',
