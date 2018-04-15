@@ -14,7 +14,6 @@
     "lint": "eslint lib/**; exit 0",
     "lint:watch": "esw -w lib/**",
     "changelog": "pr-log --sloppy",
-    "precommit": "lint-staged",
     "prepare": "npm run build",
     "storybook": "cross-env NODE_ENV=development start-storybook -p 9001 -c .storybook -s ./lib/assets",
     "storybook:build": "build-storybook -c .storybook -o ../../docs/storybook",
