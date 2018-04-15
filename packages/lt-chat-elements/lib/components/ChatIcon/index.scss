@@ -2,6 +2,7 @@
 
 .letstalk-ChatIconContainer {
   position: relative;
+  @include animation(0, 0.5s, slide-in);
 }
 
 .letstalk-ChatIcon {
