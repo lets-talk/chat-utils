@@ -92,10 +92,10 @@ const conversationList = [
     },
     tags: [
       {
-        name: 'SPU-PYME',
+        name: 'SPU-UY',
       },
       {
-        name: 'SPU-CLAVE',
+        name: 'SPU-CH',
       },
     ],
   },

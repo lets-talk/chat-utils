@@ -1,7 +1,7 @@
 import React from 'react';
 // Storybook stuff
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean, select } from '@storybook/addon-knobs';
+import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
 
 // Component to show on storybook
 import { Avatar } from '../../../lib';
@@ -21,13 +21,14 @@ stories.addWithInfo(
     >
       <Avatar
         src="http://i46.tinypic.com/sexbb8.png"
+        className={text('Classname')}
         type={select('Type', { default: 'default', rounded: 'rounded', circle: 'circle' }, 'circle')}
         size={select('Size', {
           xsmall: 'xsmall', small: 'small', medium: 'medium', large: 'large', xlarge: 'xlarge',
         }, 'medium')}
         withStatus={boolean('Show Status', false)}
         status={select('Status', {
-          online: 'online', offline: 'offline', sleeping: 'sleeping',
+          online: 'online', offline: 'offline', sleeping: 'sleeping', live: 'live',
         }, 'online')}
       />
     </WrapWithTheme>

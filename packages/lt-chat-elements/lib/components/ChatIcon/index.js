@@ -1,33 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import classNames from 'classnames';
 import MdChat from 'react-icons/lib/md/chat';
-// Stylesheet
-import './index.scss';
+
+import { ellipsis } from '../../utils/style';
 
 const ChatIcon = (props) => {
-  // Show the toggle icon only when widget is hidden or minimized and
-  // animation is finished.
-  let toggleIconDisplay = 'block';
-  let toggleIconVisibility = 'hidden';
-
-  if (props.display === 'minimized' || props.display === 'hidden') {
-    toggleIconDisplay = 'block';
-  }
-
-  if (props.display === 'minimized' && props.animationStatus) {
-    toggleIconVisibility = 'visible';
-  }
-
-  if (props.display === 'hidden') {
-    toggleIconVisibility = 'visible';
-  }
-
-  if (props.display === 'small') {
-    toggleIconDisplay = 'none';
-  }
-
   const {
     imageUrl,
   } = props.chat_icon_pic;
@@ -66,6 +44,13 @@ const ChatIcon = (props) => {
     margin: ${props.margin};
     border-radius: calc(${props.height}px / 2);
     line-height: calc(${props.height}px / 2);
+    color: ${(props) => props.theme.palette.common.white};
+    background-color: ${(props) => props.theme.palette.background.primary};
+
+    border-radius: ${(props) =>
+    (props.type && props.type === 'rounded' && '5px 5px 0 0')
+    || (props.type && props.type === 'circle' && '50%')
+    || '0'};
 
     &:active {
       border-style: none;
@@ -78,14 +63,21 @@ const ChatIcon = (props) => {
 
   const StyledSpan = styled.span`
     width: calc(100% - ${props.height}px);
+    font-size: $chatIcon-font-size;
+    float: left;
+    text-align: left;
+    ${ellipsis('100%')}
   `;
 
   const defaultIcon = (
     <div className="letstalk-ChatIconContainer">
       <Button
-        className={classNames('letstalk-ChatIcon', props.type)}
+        width={props.width}
+        height={props.height}
+        margin={props.margin}
+        type={props.type}
       >
-        <StyledSpan className="intro-message">{props.text}</StyledSpan>
+        <StyledSpan>{props.text}</StyledSpan>
         {props.showIcon && <MdChat size={props.height / 2.5} color="white" />}
       </Button>
       { props.newMessages > 0 && messagesBubble }
@@ -103,8 +95,6 @@ const ChatIcon = (props) => {
         marginBottom: '50px',
         float: 'right',
         marginRight: '10px',
-        display: toggleIconDisplay,
-        visibility: toggleIconVisibility,
         borderRadius: chatIconRadius,
         cursor: 'pointer',
         boxShadow: '0px 25px 13px -22px rgba(0,0,0,0.44)',
@@ -160,8 +150,6 @@ ChatIcon.propTypes = {
   margin: PropTypes.string,
   chat_icon_pic: PropTypes.string,
   chatIconRadius: PropTypes.string,
-  display: PropTypes.string,
-  animationStatus: PropTypes.bool,
   newMessages: PropTypes.number,
 };
 
