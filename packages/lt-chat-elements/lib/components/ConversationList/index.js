@@ -23,7 +23,7 @@ const ConversationListWrapper = styled.div`
 
 const ConversationListSeparator = styled.div`
   background-color: ${(props) => props.theme.palette.common.white};
-  font-weight: $font-weight-thin;
+  font-weight: ${(props) => props.theme.typography.fontWeightThin};
   margin-top: 10px;
   margin-left: 80px;
   padding: 20px 0px;
@@ -75,7 +75,7 @@ class ConversationList extends Component {
                 >
                   <ConversationBox
                     conversation={conversation}
-                    key={`conversation-${index}`}
+                    key={`conversation-${conversation.id}`}
                   />
                 </div>
               ))

@@ -1,13 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import moment from 'moment';
-
-// Icons to be used on this component
-import FaForward from 'react-icons/lib/fa/mail-forward';
-import IoDoneAll from 'react-icons/lib/io/android-done-all';
-import MdIosTime from 'react-icons/lib/md/access-time';
-import MdCheck from 'react-icons/lib/md/check';
+import styled from 'styled-components';
 
 // Constants
 import constants from '../../utils/constants';
@@ -21,8 +15,31 @@ import Avatar from '../Avatar';
 import Loader from '../Loader';
 import ActionableMessageBox from '../ActionableMessageBox';
 
+// Helpers components
+import MessageTimeBox from './MessageTimeBox';
+import MessageForwardBox from './MessageForwardBox';
+
 // Component styles
 import './index.scss';
+
+
+const StyledForwardDiv = styled.div`
+  opacity: 0;
+  visibility: hidden;
+`;
+
+const StyledMessageBody = styled.div`
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  &:hover {
+    > ${StyledForwardDiv} {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+`;
 
 const MessageBox = (props) => {
   const { messagesTypes, personTypes } = constants;
@@ -67,7 +84,6 @@ const MessageBox = (props) => {
             src={props.person.avatar}
             withStatus={false}
             size="xsmall"
-            status="online"
           />
         </div>
       }
@@ -81,22 +97,12 @@ const MessageBox = (props) => {
               { 'letstalk-mbox--clear-padding': thatAbsoluteTime },
             )}
           >
-            <div className="letstalk-mbox-body">
+            <StyledMessageBody>
               {
                 props.forwarded === true &&
-                  <div
-                    role="button"
-                    tabIndex="-2"
-                    className={classNames(
-                      'letstalk-mbox-forward',
-                      { 'letstalk-mbox-forward-right': props.position === 'left' },
-                      { 'letstalk-mbox-forward-left': props.position === 'right' }
-                    )}
-                    onClick={props.onForwardClick}
-                    onKeyPress={props.onForwardClick}
-                  >
-                    <FaForward color="#000" />
-                  </div>
+                  <StyledForwardDiv>
+                    <MessageForwardBox {...props} />
+                  </StyledForwardDiv>
               }
 
               {
@@ -160,47 +166,21 @@ const MessageBox = (props) => {
               }
 
               {props.type !== messagesTypes.TYPING && props.type !== messagesTypes.ACTIONABLE &&
-                <div className={classNames('letstalk-mbox-time', { 'letstalk-mbox-time-block': thatAbsoluteTime })}>
-                  {
-                    props.date && (props.type !== messagesTypes.TYPING) &&
-                    (
-                      props.dateString ||
-                        moment(props.date).fromNow()
-                    )
-                  }
-                  {
-                    props.status &&
-                      <span className="letstalk-mbox-status">
-                        {
-                          props.status === 'waiting' &&
-                          <MdIosTime />
-                        }
-
-                        {
-                          props.status === 'sent' &&
-                          <MdCheck />
-                        }
-
-                        {
-                          props.status === 'received' &&
-                          <IoDoneAll />
-                        }
-
-                        {
-                          props.status === 'read' &&
-                          <IoDoneAll color="#4FC3F7" />
-                        }
-                      </span>
-                  }
-                </div>
+                <MessageTimeBox
+                  type={props.type}
+                  status={props.status}
+                  dateString={props.dateString}
+                  date={props.date}
+                />
               }
 
-            </div>
+            </StyledMessageBody>
           </div>
       }
     </div>
   );
 };
+
 
 MessageBox.propTypes = {
   /**

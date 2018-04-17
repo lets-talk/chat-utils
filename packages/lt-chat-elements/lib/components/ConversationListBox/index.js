@@ -1,11 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import styled from 'styled-components';
 
 import Header from '../Header';
 import ConversationList from '../ConversationList/Loadable';
 import Button from '../Button';
-import './index.scss';
+
+const ConversationListBoxContainer = styled.div`
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.44);
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  max-width: none;
+  padding-bottom: 10px;
+`;
 
 const ConversationListBox = (props) => {
   const {
@@ -28,7 +37,7 @@ const ConversationListBox = (props) => {
   } = props;
 
   return (
-    <div className={classNames('conversation-listbox-container', className)}>
+    <ConversationListBoxContainer className={className}>
       <Header
         title={title}
         subtitle={subtitle}
@@ -52,7 +61,7 @@ const ConversationListBox = (props) => {
           value={newConversationText}
         />
       }
-    </div>
+    </ConversationListBoxContainer>
   );
 };
 
@@ -140,7 +149,7 @@ ConversationListBox.defaultProps = {
   noMoreDataText: '',
   newConversationText: '',
   emptyStateText: '',
-  className: '',
+  className: 'LT-ConversationListBox-Wrapper',
 };
 
 export default ConversationListBox;
