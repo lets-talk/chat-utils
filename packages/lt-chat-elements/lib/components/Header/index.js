@@ -22,8 +22,7 @@ const HeaderDiv = styled.div`
   color: ${(props) =>
     (props.inverted && props.theme.palette.text.primary)
     || (props.link && props.theme.palette.main)
-    || '#fff'
-  };
+    || '#fff'};
 `;
 
 const HeaderTitle = styled.h4`
@@ -48,9 +47,10 @@ const OpenMenuButton = styled.button`
 `;
 
 const Header = ({
-  title, subtitle, avatar, avatarStatus, toggleChat, openMenu, showMinimizeButton, showMenuButton,
-}) =>
-  (
+  title, subtitle, person, toggleChat, openMenu, showMinimizeButton, showMenuButton,
+}) => {
+  const { avatar = false, status = '' } = person;
+  return (
     <HeaderDiv>
       {
         showMinimizeButton &&
@@ -68,20 +68,25 @@ const Header = ({
         <Avatar
           src={avatar}
           size="medium"
-          withStatus={avatarStatus.length > 0}
-          status={avatarStatus}
+          withStatus={status.length > 0}
+          status={status}
         />
       }
       <HeaderTitle>{title}</HeaderTitle>
       <HeaderSubtitle>{subtitle}</HeaderSubtitle>
     </HeaderDiv>
   );
+};
 
 Header.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  avatar: PropTypes.string,
-  avatarStatus: PropTypes.string,
+  person: PropTypes.shape({
+    avatar: PropTypes.string,
+    status: PropTypes.string,
+    email: PropTypes.string,
+    type: PropTypes.string,
+  }),
   toggleChat: PropTypes.func,
   openMenu: PropTypes.func,
   showMinimizeButton: PropTypes.bool,
@@ -91,8 +96,7 @@ Header.propTypes = {
 Header.defaultProps = {
   title: '',
   subtitle: '',
-  avatar: '',
-  avatarStatus: '',
+  person: null,
   toggleChat: null,
   openMenu: null,
   showMinimizeButton: true,

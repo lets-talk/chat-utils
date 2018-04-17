@@ -12,7 +12,7 @@ const WidgetBox = (props) => {
     messages,
     title,
     subtitle,
-    avatar,
+    person,
     senderPlaceHolder,
     className,
     toggleChat,
@@ -29,7 +29,7 @@ const WidgetBox = (props) => {
       <Header
         title={title}
         subtitle={subtitle}
-        avatar={avatar}
+        person={person}
         toggleChat={toggleChat}
         openMenu={openMenu}
         showMinimizeButton={showMinimizeButton}
@@ -52,7 +52,7 @@ WidgetBox.propTypes = {
   messages: PropTypes.array,
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  avatar: PropTypes.string,
+  person: PropTypes.object,
   className: PropTypes.string,
   sendMessage: PropTypes.func,
   senderPlaceHolder: PropTypes.string,
@@ -62,6 +62,14 @@ WidgetBox.propTypes = {
   showMinimizeButton: PropTypes.bool,
   showMenuButton: PropTypes.bool,
   disabledInput: PropTypes.bool,
+};
+
+WidgetBox.defaultProps = {
+  messages: [],
+  title: '',
+  subtitle: '',
+  person: {},
+  className: 'LT-WidgetBox-Wrapper',
 };
 
 export default WidgetBox;

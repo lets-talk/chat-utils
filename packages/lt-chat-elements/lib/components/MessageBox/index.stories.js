@@ -32,6 +32,7 @@ const messages = [
       avatar: '',
       email: '',
       type: 'Bot',
+      status: 'online',
     },
   },
   {
@@ -59,6 +60,7 @@ const messages = [
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
       email: '',
       type: 'Client',
+      status: 'sleeping',
     },
   },
   {
@@ -86,6 +88,7 @@ const messages = [
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
       email: '',
       type: 'Client',
+      status: 'online',
     },
   },
   {
@@ -122,6 +125,7 @@ const messages = [
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
       email: '',
       type: 'Client',
+      status: 'sleeping',
     },
   },
   {
@@ -139,6 +143,7 @@ const messages = [
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
       email: '',
       type: 'Agent',
+      status: 'offline',
     },
   },
   {
@@ -156,6 +161,7 @@ const messages = [
       avatar: '',
       email: '',
       type: 'Bot',
+      status: 'online',
     },
   },
   {
@@ -173,6 +179,7 @@ const messages = [
       avatar: '',
       email: '',
       type: 'Bot',
+      status: 'online',
     },
   },
 ];

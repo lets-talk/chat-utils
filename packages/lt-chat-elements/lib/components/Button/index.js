@@ -1,8 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import styled from 'styled-components';
 
-import './index.scss';
+const StyledButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+`;
+
+const StyledButton = styled.input`
+  position: relative;
+  color: ${(props) => props.theme.palette.common.white};
+  background-color: ${(props) => props.theme.palette.background.primary};
+  height: 40px;
+  border-radius: 20px;
+  box-shadow: none;
+  padding: 10px 25px;
+  float: left;
+`;
+
+// import './index.scss';
 
 const DELAY = 300;
 const LOADER_DELAY = 900;
@@ -46,15 +65,15 @@ class Button extends Component {
     } = this.props;
 
     return (
-      <div className="letstalk-button-container">
-        <input
+      <StyledButtonContainer className={className}>
+        <StyledButton
           type={type}
           className={classNames('letstalk-button', className)}
           value={this.state.showLoading === true ? 'Processing...' : value}
           disabled={disabled === true ? disabled : this.state.disabled}
           onClick={(event) => this.onClick(event)}
         />
-      </div>
+      </StyledButtonContainer>
     );
   }
 }
@@ -65,6 +84,11 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   value: PropTypes.string.isRequired,
   clickHandler: PropTypes.func.isRequired,
+};
+
+Button.defaultProps = {
+  className: 'LT-Button-Wrapper',
+  disabled: false,
 };
 
 export default Button;
