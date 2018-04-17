@@ -95,7 +95,7 @@ const MessageBox = (props) => {
                     onClick={props.onForwardClick}
                     onKeyPress={props.onForwardClick}
                   >
-                    <FaForward />
+                    <FaForward color="#000" />
                   </div>
               }
 

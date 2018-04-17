@@ -2,27 +2,67 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MdKeyboardArrowDown from 'react-icons/lib/md/keyboard-arrow-down';
+import styled from 'styled-components';
 import MdMenu from 'react-icons/lib/md/menu';
 import Avatar from '../Avatar';
+import { headerMenuButton } from '../../utils/style';
 
-import './index.scss';
+const HeaderDiv = styled.div`
+  flex-shrink: 0;
+  position: relative;
+  font-weight: ${(props) => props.theme.typography.fontWeightSemibold};
+  color: ${(props) => props.theme.palette.text.primary};
+  background-color: ${(props) => props.theme.palette.background.primary};
+  border-radius: 10px 10px 0 0;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 15px 20px;
+  color: ${(props) =>
+    (props.inverted && props.theme.palette.text.primary)
+    || (props.link && props.theme.palette.main)
+    || '#fff'
+  };
+`;
+
+const HeaderTitle = styled.h4`
+  font-size: ${(props) => props.theme.typography.body.fontSize};
+  font-weight: ${(props) => props.theme.typography.fontWeightNormal};
+  margin: 0 40px;
+  padding: 5px 10px;
+`;
+
+const HeaderSubtitle = styled.span`
+  font-size: ${(props) => props.theme.typography.caption.fontSize};
+`;
+
+const MinimizeButton = styled.button`
+  ${headerMenuButton('40px')}
+  left: 10px;
+`;
+
+const OpenMenuButton = styled.button`
+  ${headerMenuButton('40px')}
+  right: 10px;
+`;
 
 const Header = ({
   title, subtitle, avatar, avatarStatus, toggleChat, openMenu, showMinimizeButton, showMenuButton,
 }) =>
   (
-    <div className="letstalk-header">
+    <HeaderDiv>
       {
         showMinimizeButton &&
-        <button className="letstalk-minimize-button" onClick={toggleChat}>
+        <MinimizeButton onClick={toggleChat}>
           <MdKeyboardArrowDown size={20} color="white" />
-        </button>
+        </MinimizeButton>
       }
       {
         showMenuButton &&
-        <button className="letstalk-menu-button" onClick={openMenu}>
+        <OpenMenuButton onClick={openMenu}>
           <MdMenu size={20} color="white" />
-        </button>
+        </OpenMenuButton>
       }
       {avatar &&
         <Avatar
@@ -32,9 +72,9 @@ const Header = ({
           status={avatarStatus}
         />
       }
-      <h4 className="letstalk-title">{title}</h4>
-      <span className="letstalk-subtitle">{subtitle}</span>
-    </div>
+      <HeaderTitle>{title}</HeaderTitle>
+      <HeaderSubtitle>{subtitle}</HeaderSubtitle>
+    </HeaderDiv>
   );
 
 Header.propTypes = {
