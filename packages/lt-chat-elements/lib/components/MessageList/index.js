@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
+import { MessagePropType } from '../../utils/types';
 import { withAutoScroll } from '../../utils/hoc';
 
 import MessageBox from '../MessageBox';
-import './index.scss';
+
+const StyledMessageListContainer = styled.div`
+  background-color: ${(props) => props.theme.palette.common.white};
+  height: 50vh;
+  min-height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+`;
 
 class MessageList extends Component {
   onOpen(item, i, e) {
@@ -29,31 +38,32 @@ class MessageList extends Component {
 
   render() {
     return (
-      <div ref={this.props.cmpRef} id="messages" className="letstalk-messages-container">
+      <StyledMessageListContainer
+        ref={this.props.cmpRef}
+        id="messages"
+      >
         {
           this.props.messages.map((message, index) =>
             (
-              <div className="letstalk-message" key={index}>
-                <MessageBox
-                  key={`message-${index}`}
-                  {...message}
-                  onOpen={this.props.onOpen && ((e) => this.onOpen(message, index, e))}
-                  onDownload={this.props.onDownload && ((e) => this.onDownload(message, index, e))}
-                  onTitleClick={this.props.onDownload && ((e) => this.onTitleClick(message, index, e))}
-                  onForwardClick={this.props.onForwardClick && ((e) => this.onForwardClick(message, index, e))}
-                  onClick={this.props.onClick && ((e) => this.onClick(message, index, e))}
-                  onActionMessageClick={this.props.onActionMessageClick}
-                />
-              </div>
+              <MessageBox
+                key={`message-${message.id}`}
+                {...message}
+                onOpen={this.props.onOpen && ((e) => this.onOpen(message, index, e))}
+                onDownload={this.props.onDownload && ((e) => this.onDownload(message, index, e))}
+                onTitleClick={this.props.onDownload && ((e) => this.onTitleClick(message, index, e))}
+                onForwardClick={this.props.onForwardClick && ((e) => this.onForwardClick(message, index, e))}
+                onClick={this.props.onClick && ((e) => this.onClick(message, index, e))}
+                onActionMessageClick={this.props.onActionMessageClick}
+              />
             ))
         }
-      </div>
+      </StyledMessageListContainer>
     );
   }
 }
 
 MessageList.propTypes = {
-  messages: PropTypes.array,
+  messages: PropTypes.arrayOf(MessagePropType),
   onClick: PropTypes.func,
   onTitleClick: PropTypes.func,
   onForwardClick: PropTypes.func,

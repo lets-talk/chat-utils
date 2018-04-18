@@ -112,6 +112,13 @@ const conversationList = [
   },
 ];
 
+const person = {
+  avatar: '',
+  email: '',
+  type: 'Agent',
+  status: 'online',
+};
+
 stories.addWithInfo(
   'Simple Conversation List',
   'This is the basic usage of a ConversationList with providing a label to show the text.',
@@ -135,11 +142,10 @@ stories.addWithInfo(
           showMinimizeButton={boolean('showMinimizeButton', false)}
           showAddConversationButton={boolean('showAddConversationButton', true)}
           emptyStateText={text('emptyStateText', 'Sin conversaciones abiertas')}
-          avatar={text('avatar', '')}
-          avatarStatus={text('avatarStatus', '')}
           noMoreDataText={text('noMoreDataText', 'No hay mas conversaciones')}
           newConversationText={text('newConversationText', 'Nueva conversación')}
           conversations={object('conversations', conversationList)}
+          person={object('person', person)}
           toBottomHeight="100%"
         />
       </WrapWithTheme>

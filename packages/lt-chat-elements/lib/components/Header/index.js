@@ -10,8 +10,6 @@ import { headerMenuButton } from '../../utils/style';
 const HeaderDiv = styled.div`
   flex-shrink: 0;
   position: relative;
-  font-weight: ${(props) => props.theme.typography.fontWeightSemibold};
-  color: ${(props) => props.theme.palette.text.primary};
   background-color: ${(props) => props.theme.palette.background.primary};
   border-radius: 10px 10px 0 0;
   color: white;
@@ -26,14 +24,19 @@ const HeaderDiv = styled.div`
 `;
 
 const HeaderTitle = styled.h4`
-  font-size: ${(props) => props.theme.typography.body.fontSize};
-  font-weight: ${(props) => props.theme.typography.fontWeightNormal};
-  margin: 0 40px;
+  color: ${(props) => props.theme.typography.sizes.body.bold.light.primary.color};
+  font-size: ${(props) => props.theme.typography.sizes.body.bold.light.primary.fontSize};
+  font-weight: ${(props) => props.theme.typography.sizes.body.bold.light.primary.fontWeight};
+
+  margin: 0 10px;
   padding: 5px 10px;
 `;
 
 const HeaderSubtitle = styled.span`
-  font-size: ${(props) => props.theme.typography.caption.fontSize};
+  color: ${(props) => props.theme.typography.sizes.caption.normal.light.secondary.color};
+  font-size: ${(props) => props.theme.typography.sizes.caption.normal.light.secondary.fontSize};
+  font-weight: ${(props) => props.theme.typography.sizes.caption.normal.light.secondary.fontWeight};
+  margin: 0 10px;
 `;
 
 const MinimizeButton = styled.button`
@@ -96,7 +99,7 @@ Header.propTypes = {
 Header.defaultProps = {
   title: '',
   subtitle: '',
-  person: null,
+  person: {},
   toggleChat: null,
   openMenu: null,
   showMinimizeButton: true,

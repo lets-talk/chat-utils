@@ -3,12 +3,12 @@ import path from 'path';
 import Loadable from 'react-loadable';
 import LoadingComponent from '../Loading';
 
-const LoadableConversationList = Loadable({
+const LoadableTag = Loadable({
   loader: () => import('./index'),
   loading: LoadingComponent,
   serverSideRequirePath: path.resolve(__dirname, './index'),
 });
 
-const ConversationList = (props) => (<LoadableConversationList {...props} />);
+const Tag = (props) => (<LoadableTag {...props} />);
 
-export default ConversationList;
+export default Tag;

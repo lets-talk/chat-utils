@@ -1,57 +1,112 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import styled from 'styled-components';
 
 import FaCloudDownload from 'react-icons/lib/fa/cloud-download';
 
-import './index.scss';
 
-const PhotoMessage = (props) => (
-  <div className={classNames('letstalk-mbox-attachment', 'letstalk-mbox-photo')}>
-    <div
-      tabIndex="0"
-      role="button"
-      className="letstalk-mbox-photo--img"
-      style={props.data.width && props.data.height && {
-        width: props.data.width,
-        height: props.data.height,
-      }}
-      onClick={props.onOpen}
-      onKeyPress={props.onOpen}
-    >
-      <img
-        src={props.data.uri}
-        alt={props.data.alt}
-      />
-      {
-        props.data.status &&
-          !props.data.status.download &&
-          <div className="letstalk-mbox-photo--img__block">
-            {
-              !props.data.status.click &&
-              <button
-                onClick={props.onDownload}
-                className="letstalk-mbox-photo--img__block-item letstalk-mbox-photo--download"
-              >
-                <FaCloudDownload />
-              </button>
-            }
-            {
-              typeof props.data.status.loading === 'number' &&
-                  props.data.status.loading !== 0 &&
-                  <div>{props.data.status.loading}</div>
-            }
-          </div>
-      }
-    </div>
-    {
-      props.text &&
-      <div className="letstalk-mbox-text">
-        {props.text}
-      </div>
+const StyledPhotoContainer = styled.div`
+  margin-top: -3px;
+  margin-right: -6px;
+  margin-left: -6px;
+
+  div {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    border-radius: 5px;
+    max-height: 300px;
+  }
+`;
+
+const StyledDownloadButton = styled.button`
+  color: #efe;
+  display: flex;
+  justify-content: center;
+  background: none;
+  border: none;
+  font-size: 3.2em;
+  outline: none;
+  border: 1px solid #eee;
+  border-radius: 100%;
+  height: 100px;
+  width: 100px;
+`;
+
+const StyledDownloadActionsContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 5px;
+  display: flex;
+`;
+
+const StyledText = styled.div`
+  padding: 5px 0px;
+  max-width: 300px;
+  margin: auto;
+`;
+
+const PhotoMessage = (props) => {
+  const StyledImageContainer = styled.div`
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    border-radius: 5px;
+    max-height: 300px;
+    width: ${props.data.width};
+    width: ${props.data.height};
+
+    img {
+      height: 100%;
+      min-height: 100px;
+      user-select: none;
     }
-  </div>
-);
+  `;
+  return (
+    <StyledPhotoContainer>
+      <StyledImageContainer
+        onClick={props.onOpen}
+        onKeyPress={props.onOpen}
+      >
+        <img
+          src={props.data.uri}
+          alt={props.data.alt}
+        />
+        {
+          props.data.status &&
+            !props.data.status.download &&
+            <StyledDownloadActionsContainer>
+              {
+                !props.data.status.click &&
+                  <StyledDownloadButton
+                    onClick={props.onDownload}
+                  >
+                    <FaCloudDownload />
+                  </StyledDownloadButton>
+              }
+              {
+                typeof props.data.status.loading === 'number' &&
+                    props.data.status.loading !== 0 &&
+                    <div>{props.data.status.loading}</div>
+              }
+            </StyledDownloadActionsContainer>
+        }
+      </StyledImageContainer>
+      {
+        props.text &&
+        <StyledText>
+          {props.text}
+        </StyledText>
+      }
+    </StyledPhotoContainer>
+  );
+};
 
 PhotoMessage.defaultProps = {
   text: '',
