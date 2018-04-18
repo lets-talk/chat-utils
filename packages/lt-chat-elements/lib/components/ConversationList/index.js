@@ -39,6 +39,10 @@ const NoConversation = styled.div`
   justify-content: center; /*centers items on the line (the x-axis by default)*/
   align-items: center; /*centers items on the cross-axis (y by default)*/
   flex-direction: column;
+
+  color: ${(props) => props.theme.typography.sizes.body.bold.dark.secondary.color};
+  font-size: ${(props) => props.theme.typography.sizes.body.bold.dark.secondary.fontSize};
+  font-weight: ${(props) => props.theme.typography.sizes.body.bold.dark.secondary.fontWeight};
 `;
 
 const SvgContainer = styled.div`
@@ -47,6 +51,10 @@ const SvgContainer = styled.div`
 
 const EmptyContainer = styled.div`
   max-width: 80%;
+
+  color: ${(props) => props.theme.typography.sizes.footnote.normal.dark.disabled.color};
+  font-size: ${(props) => props.theme.typography.sizes.footnote.normal.dark.disabled.fontSize};
+  font-weight: ${(props) => props.theme.typography.sizes.footnote.normal.dark.disabled.fontWeight};
 `;
 
 class ConversationList extends Component {

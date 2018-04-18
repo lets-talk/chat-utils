@@ -55,18 +55,20 @@ const CBoxRowRight = styled.div`
 const TitleDiv = styled.div`
   flex: 1;
   order: 1;
-  color: ${(props) => props.theme.palette.text.primary};
-  font-size: ${(props) => props.theme.typography.body.fontSize};
-  font-weight: ${(props) => props.theme.typography.body.fontWeight};
+
+  color: ${(props) => props.theme.typography.sizes.body.normal.dark.primary.color};
+  font-size: ${(props) => props.theme.typography.sizes.body.normal.dark.primary.fontSize};
+  font-weight: ${(props) => props.theme.typography.sizes.body.normal.dark.primary.fontWeight};
   ${ellipsis('100%')}
 `;
 
 const SubTitleDiv = styled.div`
   flex: 1;
   order: 1;
-  color: ${(props) => props.theme.palette.text.primary};
-  font-size: ${(props) => props.theme.typography.footnote.fontSize};
-  font-weight: ${(props) => props.theme.typography.footnote.fontWeight};
+
+  color: ${(props) => props.theme.typography.sizes.footnote.normal.dark.secondary.color};
+  font-size: ${(props) => props.theme.typography.sizes.footnote.normal.dark.secondary.fontSize};
+  font-weight: ${(props) => props.theme.typography.sizes.footnote.normal.dark.secondary.fontWeight};
   ${ellipsis('100%')}
 `;
 
@@ -74,18 +76,19 @@ const TimeInfoDiv = styled.div`
   display: flex;
   align-items: center;
   order: 2;
-  color: ${(props) => props.theme.palette.text.primary};
-  font-size: ${(props) => props.theme.typography.caption.fontSize};
-  font-weight: ${(props) => props.theme.typography.caption.fontWeight};
+
+  color: ${(props) => props.theme.typography.sizes.caption.normal.dark.secondary.color};
+  font-size: ${(props) => props.theme.typography.sizes.caption.normal.dark.secondary.fontSize};
+  font-weight: ${(props) => props.theme.typography.sizes.caption.normal.dark.secondary.fontWeight};
 
   div {
     display: inline-block;
     text-align: right;
-    font-size: ${(props) => props.theme.typography.small.fontSize};
+    font-size: ${(props) => props.theme.typography.sizes.small.normal.dark.fontSize};
     position: relative;
     color: ${(props) =>
     (props.readed && props.theme.palette.text.primary)
-      || (!props.readed && props.theme.palette.primary.main)};
+      || (!props.readed && props.theme.typography.sizes.caption.normal.accent.color)};
   }
 `;
 

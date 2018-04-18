@@ -57,6 +57,7 @@ const random = (messageType) => {
       }
 
       return {
+        id: parseInt(Math.random(), 10),
         position: (token() >= 1 ? 'right' : 'left'),
         forwarded: true,
         type,
@@ -132,6 +133,7 @@ stories.addWithInfo(
 
 const story3Messages = [
   {
+    id: 1,
     position: 'left',
     forwarded: true,
     type: 'Time',
@@ -148,6 +150,7 @@ const story3Messages = [
     },
   },
   {
+    id: 2,
     position: 'right',
     forwarded: true,
     type: 'Text',
@@ -165,6 +168,7 @@ const story3Messages = [
     },
   },
   {
+    id: 3,
     position: 'right',
     forwarded: true,
     type: 'Text',
@@ -182,6 +186,7 @@ const story3Messages = [
     },
   },
   {
+    id: 4,
     position: 'left',
     forwarded: true,
     type: 'Text',
@@ -199,6 +204,7 @@ const story3Messages = [
     },
   },
   {
+    id: 5,
     position: 'left',
     forwarded: true,
     type: 'Typing',
@@ -249,6 +255,7 @@ stories.addWithInfo(
 
 const fileMessages = [
   {
+    id: 1,
     position: 'left',
     forwarded: true,
     type: 'File',
@@ -276,6 +283,7 @@ const fileMessages = [
     },
   },
   {
+    id: 2,
     position: 'right',
     forwarded: false,
     type: 'File',
@@ -336,6 +344,7 @@ stories.addWithInfo(
 
 const photoMessages = [
   {
+    id: 1,
     position: 'left',
     forwarded: true,
     type: 'Photo',
@@ -362,6 +371,7 @@ const photoMessages = [
     },
   },
   {
+    id: 2,
     position: 'right',
     forwarded: true,
     type: 'Photo',
@@ -422,6 +432,7 @@ stories.addWithInfo(
 
 const actionableMessages = [
   {
+    id: 1,
     position: 'left',
     forwarded: true,
     type: 'Text',
@@ -441,6 +452,7 @@ const actionableMessages = [
     },
   },
   {
+    id: 2,
     position: 'left',
     forwarded: true,
     type: 'Text',
@@ -460,6 +472,7 @@ const actionableMessages = [
     },
   },
   {
+    id: 3,
     position: 'left',
     forwarded: false,
     type: 'Actionable',

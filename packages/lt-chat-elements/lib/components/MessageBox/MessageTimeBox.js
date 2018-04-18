@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import moment from 'moment';
 
 // Icons to be used on this component
@@ -17,60 +17,54 @@ const StyledMessageTimeBox = styled.div`
   display: inline-block;
   width: 50px;
   text-align: right;
-  font-size: ${(props) => props.theme.typography.caption.fontSize};
-  position: relative;
-  color: ${(props) => props.theme.palette.text.hintSecondary};
-
-  ${(props) =>
-    props.thatAbsoluteTime &&
-      css`
-        float: right
-      `};
-
+  color: ${(props) => props.theme.typography.sizes.caption.normal.dark.secondary.color};
+  font-size: ${(props) => props.theme.typography.sizes.caption.normal.dark.secondary.fontSize};
+  font-weight: ${(props) => props.theme.typography.sizes.caption.normal.dark.secondary.fontWeight};
+  float: right
+  position: absolute;
+  bottom: 0;
+  right: 0;
 `;
 
 const StyledStatusSpan = styled.span`
   margin-left: 3px;
 `;
 
-const MessageTimeBox = (props) => {
-  const thatAbsoluteTime = props.type !== messagesTypes.TEXT && props.type !== messagesTypes.TYPING;
-  return (
-    <StyledMessageTimeBox thatAbsoluteTime={thatAbsoluteTime}>
-      {
-        props.date && (props.type !== messagesTypes.TYPING) &&
-        (
-          props.dateString ||
-            moment(props.date).fromNow()
-        )
-      }
-      {
-        props.status &&
-          <StyledStatusSpan>
-            {
-              props.status === 'waiting' &&
-              <MdIosTime />
-            }
+const MessageTimeBox = (props) => (
+  <StyledMessageTimeBox>
+    {
+      props.date && (props.type !== messagesTypes.TYPING) &&
+      (
+        props.dateString ||
+          moment(props.date).fromNow()
+      )
+    }
+    {
+      props.status &&
+        <StyledStatusSpan>
+          {
+            props.status === 'waiting' &&
+            <MdIosTime />
+          }
 
-            {
-              props.status === 'sent' &&
-              <MdCheck />
-            }
+          {
+            props.status === 'sent' &&
+            <MdCheck />
+          }
 
-            {
-              props.status === 'received' &&
-              <IoDoneAll />
-            }
+          {
+            props.status === 'received' &&
+            <IoDoneAll />
+          }
 
-            {
-              props.status === 'read' &&
-              <IoDoneAll color="#4FC3F7" />
-            }
-          </StyledStatusSpan>
-      }
-    </StyledMessageTimeBox>
-  );
-};
+          {
+            props.status === 'read' &&
+            <IoDoneAll color="#4FC3F7" />
+          }
+        </StyledStatusSpan>
+    }
+  </StyledMessageTimeBox>
+);
 
 MessageTimeBox.propTypes = {
   /**

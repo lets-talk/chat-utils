@@ -1,6 +1,7 @@
 @import "colors";
 // Colors
-$color-primary: rgb(255, 87, 34);
+$color-dark-primary: #FF5732;
+$color-light-primary: #FFFFFF;
 $color-secondary: $palette-indigo-700;
 $color-terciary: $palette-pink-700;
 // Text colors
@@ -14,14 +15,15 @@ $unit: 8px;
 
 $preferred-font: 'Nimbus sans-serif', 'Sans', 'Helvetica', Arial;
 $font-size-default: calc(1 * #{$fontUnit});
-$font-size-small: calc(1 * #{$fontUnit});
-$font-size-caption: calc(1.2 * #{$fontUnit});
-$font-size-body: calc(1.6 * #{$fontUnit});
-$font-size-footnote: calc(1.4 * #{$fontUnit});
-$font-size-sub-head: calc(1.8 * #{$fontUnit});
-$font-size-sub-title: calc(2 * #{$fontUnit});
-$font-size-sub-headline: calc(2.4 * #{$fontUnit});
-$font-size-jumbo: calc(4.4 * #{$fontUnit});
+$font-size-small: calc(1.25 * #{$fontUnit});
+$font-size-caption: calc(1.5 * #{$fontUnit});
+$font-size-title: calc(1.75 * #{$fontUnit});
+$font-size-body: calc(2 * #{$fontUnit});
+$font-size-footnote: calc(1.75 * #{$fontUnit});
+$font-size-sub-head: calc(2.25 * #{$fontUnit});
+$font-size-headline: calc(3 * #{$fontUnit});
+$font-size-jumbo: calc(5.5 * #{$fontUnit});
+$font-size-mega: calc(7 * #{$fontUnit});
 
 $font-weight-thin: 300;
 $font-weight-normal: 400;
@@ -59,6 +61,120 @@ $z-index-normal: 1;
 $z-index-low: -100;
 $z-index-lower: -200;
 
+// disabled: (
+//   color: rgba($color-dark-primary, .3),
+//   fontSize: $size,
+//   fontWeight: $font-weight-normal,
+// )
+// primary: (
+//   color: $color-dark-primary,
+//   fontSize: $font-size-body,
+//   fontWeight: $font-weight-normal,
+// )
+// secondary: (
+//   color: rgba($color-dark-primary, .65),
+//   fontSize: $font-size-body,
+//   fontWeight: $font-weight-normal,
+// )
+
+// @function generateColors ($color, $size, $font-weight) {
+//   $map: (
+//     disabled: (
+//       color: rgba($color, .3),
+//       fontSize: $size,
+//       fontWeight: $font-weight,
+//     ),
+//     primary: (
+//       color: $color,
+//       fontSize: $size,
+//       fontWeight: $font-weight,
+//     ),
+//     secondary: (
+//       color: rgba($color, .65),
+//       fontSize: $size,
+//       fontWeight: $font-weight,
+//     )
+//   );
+//
+//   @return $map;
+// }
+
+@function generateColors ($color, $size, $font-weight) {
+  $map: (
+    disabled: (
+      color: lighten($color, .3),
+      fontSize: $size,
+      fontWeight: $font-weight,
+    ),
+    primary: (
+      color: $color,
+      fontSize: $size,
+      fontWeight: $font-weight,
+    ),
+    secondary: (
+      color: darken($color, .65),
+      fontSize: $size,
+      fontWeight: $font-weight,
+    ),
+    trans: (
+      color: transparentize($color, .65),
+      fontSize: $size,
+      fontWeight: $font-weight,
+    )
+  );
+
+  @return $map;
+}
+
+$typographies : (
+  body: $font-size-body,
+  caption: $font-size-caption,
+  footnote: $font-size-footnote,
+  headline: $font-size-headline,
+  subhead: $font-size-sub-head,
+  title: $font-size-title,
+  jumbo: $font-size-jumbo,
+  mega: $font-size-mega,
+  small: $font-size-small,
+);
+
+$typographiesMap: ();
+
+@function createTypographyMap($size) {
+  $map: (
+    normal: (
+      accent: (
+        generateColors($color-dark-primary, $size, $font-weight-normal)
+      ),
+      dark: (
+        generateColors($color-dark-primary, $size, $font-weight-normal)
+      ),
+      light: (
+        generateColors($color-light-primary, $size, $font-weight-normal)
+      )
+    ),
+    bold: (
+      accent: (
+        generateColors($color-dark-primary, $size, $font-weight-bold)
+      ),
+      dark: (
+        generateColors($color-dark-primary, $size, $font-weight-bold)
+      ),
+      light: (
+        generateColors($color-light-primary, $size, $font-weight-bold)
+      )
+    )
+  );
+  @return $map;
+}
+
+@each $key, $value in $typographies {
+  $map: ();
+  $map: map-merge($map, ($key: createTypographyMap($value)) );
+  $typographiesMap: map-merge($typographiesMap, $map);
+}
+
+@debug $typographiesMap;
 $themes: (
   default: (
     palette: (
@@ -71,7 +187,7 @@ $themes: (
       ),
       primary: (
         light: "#7986cb",
-        main: $color-primary,
+        main: $color-dark-primary,
         dark: "#303f9f",
         contrastText: "#fff",
       ),
@@ -103,7 +219,7 @@ $themes: (
         A400: "#303030",
         A700: "#616161",
       ),
-      divider: rgba($color-primary, .1),
+      divider: rgba($color-dark-primary, .1),
       text: (
         primary: $color-text-primary,
         secondary: rgba($color-text-primary, .7),
@@ -116,20 +232,20 @@ $themes: (
         secondary: rgba(94, 124, 139, .1),
       ),
       action: (
-        active: rgba($color-primary, .9),
-        hover: rgba($color-primary, .08),
-        selected: rgba($color-primary, .14),
-        disabled: rgba($color-primary, .26),
-        disabledBackground: rgba($color-primary, .12),
+        active: rgba($color-dark-primary, .9),
+        hover: rgba($color-dark-primary, .08),
+        selected: rgba($color-dark-primary, .14),
+        disabled: rgba($color-dark-primary, .26),
+        disabledBackground: rgba($color-dark-primary, .12),
       ),
       // Colors
       color-text: $color-white,
-      color-primary: $color-primary,
-      color-secondary: rgba($color-primary, .7),
-      color-disabled: rgba($color-primary, .3),
-      color-hint-primary: rgba($color-primary, .3),
+      color-primary: $color-dark-primary,
+      color-secondary: rgba($color-dark-primary, .7),
+      color-disabled: rgba($color-dark-primary, .3),
+      color-hint-primary: rgba($color-dark-primary, .3),
       color-hint-secondary: rgba(255, 255, 255, .65),
-      color-divider: rgba($color-primary, .1),
+      color-divider: rgba($color-dark-primary, .1),
       color-background-primary: rgb(255, 87, 34),
       color-background-secondary: rgba(94, 124, 139, .1),
       color-bot-agent: rgb(94, 124, 139),
@@ -149,313 +265,7 @@ $themes: (
       fontWeightNormal: $font-weight-normal,
       fontWeightSemibold: $font-weight-semi-bold,
       fontWeightBold: $font-weight-semi-bold,
-
-      default: (
-        fontSize: $font-size-default,
-        fontWeight: $font-weight-normal,
-      ),
-      small: (
-        fontSize: $font-size-small,
-        fontWeight: $font-weight-normal,
-      ),
-      caption: (
-        fontSize: $font-size-caption,
-        fontWeight: $font-weight-thin,
-      ),
-      body: (
-        fontSize: $font-size-body,
-        fontWeight: $font-weight-normal,
-      ),
-      footnote: (
-        fontSize: $font-size-footnote,
-        fontWeight: $font-weight-thin,
-      ),
-      sub-head: (
-        fontSize: $font-size-sub-head,
-        fontWeight: $font-weight-normal,
-      ),
-      sub-title: (
-        fontSize: $font-size-sub-title,
-        fontWeight: $font-weight-normal,
-      ),
-      sub-headline: (
-        fontSize: $font-size-sub-headline,
-        fontWeight: $font-weight-normal,
-      ),
-      jumbo: (
-        fontSize: $font-size-jumbo,
-        fontWeight: $font-weight-normal,
-      )
-    ),
-    components: (
-      // COMPONENTS STYLES
-      conversationBox: (
-        externalBackgroundColor: rgba(94, 124, 139, .1),
-        internalBackgroundColor: rgba(255, 213, 0, .2),
-        importantBackgroundColor: #fff6f4,
-      ),
-      loader: (
-        background-color: #fc5830,
-      )
-    )
-  ),
-  light: (
-    palette: (
-      common: (
-        black: "#000",
-        white: "#fff"
-      ),
-      primary: (
-        light: "#7986cb",
-        main: $color-primary,
-        dark: "#303f9f",
-        contrastText: "#fff",
-      ),
-      secondary: (
-        light: "#7986cb",
-        main: $color-primary,
-        dark: "#303f9f",
-        contrastText: "#fff",
-      ),
-      error: (
-        light: "#e57373",
-        main: "#f44336",
-        dark: "#d32f2f",
-        contrastText: "#fff",
-      ),
-      grey: (
-        50: "#fafafa",
-        100: "#f5f5f5",
-        200: "#eeeeee",
-        300: "#e0e0e0",
-        400: "#bdbdbd",
-        500: "#9e9e9e",
-        600: "#757575",
-        700: "#616161",
-        800: "#424242",
-        900: "#212121",
-        A100: "#d5d5d5",
-        A200: "#aaaaaa",
-        A400: "#303030",
-        A700: "#616161",
-      ),
-      divider: "rgba(0, 0, 0, 0.12)",
-      text: (
-        primary: $color-primary,
-        secondary: rgba($color-primary, .7),
-        disabled: rgba($color-primary, .3),
-        hint: rgba($color-primary, .3),
-      ),
-      background: (
-        primary: rgb(255, 87, 34),
-        secondary: rgba(94, 124, 139, .1),
-      ),
-      action: (
-        active: rgba($color-primary, .9),
-        hover: rgba($color-primary, .2),
-        selected: rgba($color-primary, .14),
-        disabled: rgba($color-primary, .26),
-        disabledBackground: rgba($color-primary, .12),
-      ),
-      // Colors
-      color-text: $color-white,
-      color-primary: $color-primary,
-      color-secondary: rgba($color-primary, .7),
-      color-disabled: rgba($color-primary, .3),
-      color-hint-primary: rgba($color-primary, .3),
-      color-hint-secondary: rgba(255, 255, 255, .65),
-      color-divider: rgba($color-primary, .1),
-      color-background-primary: rgb(255, 87, 34),
-      color-background-secondary: rgba(94, 124, 139, .1),
-      color-bot-agent: rgb(94, 124, 139),
-    ),
-    shadows: (
-      2p: $shadow-2p,
-      3p: $shadow-3p,
-      4p: $shadow-4p,
-      6p: $shadow-6p,
-      8p: $shadow-8p,
-      16p: $shadow-16p,
-    ),
-    typography: (
-      fontFamily: $preferred-font,
-      fontSize: $font-size-default,
-      fontWeightThin: $font-weight-thin,
-      fontWeightNormal: $font-weight-normal,
-      fontWeightSemibold: $font-weight-semi-bold,
-      fontWeightBold: $font-weight-semi-bold,
-
-      default: (
-        fontSize: $font-size-default,
-        fontWeight: $font-weight-normal,
-      ),
-      small: (
-        fontSize: $font-size-small,
-        fontWeight: $font-weight-normal,
-      ),
-      caption: (
-        fontSize: $font-size-caption,
-        fontWeight: $font-weight-normal,
-      ),
-      body: (
-        fontSize: $font-size-body,
-        fontWeight: $font-weight-normal,
-      ),
-      footnote: (
-        fontSize: $font-size-footnote,
-        fontWeight: $font-weight-normal,
-      ),
-      sub-head: (
-        fontSize: $font-size-sub-head,
-        fontWeight: $font-weight-normal,
-      ),
-      sub-title: (
-        fontSize: $font-size-sub-title,
-        fontWeight: $font-weight-normal,
-      ),
-      sub-headline: (
-        fontSize: $font-size-sub-headline,
-        fontWeight: $font-weight-normal,
-      ),
-      jumbo: (
-        fontSize: $font-size-jumbo,
-        fontWeight: $font-weight-normal,
-      )
-    ),
-    components: (
-      // COMPONENTS STYLES
-      conversationBox: (
-        externalBackgroundColor: rgba(94, 124, 139, .1),
-        internalBackgroundColor: rgba(255, 213, 0, .2),
-        importantBackgroundColor: #fff6f4,
-      ),
-      loader: (
-        background-color: #fc5830,
-      )
-    )
-  ),
-  dark: (
-    palette: (
-      common: (
-        black: "#000",
-        white: "#fff"
-      ),
-      primary: (
-        light: "#7986cb",
-        main: $color-primary,
-        dark: "#303f9f",
-        contrastText: "#fff",
-      ),
-      secondary: (
-        light: "#7986cb",
-        main: $color-primary,
-        dark: "#303f9f",
-        contrastText: "#fff",
-      ),
-      error: (
-        light: "#e57373",
-        main: "#f44336",
-        dark: "#d32f2f",
-        contrastText: "#fff",
-      ),
-      grey: (
-        50: "#fafafa",
-        100: "#f5f5f5",
-        200: "#eeeeee",
-        300: "#e0e0e0",
-        400: "#bdbdbd",
-        500: "#9e9e9e",
-        600: "#757575",
-        700: "#616161",
-        800: "#424242",
-        900: "#212121",
-        A100: "#d5d5d5",
-        A200: "#aaaaaa",
-        A400: "#303030",
-        A700: "#616161",
-      ),
-      divider: "rgba(0, 0, 0, 0.12)",
-      text: (
-        primary: $color-primary,
-        secondary: rgba($color-primary, .7),
-        disabled: rgba($color-primary, .3),
-        hint: rgba($color-primary, .3),
-      ),
-      background: (
-        primary: rgb(255, 87, 34),
-        secondary: rgba(94, 124, 139, .1),
-      ),
-      action: (
-        active: "rgba(0, 0, 0, 0.54)",
-        hover: "rgba(0, 0, 0, 0.08)",
-        selected: "rgba(0, 0, 0, 0.14)",
-        disabled: "rgba(0, 0, 0, 0.26)",
-        disabledBackground: "rgba(0, 0, 0, 0.12)",
-      ),
-      // Colors
-      color-text: $color-white,
-      color-primary: $color-primary,
-      color-secondary: rgba($color-primary, .7),
-      color-disabled: rgba($color-primary, .3),
-      color-hint-primary: rgba($color-primary, .3),
-      color-hint-secondary: rgba(255, 255, 255, .65),
-      color-divider: rgba($color-primary, .1),
-      color-background-primary: rgb(255, 87, 34),
-      color-background-secondary: rgba(94, 124, 139, .1),
-      color-bot-agent: rgb(94, 124, 139),
-    ),
-    shadows: (
-      2p: $shadow-2p,
-      3p: $shadow-3p,
-      4p: $shadow-4p,
-      6p: $shadow-6p,
-      8p: $shadow-8p,
-      16p: $shadow-16p,
-    ),
-    typography: (
-      fontFamily: $preferred-font,
-      fontSize: $font-size-default,
-      fontWeightThin: $font-weight-thin,
-      fontWeightNormal: $font-weight-normal,
-      fontWeightSemibold: $font-weight-semi-bold,
-      fontWeightBold: $font-weight-semi-bold,
-
-      default: (
-        fontSize: $font-size-default,
-        fontWeight: $font-weight-normal,
-      ),
-      small: (
-        fontSize: $font-size-small,
-        fontWeight: $font-weight-normal,
-      ),
-      caption: (
-        fontSize: $font-size-caption,
-        fontWeight: $font-weight-normal,
-      ),
-      body: (
-        fontSize: $font-size-body,
-        fontWeight: $font-weight-normal,
-      ),
-      footnote: (
-        fontSize: $font-size-footnote,
-        fontWeight: $font-weight-normal,
-      ),
-      sub-head: (
-        fontSize: $font-size-sub-head,
-        fontWeight: $font-weight-normal,
-      ),
-      sub-title: (
-        fontSize: $font-size-sub-title,
-        fontWeight: $font-weight-normal,
-      ),
-      sub-headline: (
-        fontSize: $font-size-sub-headline,
-        fontWeight: $font-weight-normal,
-      ),
-      jumbo: (
-        fontSize: $font-size-jumbo,
-        fontWeight: $font-weight-normal,
-      )
+      sizes: $typographiesMap,
     ),
     components: (
       // COMPONENTS STYLES

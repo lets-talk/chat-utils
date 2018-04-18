@@ -9,8 +9,8 @@ const ActionList = styled.ul`
   margin: 0;
   border-radius: 5px;
   background-color: ${(props) => props.theme.palette.common.white};
-  font-size: ${(props) => props.theme.typography.caption.fontSize};
-  font-weight: ${(props) => props.theme.typography.fontWeightSemibold};
+  font-size: ${(props) => props.theme.typography.sizes.caption.bold.accent.fontSize};
+  font-weight: ${(props) => props.theme.typography.sizes.caption.bold.accent.fontWeight};
 `;
 
 const ActionItem = styled.li`

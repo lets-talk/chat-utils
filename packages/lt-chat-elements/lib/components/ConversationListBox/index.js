@@ -21,8 +21,7 @@ const ConversationListBox = (props) => {
     conversations,
     title,
     subtitle,
-    avatar,
-    avatarStatus,
+    person,
     className,
     toggleChat,
     newConversationHandler,
@@ -41,8 +40,7 @@ const ConversationListBox = (props) => {
       <Header
         title={title}
         subtitle={subtitle}
-        avatar={avatar}
-        avatarStatus={avatarStatus}
+        person={person}
         toggleChat={toggleChat}
         openMenu={openMenu}
         showMinimizeButton={showMinimizeButton}
@@ -79,13 +77,9 @@ ConversationListBox.propTypes = {
    */
   subtitle: PropTypes.string,
   /**
-   * avatar: Avatar image to display on the header of the component
+   * persona: Avatar image to display on the header of the component
    */
-  avatar: PropTypes.string,
-  /**
-   * avatar: Avatar status to display bewlow the avatar. If empty none is displayed
-   */
-  avatarStatus: PropTypes.string,
+  person: PropTypes.object,
   /**
    * toggleChat: Callback function called when user clicks on the toggle button
    */
@@ -138,7 +132,7 @@ ConversationListBox.propTypes = {
 ConversationListBox.defaultProps = {
   title: '',
   subtitle: '',
-  avatar: '',
+  person: {},
   toggleChat: null,
   openMenu: null,
   clickConversationHandler: null,
