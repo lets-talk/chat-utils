@@ -30,9 +30,9 @@ const StyledMessageTitle = styled.div`
   margin: 0;
   margin-bottom: 8px;
 
-  color: ${(props) => props.theme.typography.sizes.caption.bold.dark.secondary.color};
-  font-size: ${(props) => props.theme.typography.sizes.caption.bold.dark.secondary.fontSize};
-  font-weight: ${(props) => props.theme.typography.sizes.caption.bold.dark.secondary.fontWeight};
+  color: ${(props) => props.theme.typography.classes.caption.bold.dark.secondary.color};
+  font-size: ${(props) => props.theme.typography.classes.caption.bold.dark.secondary.fontSize};
+  font-weight: ${(props) => props.theme.typography.classes.caption.bold.dark.secondary.fontWeight};
 
   user-select: none;
   cursor: pointer;
@@ -58,19 +58,11 @@ const NormalMessageBox = (props) => {
   const { messagesTypes, personTypes } = constants;
 
   const StyledNormalMessageContainer = styled.div`
-    padding-bottom: 3px;
-
     position: relative;
-
-    color: ${(localProps) => localProps.theme.typography.sizes.footnote.normal.dark.secondary.color};
-    font-size: ${(localProps) => localProps.theme.typography.sizes.footnote.normal.dark.secondary.fontSize};
-    font-weight: ${(localProps) => localProps.theme.typography.sizes.footnote.normal.dark.secondary.fontWeight};
-
+    padding-bottom: 3px;
     background-color: ${(localProps) => localProps.theme.palette.background.primary};
     border-radius: 5px;
     box-shadow: none;
-    margin-left: 10px;
-    margin-right: 5px;
     margin-top: 3px;
     flex-direction: column;
     margin-bottom: 3px;
@@ -91,7 +83,12 @@ const NormalMessageBox = (props) => {
           margin-left: 5px;
           margin-right: ${() => props.person.avatar ? '45px' : '45px'};
         `};
+    
 
+    color: ${(localProps) => localProps.theme.typography.classes.footnote.normal.light.primary.color};
+    font-size: ${(localProps) => localProps.theme.typography.classes.footnote.normal.light.primary.fontSize};
+    font-weight: ${(localProps) => localProps.theme.typography.classes.footnote.normal.light.primary.fontWeight};
+    
     ${() =>
     ((props.person.type === personTypes.BOT || props.person.type === personTypes.AGENT) && props.type !== messagesTypes.ACTIONABLE) &&
         css`

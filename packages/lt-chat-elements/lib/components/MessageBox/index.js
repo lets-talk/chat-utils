@@ -5,6 +5,9 @@ import styled, { css } from 'styled-components';
 // Constants
 import constants from '../../utils/constants';
 
+// Types
+import { MessagePropType } from '../../utils/types';
+
 // Other components used by this component
 import SystemMessage from '../SystemMessage';
 import TimeMarkMessage from '../TimeMarkMessage';
@@ -56,56 +59,47 @@ const renderAutomaticMessage = (type, text) => {
 };
 const renderNormalMessage = (props) => <NormalMessageBox {...props} />;
 
-const MessageBox = (props) => (
-  <StyledMessageBoxContainer
-    className={props.className}
-    onClick={props.onClick}
-    onKeyPress={props.onClick}
-  >
-    {
-      props.person.avatar && props.type !== messagesTypes.SYSTEM &&
-      <StyledAvatarContainer position={props.position}>
-        <Avatar
-          src={props.person.avatar}
-          withStatus={false}
-          size="xsmall"
-        />
-      </StyledAvatarContainer>
-    }
+const MessageBox = (props) => {
+  const {
+    type, text, person, position,
+  } = props.message;
+  return (
+    <StyledMessageBoxContainer
+      className={props.className}
+      onClick={props.onClick}
+      onKeyPress={props.onClick}
+    >
+      {
+        person.avatar && type !== messagesTypes.SYSTEM &&
+        <StyledAvatarContainer position={position}>
+          <Avatar
+            src={person.avatar}
+            withStatus={false}
+            size="xsmall"
+          />
+        </StyledAvatarContainer>
+      }
 
-    {
-      props.type === messagesTypes.SYSTEM || props.type === messagesTypes.TIME ?
-        renderAutomaticMessage(props.type, props.text)
-        :
-        renderNormalMessage(props)
-    }
-
-  </StyledMessageBoxContainer>
-);
+      {
+        type === messagesTypes.SYSTEM || type === messagesTypes.TIME ?
+          renderAutomaticMessage(type, text)
+          :
+          renderNormalMessage(props.message)
+      }
+    </StyledMessageBoxContainer>
+  );
+};
 
 
 MessageBox.propTypes = {
   /**
-   * Position: What side the message is displayed inside the chatbox
+   * message: Actual message object.
    */
-  position: PropTypes.string,
-  /**
-   * Type of Message: Type of the message. Values are defined as constants.
-   * The current supported types are: SYSTEM, TEXT, TYPING, TIME, ACTIONABLE, FILE, PHOTO.
-   */
-  type: PropTypes.string,
-  /**
-   * Text: Actual message content text.
-   */
-  text: PropTypes.string,
+  message: PropTypes.shape(MessagePropType).isRequired,
   /**
    * onClick: Handler function that is called on message click action
    */
   onClick: PropTypes.func,
-  /**
-   * person: Object representing the person that created or submited this message.
-   */
-  person: PropTypes.object,
   /**
    * className: Extra className to provide to the component in order to style it when used in different contexts.
    */

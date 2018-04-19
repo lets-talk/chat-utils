@@ -35,9 +35,9 @@ const StyledSenderContainer = styled.div`
     width: 100%;
     height: 100%;
 
-    color: ${(props) => props.theme.typography.sizes.body.normal.dark.primary.color};
-    font-size: ${(props) => props.theme.typography.sizes.body.normal.dark.primary.fontSize};
-    font-weight: ${(props) => props.theme.typography.sizes.body.normal.dark.primary.fontWeight};
+    color: ${(props) => props.theme.typography.classes.body.normal.dark.primary.color};
+    font-size: ${(props) => props.theme.typography.classes.body.normal.dark.primary.fontSize};
+    font-weight: ${(props) => props.theme.typography.classes.body.normal.dark.primary.fontWeight};
 
     white-space: pre-wrap;
     background-color: rgba(94, 124, 139, 0.1);
@@ -53,7 +53,7 @@ const StyledSenderContainer = styled.div`
   }
 
   textarea::placeholder {
-    color: ${(props) => props.theme.typography.sizes.body.normal.dark.disabled.color};
+    color: ${(props) => props.theme.typography.classes.body.normal.dark.disabled.color};
   }
 `;
 

@@ -24,9 +24,9 @@ const StyledContainer = styled.div`
       line-height: 1;
       display: inline-block;
 
-      color: ${(props) => props.theme.typography.sizes.caption.normal.dark.disabled.color};
-      font-size: ${(props) => props.theme.typography.sizes.caption.normal.dark.disabled.fontSize};
-      font-weight: ${(props) => props.theme.typography.sizes.caption.normal.dark.disabled.fontWeight};
+      color: ${(props) => props.theme.typography.classes.caption.normal.dark.disabled.color};
+      font-size: ${(props) => props.theme.typography.classes.caption.normal.dark.disabled.fontSize};
+      font-weight: ${(props) => props.theme.typography.classes.caption.normal.dark.disabled.fontWeight};
 
       span {
         display: inline-block;

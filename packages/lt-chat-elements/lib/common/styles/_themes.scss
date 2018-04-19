@@ -1,34 +1,38 @@
 @import "colors";
-// Colors
-$color-dark-primary: #FF5732;
-$color-light-primary: #FFFFFF;
-$color-secondary: $palette-indigo-700;
-$color-terciary: $palette-pink-700;
+// Background Colors
+$color-background-primary: #FF5732;
+$color-background-secondary: rgba(4, 38, 73, .3);
+$color-background-terciary: $palette-pink-700;
 // Text colors
-$color-text-primary: rgb(4, 38, 73);
+$color-text-dark-primary: rgb(4, 38, 73);
+$color-text-light-primary: rgb(255, 255, 255);
+$color-text-accent-primary: #FF5732;
 $color-text-secondary: $palette-indigo-700;
 $color-text-terciary: $palette-pink-700;
 
 // Fonts
-$fontUnit: 10px;
+$fontUnit: 1px; // 1pt - 0.75px
 $unit: 8px;
 
 $preferred-font: 'Nimbus sans-serif', 'Sans', 'Helvetica', Arial;
 $font-size-default: calc(1 * #{$fontUnit});
-$font-size-small: calc(1.25 * #{$fontUnit});
-$font-size-caption: calc(1.5 * #{$fontUnit});
-$font-size-title: calc(1.75 * #{$fontUnit});
-$font-size-body: calc(2 * #{$fontUnit});
-$font-size-footnote: calc(1.75 * #{$fontUnit});
-$font-size-sub-head: calc(2.25 * #{$fontUnit});
-$font-size-headline: calc(3 * #{$fontUnit});
-$font-size-jumbo: calc(5.5 * #{$fontUnit});
-$font-size-mega: calc(7 * #{$fontUnit});
+$font-size-small: calc(10 * #{$fontUnit});// 10pt
+$font-size-caption: calc(12 * #{$fontUnit}); // 12pt
+$font-size-footnote: calc(14 * #{$fontUnit}); // 14pt
+$font-size-body: calc(16 * #{$fontUnit}); // 16pt
+$font-size-subhead: calc(18 * #{$fontUnit}); // 18pt
+$font-size-title: calc(20 * #{$fontUnit}); // 20pt
+$font-size-headline: calc(24 * #{$fontUnit}); // 24pt
+$font-size-jumbo: calc(44 * #{$fontUnit}); // 44pt
+$font-size-mega: calc(56 * #{$fontUnit}); // 56pt
 
+$font-weight-ultra-thin: 100;
 $font-weight-thin: 300;
-$font-weight-normal: 400;
-$font-weight-semi-bold: 500;
+$font-weight-normal: 300;
+$font-weight-medium: 500;
+$font-weight-semi-bold: 600;
 $font-weight-bold: 700;
+$font-weight-condensed-bold: 900;
 
 $shadow-2p: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 $shadow-3p: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
@@ -62,19 +66,40 @@ $z-index-low: -100;
 $z-index-lower: -200;
 
 // disabled: (
-//   color: rgba($color-dark-primary, .3),
+//   color: rgba($color-background-primary, .3),
 //   fontSize: $size,
 //   fontWeight: $font-weight-normal,
 // )
 // primary: (
-//   color: $color-dark-primary,
+//   color: $color-background-primary,
 //   fontSize: $font-size-body,
 //   fontWeight: $font-weight-normal,
 // )
 // secondary: (
-//   color: rgba($color-dark-primary, .65),
+//   color: rgba($color-background-primary, .65),
 //   fontSize: $font-size-body,
 //   fontWeight: $font-weight-normal,
+// )
+
+// disabled: (
+//   color: lighten($color, .3),
+//   fontSize: $size,
+//   fontWeight: $font-weight,
+// ),
+// primary: (
+//   color: $color,
+//   fontSize: $size,
+//   fontWeight: $font-weight,
+// ),
+// secondary: (
+//   color: darken($color, .65),
+//   fontSize: $size,
+//   fontWeight: $font-weight,
+// ),
+// trans: (
+//   color: transparentize($color, .65),
+//   fontSize: $size,
+//   fontWeight: $font-weight,
 // )
 
 // @function generateColors ($color, $size, $font-weight) {
@@ -99,10 +124,18 @@ $z-index-lower: -200;
 //   @return $map;
 // }
 
+@function set-text-color($color, $backgroundColor) {
+  @if (lightness($backgroundColor) > 50) {
+    @return #000; // Lighter backgorund, return dark color
+  } @else {
+    @return #FFF; // Darker background, return light color
+  }
+}
+
 @function generateColors ($color, $size, $font-weight) {
   $map: (
     disabled: (
-      color: lighten($color, .3),
+      color: rgba($color, .3),
       fontSize: $size,
       fontWeight: $font-weight,
     ),
@@ -112,7 +145,7 @@ $z-index-lower: -200;
       fontWeight: $font-weight,
     ),
     secondary: (
-      color: darken($color, .65),
+      color: rgba($color, .65),
       fontSize: $size,
       fontWeight: $font-weight,
     ),
@@ -126,57 +159,100 @@ $z-index-lower: -200;
   @return $map;
 }
 
-$typographies : (
-  body: $font-size-body,
-  caption: $font-size-caption,
-  footnote: $font-size-footnote,
-  headline: $font-size-headline,
-  subhead: $font-size-sub-head,
-  title: $font-size-title,
-  jumbo: $font-size-jumbo,
-  mega: $font-size-mega,
-  small: $font-size-small,
+$typographiesClasses : (
+  body: (
+    fontSize: $font-size-body,
+    fontWeight: $font-weight-bold
+  ),
+  caption: (
+    fontSize: $font-size-caption,
+    fontWeight: $font-weight-bold
+  ),
+  footnote: (
+    fontSize: $font-size-footnote,
+    fontWeight: $font-weight-bold
+  ),
+  small: (
+    fontSize: $font-size-small,
+    fontWeight: $font-weight-bold
+  ),
+  headline: (
+    fontSize: $font-size-headline,
+    fontWeight: $font-weight-bold
+  ),
+  subhead: (
+    fontSize: $font-size-subhead,
+    fontWeight: $font-weight-bold
+  ),
+  title: (
+    fontSize: $font-size-title,
+    fontWeight: $font-weight-medium
+  ),
+  jumbo: (
+    fontSize: $font-size-jumbo,
+    fontWeight: $font-weight-bold
+  ),
+  mega: (
+    fontSize: $font-size-mega,
+    fontWeight: $font-weight-bold
+  )
 );
 
-$typographiesMap: ();
-
-@function createTypographyMap($size) {
+@function createTypographyMap($typographyObject, $colors) {
+  $fontSize: map-get($typographyObject, 'fontSize');
+  $fontWeight: map-get($typographyObject, 'fontWeight');
+  $color-text-accent-primary: map-get($colors, 'color-text-accent-primary');
+  $color-text-dark-primary: map-get($colors, 'color-text-dark-primary');
+  $color-text-light-primary: map-get($colors, 'color-text-light-primary');
   $map: (
     normal: (
       accent: (
-        generateColors($color-dark-primary, $size, $font-weight-normal)
+        generateColors($color-text-accent-primary, $fontSize, $font-weight-normal)
       ),
       dark: (
-        generateColors($color-dark-primary, $size, $font-weight-normal)
+        generateColors($color-text-dark-primary, $fontSize, $font-weight-normal)
       ),
       light: (
-        generateColors($color-light-primary, $size, $font-weight-normal)
+        generateColors($color-text-light-primary, $fontSize, $font-weight-normal)
       )
     ),
     bold: (
       accent: (
-        generateColors($color-dark-primary, $size, $font-weight-bold)
+        generateColors($color-text-accent-primary, $fontSize, $fontWeight)
       ),
       dark: (
-        generateColors($color-dark-primary, $size, $font-weight-bold)
+        generateColors($color-text-dark-primary, $fontSize, $fontWeight)
       ),
       light: (
-        generateColors($color-light-primary, $size, $font-weight-bold)
+        generateColors($color-text-light-primary, $fontSize, $fontWeight)
       )
     )
   );
   @return $map;
 }
 
-@each $key, $value in $typographies {
-  $map: ();
-  $map: map-merge($map, ($key: createTypographyMap($value)) );
-  $typographiesMap: map-merge($typographiesMap, $map);
+@function generateTypography($colors) {
+  $typographiesMap: ();
+
+  @each $key, $value in $typographiesClasses {
+    $map: ();
+    $map: map-merge($map, ($key: createTypographyMap($value, $colors)) );
+    $typographiesMap: map-merge($typographiesMap, $map);
+  }
+  @return $typographiesMap;
 }
 
-@debug $typographiesMap;
-$themes: (
-  default: (
+@function createTheme($colors) {
+  $theme: ();
+  $color-text-accent-primary: map-get($colors, 'color-text-accent-primary');
+  $color-text-dark-primary: map-get($colors, 'color-text-dark-primary');
+  $color-text-light-primary: map-get($colors, 'color-text-light-primary');
+  $color-background-primary: map-get($colors, 'color-background-primary');
+  $color-background-secondary: map-get($colors, 'color-background-secondary');
+
+  $typographiesMap: generateTypography($colors);
+  
+  $theme: (
     palette: (
       common: (
         black: $color-black,
@@ -187,13 +263,13 @@ $themes: (
       ),
       primary: (
         light: "#7986cb",
-        main: $color-dark-primary,
+        main: $color-background-primary,
         dark: "#303f9f",
         contrastText: "#fff",
       ),
       secondary: (
         light: "#7986cb",
-        main: $color-secondary,
+        main: $color-text-secondary,
         dark: "#303f9f",
         contrastText: "#fff",
       ),
@@ -219,36 +295,27 @@ $themes: (
         A400: "#303030",
         A700: "#616161",
       ),
-      divider: rgba($color-dark-primary, .1),
+      divider: rgba($color-background-primary, .1),
       text: (
-        primary: $color-text-primary,
-        secondary: rgba($color-text-primary, .7),
-        disabled: rgba($color-text-primary, .3),
-        hint: rgba($color-text-primary, .3),
+        primary: $color-text-dark-primary,
+        secondary: rgba($color-text-dark-primary, .7),
+        disabled: rgba($color-text-dark-primary, .3),
+        hint: rgba($color-text-dark-primary, .3),
         hintSecondary: rgba(255, 255, 255, .65),
       ),
       background: (
-        primary: rgb(255, 87, 34),
-        secondary: rgba(94, 124, 139, .1),
+        // primary: rgb(255, 87, 34),
+        // secondary: rgba(94, 124, 139, .1),
+        primary: $color-background-primary,
+        secondary: $color-background-secondary
       ),
       action: (
-        active: rgba($color-dark-primary, .9),
-        hover: rgba($color-dark-primary, .08),
-        selected: rgba($color-dark-primary, .14),
-        disabled: rgba($color-dark-primary, .26),
-        disabledBackground: rgba($color-dark-primary, .12),
+        active: rgba($color-background-primary, .9),
+        hover: rgba($color-background-primary, .08),
+        selected: rgba($color-background-primary, .14),
+        disabled: rgba($color-background-primary, .26),
+        disabledBackground: rgba($color-background-primary, .12),
       ),
-      // Colors
-      color-text: $color-white,
-      color-primary: $color-dark-primary,
-      color-secondary: rgba($color-dark-primary, .7),
-      color-disabled: rgba($color-dark-primary, .3),
-      color-hint-primary: rgba($color-dark-primary, .3),
-      color-hint-secondary: rgba(255, 255, 255, .65),
-      color-divider: rgba($color-dark-primary, .1),
-      color-background-primary: rgb(255, 87, 34),
-      color-background-secondary: rgba(94, 124, 139, .1),
-      color-bot-agent: rgb(94, 124, 139),
     ),
     shadows: (
       2p: $shadow-2p,
@@ -261,11 +328,15 @@ $themes: (
     typography: (
       fontFamily: $preferred-font,
       fontSize: $font-size-default,
-      fontWeightThin: $font-weight-thin,
-      fontWeightNormal: $font-weight-normal,
-      fontWeightSemibold: $font-weight-semi-bold,
-      fontWeightBold: $font-weight-semi-bold,
-      sizes: $typographiesMap,
+      weights: (
+        fontWeightUltraThin: $font-weight-ultra-thin,
+        fontWeightThin: $font-weight-thin,
+        fontWeightNormal: $font-weight-normal,
+        fontWeightMedium: $font-weight-medium,
+        fontWeightSemibold: $font-weight-semi-bold,
+        fontWeightBold: $font-weight-bold,
+      ),
+      classes: $typographiesMap,
     ),
     components: (
       // COMPONENTS STYLES
@@ -278,5 +349,63 @@ $themes: (
         background-color: #fc5830,
       )
     )
-  ),
+  );
+
+  @return $theme;
+};
+
+$defaultColors: (
+  color-text-accent-primary: $color-text-accent-primary,
+  color-text-dark-primary: $color-text-dark-primary,
+  color-text-light-primary: $color-text-light-primary,
+  color-background-primary: $color-background-primary,
+  color-background-secondary: $color-background-secondary,
 );
+
+@function generateLightVariants($colors, $factor) {
+  $newColors: (
+    color-text-accent-primary: set-text-color($color-text-accent-primary, lighten($color-text-accent-primary, $factor)),
+    color-text-dark-primary: set-text-color($color-text-dark-primary, lighten($color-text-dark-primary, $factor)),
+    color-text-light-primary: set-text-color($color-text-light-primary, lighten($color-text-light-primary, $factor)),
+    color-background-primary: lighten($color-background-primary, $factor),
+    color-background-secondary: lighten($color-background-secondary, $factor),
+  );
+  @return $newColors;
+}
+
+@function generateDarkVariants($colors, $factor) {
+  $color-text-accent-primary: map-get($colors, 'color-text-accent-primary');
+  $color-text-dark-primary: map-get($colors, 'color-text-dark-primary');
+  $color-text-light-primary: map-get($colors, 'color-text-light-primary');
+  $color-background-primary: map-get($colors, 'color-background-primary');
+  $color-background-secondary: map-get($colors, 'color-background-secondary');
+
+  $newColors: (
+    color-text-accent-primary: set-text-color($color-text-accent-primary, darken($color-text-accent-primary, $factor)),
+    color-text-dark-primary: set-text-color($color-text-dark-primary, darken($color-text-dark-primary, $factor)),
+    color-text-light-primary: set-text-color($color-text-light-primary, darken($color-text-light-primary, $factor)),
+    color-background-primary: darken($color-background-primary, $factor),
+    color-background-secondary: darken($color-background-secondary, $factor),
+  );
+  @return $newColors;
+}
+
+$themeDarkFactor: 50%;
+$themeDarkestFactor: 80%;
+$themeLightFactor: 10%;
+$themeLightestFactor: 35%;
+
+$lightColors: generateLightVariants($defaultColors, $themeLightFactor);
+$lightestColors: generateLightVariants($defaultColors, $themeLightestFactor);
+$darkColors: generateDarkVariants($defaultColors, $themeDarkFactor);
+$darkestColors: generateDarkVariants($defaultColors, $themeDarkestFactor);
+
+$themes: (
+  default: createTheme($defaultColors),
+  light: createTheme($lightColors),
+  lightest: createTheme($lightestColors),
+  dark: createTheme($darkColors),
+  darkest: createTheme($darkestColors)
+);
+
+// @debug $themes;

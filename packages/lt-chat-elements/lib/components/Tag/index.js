@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StyledTag = styled.span`
-  color: ${(props) => props.theme.typography.sizes.caption.normal.dark.primary.color};
-  font-size: ${(props) => props.theme.typography.sizes.caption.normal.dark.primary.fontSize};
-  font-weight: ${(props) => props.theme.typography.sizes.caption.normal.dark.primary.fontWeight};
+  color: ${(props) => props.theme.typography.classes.caption.normal.dark.primary.color};
+  font-size: ${(props) => props.theme.typography.classes.caption.normal.dark.primary.fontSize};
+  font-weight: ${(props) => props.theme.typography.classes.caption.normal.dark.primary.fontWeight};
   background-color: ${(props) => props.theme.palette.background.secondary};
 
   margin: 5px 2px;

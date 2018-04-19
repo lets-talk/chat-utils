@@ -56,9 +56,9 @@ const TitleDiv = styled.div`
   flex: 1;
   order: 1;
 
-  color: ${(props) => props.theme.typography.sizes.body.normal.dark.primary.color};
-  font-size: ${(props) => props.theme.typography.sizes.body.normal.dark.primary.fontSize};
-  font-weight: ${(props) => props.theme.typography.sizes.body.normal.dark.primary.fontWeight};
+  color: ${(props) => props.theme.typography.classes.body.normal.dark.primary.color};
+  font-size: ${(props) => props.theme.typography.classes.body.normal.dark.primary.fontSize};
+  font-weight: ${(props) => props.theme.typography.classes.body.normal.dark.primary.fontWeight};
   ${ellipsis('100%')}
 `;
 
@@ -66,9 +66,9 @@ const SubTitleDiv = styled.div`
   flex: 1;
   order: 1;
 
-  color: ${(props) => props.theme.typography.sizes.footnote.normal.dark.secondary.color};
-  font-size: ${(props) => props.theme.typography.sizes.footnote.normal.dark.secondary.fontSize};
-  font-weight: ${(props) => props.theme.typography.sizes.footnote.normal.dark.secondary.fontWeight};
+  color: ${(props) => props.theme.typography.classes.footnote.normal.dark.secondary.color};
+  font-size: ${(props) => props.theme.typography.classes.footnote.normal.dark.secondary.fontSize};
+  font-weight: ${(props) => props.theme.typography.classes.footnote.normal.dark.secondary.fontWeight};
   ${ellipsis('100%')}
 `;
 
@@ -77,18 +77,18 @@ const TimeInfoDiv = styled.div`
   align-items: center;
   order: 2;
 
-  color: ${(props) => props.theme.typography.sizes.caption.normal.dark.secondary.color};
-  font-size: ${(props) => props.theme.typography.sizes.caption.normal.dark.secondary.fontSize};
-  font-weight: ${(props) => props.theme.typography.sizes.caption.normal.dark.secondary.fontWeight};
+  color: ${(props) => props.theme.typography.classes.caption.normal.dark.secondary.color};
+  font-size: ${(props) => props.theme.typography.classes.caption.normal.dark.secondary.fontSize};
+  font-weight: ${(props) => props.theme.typography.classes.caption.normal.dark.secondary.fontWeight};
 
   div {
     display: inline-block;
     text-align: right;
-    font-size: ${(props) => props.theme.typography.sizes.small.normal.dark.fontSize};
+    font-size: ${(props) => props.theme.typography.classes.small.normal.dark.fontSize};
     position: relative;
     color: ${(props) =>
     (props.readed && props.theme.palette.text.primary)
-      || (!props.readed && props.theme.typography.sizes.caption.normal.accent.color)};
+      || (!props.readed && props.theme.typography.classes.caption.normal.accent.color)};
   }
 `;
 

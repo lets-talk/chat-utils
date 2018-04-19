@@ -5,7 +5,7 @@ import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
 
 // Component to show on storybook
 import { Avatar } from '../../../lib';
-import { WrapWithTheme } from '../../utils/stories';
+import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
 import withTests from '../../test-utils/storiesWithTest';
 
 const stories = storiesOf('Avatar', module);
@@ -17,7 +17,7 @@ stories.addWithInfo(
   'This is the basic usage with the Avatar with providing a label to show the text.',
   () => (
     <WrapWithTheme
-      themeName={select('Theme', { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' }, 'default')}
+      themeName={select('Theme', themeOptions, defaultTheme)}
     >
       <Avatar
         src="http://i46.tinypic.com/sexbb8.png"
