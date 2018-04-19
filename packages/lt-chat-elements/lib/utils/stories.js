@@ -6,13 +6,12 @@ import { ThemeProvider } from 'styled-components';
 import '../common/styles/themes/globalStyle';
 
 // Extract our Sass variables into a JS object
-// const themes = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!../common/styles/_variables.scss');
+/* eslint-disable import/no-unresolved */
 const variables = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!../common/styles/_themes.scss');
 
 const WrapWithTheme = (props) => {
   const { themeName } = props;
   const theme = variables.themes[themeName];
-  console.log('Theme:', theme);
   // Wrapp it and pass all the other props that we might be given
   return (
     <div className={`theme-${themeName}`}>
@@ -28,4 +27,13 @@ WrapWithTheme.propTypes = {
   themeName: PropTypes.string,
 };
 
-export { WrapWithTheme };
+const themeOptions = {
+  default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme', lightest: 'LightestTheme', darkest: 'DarkestTheme',
+};
+const defaultTheme = 'default';
+
+export {
+  defaultTheme,
+  themeOptions,
+  WrapWithTheme,
+};

@@ -24,18 +24,18 @@ const HeaderDiv = styled.div`
 `;
 
 const HeaderTitle = styled.h4`
-  color: ${(props) => props.theme.typography.sizes.body.bold.light.primary.color};
-  font-size: ${(props) => props.theme.typography.sizes.body.bold.light.primary.fontSize};
-  font-weight: ${(props) => props.theme.typography.sizes.body.bold.light.primary.fontWeight};
+  color: ${(props) => props.theme.typography.classes.body.bold.light.primary.color};
+  font-size: ${(props) => props.theme.typography.classes.body.bold.light.primary.fontSize};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightSemibold};
 
   margin: 0 10px;
   padding: 5px 10px;
 `;
 
 const HeaderSubtitle = styled.span`
-  color: ${(props) => props.theme.typography.sizes.caption.normal.light.secondary.color};
-  font-size: ${(props) => props.theme.typography.sizes.caption.normal.light.secondary.fontSize};
-  font-weight: ${(props) => props.theme.typography.sizes.caption.normal.light.secondary.fontWeight};
+  color: ${(props) => props.theme.typography.classes.caption.normal.light.secondary.color};
+  font-size: ${(props) => props.theme.typography.classes.caption.normal.light.secondary.fontSize};
+  font-weight: ${(props) => props.theme.typography.classes.caption.normal.light.secondary.fontWeight};
   margin: 0 10px;
 `;
 

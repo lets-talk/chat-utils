@@ -2,9 +2,9 @@ import React from 'react';
 // Storybook stuff
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, select } from '@storybook/addon-knobs';
+import { withKnobs, select, object } from '@storybook/addon-knobs';
 
-import { WrapWithTheme } from '../../utils/stories';
+import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
 import withTests from '../../test-utils/storiesWithTest';
 // Component to show on storybook
 import MessageBox from '.';
@@ -12,9 +12,6 @@ import MessageBox from '.';
 const stories = storiesOf('MessageBox', module);
 stories.addDecorator(withKnobs);
 stories.addDecorator(withTests('MessageBox', 'FileMessage', 'PhotoMessage', 'SystemMessage'));
-
-const themeOptions = { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' };
-const defaultTheme = 'default';
 
 const messages = [
   {
@@ -193,7 +190,7 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[0]}
+          message={object('message', messages[0])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
@@ -215,7 +212,7 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[1]}
+          message={object('message', messages[1])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
@@ -237,7 +234,7 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[2]}
+          message={object('message', messages[2])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
@@ -259,7 +256,7 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[3]}
+          message={object('message', messages[3])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
@@ -281,7 +278,7 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[4]}
+          message={object('message', messages[4])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
@@ -303,7 +300,7 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[5]}
+          message={object('message', messages[5])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
@@ -329,7 +326,7 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[6]}
+          message={object('message', messages[6])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}

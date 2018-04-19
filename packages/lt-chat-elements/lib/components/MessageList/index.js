@@ -47,7 +47,7 @@ class MessageList extends Component {
             (
               <MessageBox
                 key={`message-${message.id}`}
-                {...message}
+                message={message}
                 onOpen={this.props.onOpen && ((e) => this.onOpen(message, index, e))}
                 onDownload={this.props.onDownload && ((e) => this.onDownload(message, index, e))}
                 onTitleClick={this.props.onDownload && ((e) => this.onTitleClick(message, index, e))}

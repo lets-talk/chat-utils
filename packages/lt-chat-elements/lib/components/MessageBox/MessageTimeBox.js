@@ -17,9 +17,8 @@ const StyledMessageTimeBox = styled.div`
   display: inline-block;
   width: 50px;
   text-align: right;
-  color: ${(props) => props.theme.typography.sizes.caption.normal.dark.secondary.color};
-  font-size: ${(props) => props.theme.typography.sizes.caption.normal.dark.secondary.fontSize};
-  font-weight: ${(props) => props.theme.typography.sizes.caption.normal.dark.secondary.fontWeight};
+  font-size: ${(props) => props.theme.typography.classes.caption.normal.dark.disabled.fontSize};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeight};
   float: right
   position: absolute;
   bottom: 0;

@@ -22,12 +22,13 @@ const ConversationListWrapper = styled.div`
   `;
 
 const ConversationListSeparator = styled.div`
-  background-color: ${(props) => props.theme.palette.common.white};
-  font-weight: ${(props) => props.theme.typography.fontWeightThin};
   margin-top: 10px;
   margin-left: 80px;
   padding: 20px 0px;
-  color: ${(props) => props.theme.palette.text.primary};
+
+  color: ${(props) => props.theme.typography.classes.footnote.normal.dark.secondary.color};
+  font-size: ${(props) => props.theme.typography.classes.footnote.normal.dark.secondary.fontSize};
+  font-weight: ${(props) => props.theme.typography.classes.footnote.normal.dark.secondary.fontWeight};
   border-top: 1px solid ${(props) => props.theme.palette.divider};
 `;
 
@@ -40,9 +41,9 @@ const NoConversation = styled.div`
   align-items: center; /*centers items on the cross-axis (y by default)*/
   flex-direction: column;
 
-  color: ${(props) => props.theme.typography.sizes.body.bold.dark.secondary.color};
-  font-size: ${(props) => props.theme.typography.sizes.body.bold.dark.secondary.fontSize};
-  font-weight: ${(props) => props.theme.typography.sizes.body.bold.dark.secondary.fontWeight};
+  color: ${(props) => props.theme.typography.classes.body.bold.dark.secondary.color};
+  font-size: ${(props) => props.theme.typography.classes.body.bold.dark.secondary.fontSize};
+  font-weight: ${(props) => props.theme.typography.classes.body.bold.dark.secondary.fontWeight};
 `;
 
 const SvgContainer = styled.div`
@@ -52,9 +53,9 @@ const SvgContainer = styled.div`
 const EmptyContainer = styled.div`
   max-width: 80%;
 
-  color: ${(props) => props.theme.typography.sizes.footnote.normal.dark.disabled.color};
-  font-size: ${(props) => props.theme.typography.sizes.footnote.normal.dark.disabled.fontSize};
-  font-weight: ${(props) => props.theme.typography.sizes.footnote.normal.dark.disabled.fontWeight};
+  color: ${(props) => props.theme.typography.classes.footnote.normal.dark.disabled.color};
+  font-size: ${(props) => props.theme.typography.classes.footnote.normal.dark.disabled.fontSize};
+  font-weight: ${(props) => props.theme.typography.classes.footnote.normal.dark.disabled.fontWeight};
 `;
 
 class ConversationList extends Component {

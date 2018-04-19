@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean, select, object } from '@storybook/addon-knobs';
 
-import { WrapWithTheme } from '../../utils/stories';
+import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
 import withTests from '../../test-utils/storiesWithTest';
 // Component to show on storybook
 import { ConversationListBox } from '../../../lib';
@@ -129,7 +129,7 @@ stories.addWithInfo(
       }}
     >
       <WrapWithTheme
-        themeName={select('Theme', { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' }, 'default')}
+        themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <ConversationListBox
           title={text('title', 'Conversaciones')}

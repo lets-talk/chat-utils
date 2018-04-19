@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text, boolean, number, select } from '@storybook/addon-knobs';
 
-import { WrapWithTheme } from '../../utils/stories';
+import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
 import withTests from '../../test-utils/storiesWithTest';
 // Component to show on storybook
 import { ChatIcon } from '../../../lib';
@@ -18,7 +18,7 @@ stories.addWithInfo(
   () => (
     <div style={{ position: 'fixed', bottom: 0, right: 0 }}>
       <WrapWithTheme
-        themeName={select('Theme', { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' }, 'default')}
+        themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <ChatIcon
           type={select('Type', { default: 'default', rounded: 'rounded', circle: 'circle' }, 'rounded')}

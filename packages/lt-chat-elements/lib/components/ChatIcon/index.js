@@ -5,6 +5,13 @@ import MdChat from 'react-icons/lib/md/chat';
 
 import { ellipsis } from '../../utils/style';
 
+const SimpleButton = styled.button`
+  color: ${(props) => props.theme.typography.classes.footnote.bold.light.primary.color};
+  font-size: ${(props) => props.theme.typography.classes.footnote.bold.light.primary.fontSize};
+  font-weight: ${(props) => props.theme.typography.classes.footnote.bold.light.primary.fontWeight};
+  background-color: ${(props) => props.theme.palette.background.primary};
+`;
+
 const ChatIcon = (props) => {
   const {
     imageUrl,
@@ -38,16 +45,14 @@ const ChatIcon = (props) => {
     <StyledBubbleDiv>{ msgLbl }</StyledBubbleDiv>
   );
 
-  const Button = styled.button`
+  const Button = SimpleButton.extend`
     width: ${props.width}px;
     height: ${props.height}px;
     margin: ${props.margin};
     border-radius: calc(${props.height}px / 2);
     line-height: calc(${props.height}px / 2);
-    color: ${(props) => props.theme.palette.common.white};
-    background-color: ${(props) => props.theme.palette.background.primary};
 
-    border-radius: ${(props) =>
+    border-radius: ${() =>
     (props.type && props.type === 'rounded' && '5px 5px 0 0')
     || (props.type && props.type === 'circle' && '50%')
     || '0'};
@@ -161,7 +166,6 @@ ChatIcon.defaultProps = {
   width: 250,
   margin: '',
   chat_icon_pic: '',
-  display: 'minimized',
 };
 
 export default ChatIcon;

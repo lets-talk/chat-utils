@@ -5,17 +5,13 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean, object, select } from '@storybook/addon-knobs';
 
-import { WrapWithTheme } from '../../utils/stories';
+import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
 // Component to show on storybook
 import { WidgetBox } from '../../../lib';
 
 
 const stories = storiesOf('WidgetBox', module);
 stories.addDecorator(withKnobs);
-
-
-const themeOptions = { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' };
-const defaultTheme = 'default';
 
 // Utils functions to generate random data to the stories
 const loremIpsum = () => 'I am a random string';
