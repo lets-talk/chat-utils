@@ -16,7 +16,7 @@ class TagList extends Component {
     return (
       <div className="cbox-tags">
         {tags.map((tag) => (
-          <Tag tag={tag} onClick={this.onCLick} />
+          <Tag key={tag.name} tag={tag} onClick={this.onCLick} />
         ))}
       </div>
     );

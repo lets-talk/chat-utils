@@ -1,31 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PhotoMessage component should render a System message 1`] = `
-<div
-  className="letstalk-mbox-attachment letstalk-mbox-photo"
->
-  <div
-    className="letstalk-mbox-photo--img"
+<styled.div>
+  <styled.div
     onClick={null}
     onKeyPress={null}
-    role="button"
-    style={
-      Object {
-        "height": 50,
-        "width": 50,
-      }
-    }
-    tabIndex="0"
   >
     <img
       alt="Image alt"
       src=""
     />
-  </div>
-  <div
-    className="letstalk-mbox-text"
-  >
+  </styled.div>
+  <styled.div>
     I am a photo message
-  </div>
-</div>
+  </styled.div>
+</styled.div>
 `;

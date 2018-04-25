@@ -1,5 +1,7 @@
-import styled, { css, keyframes } from 'styled-components';
 // style.js
+import { keyframes } from 'styled-components';
+import { niceCircles } from './';
+
 export function truncate(width) {
   return `
     width: ${width};
@@ -130,4 +132,33 @@ export function avatarStyle(element, sizeName) {
     `;
   }
   return '';
+}
+
+export function avatarGroupItem(index, total, groupType, xDistance = 3, yDistance = 10) {
+  let result;
+  const circles = niceCircles(total);
+  const circle = circles[index];
+  const zIndex = (index % 2) === 0 ? 10 : 0;
+
+  if (groupType === 'circle') {
+    const hStep = xDistance;
+    const vStep = yDistance;
+
+    const left = (circle[0]) * hStep;
+    const top = (circle[1]) * vStep;
+    result = `
+      top: ${top}px;
+      left: ${left}px;
+      z-index: ${zIndex * index};
+    `;
+  } else {
+    const hStep = xDistance;
+    const left = hStep * index;
+    result = `
+      top: 0px;
+      left: ${left}px;
+    `;
+  }
+
+  return result;
 }

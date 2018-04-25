@@ -36,4 +36,4 @@ const MessageType = shape({
   person: shape(PersonType),
 });
 
-export { MessageType };
+export { MessageType, PersonType };

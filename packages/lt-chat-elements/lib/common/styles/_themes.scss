@@ -1,14 +1,15 @@
 @import "colors";
 // Background Colors
-$color-background-primary: #FF5732;
-$color-background-secondary: rgba(4, 38, 73, .3);
+$color-background-primary: rgba(255, 87, 34, 1);
+$color-background-secondary: rgba(94, 124, 139, .1);
 $color-background-terciary: $palette-pink-700;
 // Text colors
-$color-text-dark-primary: rgb(4, 38, 73);
-$color-text-light-primary: rgb(255, 255, 255);
-$color-text-accent-primary: #FF5732;
+$color-text-dark-primary: rgb(4, 38, 73); // DEFAULT ->
+$color-text-light-primary: rgb(255, 255, 255); // INVERSE ->
+$color-text-accent-primary: #FF5732; // BRANDING - ACCENT PRIMARY
 $color-text-secondary: $palette-indigo-700;
 $color-text-terciary: $palette-pink-700;
+// FALTAN SEMANTICOS -> warning, danger y sucess
 
 // Fonts
 $fontUnit: 1px; // 1pt - 0.75px
@@ -34,12 +35,12 @@ $font-weight-semi-bold: 600;
 $font-weight-bold: 700;
 $font-weight-condensed-bold: 900;
 
-$shadow-2p: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-$shadow-3p: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
-$shadow-4p: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-$shadow-6p: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
-$shadow-8p: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
-$shadow-16p: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+$shadow-2p: "0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)";
+$shadow-3p: "0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 1px 8px 0 rgba(0, 0, 0, 0.12)";
+$shadow-4p: "0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2)";
+$shadow-6p: "0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2)";
+$shadow-8p: "0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2)";
+$shadow-16p: "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)";
 
 $shadow-key-umbra-opacity: 0.2;
 $shadow-key-penumbra-opacity: 0.14;
@@ -363,6 +364,12 @@ $defaultColors: (
 );
 
 @function generateLightVariants($colors, $factor) {
+  $color-text-accent-primary: map-get($colors, 'color-text-accent-primary');
+  $color-text-dark-primary: map-get($colors, 'color-text-dark-primary');
+  $color-text-light-primary: map-get($colors, 'color-text-light-primary');
+  $color-background-primary: map-get($colors, 'color-background-primary');
+  $color-background-secondary: map-get($colors, 'color-background-secondary');
+
   $newColors: (
     color-text-accent-primary: set-text-color($color-text-accent-primary, lighten($color-text-accent-primary, $factor)),
     color-text-dark-primary: set-text-color($color-text-dark-primary, lighten($color-text-dark-primary, $factor)),
@@ -390,21 +397,39 @@ $defaultColors: (
   @return $newColors;
 }
 
-$themeDarkFactor: 50%;
-$themeDarkestFactor: 80%;
+$themeDarkFactor: 20%;
+$themeDarkestFactor: 40%;
 $themeLightFactor: 10%;
-$themeLightestFactor: 35%;
+$themeLightestFactor: 20%;
 
-$lightColors: generateLightVariants($defaultColors, $themeLightFactor);
-$lightestColors: generateLightVariants($defaultColors, $themeLightestFactor);
-$darkColors: generateDarkVariants($defaultColors, $themeDarkFactor);
-$darkestColors: generateDarkVariants($defaultColors, $themeDarkestFactor);
+$defaultsDark: (
+  color-text-accent-primary: #ff1700,
+  color-text-dark-primary: #200,
+  color-text-light-primary: #ffc000,
+  color-background-primary: #007cc6,
+  color-background-secondary: #00a94a,
+);
+
+$defaultsLight: (
+  color-text-accent-primary: #63717A,
+  color-text-dark-primary: #153359,
+  color-text-light-primary: #7679C4,
+  color-background-primary: #009687,
+  color-background-secondary: #a93e59,
+);
+
+$lighterColors: generateLightVariants($defaultsLight, $themeLightFactor);
+$lightestColors: generateLightVariants($defaultsLight, $themeLightestFactor);
+$darkerColors: generateDarkVariants($defaultsDark, $themeDarkFactor);
+$darkestColors: generateDarkVariants($defaultsDark, $themeDarkestFactor);
 
 $themes: (
   default: createTheme($defaultColors),
-  light: createTheme($lightColors),
+  light: createTheme($defaultsLight),
+  lighter: createTheme($lighterColors),
   lightest: createTheme($lightestColors),
-  dark: createTheme($darkColors),
+  dark: createTheme($defaultsDark),
+  darker: createTheme($darkerColors),
   darkest: createTheme($darkestColors)
 );
 

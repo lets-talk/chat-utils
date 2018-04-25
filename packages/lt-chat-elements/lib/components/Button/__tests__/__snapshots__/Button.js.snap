@@ -1,29 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button component should render with data 1`] = `
-<div
-  className="letstalk-button-container"
+<styled.div
+  className="my-custom-button-class"
 >
-  <input
+  <styled.input
     className="letstalk-button my-custom-button-class"
     disabled={true}
     onClick={[Function]}
     type="button"
     value="custom"
   />
-</div>
+</styled.div>
 `;
 
 exports[`Button component should render with minimal props 1`] = `
-<div
-  className="letstalk-button-container"
+<styled.div
+  className="LT-Button-Wrapper"
 >
-  <input
-    className="letstalk-button"
+  <styled.input
+    className="letstalk-button LT-Button-Wrapper"
     disabled={false}
     onClick={[Function]}
     type="submit"
     value="submit"
   />
-</div>
+</styled.div>
 `;
