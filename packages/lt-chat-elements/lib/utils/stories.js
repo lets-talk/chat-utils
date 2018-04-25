@@ -12,6 +12,7 @@ const variables = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!
 const WrapWithTheme = (props) => {
   const { themeName } = props;
   const theme = variables.themes[themeName];
+  // console.log('THeme:', theme);
   // Wrapp it and pass all the other props that we might be given
   return (
     <div className={`theme-${themeName}`}>
@@ -28,7 +29,7 @@ WrapWithTheme.propTypes = {
 };
 
 const themeOptions = {
-  default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme', lightest: 'LightestTheme', darkest: 'DarkestTheme',
+  default: 'DefaultTheme', light: 'LightTheme', lighter: 'lighterTheme', lightest: 'LightestTheme', dark: 'DarkTheme', darker: 'DarkerTheme', darkest: 'DarkestTheme',
 };
 const defaultTheme = 'default';
 

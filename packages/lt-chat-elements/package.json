@@ -82,6 +82,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "grid-styled": "^4.1.0",
     "polished": "^1.9.2",
     "prop-types": "15.6.1",
     "react": "16.3.1",
@@ -89,7 +90,8 @@
     "react-icons": "^2.2.7",
     "react-loadable": "^5.3.1",
     "react-transition-group": "2.3.0",
-    "styled-components": "3.2.5"
+    "styled-components": "3.2.5",
+    "styled-components-grid": "^1.0.0-preview.15"
   },
   "readme": "ERROR: No README data found!",
   "repository": {

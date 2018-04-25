@@ -1,17 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SystemMessage component should render without issues 1`] = `
-<div
-  className="letstalk-container-smsg"
->
-  <div
-    className="letstalk-smsg"
-  >
-    <div
-      className="letstalk-smsg-text"
-    >
+<styled.div>
+  <div>
+    <div>
       <span />
     </div>
   </div>
-</div>
+</styled.div>
 `;

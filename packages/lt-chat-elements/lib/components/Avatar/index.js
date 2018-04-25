@@ -20,7 +20,7 @@ const singleBallBeat = keyframes`{
   }
 }`;
 
-const AvatarContainer = styled.div`
+const StyledAvatarContainer = styled.div`
   ${(props) => avatarStyle('container', props.size)}
   position: relative;
   overflow: hidden;
@@ -31,11 +31,11 @@ const AvatarContainer = styled.div`
   overflow: hidden;
 `;
 
-const ImageContainer = styled.div`
+const StyledImageContainer = styled.div`
   position: relative;
 `;
 
-const Image = styled.img`
+const StyledImage = styled.img`
   width: 100%;
   height: 100%;
   background-color: rgb(188, 188, 188);
@@ -43,8 +43,9 @@ const Image = styled.img`
   border-radius: ${(props) =>
     (props.type === 'rounded' && '5px')
     || (props.type === 'circle' && '50%')
-    || '0'
-};`;
+    || '0'};
+  vertical-align: middle;
+`;
 
 const ImageInnerDiv = styled.div`
   position: absolute;
@@ -79,14 +80,14 @@ const AvatarStatus = styled.div`
 
 const Avatar = (props) =>
   (
-    <AvatarContainer size={props.size} className={props.className}>
-      <ImageContainer>
-        <Image alt={props.alt} src={props.src} size={props.size} type={props.type} />
+    <StyledAvatarContainer size={props.size} className={props.className}>
+      <StyledImageContainer>
+        <StyledImage alt={props.alt} src={props.src} size={props.size} type={props.type} />
         <ImageInnerDiv ></ImageInnerDiv>
-      </ImageContainer>
+      </StyledImageContainer>
 
       {props.withStatus && <AvatarStatus size={props.size} status={props.status}>&nbsp;</AvatarStatus>}
-    </AvatarContainer>
+    </StyledAvatarContainer>
   );
 
 Avatar.defaultProps = {

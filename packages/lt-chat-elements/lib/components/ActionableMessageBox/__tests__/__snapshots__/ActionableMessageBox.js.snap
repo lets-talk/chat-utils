@@ -1,11 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ActionableMessageBox component should render with data 1`] = `
-<ul
-  className="letstalk-actionable-mbox"
+<styled.ul
+  className="LT-ActionableMessageBox-Container"
 >
-  <li
-    className="letstalk-actionable-item"
+  <styled.li
     key="1"
     onClick={null}
     role="button"
@@ -13,9 +12,8 @@ exports[`ActionableMessageBox component should render with data 1`] = `
     <span>
       Emergencia Bancaria
     </span>
-  </li>
-  <li
-    className="letstalk-actionable-item"
+  </styled.li>
+  <styled.li
     key="2"
     onClick={null}
     role="button"
@@ -23,9 +21,8 @@ exports[`ActionableMessageBox component should render with data 1`] = `
     <span>
       Tarjeta de crédito
     </span>
-  </li>
-  <li
-    className="letstalk-actionable-item"
+  </styled.li>
+  <styled.li
     key="3"
     onClick={null}
     role="button"
@@ -33,9 +30,8 @@ exports[`ActionableMessageBox component should render with data 1`] = `
     <span>
       Crédito Personal
     </span>
-  </li>
-  <li
-    className="letstalk-actionable-item"
+  </styled.li>
+  <styled.li
     key="4"
     onClick={null}
     role="button"
@@ -43,16 +39,15 @@ exports[`ActionableMessageBox component should render with data 1`] = `
     <span>
       Otro
     </span>
-  </li>
-</ul>
+  </styled.li>
+</styled.ul>
 `;
 
 exports[`ActionableMessageBox component should render without data 1`] = `
-<ul
-  className="letstalk-actionable-mbox"
+<styled.ul
+  className="LT-ActionableMessageBox-Container"
 >
-  <li
-    className="letstalk-actionable-item"
+  <styled.li
     key="1"
     onClick={null}
     role="button"
@@ -60,9 +55,8 @@ exports[`ActionableMessageBox component should render without data 1`] = `
     <span>
       Emergencia Bancaria
     </span>
-  </li>
-  <li
-    className="letstalk-actionable-item"
+  </styled.li>
+  <styled.li
     key="2"
     onClick={null}
     role="button"
@@ -70,9 +64,8 @@ exports[`ActionableMessageBox component should render without data 1`] = `
     <span>
       Tarjeta de crédito
     </span>
-  </li>
-  <li
-    className="letstalk-actionable-item"
+  </styled.li>
+  <styled.li
     key="3"
     onClick={null}
     role="button"
@@ -80,9 +73,8 @@ exports[`ActionableMessageBox component should render without data 1`] = `
     <span>
       Crédito Personal
     </span>
-  </li>
-  <li
-    className="letstalk-actionable-item"
+  </styled.li>
+  <styled.li
     key="4"
     onClick={null}
     role="button"
@@ -90,6 +82,6 @@ exports[`ActionableMessageBox component should render without data 1`] = `
     <span>
       Otro
     </span>
-  </li>
-</ul>
+  </styled.li>
+</styled.ul>
 `;

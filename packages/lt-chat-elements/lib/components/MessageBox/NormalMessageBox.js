@@ -73,7 +73,7 @@ const NormalMessageBox = (props) => {
         css`
           float: left;
           margin-left: 5px;
-          margin-left: ${() => props.person.avatar ? '45px' : '45px'};
+          margin-left: ${() => props.person.avatar ? '45px' : '0'};
         `};
 
     ${() =>
@@ -81,7 +81,7 @@ const NormalMessageBox = (props) => {
         css`
           float: right;
           margin-left: 5px;
-          margin-right: ${() => props.person.avatar ? '45px' : '45px'};
+          margin-right: ${() => props.person.avatar ? '45px' : '0'};
         `};
     
 

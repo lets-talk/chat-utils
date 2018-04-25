@@ -24,6 +24,7 @@ exports[`ConversationList component should render with custom props 1`] = `
     ]
   }
   emptyStateText="No hay mas conversaciones"
+  noMoreDataText=""
 />
 `;
 
@@ -33,6 +34,7 @@ exports[`ConversationList component should render with empty props 1`] = `
   cmpRef={[Function]}
   conversations={Array []}
   emptyStateText=""
+  noMoreDataText=""
 />
 `;
 
@@ -42,5 +44,6 @@ exports[`ConversationList component should render with no conversation the empty
   cmpRef={null}
   conversations={Array []}
   emptyStateText="No hay mas conversaciones"
+  noMoreDataText=""
 />
 `;
