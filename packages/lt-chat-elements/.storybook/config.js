@@ -18,10 +18,10 @@ setOptions({
   name: "Storybook",
   url: "https://test.com",
   goFullScreen: false,
-  showLeftPanel: true,
-  showDownPanel: true,
+  showStoriesPanel: true,
+  showAddonPanel: true,
+  addonPanelInRight: true,
   showSearchBox: false,
-  downPanelInRight: true,
   sortStoriesByKind: true
 });
 

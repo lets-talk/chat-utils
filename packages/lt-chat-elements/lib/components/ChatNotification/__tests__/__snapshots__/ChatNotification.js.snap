@@ -1,11 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header component should render with data 1`] = `
-<styled.div
-  className="LT-Header-Container"
->
+exports[`ChatNotification component should render with custom props 1`] = `
+<styled.div>
   <Flex
-    alignItems="center"
     theme={
       Object {
         "breakpoints": Array [
@@ -40,8 +37,90 @@ exports[`Header component should render with data 1`] = `
     }
   >
     <Box
-      flex="0 0 auto"
-      mb="auto"
+      p={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width={1}
+    >
+      <styled.button>
+        <div>
+          Cerrar
+        </div>
+        <span>
+          <MdClose
+            size={15}
+          />
+        </span>
+      </styled.button>
+    </Box>
+  </Flex>
+  <Flex
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Box
+      m={2}
+      p={1}
       theme={
         Object {
           "breakpoints": Array [
@@ -75,16 +154,19 @@ exports[`Header component should render with data 1`] = `
         }
       }
     >
-      <button
-        onClick={[Function]}
-      >
-        <MdMenu
-          size={20}
-        />
-      </button>
+      <AvatarGroup
+        avatars={Array []}
+        className="LT-AvatarGroup-Container"
+        groupType="circle"
+        size="xsmall"
+        type="circle"
+        withStatus={false}
+        xDistance={12}
+        yDistance={12}
+      />
     </Box>
     <Box
-      flex="1 1 auto"
+      pt={1}
       theme={
         Object {
           "breakpoints": Array [
@@ -117,68 +199,28 @@ exports[`Header component should render with data 1`] = `
           ],
         }
       }
+      width={1}
     >
-      <h4>
-        Header Title
-      </h4>
-      <span>
-        Header subtitle
-      </span>
-    </Box>
-    <Box
-      flex="0 0 auto"
-      mb="auto"
-      theme={
-        Object {
-          "breakpoints": Array [
-            "40em",
-            "52em",
-            "64em",
-          ],
-          "fontSizes": Array [
-            12,
-            14,
-            16,
-            20,
-            24,
-            32,
-            48,
-            64,
-            96,
-            128,
-          ],
-          "space": Array [
-            0,
-            4,
-            8,
-            16,
-            32,
-            64,
-            128,
-            256,
-            512,
-          ],
-        }
-      }
-    >
-      <button
-        onClick={[Function]}
-      >
-        <MdKeyboardArrowDown
-          size={20}
-        />
-      </button>
+      <styled.div>
+        <styled.div>
+          <ChatCard
+            body=""
+            height={50}
+            render={[Function]}
+            showRenderProp={false}
+            title=""
+            width={50}
+          />
+        </styled.div>
+      </styled.div>
     </Box>
   </Flex>
 </styled.div>
 `;
 
-exports[`Header component should render with minimal props 1`] = `
-<styled.div
-  className="LT-Header-Container"
->
+exports[`ChatNotification component should render with no props 1`] = `
+<styled.div>
   <Flex
-    alignItems="center"
     theme={
       Object {
         "breakpoints": Array [
@@ -213,8 +255,90 @@ exports[`Header component should render with minimal props 1`] = `
     }
   >
     <Box
-      flex="0 0 auto"
-      mb="auto"
+      p={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width={1}
+    >
+      <styled.button>
+        <div>
+          Cerrar
+        </div>
+        <span>
+          <MdClose
+            size={15}
+          />
+        </span>
+      </styled.button>
+    </Box>
+  </Flex>
+  <Flex
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Box
+      m={2}
+      p={1}
       theme={
         Object {
           "breakpoints": Array [
@@ -248,16 +372,19 @@ exports[`Header component should render with minimal props 1`] = `
         }
       }
     >
-      <button
-        onClick={null}
-      >
-        <MdMenu
-          size={20}
-        />
-      </button>
+      <AvatarGroup
+        avatars={Array []}
+        className="LT-AvatarGroup-Container"
+        groupType="circle"
+        size="xsmall"
+        type="circle"
+        withStatus={false}
+        xDistance={12}
+        yDistance={12}
+      />
     </Box>
     <Box
-      flex="1 1 auto"
+      pt={1}
       theme={
         Object {
           "breakpoints": Array [
@@ -290,50 +417,20 @@ exports[`Header component should render with minimal props 1`] = `
           ],
         }
       }
-    />
-    <Box
-      flex="0 0 auto"
-      mb="auto"
-      theme={
-        Object {
-          "breakpoints": Array [
-            "40em",
-            "52em",
-            "64em",
-          ],
-          "fontSizes": Array [
-            12,
-            14,
-            16,
-            20,
-            24,
-            32,
-            48,
-            64,
-            96,
-            128,
-          ],
-          "space": Array [
-            0,
-            4,
-            8,
-            16,
-            32,
-            64,
-            128,
-            256,
-            512,
-          ],
-        }
-      }
+      width={1}
     >
-      <button
-        onClick={null}
-      >
-        <MdKeyboardArrowDown
-          size={20}
-        />
-      </button>
+      <styled.div>
+        <styled.div>
+          <ChatCard
+            body=""
+            height={150}
+            render={[Function]}
+            showRenderProp={false}
+            title=""
+            width={250}
+          />
+        </styled.div>
+      </styled.div>
     </Box>
   </Flex>
 </styled.div>

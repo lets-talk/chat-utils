@@ -9,16 +9,18 @@ exports[`Avatar component should render with data 1`] = `
     <styled.img
       alt="An avatar image"
       size="small"
+      sizes={null}
       src="http://i46.tinypic.com/sexbb8.png"
+      srcSet={null}
       type="circle"
     />
     <styled.div />
-  </styled.div>
-  <styled.div
-    size="small"
-    status="online"
-  >
-     
+    <styled.div
+      size="small"
+      status="online"
+    >
+       
+    </styled.div>
   </styled.div>
 </styled.div>
 `;
@@ -27,15 +29,5 @@ exports[`Avatar component should render without data 1`] = `
 <styled.div
   className="LT-Avatar-Container"
   size="medium"
->
-  <styled.div>
-    <styled.img
-      alt=""
-      size="medium"
-      src=""
-      type="circle"
-    />
-    <styled.div />
-  </styled.div>
-</styled.div>
+/>
 `;

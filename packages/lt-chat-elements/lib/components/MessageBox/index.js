@@ -60,14 +60,16 @@ const renderAutomaticMessage = (type, text) => {
 const renderNormalMessage = (props) => <NormalMessageBox {...props} />;
 
 const MessageBox = (props) => {
+  const { className, onMessageClick, message } = props;
   const {
     type, text, person, position,
-  } = props.message;
+  } = message;
+
   return (
     <StyledMessageBoxContainer
-      className={props.className}
-      onClick={props.onClick}
-      onKeyPress={props.onClick}
+      className={className}
+      onClick={onMessageClick}
+      onKeyPress={onMessageClick}
     >
       {
         person.avatar && type !== messagesTypes.SYSTEM &&
@@ -84,7 +86,7 @@ const MessageBox = (props) => {
         type === messagesTypes.SYSTEM || type === messagesTypes.TIME ?
           renderAutomaticMessage(type, text)
           :
-          renderNormalMessage(props.message)
+          renderNormalMessage(props)
       }
     </StyledMessageBoxContainer>
   );
@@ -97,9 +99,9 @@ MessageBox.propTypes = {
    */
   message: PropTypes.shape(MessagePropType).isRequired,
   /**
-   * onClick: Handler function that is called on message click action
+   * onMessageClick: Handler function that is called on message click action
    */
-  onClick: PropTypes.func,
+  onMessageClick: PropTypes.func,
   /**
    * className: Extra className to provide to the component in order to style it when used in different contexts.
    */
@@ -110,7 +112,7 @@ MessageBox.defaultProps = {
   position: 'left',
   type: 'text',
   text: '',
-  onClick: null,
+  onMessageClick: null,
   person: null,
   className: '',
 };

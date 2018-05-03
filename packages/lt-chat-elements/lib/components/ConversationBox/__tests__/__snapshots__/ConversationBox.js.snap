@@ -2,7 +2,7 @@
 
 exports[`ConversationBox component should render with custom props 1`] = `
 <styled.div
-  className="LT-ConversationBox-Wrapper"
+  className="LT-ConversationBox-Container"
   onClick={null}
   type=""
 >
@@ -10,8 +10,11 @@ exports[`ConversationBox component should render with custom props 1`] = `
     <Avatar
       alt=""
       className="LT-Avatar-Container"
+      color={null}
       size="small"
+      sizes={null}
       src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
+      srcSet={null}
       status="online"
       type="circle"
       withStatus={false}
@@ -37,6 +40,7 @@ exports[`ConversationBox component should render with custom props 1`] = `
           Lorem ipusum la la ejemplo largo
         </styled.div>
         <TagList
+          className="LT-TagList-Container"
           clickItem={null}
           tags={
             Array [
@@ -54,7 +58,7 @@ exports[`ConversationBox component should render with custom props 1`] = `
 
 exports[`ConversationBox component should render with minimal props 1`] = `
 <styled.div
-  className="LT-ConversationBox-Wrapper"
+  className="LT-ConversationBox-Container"
   onClick={null}
   type=""
 >
@@ -62,8 +66,11 @@ exports[`ConversationBox component should render with minimal props 1`] = `
     <Avatar
       alt=""
       className="LT-Avatar-Container"
+      color={null}
       size="small"
+      sizes={null}
       src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
+      srcSet={null}
       status="online"
       type="circle"
       withStatus={false}
@@ -89,6 +96,7 @@ exports[`ConversationBox component should render with minimal props 1`] = `
           Lorem ipusum la la ejemplo largo
         </styled.div>
         <TagList
+          className="LT-TagList-Container"
           clickItem={null}
           tags={
             Array [

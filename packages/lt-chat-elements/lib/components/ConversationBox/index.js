@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import styled from 'styled-components';
 
-import { ellipsis, flexRow, flexColumn } from '../../utils/style';
+import { ellipsis, flexRow, flexColumn, textColor } from '../../utils/style';
 
 // Other components used by this component
 import TagList from '../TagList';
@@ -27,6 +27,7 @@ const ConversationBoxWrapper = styled.div`
   min-height: 50px;
   background-color: ${(props) => bgColorChooser(props.theme, props.type)};
 `;
+
 
 const CBoxRow = styled.div`
   ${flexRow()}
@@ -52,43 +53,48 @@ const CBoxRowRight = styled.div`
   padding-left: 0px;
 `;
 
-const TitleDiv = styled.div`
+const StyledTitleDiv = styled.div`
   flex: 1;
-  order: 1;
+  order: 1
 
-  color: ${(props) => props.theme.typography.classes.body.normal.dark.primary.color};
-  font-size: ${(props) => props.theme.typography.classes.body.normal.dark.primary.fontSize};
-  font-weight: ${(props) => props.theme.typography.classes.body.normal.dark.primary.fontWeight};
+  color: ${(props) => textColor(props.theme, 'light', 'primary')};
+  font-size: ${(props) => props.theme.typography.classes.body.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.body.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightBold};
+
   ${ellipsis('100%')}
 `;
 
-const SubTitleDiv = styled.div`
+const StyledSubTitleDiv = styled.div`
   flex: 1;
   order: 1;
 
-  color: ${(props) => props.theme.typography.classes.footnote.normal.dark.secondary.color};
-  font-size: ${(props) => props.theme.typography.classes.footnote.normal.dark.secondary.fontSize};
-  font-weight: ${(props) => props.theme.typography.classes.footnote.normal.dark.secondary.fontWeight};
+  color: ${(props) => textColor(props.theme, 'light', 'secondary')};
+  font-size: ${(props) => props.theme.typography.classes.footnote.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.footnote.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
+
   ${ellipsis('100%')}
 `;
 
-const TimeInfoDiv = styled.div`
+const StyledTimeInfoDiv = styled.div`
   display: flex;
   align-items: center;
   order: 2;
 
-  color: ${(props) => props.theme.typography.classes.caption.normal.dark.secondary.color};
-  font-size: ${(props) => props.theme.typography.classes.caption.normal.dark.secondary.fontSize};
-  font-weight: ${(props) => props.theme.typography.classes.caption.normal.dark.secondary.fontWeight};
+  color: ${(props) => textColor(props.theme, 'dark', 'secondary')};
+  font-size: ${(props) => props.theme.typography.classes.caption.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.caption.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
 
   div {
     display: inline-block;
     text-align: right;
-    font-size: ${(props) => props.theme.typography.classes.small.normal.dark.fontSize};
+    font-size: ${(props) => props.theme.typography.classes.small.fontSize};
     position: relative;
     color: ${(props) =>
-    (props.readed && props.theme.palette.text.primary)
-      || (!props.readed && props.theme.typography.classes.caption.normal.accent.color)};
+    (props.readed && props.theme.palette.colors.primary.base)
+      || (!props.readed && props.theme.palette.colors.accent.base)};
   }
 `;
 
@@ -97,7 +103,7 @@ const CircleDiv = styled.div`
   height: 6px;
   border-radius: 50%;
   margin-right: 3px;
-  background-color: ${(props) => props.theme.palette.background.primary};
+  background-color: ${(props) => props.theme.palette.colors.accent.base};
 `;
 
 const ConversationBox = (props) => {
@@ -127,15 +133,15 @@ const ConversationBox = (props) => {
 
       <CBoxRowRight>
         <CBoxColumn>
-          <TitleDiv>{conversation.client.name}</TitleDiv>
-          <TimeInfoDiv readed={lastMessageReaded}>{!lastMessageReaded && <CircleDiv>&nbsp;</CircleDiv>}
+          <StyledTitleDiv>{conversation.client.name}</StyledTitleDiv>
+          <StyledTimeInfoDiv readed={lastMessageReaded}>{!lastMessageReaded && <CircleDiv>&nbsp;</CircleDiv>}
             <div>{timeAgo}</div>
-          </TimeInfoDiv>
+          </StyledTimeInfoDiv>
         </CBoxColumn>
 
         <CBoxRow>
           <CBoxColumn>
-            <SubTitleDiv>{conversation.last_message.content}</SubTitleDiv>
+            <StyledSubTitleDiv>{conversation.last_message.content}</StyledSubTitleDiv>
             <TagList tags={tags} />
           </CBoxColumn>
         </CBoxRow>
@@ -162,7 +168,7 @@ ConversationBox.propTypes = {
 
 ConversationBox.defaultProps = {
   onClickAction: null,
-  className: 'LT-ConversationBox-Wrapper',
+  className: 'LT-ConversationBox-Container',
 };
 
 export default ConversationBox;

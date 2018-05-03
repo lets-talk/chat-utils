@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AvatarGroup component should render with data 1`] = `
+<Styled(Flex)
+  className="LT-AvatarGroup-Container"
+>
+  <styled.div>
+    <styled.div
+      key="1"
+    >
+      <Avatar
+        alt=""
+        className="LT-Avatar-Container"
+        color={null}
+        size="small"
+        sizes={null}
+        src="http://i46.tinypic.com/sexbb8.png"
+        srcSet={null}
+        status="online"
+        type="circle"
+        withStatus={true}
+      />
+    </styled.div>
+    <styled.div
+      key="2"
+    >
+      <Avatar
+        alt=""
+        className="LT-Avatar-Container"
+        color={null}
+        size="small"
+        sizes={null}
+        src="http://i46.tinypic.com/sexbb8.png"
+        srcSet={null}
+        status="online"
+        type="circle"
+        withStatus={true}
+      />
+    </styled.div>
+    <styled.div
+      key="3"
+    >
+      <Avatar
+        alt=""
+        className="LT-Avatar-Container"
+        color={null}
+        size="small"
+        sizes={null}
+        src="http://i46.tinypic.com/sexbb8.png"
+        srcSet={null}
+        status="online"
+        type="circle"
+        withStatus={true}
+      />
+    </styled.div>
+  </styled.div>
+</Styled(Flex)>
+`;
+
+exports[`AvatarGroup component should render without data 1`] = `
+<Styled(Flex)
+  className="LT-AvatarGroup-Container"
+>
+  <styled.div />
+</Styled(Flex)>
+`;

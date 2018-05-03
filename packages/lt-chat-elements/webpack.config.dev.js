@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const postcssflexbugsfixes = require('postcss-flexbugs-fixes');
 const autoprefixer = require('autoprefixer');
@@ -89,6 +90,13 @@ module.exports = {
   },
 
   plugins: [
+    // Moment.js is an extremely popular library that bundles large locale files
+    // by default due to how Webpack interprets its code. This is a practical
+    // solution that requires the user to opt into importing specific locales.
+    // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
+    // You can remove this if you don't use Moment.js:
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /es/),
+    // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new ExtractTextPlugin({
       filename: 'main.css',
       allChunks: true,

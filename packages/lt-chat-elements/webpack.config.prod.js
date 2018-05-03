@@ -134,6 +134,7 @@ module.exports = {
     new UglifyJSPlugin({
       uglifyOptions: {
         compress: {
+          dead_code: true,
           warnings: false,
           // Disabled because of an issue with Uglify breaking seemingly valid code:
           // https://github.com/facebookincubator/create-react-app/issues/2376
@@ -163,6 +164,7 @@ module.exports = {
     // solution that requires the user to opt into importing specific locales.
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /es/),
+    // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
 };

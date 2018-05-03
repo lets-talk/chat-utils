@@ -21,6 +21,14 @@ export function ellipsis(width) {
   `;
 }
 
+export function themeColor(theme, key = 'primary', variant = 'base') {
+  return theme.palette.colors[key][variant];
+}
+
+export function textColor(theme, key = 'light', variant = 'primary') {
+  return theme.palette.contrastColors[key][variant];
+}
+
 export function animate(animationName) {
   let result;
   if (animationName === 'slide-in') {
@@ -80,8 +88,6 @@ export function headerMenuButton(width) {
     background-color: transparent;
     border: 0;
     display: block;
-    position: absolute;
-    top: 15px;
   `;
 }
 
@@ -124,11 +130,41 @@ export function avatarStyle(element, sizeName) {
       height: calc(${sizeValue} - 5px);
     `;
   } else if (element === 'status') {
+    let bottom = 0;
+    let right = 0;
+    let border = 1;
+    if (sizeName === 'xsmall') {
+      bottom = 0;
+      right = 0;
+      border = 1;
+    } else if (sizeName === 'small') {
+      bottom = 0;
+      right = 0;
+      border = 1;
+    } else if (sizeName === 'medium') {
+      bottom = 2;
+      right = 1;
+      border = 1;
+    } else if (sizeName === 'large') {
+      bottom = 8;
+      right = 4;
+      border = 2;
+    } else if (sizeName === 'xlarge') {
+      bottom = 16;
+      right = 8;
+      border = 2;
+    }
+
     return `
       width: calc(${sizeValue} / 9);
       height: calc(${sizeValue} / 9);
-      bottom: calc(${sizeValue} / 13);
-      right: calc(${sizeValue} / 9);
+      bottom: ${bottom}px;
+      right: ${right}px;
+      border: ${border}px solid #FFFFFF;
+    `;
+  } else if (element === 'letter') {
+    return `
+      font-size: calc(0.8 * ${sizeValue});
     `;
   }
   return '';

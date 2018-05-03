@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { textColor } from '../../utils/style';
 
 const StyledContainer = styled.div`
   width: 100%;
@@ -24,9 +25,10 @@ const StyledContainer = styled.div`
       line-height: 1;
       display: inline-block;
 
-      color: ${(props) => props.theme.typography.classes.caption.normal.dark.disabled.color};
-      font-size: ${(props) => props.theme.typography.classes.caption.normal.dark.disabled.fontSize};
-      font-weight: ${(props) => props.theme.typography.classes.caption.normal.dark.disabled.fontWeight};
+      color: ${(props) => textColor(props.theme, 'light', 'disabled')};
+      font-size: ${(props) => props.theme.typography.classes.caption.fontSize};
+      line-height: ${(props) => props.theme.typography.classes.caption.lineHeight};
+      font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
 
       span {
         display: inline-block;
@@ -38,7 +40,7 @@ const StyledContainer = styled.div`
         content: "";
         position: absolute;
         height: 10px;
-        border-bottom: 1px solid ${(props) => props.theme.palette.text.hint};
+        border-bottom: 1px solid ${(props) => textColor(props.theme, 'light', 'disabled')};
         top: 0;
         width: 100%;
       }

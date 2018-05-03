@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { rgba } from 'polished';
 
 import MdSend from 'react-icons/lib/md/send';
-// import './index.scss';
+import MdAttachment from 'react-icons/lib/md/attachment';
+
+import { textColor, themeColor } from '../../utils/style';
 
 const StyledSenderContainer = styled.div`
   min-height: 56px;
   max-height: 200px;
-  color: ${(props) => props.theme.palette.text.hint};
+  color: ${(props) => textColor(props.theme, 'light', 'primary')};
+  background-color: ${(props) => rgba(themeColor(props.theme, 'foreground', 'base'), 0.1)};
+  background-color: rgba(94, 124, 139, 0.1);
   align-items: center;
   display: flex;
-  background-color: rgba(94, 124, 139, 0.1);
 
   border-radius: 0;
   flex-shrink: 0;
@@ -35,9 +39,10 @@ const StyledSenderContainer = styled.div`
     width: 100%;
     height: 100%;
 
-    color: ${(props) => props.theme.typography.classes.body.normal.dark.primary.color};
-    font-size: ${(props) => props.theme.typography.classes.body.normal.dark.primary.fontSize};
-    font-weight: ${(props) => props.theme.typography.classes.body.normal.dark.primary.fontWeight};
+    color: ${(props) => textColor(props.theme, 'light', 'primary')};
+    font-size: ${(props) => props.theme.typography.classes.body.fontSize};
+    line-height: ${(props) => props.theme.typography.classes.body.lineHeight};
+    font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
 
     white-space: pre-wrap;
     background-color: rgba(94, 124, 139, 0.1);
@@ -53,7 +58,7 @@ const StyledSenderContainer = styled.div`
   }
 
   textarea::placeholder {
-    color: ${(props) => props.theme.typography.classes.body.normal.dark.disabled.color};
+    color: ${(props) => textColor(props.theme, 'light', 'hint')};
   }
 `;
 
@@ -69,24 +74,33 @@ const StyledSenderButtonsContainer = styled.div`
   }
 `;
 
+const StyledActionButton = styled.button`
+    cursor: pointer;
+    color: rgb(94, 124, 139, .3);
+    &:hover {
+      color: rgb(94, 124, 139);
+    }
+`;
+
 const Sender = ({ sendMessage, placeholder, disabledInput }) =>
   (
     <StyledSenderContainer>
       <div>
-        <form onSubmit={sendMessage}>
-          <textarea
-            type="text"
-            name="message"
-            placeholder={placeholder}
-            disabled={disabledInput}
-            autoComplete="off"
-          />
-          <StyledSenderButtonsContainer>
-            <button type="submit">
-              <MdSend size={20} color="#5e7c8b" />
-            </button>
-          </StyledSenderButtonsContainer>
-        </form>
+        <textarea
+          type="text"
+          name="message"
+          placeholder={placeholder}
+          disabled={disabledInput}
+          autoComplete="off"
+        />
+        <StyledSenderButtonsContainer>
+          <StyledActionButton>
+            <MdAttachment size={20} />
+          </StyledActionButton>
+          <StyledActionButton onClick={sendMessage}>
+            <MdSend size={20} />
+          </StyledActionButton>
+        </StyledSenderButtonsContainer>
       </div>
     </StyledSenderContainer>
   );
