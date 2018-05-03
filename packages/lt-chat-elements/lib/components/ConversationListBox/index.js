@@ -8,7 +8,7 @@ import Button from '../Button';
 
 const ConversationListBoxContainer = styled.div`
   border-radius: 10px 10px 0px 0px;
-  box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.44);
+  box-shadow: ${(props) => props.theme.shadows['2p']};
   height: 100%;
   width: 100%;
   margin: 0;
@@ -143,7 +143,7 @@ ConversationListBox.defaultProps = {
   noMoreDataText: '',
   newConversationText: '',
   emptyStateText: '',
-  className: 'LT-ConversationListBox-Wrapper',
+  className: 'LT-ConversationListBox-Container',
 };
 
 export default ConversationListBox;

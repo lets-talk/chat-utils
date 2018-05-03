@@ -4,11 +4,11 @@ import MdChatBubble from 'react-icons/lib/md/chat-bubble';
 import styled, { css } from 'styled-components';
 
 import { withAutoScroll } from '../../utils/hoc';
-import { animate } from '../../utils/style';
+import { animate, textColor } from '../../utils/style';
 
 import ConversationBox from '../ConversationBox';
 
-const ConversationListWrapper = styled.div`
+const StyledConversationListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   max-height: none;
@@ -21,18 +21,26 @@ const ConversationListWrapper = styled.div`
     `};
   `;
 
-const ConversationListSeparator = styled.div`
+const StyledConversationListSeparator = styled.div`
   margin-top: 10px;
   margin-left: 80px;
   padding: 20px 0px;
-
-  color: ${(props) => props.theme.typography.classes.footnote.normal.dark.secondary.color};
-  font-size: ${(props) => props.theme.typography.classes.footnote.normal.dark.secondary.fontSize};
-  font-weight: ${(props) => props.theme.typography.classes.footnote.normal.dark.secondary.fontWeight};
+  
+  color: ${(props) => textColor(props.theme, 'dark', 'secondary')};
+  font-size: ${(props) => props.theme.typography.classes.small.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.small.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
   border-top: 1px solid ${(props) => props.theme.palette.divider};
 `;
 
-const NoConversation = styled.div`
+const StyledConversationBoxContainer = styled.div`
+  // transition: box-shadow .3s;
+  // &:hover {
+  //   box-shadow: ${(props) => props.theme.shadows['2p']};
+  // }
+`;
+
+const StyledNoConversation = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -41,21 +49,23 @@ const NoConversation = styled.div`
   align-items: center; /*centers items on the cross-axis (y by default)*/
   flex-direction: column;
 
-  color: ${(props) => props.theme.typography.classes.body.bold.dark.secondary.color};
-  font-size: ${(props) => props.theme.typography.classes.body.bold.dark.secondary.fontSize};
-  font-weight: ${(props) => props.theme.typography.classes.body.bold.dark.secondary.fontWeight};
+  color: ${(props) => textColor(props.theme, 'dark', 'secondary')};
+  font-size: ${(props) => props.theme.typography.classes.body.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.body.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
 `;
 
-const SvgContainer = styled.div`
+const StyledSvgContainer = styled.div`
   margin-bottom: 10px;
 `;
 
-const EmptyContainer = styled.div`
+const StyledEmptyContainer = styled.div`
   max-width: 80%;
 
-  color: ${(props) => props.theme.typography.classes.footnote.normal.dark.disabled.color};
-  font-size: ${(props) => props.theme.typography.classes.footnote.normal.dark.disabled.fontSize};
-  font-weight: ${(props) => props.theme.typography.classes.footnote.normal.dark.disabled.fontWeight};
+  color: ${(props) => textColor(props.theme, 'dark', 'disabled')};
+  font-size: ${(props) => props.theme.typography.classes.footnote.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.footnote.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
 `;
 
 class ConversationList extends Component {
@@ -67,17 +77,15 @@ class ConversationList extends Component {
 
   render() {
     return (
-      <ConversationListWrapper
-        ref={this.props.cmpRef}
+      <StyledConversationListWrapper
+        innerRef={this.props.cmpRef}
         className={this.props.className}
       >
         {this.props.conversations.length > 0 &&
           <div>
             {this.props.conversations.map((conversation, index) =>
               (
-                <div
-                  role="button"
-                  tabIndex={index + 1}
+                <StyledConversationBoxContainer
                   key={conversation.id}
                   onClick={this.props.clickItem && ((e) => this.onClick(conversation, index, e))}
                   onKeyPress={this.props.clickItem && ((e) => this.onClick(conversation, index, e))}
@@ -86,24 +94,24 @@ class ConversationList extends Component {
                     conversation={conversation}
                     key={`conversation-${conversation.id}`}
                   />
-                </div>
+                </StyledConversationBoxContainer>
               ))
             }
-            <ConversationListSeparator>{this.props.noMoreDataText}</ConversationListSeparator>
+            <StyledConversationListSeparator>{this.props.noMoreDataText}</StyledConversationListSeparator>
           </div>
         }
 
         {this.props.conversations.length === 0 &&
-          <NoConversation>
-            <SvgContainer>
+          <StyledNoConversation>
+            <StyledSvgContainer>
               <MdChatBubble color="#e5e9ec" size={40} />
-            </SvgContainer>
-            <EmptyContainer>
+            </StyledSvgContainer>
+            <StyledEmptyContainer>
               {this.props.emptyStateText}
-            </EmptyContainer>
-          </NoConversation>
+            </StyledEmptyContainer>
+          </StyledNoConversation>
         }
-      </ConversationListWrapper>
+      </StyledConversationListWrapper>
     );
   }
 }

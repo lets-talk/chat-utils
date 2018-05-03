@@ -16,10 +16,10 @@ exports[`Button component should render with data 1`] = `
 
 exports[`Button component should render with minimal props 1`] = `
 <styled.div
-  className="LT-Button-Wrapper"
+  className="LT-Button-Container"
 >
   <styled.input
-    className="letstalk-button LT-Button-Wrapper"
+    className="letstalk-button LT-Button-Container"
     disabled={false}
     onClick={[Function]}
     type="submit"

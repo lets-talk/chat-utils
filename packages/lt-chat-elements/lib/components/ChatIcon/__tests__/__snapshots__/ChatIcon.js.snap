@@ -11,7 +11,7 @@ exports[`ChatIcon component should render with custom props 1`] = `
       type="circle"
       width={50}
     >
-      <styled.span />
+      <span />
       <MdChat
         color="white"
         size={20}
@@ -32,7 +32,7 @@ exports[`ChatIcon component should render with no props 1`] = `
       type="rounded"
       width={250}
     >
-      <styled.span />
+      <span />
       <MdChat
         color="white"
         size={20}

@@ -62,7 +62,7 @@ const messages = [
   },
   {
     position: 'right',
-    forwarded: false,
+    forwarded: true,
     type: 'Photo',
     theme: 'white',
     view: 'list',
@@ -127,7 +127,7 @@ const messages = [
   },
   {
     position: 'right',
-    forwarded: true,
+    forwarded: false,
     type: 'Typing',
     theme: 'white',
     view: 'list',
@@ -145,7 +145,7 @@ const messages = [
   },
   {
     position: 'left',
-    forwarded: true,
+    forwarded: false,
     type: 'Time',
     theme: 'white',
     view: 'list',
@@ -163,7 +163,7 @@ const messages = [
   },
   {
     position: 'left',
-    forwarded: true,
+    forwarded: false,
     type: 'System',
     theme: 'white',
     view: 'list',
@@ -195,7 +195,7 @@ stories.addWithInfo(
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
@@ -217,7 +217,7 @@ stories.addWithInfo(
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
@@ -239,7 +239,7 @@ stories.addWithInfo(
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
@@ -261,7 +261,7 @@ stories.addWithInfo(
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
@@ -283,7 +283,7 @@ stories.addWithInfo(
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
@@ -305,7 +305,7 @@ stories.addWithInfo(
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
@@ -331,7 +331,7 @@ stories.addWithInfo(
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>

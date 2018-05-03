@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import MdChat from 'react-icons/lib/md/chat';
 
-import { ellipsis } from '../../utils/style';
+import { ellipsis, themeColor, textColor } from '../../utils/style';
 
 const SimpleButton = styled.button`
-  color: ${(props) => props.theme.typography.classes.footnote.bold.light.primary.color};
-  font-size: ${(props) => props.theme.typography.classes.footnote.bold.light.primary.fontSize};
-  font-weight: ${(props) => props.theme.typography.classes.footnote.bold.light.primary.fontWeight};
-  background-color: ${(props) => props.theme.palette.background.primary};
+  color: ${(innerProps) => textColor(innerProps.theme, 'dark', 'primary')};
+  font-size: ${(props) => props.theme.typography.classes.footnote.fontSize};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightBold};
+  line-height: ${(props) => props.theme.typography.classes.footnote.lineHeight};
+  background-color: ${(innerProps) => themeColor(innerProps.theme, 'accent', 'base')};
 `;
 
 const ChatIcon = (props) => {
@@ -29,7 +30,7 @@ const ChatIcon = (props) => {
     position: absolute;
     top: 0px;
     right: 0px;
-    background-color: #000;
+    background-color: ${(innerProps) => themeColor(innerProps.theme, 'primary', 'dark')};
     color: white;
     border-radius: 50%;
     padding: 1px;
@@ -45,7 +46,7 @@ const ChatIcon = (props) => {
     <StyledBubbleDiv>{ msgLbl }</StyledBubbleDiv>
   );
 
-  const Button = SimpleButton.extend`
+  const StyledButton = SimpleButton.extend`
     width: ${props.width}px;
     height: ${props.height}px;
     margin: ${props.margin};
@@ -64,27 +65,27 @@ const ChatIcon = (props) => {
     &:focus {
       outline: none;
     }
-`;
 
-  const StyledSpan = styled.span`
-    width: calc(100% - ${props.height}px);
-    font-size: $chatIcon-font-size;
-    float: left;
-    text-align: left;
-    ${ellipsis('100%')}
-  `;
+    span {
+      width: calc(100% - ${props.height}px);
+      font-size: $chatIcon-font-size;
+      float: left;
+      text-align: left;
+      ${ellipsis('100%')}
+    }
+`;
 
   const defaultIcon = (
     <div className="letstalk-ChatIconContainer">
-      <Button
+      <StyledButton
         width={props.width}
         height={props.height}
         margin={props.margin}
         type={props.type}
       >
-        <StyledSpan>{props.text}</StyledSpan>
+        <span>{props.text}</span>
         {props.showIcon && <MdChat size={props.height / 2.5} color="white" />}
-      </Button>
+      </StyledButton>
       { props.newMessages > 0 && messagesBubble }
     </div>
   );

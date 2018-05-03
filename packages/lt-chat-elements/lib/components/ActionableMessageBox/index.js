@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { rgba } from 'polished';
+import { themeColor } from '../../utils/style';
 
 const ActionList = styled.ul`
   display: block;
@@ -9,28 +11,29 @@ const ActionList = styled.ul`
   margin: 0;
   border-radius: 5px;
   background-color: ${(props) => props.theme.palette.common.white};
-  font-size: ${(props) => props.theme.typography.classes.caption.bold.accent.fontSize};
-  font-weight: ${(props) => props.theme.typography.classes.caption.bold.accent.fontWeight};
-`;
+  font-size: ${(props) => props.theme.typography.classes.caption.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.caption.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
 
-const ActionItem = styled.li`
-  list-style: none;
-  padding: 15px;
-  color: ${(props) => props.theme.palette.action.active};
+  li {
+    list-style: none;
+    padding: 15px;
+    color: ${(props) => themeColor(props.theme, 'accent', 'base')};
 
-  &:hover {
-    background-color: ${(props) => props.theme.palette.action.hover};
-  }
-  &:first-child {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-  &:last-child {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-  &:not(:last-child) {
-    border-bottom: 1px solid ${(props) => props.theme.palette.divider};
+    &:hover {
+      background-color: ${(props) => rgba(themeColor(props.theme, 'accent', 'base'), 0.1)};
+    }
+    &:first-child {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+    &:last-child {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+    &:not(:last-child) {
+      border-bottom: 1px solid ${(props) => props.theme.palette.divider};
+    }
   }
 `;
 
@@ -42,21 +45,21 @@ const ActionableMessageBox = (props) => {
     <ActionList className={props.className}>
       {actions.map((action, index) =>
         (
-          <ActionItem
+          <li
             key={action.id}
-            role="button"
-            onClick={onClickAction && ((e) => onClickAction(action, index, e))}
           >
-            <span>{action.name}</span>
-          </ActionItem>
+            <span
+              role="button"
+              tabIndex={index}
+              onClick={onClickAction && ((e) => onClickAction(action, index, e))}
+              onKeyUp={onClickAction && ((e) => onClickAction(action, index, e))}
+            >
+              {action.name}
+            </span>
+          </li>
         ))}
     </ActionList>
   );
-};
-
-ActionableMessageBox.defaultProps = {
-  onClickAction: null,
-  className: 'LT-ActionableMessageBox-Container',
 };
 
 ActionableMessageBox.propTypes = {
@@ -74,6 +77,11 @@ ActionableMessageBox.propTypes = {
    * callback (action, index, e)
    */
   onClickAction: PropTypes.func,
+};
+
+ActionableMessageBox.defaultProps = {
+  onClickAction: null,
+  className: 'LT-ActionableMessageBox-Container',
 };
 
 export default ActionableMessageBox;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Flex, Box } from 'grid-styled';
 
-import { ellipsis } from '../../utils/style';
+import { ellipsis, textColor, themeColor } from '../../utils/style';
 
 const ChatCard = (props) => {
   const {
@@ -11,8 +11,8 @@ const ChatCard = (props) => {
   } = props;
 
   const StyledCardTitle = styled.div`
-    color: ${(innerProps) => innerProps.theme.palette.common.black};
-    font-size: ${(innerProps) => innerProps.theme.typography.classes.caption.normal.dark.primary.fontSize};
+    color: ${(innerProps) => textColor(innerProps.theme)};
+    font-size: ${(innerProps) => innerProps.theme.typography.classes.caption.fontSize};
     font-weight: ${(innerProps) => innerProps.theme.typography.weights.fontWeightBold};
     display: inline-block;
     vertical-align: middle;
@@ -40,11 +40,11 @@ const ChatCard = (props) => {
     padding: 15px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: ${(innerProps) => themeColor(innerProps.theme, 'background', 'light')};
     border-radius: 6px;
     box-shadow: ${(innerProps) => innerProps.theme.shadows['8p']};
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: ${(innerProps) => innerProps.theme.typography.classes.caption.fontSize};
+    line-height: ${(innerProps) => innerProps.theme.typography.classes.caption.lineHeight};
     height: 100%;
     position: relative;
   `;

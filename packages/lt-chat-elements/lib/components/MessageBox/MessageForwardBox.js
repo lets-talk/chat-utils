@@ -36,21 +36,26 @@ const StyledMessageForwardBox = styled.div`
       `};
 `;
 
-const MessageForwardBox = (props) => (
-  <StyledMessageForwardBox
-    position={props.position}
-    onClick={props.onForwardClick}
-    onKeyPress={props.onForwardClick}
-  >
-    <FaForward color="#000" />
-  </StyledMessageForwardBox>
-);
+const MessageForwardBox = (props) => {
+  const { message } = props;
+  return (
+    <StyledMessageForwardBox
+      position={message.position}
+      onClick={props.onForwardClick}
+      onKeyPress={props.onForwardClick}
+    >
+      <FaForward color="#000" />
+    </StyledMessageForwardBox>
+  );
+};
 
 MessageForwardBox.propTypes = {
-  /**
-   * Position: What side the forward is displayed
-   */
-  position: PropTypes.string,
+  message: PropTypes.shape({
+    /**
+     * Position: What side the forward is displayed
+     */
+    position: PropTypes.string,
+  }),
   /**
    * onForwardClick: Handler function to be called when user click on forwared message
    */

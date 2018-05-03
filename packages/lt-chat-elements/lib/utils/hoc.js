@@ -1,4 +1,4 @@
-/* eslint-disable react/no-multi-comp */
+/* eslint-disable  */
 import React, { Component } from 'react';
 
 const withInfiniteScroll = (WrappedComponent) =>

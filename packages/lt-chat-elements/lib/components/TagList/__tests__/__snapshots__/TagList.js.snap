@@ -1,10 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TagList component should render with custom props 1`] = `
-<div
-  className="cbox-tags"
+<styled.div
+  className="LT-TagList-Container"
 >
   <Tag
+    className="LT-Tag-Container"
     clickItem={null}
     key="SPU-CLAVE"
     tag={
@@ -13,17 +14,17 @@ exports[`TagList component should render with custom props 1`] = `
       }
     }
   />
-</div>
+</styled.div>
 `;
 
 exports[`TagList component should render with empty props 1`] = `
-<div
-  className="cbox-tags"
+<styled.div
+  className="LT-TagList-Container"
 />
 `;
 
 exports[`TagList component should render with no tags the empty state 1`] = `
-<div
-  className="cbox-tags"
+<styled.div
+  className="LT-TagList-Container"
 />
 `;

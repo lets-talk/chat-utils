@@ -2,9 +2,10 @@
 
 exports[`ConversationListBox component should render with custom props 1`] = `
 <styled.div
-  className="LT-ConversationListBox-Wrapper"
+  className="LT-ConversationListBox-Container"
 >
   <Header
+    className="LT-Header-Container"
     openMenu={null}
     person={Object {}}
     showMenuButton={false}
@@ -38,7 +39,7 @@ exports[`ConversationListBox component should render with custom props 1`] = `
     noMoreDataText=""
   />
   <Button
-    className="LT-Button-Wrapper"
+    className="LT-Button-Container"
     clickHandler={[Function]}
     disabled={false}
     type="submit"
@@ -49,9 +50,10 @@ exports[`ConversationListBox component should render with custom props 1`] = `
 
 exports[`ConversationListBox component should render with minimal props 1`] = `
 <styled.div
-  className="LT-ConversationListBox-Wrapper"
+  className="LT-ConversationListBox-Container"
 >
   <Header
+    className="LT-Header-Container"
     openMenu={null}
     person={Object {}}
     showMenuButton={false}
@@ -85,7 +87,7 @@ exports[`ConversationListBox component should render with minimal props 1`] = `
     noMoreDataText=""
   />
   <Button
-    className="LT-Button-Wrapper"
+    className="LT-Button-Container"
     clickHandler={[Function]}
     disabled={false}
     type="submit"

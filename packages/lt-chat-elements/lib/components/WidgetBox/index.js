@@ -69,7 +69,7 @@ WidgetBox.defaultProps = {
   title: '',
   subtitle: '',
   person: {},
-  className: 'LT-WidgetBox-Wrapper',
+  className: 'LT-WidgetBox-Container',
 };
 
 export default WidgetBox;

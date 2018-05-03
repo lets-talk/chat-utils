@@ -37,8 +37,14 @@ const AvatarGroup = (props) => {
               height: 100%;
           `;
           return (
-            <StyledAvatarContainer>
-              <Avatar size={size} src={person.avatar} status={person.status} withStatus={withStatus} type={type} />
+            <StyledAvatarContainer key={person.id}>
+              <Avatar
+                size={size}
+                src={person.avatar}
+                status={person.status}
+                withStatus={withStatus}
+                type={type}
+              />
             </StyledAvatarContainer>
           );
         })
@@ -61,7 +67,7 @@ AvatarGroup.defaultProps = {
 
 AvatarGroup.propTypes = {
   /**
-   * types: default, circle, rounded(border radius 5px), flexible
+   * avatars: List of PersonType to show as avatars
    */
   avatars: PropTypes.arrayOf(PersonType),
   /**

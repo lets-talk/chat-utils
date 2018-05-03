@@ -22,4 +22,10 @@ TimeMarkMessage.propTypes = {
   className: PropTypes.string,
   text: PropTypes.string,
 };
+
+TimeMarkMessage.defaultProps = {
+  text: '',
+  className: 'LT-TimeMarkMessage-Container',
+};
+
 export default TimeMarkMessage;

@@ -15,8 +15,15 @@ import { messagesTypes, messagesStatus, personTypes } from './constants';
 // });
 
 const PersonType = shape({
-  avatar: string,
+  id: number,
+  name: string,
+  internal_name: string,
+  active: boolean,
   email: string,
+  avatar: string,
+  role: string,
+  status_name: string,
+  availability_status_name: string,
   type: oneOf(Object.values(personTypes)),
 });
 

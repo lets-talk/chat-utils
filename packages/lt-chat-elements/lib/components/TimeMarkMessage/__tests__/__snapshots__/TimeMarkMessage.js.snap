@@ -2,7 +2,7 @@
 
 exports[`TimeMarkMessage component should render with data 1`] = `
 <div
-  className="letstalk-container-timemark"
+  className="letstalk-container-timemark LT-TimeMarkMessage-Container"
 >
   <div
     className="letstalk-timemark"
@@ -18,7 +18,7 @@ exports[`TimeMarkMessage component should render with data 1`] = `
 
 exports[`TimeMarkMessage component should render without data 1`] = `
 <div
-  className="letstalk-container-timemark"
+  className="letstalk-container-timemark LT-TimeMarkMessage-Container"
 >
   <div
     className="letstalk-timemark"

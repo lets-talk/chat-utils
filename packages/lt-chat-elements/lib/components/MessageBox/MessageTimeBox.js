@@ -10,6 +10,7 @@ import MdCheck from 'react-icons/lib/md/check';
 
 // Constants
 import constants from '../../utils/constants';
+import { textColor } from '../../utils/style';
 
 const { messagesTypes } = constants;
 
@@ -17,8 +18,10 @@ const StyledMessageTimeBox = styled.div`
   display: inline-block;
   width: 50px;
   text-align: right;
-  font-size: ${(props) => props.theme.typography.classes.caption.normal.dark.disabled.fontSize};
-  font-weight: ${(props) => props.theme.typography.weights.fontWeight};
+  color: ${(props) => textColor(props.theme, 'light', 'disabled')};
+  font-size: ${(props) => props.theme.typography.classes.caption.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.caption.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
   float: right
   position: absolute;
   bottom: 0;

@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Flex, Box } from 'grid-styled';
 
+import MdClose from 'react-icons/lib/md/close';
+
 import AvatarGroup from '../AvatarGroup';
 import ChatCard from '../ChatCard';
 import { PersonType } from '../../utils/types';
+import { textColor, themeColor } from '../../utils/style';
 
 
 const ChatNotification = (props) => {
@@ -14,17 +17,21 @@ const ChatNotification = (props) => {
   } = props;
 
   const StyledDismissButton = styled.button`
+    display: flex;
     cursor: pointer;
-    background-color: rgb(93, 114, 138);
-    color: #fff;
-    font-size: 13px;
     float: right;
     opacity: 0;
-    padding: 8px 20px;
+    padding: 8px 15px;
     border-radius: 100px;
-    color: ${(innerProps) => innerProps.theme.palette.common.white};
-    font-size: ${(innerProps) => innerProps.theme.typography.classes.small.normal.dark.primary.fontSize};
+    color: ${(innerProps) => textColor(innerProps.theme, 'dark', 'primary')};
+    background-color: ${(innerProps) => themeColor(innerProps.theme, 'foreground', 'base')};
+    font-size: ${(innerProps) => innerProps.theme.typography.classes.caption.fontSize};
+    line-height: ${(innerProps) => innerProps.theme.typography.classes.caption.lineHeight};
     font-weight: ${(innerProps) => innerProps.theme.typography.weights.fontWeightMedium};
+  
+    span {
+      margin-left: 10px;
+    }
   `;
 
   const StyledNotificationContainer = styled.div`
@@ -62,8 +69,15 @@ const ChatNotification = (props) => {
   return (
     <StyledNotificationContainer>
       <Flex>
-        <Box p={1} ml="auto" width={1}>
-          <StyledDismissButton>{dismissText}</StyledDismissButton>
+        <Box p={1} width={1}>
+          <StyledDismissButton>
+            <div>
+              {dismissText}
+            </div>
+            <span>
+              <MdClose size={15} />
+            </span>
+          </StyledDismissButton>
         </Box>
       </Flex>
       <Flex>

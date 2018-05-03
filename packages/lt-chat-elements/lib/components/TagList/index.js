@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import Tag from '../Tag';
-import './index.scss';
+
+const StyledTagListContainer = styled.div`
+  order: 2;
+  margin: 5px;
+`;
 
 class TagList extends Component {
   onClick(item, i, e) {
@@ -14,11 +19,11 @@ class TagList extends Component {
   render() {
     const { tags } = this.props;
     return (
-      <div className="cbox-tags">
+      <StyledTagListContainer className={this.props.className}>
         {tags.map((tag) => (
           <Tag key={tag.name} tag={tag} onClick={this.onCLick} />
         ))}
-      </div>
+      </StyledTagListContainer>
     );
   }
 }
@@ -30,6 +35,10 @@ TagList.propTypes = {
    */
   tags: PropTypes.array,
   /**
+   * ClassName to add to this component
+   */
+  className: PropTypes.string,
+  /**
    * Callback function to be called when an item is clicked
    */
   clickItem: PropTypes.func,
@@ -37,6 +46,7 @@ TagList.propTypes = {
 
 TagList.defaultProps = {
   tags: [],
+  className: 'LT-TagList-Container',
   clickItem: null,
 };
 

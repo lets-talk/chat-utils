@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { textColor, themeColor } from '../../utils/style';
 
 const StyledTag = styled.span`
-  color: ${(props) => props.theme.typography.classes.caption.normal.dark.primary.color};
-  font-size: ${(props) => props.theme.typography.classes.caption.normal.dark.primary.fontSize};
-  font-weight: ${(props) => props.theme.typography.classes.caption.normal.dark.primary.fontWeight};
-  background-color: ${(props) => props.theme.palette.background.secondary};
+  color: ${(props) => textColor(props.theme, 'dark', 'primary')};
+  background-color: ${(props) => themeColor(props.theme, 'foreground', 'base')};
+  font-size: ${(props) => props.theme.typography.classes.caption.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.caption.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
 
   margin: 5px 2px;
   padding: 5px;
@@ -23,7 +25,7 @@ class Tag extends Component {
   render() {
     const { tag } = this.props;
     return (
-      <StyledTag>
+      <StyledTag className={this.props.className}>
         {tag.name}
       </StyledTag>
     );
@@ -37,6 +39,10 @@ Tag.propTypes = {
    */
   tag: PropTypes.object,
   /**
+   * className to be used for this component
+   */
+  className: PropTypes.string,
+  /**
    * Callback function to be called when an item is clicked
    */
   clickItem: PropTypes.func,
@@ -44,6 +50,7 @@ Tag.propTypes = {
 
 Tag.defaultProps = {
   tag: null,
+  className: 'LT-Tag-Container',
   clickItem: null,
 };
 

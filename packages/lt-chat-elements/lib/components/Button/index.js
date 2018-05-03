@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import styled from 'styled-components';
+import { themeColor, textColor } from '../../utils/style';
 
 const StyledButtonContainer = styled.div`
   display: flex;
@@ -12,8 +13,8 @@ const StyledButtonContainer = styled.div`
 
 const StyledButton = styled.input`
   position: relative;
-  color: ${(props) => props.theme.palette.common.white};
-  background-color: ${(props) => props.theme.palette.background.primary};
+  color: ${(props) => textColor(props.theme, 'dark', 'primary')};
+  background-color: ${(props) => themeColor(props.theme, 'accent', 'base')};  
   height: 40px;
   border-radius: 20px;
   box-shadow: none;
@@ -87,7 +88,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  className: 'LT-Button-Wrapper',
+  className: 'LT-Button-Container',
   disabled: false,
 };
 

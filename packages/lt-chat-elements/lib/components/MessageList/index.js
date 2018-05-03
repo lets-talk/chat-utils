@@ -37,23 +37,27 @@ class MessageList extends Component {
   }
 
   render() {
+    const {
+      cmpRef, className, messages, onOpen, onDownload, onTitleClick, onForwardClick, onClick, onActionMessageClick,
+    } = this.props;
     return (
       <StyledMessageListContainer
-        ref={this.props.cmpRef}
+        innerRef={cmpRef}
+        className={className}
         id="messages"
       >
         {
-          this.props.messages.map((message, index) =>
+          messages.map((message, index) =>
             (
               <MessageBox
                 key={`message-${message.id}`}
                 message={message}
-                onOpen={this.props.onOpen && ((e) => this.onOpen(message, index, e))}
-                onDownload={this.props.onDownload && ((e) => this.onDownload(message, index, e))}
-                onTitleClick={this.props.onDownload && ((e) => this.onTitleClick(message, index, e))}
-                onForwardClick={this.props.onForwardClick && ((e) => this.onForwardClick(message, index, e))}
-                onClick={this.props.onClick && ((e) => this.onClick(message, index, e))}
-                onActionMessageClick={this.props.onActionMessageClick}
+                onOpen={onOpen && ((e) => this.onOpen(message, index, e))}
+                onDownload={onDownload && ((e) => this.onDownload(message, index, e))}
+                onTitleClick={onTitleClick && ((e) => this.onTitleClick(message, index, e))}
+                onForwardClick={onForwardClick && ((e) => this.onForwardClick(message, index, e))}
+                onClick={onClick && ((e) => this.onClick(message, index, e))}
+                onActionMessageClick={onActionMessageClick}
               />
             ))
         }
@@ -71,6 +75,7 @@ MessageList.propTypes = {
   onDownload: PropTypes.func,
   onActionMessageClick: PropTypes.func,
   cmpRef: PropTypes.func,
+  className: PropTypes.string,
 };
 
 MessageList.defaultProps = {
@@ -82,6 +87,7 @@ MessageList.defaultProps = {
   onDownload: null,
   onActionMessageClick: null,
   cmpRef: null,
+  className: 'LT-MessageList-Container',
 };
 
 const autoScrollOptions = { threshold: 300, direction: 'bottom' };
