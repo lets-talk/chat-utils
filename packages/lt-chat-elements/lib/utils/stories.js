@@ -14,16 +14,21 @@ const WrapWithTheme = (props) => {
   const theme = variables.themes[themeName];
   // Wrapp it and pass all the other props that we might be given
   return (
-    <div className={`theme-${themeName}`}>
-      <ThemeProvider theme={theme}>
-        {props.children}
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme}>
+      {props.children}
+    </ThemeProvider>
   );
 };
 
 WrapWithTheme.propTypes = {
+  /**
+   * Component to be wrapped with a Theme
+   */
   children: PropTypes.node,
+  /**
+   * The name of the theme to be used to wrap the component
+   * Valid values are: default, light, lighter, lightest, dark, darker, darkest
+   */
   themeName: PropTypes.string,
 };
 

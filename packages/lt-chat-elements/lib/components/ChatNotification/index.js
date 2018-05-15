@@ -38,11 +38,7 @@ const ChatNotification = (props) => {
     max-width: ${props.width}px;
     max-height: ${props.height}px;
 
-    border-radius: ${() =>
-    (props.type && props.type === 'rounded' && '5px 5px 0 0')
-    || (props.type && props.type === 'circle' && '50%')
-    || '0'};
-
+    border-radius: 5px 5px 0 0;
     &:hover ${StyledDismissButton} {
       opacity: 1;
       visibility: visible;
@@ -108,31 +104,28 @@ const ChatNotification = (props) => {
 
 ChatNotification.propTypes = {
   /**
-   * types: default, rounded, circle
-   */
-  type: PropTypes.string,
-  /**
-   * title
+   * title: The text to show in the notification header
    */
   title: PropTypes.string,
   /**
-   * dismissText
+   * dismissText: Text to show next to the 'x' icon to dismiss the notification
    */
   dismissText: PropTypes.string,
   /**
-   * body
+   * body: The text to show as the notification content
    */
   body: PropTypes.string,
   /**
-   * showAvatars: Wheter or not display the chat icon
+   * showAvatars: Wheter or not display a group (could be one) of avatars
    */
   showAvatars: PropTypes.bool,
   /**
-   * avatarPosition: Wheter or not display the chat icon
+   * avatarPosition: Where to show the avatars (only apply if showAvatars is true)
+   * valid positions: in (inside the notification card) out (outside the nofitication card)
    */
   avatarPosition: PropTypes.oneOf(['in', 'out']),
   /**
-   * showAvatars: Wheter or not display the chat icon
+   * avatars: List of PersonType to show as avatars (only used if showAvatars is true)
    */
   persons: PropTypes.arrayOf(PersonType),
   /**
@@ -146,7 +139,6 @@ ChatNotification.propTypes = {
 };
 
 ChatNotification.defaultProps = {
-  type: 'rounded',
   persons: [],
   showAvatars: true,
   avatarPosition: 'out',

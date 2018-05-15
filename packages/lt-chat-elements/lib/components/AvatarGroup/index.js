@@ -71,11 +71,11 @@ AvatarGroup.propTypes = {
    */
   avatars: PropTypes.arrayOf(PersonType),
   /**
-   * types: default, circle, rounded(border radius 5px), flexible
+   * How each avatar is showed. Valid types: default, circle, rounded(border radius 5px), flexible
    */
   type: PropTypes.oneOf(['default', 'circle', 'rounded', 'flexible']),
   /**
-   * types: line, circle
+   * How avatars images are showed. Valid types: line, circle
    */
   groupType: PropTypes.oneOf(['line', 'circle']),
   /**
@@ -91,7 +91,7 @@ AvatarGroup.propTypes = {
    */
   yDistance: PropTypes.number,
   /**
-   * Status choose wheter or not show an status indicator.
+   * withStatus choose wheter or not show an status indicator.
    */
   withStatus: PropTypes.bool,
   /**

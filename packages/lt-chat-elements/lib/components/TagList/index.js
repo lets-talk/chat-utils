@@ -19,7 +19,7 @@ class TagList extends Component {
   render() {
     const { tags } = this.props;
     return (
-      <StyledTagListContainer className={this.props.className}>
+      <StyledTagListContainer>
         {tags.map((tag) => (
           <Tag key={tag.name} tag={tag} onClick={this.onCLick} />
         ))}
@@ -37,6 +37,7 @@ TagList.propTypes = {
   /**
    * ClassName to add to this component
    */
+  /* eslint-disable react/no-unused-prop-types */
   className: PropTypes.string,
   /**
    * Callback function to be called when an item is clicked

@@ -74,6 +74,7 @@ exports[`Header component should render with data 1`] = `
           ],
         }
       }
+      width="40px"
     >
       <button
         onClick={[Function]}
@@ -160,6 +161,7 @@ exports[`Header component should render with data 1`] = `
           ],
         }
       }
+      width="40px"
     >
       <button
         onClick={[Function]}
@@ -247,6 +249,7 @@ exports[`Header component should render with minimal props 1`] = `
           ],
         }
       }
+      width="40px"
     >
       <button
         onClick={null}
@@ -326,6 +329,7 @@ exports[`Header component should render with minimal props 1`] = `
           ],
         }
       }
+      width="40px"
     >
       <button
         onClick={null}

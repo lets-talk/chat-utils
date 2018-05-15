@@ -60,12 +60,12 @@ describe('ActionableMessageBox component', () => {
     const onClickAction = jest.fn();
     const wrapper = shallowWithTheme(<ActionableMessageBox data={data} onClickAction={onClickAction} />);
 
-    wrapper.find('li').last().simulate('click');
+    wrapper.find('li').last().find('span').simulate('click');
     // The function is called with the item clicked, the index and the event (item, index, e)
     expect(onClickAction).toHaveBeenCalledWith(data.actions[3], 3, undefined);
 
     onClickAction.mockClear();
-    wrapper.find('li').first().simulate('click');
+    wrapper.find('li').first().find('span').simulate('click');
     // The function is called with the item clicked, the index and the event (item, index, e)
     expect(onClickAction).toHaveBeenCalledWith(data.actions[0], 0, undefined);
   });

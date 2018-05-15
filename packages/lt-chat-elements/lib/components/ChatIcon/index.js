@@ -6,11 +6,11 @@ import MdChat from 'react-icons/lib/md/chat';
 import { ellipsis, themeColor, textColor } from '../../utils/style';
 
 const SimpleButton = styled.button`
-  color: ${(innerProps) => textColor(innerProps.theme, 'dark', 'primary')};
+  color: ${(props) => textColor(props.theme, 'dark', 'primary')};
   font-size: ${(props) => props.theme.typography.classes.footnote.fontSize};
   font-weight: ${(props) => props.theme.typography.weights.fontWeightBold};
   line-height: ${(props) => props.theme.typography.classes.footnote.lineHeight};
-  background-color: ${(innerProps) => themeColor(innerProps.theme, 'accent', 'base')};
+  background-color: ${(props) => themeColor(props.theme, 'accent', 'base')};
 `;
 
 const ChatIcon = (props) => {
@@ -20,6 +20,7 @@ const ChatIcon = (props) => {
 
   const {
     chatIconRadius = '0px',
+    onClick,
   } = props;
 
   const useImage = !!imageUrl;
@@ -121,7 +122,12 @@ const ChatIcon = (props) => {
   );
 
   return (
-    <div>
+    <div
+      tabIndex="0"
+      role="button"
+      onKeyUp={onClick}
+      onClick={onClick}
+    >
       { useImage && imageIcon }
       { !useImage && defaultIcon }
     </div>
@@ -154,8 +160,21 @@ ChatIcon.propTypes = {
    * margin: Set the margin of the button
    */
   margin: PropTypes.string,
+  /**
+   * onCLick: Hanlder function when click Event happens
+   */
+  onClick: PropTypes.func,
+  /**
+  * chat_icon_pic: Image source of the image to show as chatIcon
+  */
   chat_icon_pic: PropTypes.string,
+  /**
+  * chatIconRadius: The border radius of the chat icon
+  */
   chatIconRadius: PropTypes.string,
+  /**
+  * newMessages: Number of new messages to show
+  */
   newMessages: PropTypes.number,
 };
 
@@ -163,6 +182,7 @@ ChatIcon.defaultProps = {
   type: 'rounded',
   text: '',
   showIcon: true,
+  onClick: null,
   height: 50,
   width: 250,
   margin: '',

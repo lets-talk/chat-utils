@@ -1,74 +1,71 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import styled from 'styled-components';
 
-import Header from '../Header';
-import MessageList from '../MessageList/Loadable';
-import Sender from '../Sender';
-import './index.scss';
+const StyledWidgetBoxContainer = styled.div`
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.44);
+  
+  margin: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+          
+  background: rgba(255, 255, 255, .1);
+`;
+
+const StyledFlexHeader = styled.div`
+  flex: 0 0 auto;
+  flex-basis: 50px;
+`;
+
+const StyledFlexItemGrow = styled.div`
+  flex: 1 1 auto; /* same as flex: 1 1 auto; */
+  position: relative; /* need this to position inner content */
+  overflow-y: auto;
+`;
+
+const StyledFlexFooter = styled.div`
+  flex: 0 0 auto;
+  flex-basis: 50px;
+`;
 
 const WidgetBox = (props) => {
   const {
-    messages,
-    title,
-    subtitle,
-    person,
-    senderPlaceHolder,
+    children,
     className,
-    toggleChat,
-    onActionMessageClick,
-    disabledInput,
-    openMenu,
-    showMinimizeButton,
-    showMenuButton,
-    sendMessage,
   } = props;
-
   return (
-    <div className={classNames('widgetbox-container', className)}>
-      <Header
-        title={title}
-        subtitle={subtitle}
-        person={person}
-        toggleChat={toggleChat}
-        openMenu={openMenu}
-        showMinimizeButton={showMinimizeButton}
-        showMenuButton={showMenuButton}
-      />
-      <MessageList
-        messages={messages}
-        onActionMessageClick={onActionMessageClick}
-      />
-      <Sender
-        sendMessage={sendMessage}
-        placeholder={senderPlaceHolder}
-        disabledInput={disabledInput}
-      />
-    </div>
+    <StyledWidgetBoxContainer className={className}>
+      {props.header &&
+        <StyledFlexHeader>
+          {props.header(props)}
+        </StyledFlexHeader>
+      }
+      <StyledFlexItemGrow>
+        {children}
+      </StyledFlexItemGrow>
+      {props.footer &&
+        <StyledFlexFooter>
+          {props.footer(props)}
+        </StyledFlexFooter>
+      }
+    </StyledWidgetBoxContainer>
   );
 };
 
 WidgetBox.propTypes = {
-  messages: PropTypes.array,
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
-  person: PropTypes.object,
+  children: PropTypes.node,
+  footer: PropTypes.func,
+  header: PropTypes.func,
   className: PropTypes.string,
-  sendMessage: PropTypes.func,
-  senderPlaceHolder: PropTypes.string,
-  toggleChat: PropTypes.func,
-  openMenu: PropTypes.func,
-  onActionMessageClick: PropTypes.func,
-  showMinimizeButton: PropTypes.bool,
-  showMenuButton: PropTypes.bool,
-  disabledInput: PropTypes.bool,
 };
 
 WidgetBox.defaultProps = {
-  messages: [],
-  title: '',
-  subtitle: '',
-  person: {},
+  footer: null,
+  header: null,
   className: 'LT-WidgetBox-Container',
 };
 

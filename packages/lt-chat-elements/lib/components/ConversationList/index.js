@@ -13,8 +13,6 @@ const StyledConversationListWrapper = styled.div`
   flex-direction: column;
   max-height: none;
   background-color: ${(props) => props.theme.palette.common.white};
-  height: 50vh;
-  min-height: 200px;
   overflow-y: auto;
   ${css`
       animation: ${animate('slide-in')} 3s;
@@ -26,7 +24,7 @@ const StyledConversationListSeparator = styled.div`
   margin-left: 80px;
   padding: 20px 0px;
   
-  color: ${(props) => textColor(props.theme, 'dark', 'secondary')};
+  color: ${(props) => textColor(props.theme, 'light', 'disabled')};
   font-size: ${(props) => props.theme.typography.classes.small.fontSize};
   line-height: ${(props) => props.theme.typography.classes.small.lineHeight};
   font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
@@ -49,7 +47,7 @@ const StyledNoConversation = styled.div`
   align-items: center; /*centers items on the cross-axis (y by default)*/
   flex-direction: column;
 
-  color: ${(props) => textColor(props.theme, 'dark', 'secondary')};
+  color: ${(props) => textColor(props.theme, 'dark', 'disabled')};
   font-size: ${(props) => props.theme.typography.classes.body.fontSize};
   line-height: ${(props) => props.theme.typography.classes.body.lineHeight};
   font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
@@ -139,8 +137,7 @@ ConversationList.propTypes = {
    */
   emptyStateText: PropTypes.string,
   /**
-   * cmpRef is a function that is called by anyone
-   * that needs an instance ref of this component
+   * cmpRef is a function that return this component inner reference
    */
   cmpRef: PropTypes.func,
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { rgba } from 'polished';
 
 import { Flex, Box } from 'grid-styled';
 
@@ -10,7 +11,7 @@ import MdAudioTrack from 'react-icons/lib/md/audiotrack';
 import MdLockOpen from 'react-icons/lib/md/lock-open';
 import MdAttachFile from 'react-icons/lib/md/attach-file';
 
-import { textColor } from '../../utils/style';
+import { textColor, themeColor } from '../../utils/style';
 
 const StyledMenuList = styled.ul`
   display: block;
@@ -30,7 +31,8 @@ const StyledMenuList = styled.ul`
     color: ${(props) => textColor(props.theme, 'light', 'secondary')};
 
     &:hover {
-      background-color: ${(props) => textColor(props.theme, 'light', 'disabled')};
+      color: ${(props) => themeColor(props.theme, 'accent', 'base')};
+      background-color: ${(props) => rgba(themeColor(props.theme, 'accent', 'base'), 0.1)};
     }
   }
 `;

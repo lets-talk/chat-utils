@@ -1,6 +1,6 @@
 {
   "name": "@letstalk/lt-chat-elements",
-  "version": "1.2.8",
+  "version": "1.2.12",
   "description": "React Component Library with a set of chat components that help implment LetsTalk interfaces.",
   "main": "build/index.js",
   "directories": {
@@ -31,7 +31,7 @@
     "letstalk toolkit",
     "lt-chat-elements"
   ],
-  "author": "Sandino Nunez",
+  "author": "Let's Talk",
   "license": "ISC",
   "devDependencies": {
     "@storybook/addon-actions": "4.0.0-alpha.4",
@@ -66,7 +66,6 @@
     "husky": "^0.14.3",
     "jest": "22.4.3",
     "jest-styled-components": "^5.0.1",
-    "lerna": "2.10.1",
     "lint-staged": "7.0.4",
     "node-sass": "^4.8.3",
     "npm-check-updates": "^2.14.2",
@@ -96,7 +95,6 @@
     "react-transition-group": "2.3.0",
     "styled-components": "3.2.5"
   },
-  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lets-talk/lt-tool-kit.git"

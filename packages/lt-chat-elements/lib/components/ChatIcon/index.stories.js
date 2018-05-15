@@ -2,6 +2,7 @@ import React from 'react';
 // Storybook stuff
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text, boolean, number, select } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 
 import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
 import withTests from '../../test-utils/storiesWithTest';
@@ -26,6 +27,7 @@ stories.addWithInfo(
           width={number('Width', 350)}
           height={number('Height', 50)}
           margin={text('Margin', '0px 10px 0px 0px')}
+          onClick={action('onClick')}
           showIcon={boolean('Show Icon', true)}
           disabled={boolean('Disabled', false)}
           animationStatus={false}

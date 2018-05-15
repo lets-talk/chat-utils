@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ChatIcon component should render with custom props 1`] = `
-<div>
+<div
+  onClick={null}
+>
   <div
     className="letstalk-ChatIconContainer"
   >
@@ -22,7 +24,9 @@ exports[`ChatIcon component should render with custom props 1`] = `
 `;
 
 exports[`ChatIcon component should render with no props 1`] = `
-<div>
+<div
+  onClick={null}
+>
   <div
     className="letstalk-ChatIconContainer"
   >

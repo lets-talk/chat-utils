@@ -125,17 +125,38 @@ exports[`Loader component should render with no props 1`] = `
     <div
       className="letstalk-ball-div"
       key="0"
-      style={Object {}}
+      style={
+        Object {
+          "backgroundColor": "rgb(255,87,50)",
+          "borderLeftColor": "rgb(255,87,50)",
+          "borderRightColor": "rgb(255,87,50)",
+          "borderTopColor": "rgb(255,87,50)",
+        }
+      }
     />
     <div
       className="letstalk-ball-div"
       key="1"
-      style={Object {}}
+      style={
+        Object {
+          "backgroundColor": "rgb(255,87,50)",
+          "borderLeftColor": "rgb(255,87,50)",
+          "borderRightColor": "rgb(255,87,50)",
+          "borderTopColor": "rgb(255,87,50)",
+        }
+      }
     />
     <div
       className="letstalk-ball-div"
       key="2"
-      style={Object {}}
+      style={
+        Object {
+          "backgroundColor": "rgb(255,87,50)",
+          "borderLeftColor": "rgb(255,87,50)",
+          "borderRightColor": "rgb(255,87,50)",
+          "borderTopColor": "rgb(255,87,50)",
+        }
+      }
     />
   </div>
 </div>

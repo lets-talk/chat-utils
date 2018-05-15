@@ -10,7 +10,7 @@ const sleep = (duration) => new Promise((resolve) => {
 });
 
 const LoadableConversationList = Loadable({
-  loader: () => sleep(5000).then(() => import('./index')),
+  loader: () => sleep(5 * 1000).then(() => import('./index')),
   loading: LoadingComponent,
   serverSideRequirePath: path.resolve(__dirname, './index'),
 });
