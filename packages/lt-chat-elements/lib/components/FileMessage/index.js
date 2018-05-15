@@ -71,7 +71,7 @@ export class FileMessage extends Component {
 
   render() {
     return (
-      <StyledMessageBox>
+      <StyledMessageBox className={this.props.className}>
         <button onClick={this.onClick}>
           <StyledFileIcon>
             <FaFile
@@ -107,6 +107,7 @@ export class FileMessage extends Component {
 }
 
 FileMessage.propTypes = {
+  className: PropTypes.string,
   text: PropTypes.string,
   data: PropTypes.object,
   onDownload: PropTypes.func,
@@ -114,18 +115,11 @@ FileMessage.propTypes = {
 };
 
 FileMessage.defaultProps = {
+  className: 'LT-FileMessage-Container',
   text: '',
   data: {},
   onDownload: null,
   onOpen: null,
 };
-
-
-// <CircularProgress
-//   mode="determinate"
-//   value={this.props.data.status.loading}
-//   size={80}
-//   thickness={5}
-// />
 
 export default FileMessage;

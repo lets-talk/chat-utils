@@ -3,7 +3,7 @@
 exports[`Loading component should render a Loading indicator when isLoading is true 1`] = `
 <Loader
   active={true}
-  color={false}
+  color="rgb(255,87,50)"
   fullScreen={false}
   size="large"
   type="ball-clip-rotate"

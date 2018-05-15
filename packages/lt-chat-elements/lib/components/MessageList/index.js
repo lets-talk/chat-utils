@@ -9,8 +9,6 @@ import MessageBox from '../MessageBox';
 
 const StyledMessageListContainer = styled.div`
   background-color: ${(props) => props.theme.palette.common.white};
-  height: 50vh;
-  min-height: 200px;
   overflow-y: auto;
   padding: 10px;
 `;

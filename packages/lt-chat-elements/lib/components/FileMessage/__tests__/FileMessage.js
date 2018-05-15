@@ -38,8 +38,8 @@ describe('FileMessage component', () => {
 
     const component = shallow(<FileMessage onDownload={mockOnDownload} {...props} />);
 
-    component.find('.letstalk-mbox-file button').simulate('click', fakeEventObject);
-    expect(mockOnDownload.mock.calls.length).toEqual(1);
+    component.find('.LT-FileMessage-Container button').simulate('click', fakeEventObject);
+    expect(mockOnDownload).toHaveBeenCalledTimes(1);
   });
 
   it('should call the onOpen action', () => {
@@ -58,7 +58,7 @@ describe('FileMessage component', () => {
     };
 
     const component = shallow(<FileMessage onOpen={mockOnOpen} {...customProps} />);
-    component.find('.letstalk-mbox-file-download').simulate('click', fakeEventObject);
-    expect(mockOnOpen.mock.calls.length).toEqual(1);
+    component.find('.LT-FileMessage-Container button').simulate('click', fakeEventObject);
+    expect(mockOnOpen).toHaveBeenCalledTimes(1);
   });
 });

@@ -25,7 +25,7 @@ class Tag extends Component {
   render() {
     const { tag } = this.props;
     return (
-      <StyledTag className={this.props.className}>
+      <StyledTag>
         {tag.name}
       </StyledTag>
     );
@@ -41,6 +41,7 @@ Tag.propTypes = {
   /**
    * className to be used for this component
    */
+  /* eslint-disable react/no-unused-prop-types */
   className: PropTypes.string,
   /**
    * Callback function to be called when an item is clicked

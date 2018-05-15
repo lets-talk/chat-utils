@@ -45,8 +45,9 @@ stories.addWithInfo(
       >
         <ChatNotification
           persons={object('Persons', avatars)}
-          title={text('Text', 'Hola ahi!!')}
-          body={text('Body', 'Questions? We can help!')}
+          title={text('Text', "Let's Talk")}
+          body={text('Body', 'Hi! Have any questions about pricing?')}
+          dismissText={text('dismissText', 'Close')}
           width={number('Width', 350)}
           height={number('Height', 350)}
           margin={text('Margin', '0px 10px 0px 0px')}

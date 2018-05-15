@@ -48,204 +48,225 @@ exports[`AttachmentMenu component should have the correct styles (Those that dep
 }
 
 .c0 li:hover {
-  background-color: rgba(0,0,0,0.38);
+  color: rgb(255,87,50);
+  background-color: rgba(255,87,50,0.1);
 }
 
 <ul
   className="LT-AttachmentMenu-Wrapper c0"
 >
-  <li
-    onClick={undefined}
-    onKeyUp={undefined}
-  >
+  <li>
     <div
-      className="c1"
+      onClick={undefined}
+      onKeyUp={undefined}
+      role="button"
+      tabIndex={0}
     >
       <div
-        className="c2"
+        className="c1"
       >
-        <svg
-          fill="currentColor"
-          height={20}
-          preserveAspectRatio="xMidYMid meet"
-          style={
-            Object {
-              "color": undefined,
-              "verticalAlign": "middle",
-            }
-          }
-          viewBox="0 0 40 40"
-          width={20}
+        <div
+          className="c2"
         >
-          <g>
-            <path
-              d="m14.1 22.5l-5.7 7.5h23.2l-7.5-10-5.7 7.5z m20.9 9.1q0 1.4-1 2.4t-2.4 1h-23.2q-1.4 0-2.4-1t-1-2.4v-23.2q0-1.4 1-2.4t2.4-1h23.2q1.4 0 2.4 1t1 2.4v23.2z"
-            />
-          </g>
-        </svg>
-      </div>
-      <div
-        className="c3"
-      >
-        <span>
-          Imagen
-        </span>
+          <svg
+            fill="currentColor"
+            height={20}
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "color": undefined,
+                "verticalAlign": "middle",
+              }
+            }
+            viewBox="0 0 40 40"
+            width={20}
+          >
+            <g>
+              <path
+                d="m14.1 22.5l-5.7 7.5h23.2l-7.5-10-5.7 7.5z m20.9 9.1q0 1.4-1 2.4t-2.4 1h-23.2q-1.4 0-2.4-1t-1-2.4v-23.2q0-1.4 1-2.4t2.4-1h23.2q1.4 0 2.4 1t1 2.4v23.2z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          className="c3"
+        >
+          <span>
+            Imagen
+          </span>
+        </div>
       </div>
     </div>
   </li>
-  <li
-    onClick={undefined}
-    onKeyUp={undefined}
-  >
+  <li>
     <div
-      className="c1"
+      onClick={undefined}
+      onKeyUp={undefined}
+      role="button"
+      tabIndex={1}
     >
       <div
-        className="c2"
+        className="c1"
       >
-        <svg
-          fill="currentColor"
-          height={20}
-          preserveAspectRatio="xMidYMid meet"
-          style={
-            Object {
-              "color": undefined,
-              "verticalAlign": "middle",
-            }
-          }
-          viewBox="0 0 40 40"
-          width={20}
+        <div
+          className="c2"
         >
-          <g>
-            <path
-              d="m20 24.1l10-7.5-10-7.5v15z m13.4-20.7c1.8 0 3.2 1.4 3.2 3.2v20c0 1.8-1.4 3.4-3.2 3.4h-20c-1.8 0-3.4-1.6-3.4-3.4v-20c0-1.8 1.6-3.2 3.4-3.2h20z m-26.8 6.6v23.4h23.4v3.2h-23.4c-1.8 0-3.2-1.4-3.2-3.2v-23.4h3.2z"
-            />
-          </g>
-        </svg>
-      </div>
-      <div
-        className="c3"
-      >
-        <span>
-          Video
-        </span>
+          <svg
+            fill="currentColor"
+            height={20}
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "color": undefined,
+                "verticalAlign": "middle",
+              }
+            }
+            viewBox="0 0 40 40"
+            width={20}
+          >
+            <g>
+              <path
+                d="m20 24.1l10-7.5-10-7.5v15z m13.4-20.7c1.8 0 3.2 1.4 3.2 3.2v20c0 1.8-1.4 3.4-3.2 3.4h-20c-1.8 0-3.4-1.6-3.4-3.4v-20c0-1.8 1.6-3.2 3.4-3.2h20z m-26.8 6.6v23.4h23.4v3.2h-23.4c-1.8 0-3.2-1.4-3.2-3.2v-23.4h3.2z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          className="c3"
+        >
+          <span>
+            Video
+          </span>
+        </div>
       </div>
     </div>
   </li>
-  <li
-    onClick={undefined}
-    onKeyUp={undefined}
-  >
+  <li>
     <div
-      className="c1"
+      onClick={undefined}
+      onKeyUp={undefined}
+      role="button"
+      tabIndex={2}
     >
       <div
-        className="c2"
+        className="c1"
       >
-        <svg
-          fill="currentColor"
-          height={20}
-          preserveAspectRatio="xMidYMid meet"
-          style={
-            Object {
-              "color": undefined,
-              "verticalAlign": "middle",
-            }
-          }
-          viewBox="0 0 40 40"
-          width={20}
+        <div
+          className="c2"
         >
-          <g>
-            <path
-              d="m20 5h11.6v5h-6.6v18.4h-0.1c-0.4 3.7-3.6 6.6-7.4 6.6-4.1 0-7.5-3.4-7.5-7.5s3.4-7.5 7.5-7.5c0.9 0 1.7 0.2 2.5 0.5v-15.5z"
-            />
-          </g>
-        </svg>
-      </div>
-      <div
-        className="c3"
-      >
-        <span>
-          Audio
-        </span>
+          <svg
+            fill="currentColor"
+            height={20}
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "color": undefined,
+                "verticalAlign": "middle",
+              }
+            }
+            viewBox="0 0 40 40"
+            width={20}
+          >
+            <g>
+              <path
+                d="m20 5h11.6v5h-6.6v18.4h-0.1c-0.4 3.7-3.6 6.6-7.4 6.6-4.1 0-7.5-3.4-7.5-7.5s3.4-7.5 7.5-7.5c0.9 0 1.7 0.2 2.5 0.5v-15.5z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          className="c3"
+        >
+          <span>
+            Audio
+          </span>
+        </div>
       </div>
     </div>
   </li>
-  <li
-    onClick={undefined}
-    onKeyUp={undefined}
-  >
+  <li>
     <div
-      className="c1"
+      onClick={undefined}
+      onKeyUp={undefined}
+      role="button"
+      tabIndex={3}
     >
       <div
-        className="c2"
+        className="c1"
       >
-        <svg
-          fill="currentColor"
-          height={20}
-          preserveAspectRatio="xMidYMid meet"
-          style={
-            Object {
-              "color": undefined,
-              "verticalAlign": "middle",
-            }
-          }
-          viewBox="0 0 40 40"
-          width={20}
+        <div
+          className="c2"
         >
-          <g>
-            <path
-              d="m14.1 22.5l-5.7 7.5h23.2l-7.5-10-5.7 7.5z m20.9 9.1q0 1.4-1 2.4t-2.4 1h-23.2q-1.4 0-2.4-1t-1-2.4v-23.2q0-1.4 1-2.4t2.4-1h23.2q1.4 0 2.4 1t1 2.4v23.2z"
-            />
-          </g>
-        </svg>
-      </div>
-      <div
-        className="c3"
-      >
-        <span>
-          Documento
-        </span>
+          <svg
+            fill="currentColor"
+            height={20}
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "color": undefined,
+                "verticalAlign": "middle",
+              }
+            }
+            viewBox="0 0 40 40"
+            width={20}
+          >
+            <g>
+              <path
+                d="m14.1 22.5l-5.7 7.5h23.2l-7.5-10-5.7 7.5z m20.9 9.1q0 1.4-1 2.4t-2.4 1h-23.2q-1.4 0-2.4-1t-1-2.4v-23.2q0-1.4 1-2.4t2.4-1h23.2q1.4 0 2.4 1t1 2.4v23.2z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          className="c3"
+        >
+          <span>
+            Documento
+          </span>
+        </div>
       </div>
     </div>
   </li>
-  <li
-    onClick={undefined}
-    onKeyUp={undefined}
-  >
+  <li>
     <div
-      className="c1"
+      onClick={undefined}
+      onKeyUp={undefined}
+      role="button"
+      tabIndex={4}
     >
       <div
-        className="c2"
+        className="c1"
       >
-        <svg
-          fill="currentColor"
-          height={20}
-          preserveAspectRatio="xMidYMid meet"
-          style={
-            Object {
-              "color": undefined,
-              "verticalAlign": "middle",
-            }
-          }
-          viewBox="0 0 40 40"
-          width={20}
+        <div
+          className="c2"
         >
-          <g>
-            <path
-              d="m30 33.4v-16.8h-20v16.8h20z m0-20c1.8 0 3.4 1.4 3.4 3.2v16.8c0 1.8-1.6 3.2-3.4 3.2h-20c-1.8 0-3.4-1.4-3.4-3.2v-16.8c0-1.8 1.6-3.2 3.4-3.2h15.2v-3.4c0-2.8-2.4-5.2-5.2-5.2s-5.2 2.4-5.2 5.2h-3.2c0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4v3.4h1.6z m-10 15c-1.8 0-3.4-1.6-3.4-3.4s1.6-3.4 3.4-3.4 3.4 1.6 3.4 3.4-1.6 3.4-3.4 3.4z"
-            />
-          </g>
-        </svg>
-      </div>
-      <div
-        className="c3"
-      >
-        <span>
-          Link de verificación
-        </span>
+          <svg
+            fill="currentColor"
+            height={20}
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "color": undefined,
+                "verticalAlign": "middle",
+              }
+            }
+            viewBox="0 0 40 40"
+            width={20}
+          >
+            <g>
+              <path
+                d="m30 33.4v-16.8h-20v16.8h20z m0-20c1.8 0 3.4 1.4 3.4 3.2v16.8c0 1.8-1.6 3.2-3.4 3.2h-20c-1.8 0-3.4-1.4-3.4-3.2v-16.8c0-1.8 1.6-3.2 3.4-3.2h15.2v-3.4c0-2.8-2.4-5.2-5.2-5.2s-5.2 2.4-5.2 5.2h-3.2c0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4v3.4h1.6z m-10 15c-1.8 0-3.4-1.6-3.4-3.4s1.6-3.4 3.4-3.4 3.4 1.6 3.4 3.4-1.6 3.4-3.4 3.4z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          className="c3"
+        >
+          <span>
+            Link de verificación
+          </span>
+        </div>
       </div>
     </div>
   </li>
@@ -259,44 +280,13 @@ exports[`AttachmentMenu component should render with data 1`] = `
   <li
     key="1"
   >
-    <Flex
-      alignItems="center"
-      flex="1 1 auto"
-      theme={
-        Object {
-          "breakpoints": Array [
-            "40em",
-            "52em",
-            "64em",
-          ],
-          "fontSizes": Array [
-            12,
-            14,
-            16,
-            20,
-            24,
-            32,
-            48,
-            64,
-            96,
-            128,
-          ],
-          "space": Array [
-            0,
-            4,
-            8,
-            16,
-            32,
-            64,
-            128,
-            256,
-            512,
-          ],
-        }
-      }
+    <div
+      role="button"
+      tabIndex={0}
     >
-      <Box
-        p={2}
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
         theme={
           Object {
             "breakpoints": Array [
@@ -330,94 +320,99 @@ exports[`AttachmentMenu component should render with data 1`] = `
           }
         }
       >
-        <MdImage
-          size={20}
-        />
-      </Box>
-      <Box
-        ml="auto"
-        p={2}
-        theme={
-          Object {
-            "breakpoints": Array [
-              "40em",
-              "52em",
-              "64em",
-            ],
-            "fontSizes": Array [
-              12,
-              14,
-              16,
-              20,
-              24,
-              32,
-              48,
-              64,
-              96,
-              128,
-            ],
-            "space": Array [
-              0,
-              4,
-              8,
-              16,
-              32,
-              64,
-              128,
-              256,
-              512,
-            ],
+        <Box
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
           }
-        }
-        width={1}
-      >
-        <span>
-          Imagen
-        </span>
-      </Box>
-    </Flex>
+        >
+          <MdImage
+            size={20}
+          />
+        </Box>
+        <Box
+          ml="auto"
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+          width={1}
+        >
+          <span>
+            Imagen
+          </span>
+        </Box>
+      </Flex>
+    </div>
   </li>
   <li
     key="2"
   >
-    <Flex
-      alignItems="center"
-      flex="1 1 auto"
-      theme={
-        Object {
-          "breakpoints": Array [
-            "40em",
-            "52em",
-            "64em",
-          ],
-          "fontSizes": Array [
-            12,
-            14,
-            16,
-            20,
-            24,
-            32,
-            48,
-            64,
-            96,
-            128,
-          ],
-          "space": Array [
-            0,
-            4,
-            8,
-            16,
-            32,
-            64,
-            128,
-            256,
-            512,
-          ],
-        }
-      }
+    <div
+      role="button"
+      tabIndex={1}
     >
-      <Box
-        p={2}
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
         theme={
           Object {
             "breakpoints": Array [
@@ -451,94 +446,99 @@ exports[`AttachmentMenu component should render with data 1`] = `
           }
         }
       >
-        <MdVideoLibrary
-          size={20}
-        />
-      </Box>
-      <Box
-        ml="auto"
-        p={2}
-        theme={
-          Object {
-            "breakpoints": Array [
-              "40em",
-              "52em",
-              "64em",
-            ],
-            "fontSizes": Array [
-              12,
-              14,
-              16,
-              20,
-              24,
-              32,
-              48,
-              64,
-              96,
-              128,
-            ],
-            "space": Array [
-              0,
-              4,
-              8,
-              16,
-              32,
-              64,
-              128,
-              256,
-              512,
-            ],
+        <Box
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
           }
-        }
-        width={1}
-      >
-        <span>
-          Video
-        </span>
-      </Box>
-    </Flex>
+        >
+          <MdVideoLibrary
+            size={20}
+          />
+        </Box>
+        <Box
+          ml="auto"
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+          width={1}
+        >
+          <span>
+            Video
+          </span>
+        </Box>
+      </Flex>
+    </div>
   </li>
   <li
     key="3"
   >
-    <Flex
-      alignItems="center"
-      flex="1 1 auto"
-      theme={
-        Object {
-          "breakpoints": Array [
-            "40em",
-            "52em",
-            "64em",
-          ],
-          "fontSizes": Array [
-            12,
-            14,
-            16,
-            20,
-            24,
-            32,
-            48,
-            64,
-            96,
-            128,
-          ],
-          "space": Array [
-            0,
-            4,
-            8,
-            16,
-            32,
-            64,
-            128,
-            256,
-            512,
-          ],
-        }
-      }
+    <div
+      role="button"
+      tabIndex={2}
     >
-      <Box
-        p={2}
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
         theme={
           Object {
             "breakpoints": Array [
@@ -572,94 +572,99 @@ exports[`AttachmentMenu component should render with data 1`] = `
           }
         }
       >
-        <MdAudiotrack
-          size={20}
-        />
-      </Box>
-      <Box
-        ml="auto"
-        p={2}
-        theme={
-          Object {
-            "breakpoints": Array [
-              "40em",
-              "52em",
-              "64em",
-            ],
-            "fontSizes": Array [
-              12,
-              14,
-              16,
-              20,
-              24,
-              32,
-              48,
-              64,
-              96,
-              128,
-            ],
-            "space": Array [
-              0,
-              4,
-              8,
-              16,
-              32,
-              64,
-              128,
-              256,
-              512,
-            ],
+        <Box
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
           }
-        }
-        width={1}
-      >
-        <span>
-          Audio
-        </span>
-      </Box>
-    </Flex>
+        >
+          <MdAudiotrack
+            size={20}
+          />
+        </Box>
+        <Box
+          ml="auto"
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+          width={1}
+        >
+          <span>
+            Audio
+          </span>
+        </Box>
+      </Flex>
+    </div>
   </li>
   <li
     key="4"
   >
-    <Flex
-      alignItems="center"
-      flex="1 1 auto"
-      theme={
-        Object {
-          "breakpoints": Array [
-            "40em",
-            "52em",
-            "64em",
-          ],
-          "fontSizes": Array [
-            12,
-            14,
-            16,
-            20,
-            24,
-            32,
-            48,
-            64,
-            96,
-            128,
-          ],
-          "space": Array [
-            0,
-            4,
-            8,
-            16,
-            32,
-            64,
-            128,
-            256,
-            512,
-          ],
-        }
-      }
+    <div
+      role="button"
+      tabIndex={3}
     >
-      <Box
-        p={2}
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
         theme={
           Object {
             "breakpoints": Array [
@@ -693,94 +698,99 @@ exports[`AttachmentMenu component should render with data 1`] = `
           }
         }
       >
-        <MdImage
-          size={20}
-        />
-      </Box>
-      <Box
-        ml="auto"
-        p={2}
-        theme={
-          Object {
-            "breakpoints": Array [
-              "40em",
-              "52em",
-              "64em",
-            ],
-            "fontSizes": Array [
-              12,
-              14,
-              16,
-              20,
-              24,
-              32,
-              48,
-              64,
-              96,
-              128,
-            ],
-            "space": Array [
-              0,
-              4,
-              8,
-              16,
-              32,
-              64,
-              128,
-              256,
-              512,
-            ],
+        <Box
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
           }
-        }
-        width={1}
-      >
-        <span>
-          Documento
-        </span>
-      </Box>
-    </Flex>
+        >
+          <MdImage
+            size={20}
+          />
+        </Box>
+        <Box
+          ml="auto"
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+          width={1}
+        >
+          <span>
+            Documento
+          </span>
+        </Box>
+      </Flex>
+    </div>
   </li>
   <li
     key="5"
   >
-    <Flex
-      alignItems="center"
-      flex="1 1 auto"
-      theme={
-        Object {
-          "breakpoints": Array [
-            "40em",
-            "52em",
-            "64em",
-          ],
-          "fontSizes": Array [
-            12,
-            14,
-            16,
-            20,
-            24,
-            32,
-            48,
-            64,
-            96,
-            128,
-          ],
-          "space": Array [
-            0,
-            4,
-            8,
-            16,
-            32,
-            64,
-            128,
-            256,
-            512,
-          ],
-        }
-      }
+    <div
+      role="button"
+      tabIndex={4}
     >
-      <Box
-        p={2}
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
         theme={
           Object {
             "breakpoints": Array [
@@ -814,52 +824,88 @@ exports[`AttachmentMenu component should render with data 1`] = `
           }
         }
       >
-        <MdLockOpen
-          size={20}
-        />
-      </Box>
-      <Box
-        ml="auto"
-        p={2}
-        theme={
-          Object {
-            "breakpoints": Array [
-              "40em",
-              "52em",
-              "64em",
-            ],
-            "fontSizes": Array [
-              12,
-              14,
-              16,
-              20,
-              24,
-              32,
-              48,
-              64,
-              96,
-              128,
-            ],
-            "space": Array [
-              0,
-              4,
-              8,
-              16,
-              32,
-              64,
-              128,
-              256,
-              512,
-            ],
+        <Box
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
           }
-        }
-        width={1}
-      >
-        <span>
-          Link de verificación
-        </span>
-      </Box>
-    </Flex>
+        >
+          <MdLockOpen
+            size={20}
+          />
+        </Box>
+        <Box
+          ml="auto"
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+          width={1}
+        >
+          <span>
+            Link de verificación
+          </span>
+        </Box>
+      </Flex>
+    </div>
   </li>
 </styled.ul>
 `;

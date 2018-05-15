@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import TagList from '../index';
+import { mountWithTheme } from '../../../test-utils';
 
 describe('TagList component', () => {
   const tags = [
@@ -51,8 +52,9 @@ describe('TagList component', () => {
     };
 
     // Need to call mount because the click is triggered in the child ConversationBox item element
-    const component = mount(<TagList {...props} clickItem={() => mockCallBack()} />);
-    component.find('.letstalk-conversation-container').simulate('click', fakeEventObject);
-    expect(mockCallBack.mock.calls.length).toEqual(1);
+    const component = mountWithTheme(<TagList {...props} clickItem={() => mockCallBack()} />);
+
+    component.find('.LT-TagList-Container').simulate('click', fakeEventObject);
+    expect(mockCallBack).toHaveBeenCalledTimes(1);
   });
 });

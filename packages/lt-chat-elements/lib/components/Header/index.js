@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MdKeyboardArrowDown from 'react-icons/lib/md/keyboard-arrow-down';
 import styled from 'styled-components';
 import { Flex, Box } from 'grid-styled';
 import MdMenu from 'react-icons/lib/md/menu';
+import MdKeyboardArrowDown from 'react-icons/lib/md/keyboard-arrow-down';
 import Avatar from '../Avatar';
 import { headerMenuButton, themeColor, textColor } from '../../utils/style';
 
@@ -40,19 +40,26 @@ const StyledAvatarContainer = styled.div`
 `;
 
 const Header = ({
-  className, title, subtitle, person, toggleChat, openMenu, showMinimizeButton, showMenuButton,
+  className, title, subtitle, person, toggleChat, openMenu, showMinimizeButton, showMenuButton, leftButtons, rightButtons,
 }) => {
   const { avatar = false, status = '' } = person;
   return (
     <StyledHeaderContainer className={className}>
       <Flex alignItems="center">
-        <Box flex="0 0 auto" mb="auto" width="40px">
-          {showMenuButton &&
+        {showMenuButton &&
+          <Box flex="0 0 auto" mb="auto" width="40px">
             <button onClick={openMenu}>
               <MdMenu size={20} />
             </button>
-          }
-        </Box>
+          </Box>
+        }
+        {leftButtons.map((btn) => (
+          <Box flex="0 0 auto" mb="auto" width="40px">
+            <button onClick={btn.onClick}>
+              {btn.icon}
+            </button>
+          </Box>
+        ))}
 
         <Box flex="1 1 auto">
           {avatar &&
@@ -69,13 +76,21 @@ const Header = ({
           {subtitle && <span>{subtitle}</span>}
         </Box>
 
-        <Box flex="0 0 auto" mb="auto" width="40px">
-          {showMinimizeButton &&
+        {rightButtons.map((btn) => (
+          <Box flex="0 0 auto" mb="auto" width="40px">
+            <button onClick={btn.onClick}>
+              {btn.icon}
+            </button>
+          </Box>
+        ))}
+
+        {showMinimizeButton &&
+          <Box flex="0 0 auto" mb="auto" width="40px">
             <button onClick={toggleChat}>
               <MdKeyboardArrowDown size={20} />
             </button>
-          }
-        </Box>
+          </Box>
+        }
       </Flex>
     </StyledHeaderContainer>
   );
@@ -95,17 +110,29 @@ Header.propTypes = {
   openMenu: PropTypes.func,
   showMinimizeButton: PropTypes.bool,
   showMenuButton: PropTypes.bool,
+  leftButtons: PropTypes.arrayOf(PropTypes.shape({
+    onClick: PropTypes.func,
+    icon: PropTypes.node,
+  })),
+  rightButtons: PropTypes.arrayOf(PropTypes.shape({
+    onClick: PropTypes.func,
+    icon: PropTypes.node,
+  })),
 };
 
 Header.defaultProps = {
   className: 'LT-Header-Container',
   title: '',
   subtitle: '',
-  person: {},
+  person: {
+
+  },
   toggleChat: null,
   openMenu: null,
   showMinimizeButton: true,
   showMenuButton: true,
+  leftButtons: [],
+  rightButtons: [],
 };
 
 Header.displayName = 'Header';
