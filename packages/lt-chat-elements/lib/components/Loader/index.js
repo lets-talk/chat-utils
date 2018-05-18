@@ -90,7 +90,7 @@ Loader.defaultProps = {
   active: false,
   fullScreen: false,
   type: 'ball-pulse',
-  color: 'rgb(255,87,50)',
+  color: '#ff5732',
   className: undefined,
 };
 

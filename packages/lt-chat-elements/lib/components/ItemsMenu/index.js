@@ -30,6 +30,7 @@ const StyledItemsList = styled.ul`
 `;
 
 const StyledListItem = styled.div``;
+StyledListItem.displayName = 'StyledListItem';
 
 const StyledListDivider = styled.hr`
   margin: 0;

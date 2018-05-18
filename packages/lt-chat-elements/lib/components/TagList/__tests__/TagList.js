@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import TagList from '../index';
-import { mountWithTheme } from '../../../test-utils';
 
 describe('TagList component', () => {
   const tags = [
@@ -40,21 +39,5 @@ describe('TagList component', () => {
 
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
-  });
-
-  it('Test onClick event ', () => {
-    const mockCallBack = jest.fn();
-    const fakeEventObject = { preventDefault() {}, stopPropagation() {} };
-
-    const props = {
-      tags,
-      cmpRef: null,
-    };
-
-    // Need to call mount because the click is triggered in the child ConversationBox item element
-    const component = mountWithTheme(<TagList {...props} clickItem={() => mockCallBack()} />);
-
-    component.find('.LT-TagList-Container').simulate('click', fakeEventObject);
-    expect(mockCallBack).toHaveBeenCalledTimes(1);
   });
 });

@@ -10,17 +10,38 @@ exports[`Loader component should render a Loader indicator when active is true 1
     <div
       className="letstalk-ball-div"
       key="0"
-      style={Object {}}
+      style={
+        Object {
+          "backgroundColor": "#FFFFFF",
+          "borderLeftColor": "#FFFFFF",
+          "borderRightColor": "#FFFFFF",
+          "borderTopColor": "#FFFFFF",
+        }
+      }
     />
     <div
       className="letstalk-ball-div"
       key="1"
-      style={Object {}}
+      style={
+        Object {
+          "backgroundColor": "#FFFFFF",
+          "borderLeftColor": "#FFFFFF",
+          "borderRightColor": "#FFFFFF",
+          "borderTopColor": "#FFFFFF",
+        }
+      }
     />
     <div
       className="letstalk-ball-div"
       key="2"
-      style={Object {}}
+      style={
+        Object {
+          "backgroundColor": "#FFFFFF",
+          "borderLeftColor": "#FFFFFF",
+          "borderRightColor": "#FFFFFF",
+          "borderTopColor": "#FFFFFF",
+        }
+      }
     />
   </div>
 </div>
@@ -36,17 +57,38 @@ exports[`Loader component should render correctly with fullScreen 1`] = `
     <div
       className="letstalk-ball-div"
       key="0"
-      style={Object {}}
+      style={
+        Object {
+          "backgroundColor": "#FFFFFF",
+          "borderLeftColor": "#FFFFFF",
+          "borderRightColor": "#FFFFFF",
+          "borderTopColor": "#FFFFFF",
+        }
+      }
     />
     <div
       className="letstalk-ball-div"
       key="1"
-      style={Object {}}
+      style={
+        Object {
+          "backgroundColor": "#FFFFFF",
+          "borderLeftColor": "#FFFFFF",
+          "borderRightColor": "#FFFFFF",
+          "borderTopColor": "#FFFFFF",
+        }
+      }
     />
     <div
       className="letstalk-ball-div"
       key="2"
-      style={Object {}}
+      style={
+        Object {
+          "backgroundColor": "#FFFFFF",
+          "borderLeftColor": "#FFFFFF",
+          "borderRightColor": "#FFFFFF",
+          "borderTopColor": "#FFFFFF",
+        }
+      }
     />
   </div>
 </div>
@@ -109,7 +151,13 @@ exports[`Loader component should render only one div when type is ball-clip-rota
     <div
       className="letstalk-ball-div"
       key="0"
-      style={Object {}}
+      style={
+        Object {
+          "borderLeftColor": "#FFFFFF",
+          "borderRightColor": "#FFFFFF",
+          "borderTopColor": "#FFFFFF",
+        }
+      }
     />
   </div>
 </div>
@@ -127,10 +175,10 @@ exports[`Loader component should render with no props 1`] = `
       key="0"
       style={
         Object {
-          "backgroundColor": "rgb(255,87,50)",
-          "borderLeftColor": "rgb(255,87,50)",
-          "borderRightColor": "rgb(255,87,50)",
-          "borderTopColor": "rgb(255,87,50)",
+          "backgroundColor": "#ff5732",
+          "borderLeftColor": "#ff5732",
+          "borderRightColor": "#ff5732",
+          "borderTopColor": "#ff5732",
         }
       }
     />
@@ -139,10 +187,10 @@ exports[`Loader component should render with no props 1`] = `
       key="1"
       style={
         Object {
-          "backgroundColor": "rgb(255,87,50)",
-          "borderLeftColor": "rgb(255,87,50)",
-          "borderRightColor": "rgb(255,87,50)",
-          "borderTopColor": "rgb(255,87,50)",
+          "backgroundColor": "#ff5732",
+          "borderLeftColor": "#ff5732",
+          "borderRightColor": "#ff5732",
+          "borderTopColor": "#ff5732",
         }
       }
     />
@@ -151,10 +199,10 @@ exports[`Loader component should render with no props 1`] = `
       key="2"
       style={
         Object {
-          "backgroundColor": "rgb(255,87,50)",
-          "borderLeftColor": "rgb(255,87,50)",
-          "borderRightColor": "rgb(255,87,50)",
-          "borderTopColor": "rgb(255,87,50)",
+          "backgroundColor": "#ff5732",
+          "borderLeftColor": "#ff5732",
+          "borderRightColor": "#ff5732",
+          "borderTopColor": "#ff5732",
         }
       }
     />

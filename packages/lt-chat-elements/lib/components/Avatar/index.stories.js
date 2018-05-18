@@ -54,7 +54,7 @@ stories.addWithInfo(
         }, 'online')}
         color={color('Color', false)}
       >
-      A
+        {text('Child Component (One letter Only)', 'A')}
       </Avatar>
     </WrapWithTheme>
   )

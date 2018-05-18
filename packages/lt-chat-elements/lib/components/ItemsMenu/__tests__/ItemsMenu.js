@@ -97,17 +97,17 @@ describe('ItemsMenu component', () => {
     const fakeEventObject = { preventDefault() {}, stopPropagation() {} };
     // const wrapper = mountWithTheme(<ItemsMenu items={items} onItemClick={onItemClick} />);
     const wrapper = shallowWithTheme(<ItemsMenu items={items} render={render} onItemClick={onItemClick} />);
-    wrapper.find('li').last().find('div').first().simulate('click');
+    wrapper.find('StyledListItem').last().simulate('click');
     // The function is called with the item clicked, the index and the event (item, index, e)
     expect(onItemClick).toHaveBeenCalledWith(items[4], 4, undefined);
 
     onItemClick.mockClear();
-    wrapper.find('li').first().find('div').first().simulate('click');
+    wrapper.find('StyledListItem').first().simulate('click');
     // The function is called with the item clicked, the index and the event (item, index, e)
     expect(onItemClick).toHaveBeenCalledWith(items[0], 0, undefined);
 
     onItemClick.mockClear();
-    wrapper.find('li').at(1).find('div').first().simulate('click', fakeEventObject);
+    wrapper.find('StyledListItem').at(1).simulate('click', fakeEventObject);
     // The function is called with the item clicked, the index and the event (item, index, e)
     expect(onItemClick).toHaveBeenCalledWith(items[1], 1, fakeEventObject);
   });
