@@ -16,17 +16,22 @@ const StyledTag = styled.span`
 `;
 
 class Tag extends Component {
+  constructor() {
+    super();
+    this.onClick = this.onClick.bind(this);
+  }
+
   onClick(item, i, e) {
-    if (this.props.clickItem instanceof Function) {
-      this.props.clickItem(item, i, e);
+    if (this.props.onClick instanceof Function) {
+      this.props.onClick(item, i, e);
     }
   }
 
   render() {
-    const { tag } = this.props;
+    const { data } = this.props;
     return (
-      <StyledTag>
-        {tag.name}
+      <StyledTag onClick={this.onClick}>
+        {data.name}
       </StyledTag>
     );
   }
@@ -34,10 +39,9 @@ class Tag extends Component {
 
 Tag.propTypes = {
   /**
-   * tags is an array of tag objects
-   * that will be displayed in the component
+   * data is an object containing the Tag data
    */
-  tag: PropTypes.object,
+  data: PropTypes.object,
   /**
    * className to be used for this component
    */
@@ -46,13 +50,13 @@ Tag.propTypes = {
   /**
    * Callback function to be called when an item is clicked
    */
-  clickItem: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 Tag.defaultProps = {
-  tag: null,
+  data: {},
   className: 'LT-Tag-Container',
-  clickItem: null,
+  onClick: null,
 };
 
 export default Tag;

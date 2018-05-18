@@ -7,6 +7,7 @@ import { mountWithTheme } from '../../../test-utils';
 describe('ConversationList component', () => {
   const conversations = [
     {
+      id: 1,
       client: {
         name: 'Georgia Harmon',
         avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PhotoMessage component should render a System message 1`] = `
-<styled.div>
-  <styled.div
+<PhotoContainer>
+  <ImageContainer
     onClick={null}
     onKeyPress={null}
   >
@@ -10,9 +10,9 @@ exports[`PhotoMessage component should render a System message 1`] = `
       alt="Image alt"
       src=""
     />
-  </styled.div>
+  </ImageContainer>
   <styled.div>
     I am a photo message
   </styled.div>
-</styled.div>
+</PhotoContainer>
 `;

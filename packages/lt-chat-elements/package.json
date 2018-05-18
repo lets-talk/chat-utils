@@ -12,6 +12,7 @@
     "build:prod": "webpack --config webpack.config.prod.js --progress --profile --colors",
     "build:watch": "babel lib -w -d build",
     "check-updates": "ncu --error-level 2",
+    "deploy": "exit 0;",
     "lint": "eslint lib/**; exit 0",
     "lint:watch": "esw -w lib/**",
     "changelog": "pr-log --sloppy",
@@ -23,13 +24,16 @@
     "test:update": "jest --updateSnapshot",
     "test:watch": "jest --watch",
     "test:coverage": "jest --verbose --coverage",
+    "test:ci": "jest --runInBand --verbose --coverage --ci",
     "test:generate-output": "jest --json --outputFile=tests-results/jest-test-results.json"
   },
   "keywords": [
     "react",
     "react-component",
     "letstalk toolkit",
-    "lt-chat-elements"
+    "lt-chat-elements",
+    "chat elements",
+    "chat UI"
   ],
   "author": "Let's Talk",
   "license": "ISC",

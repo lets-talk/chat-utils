@@ -6,16 +6,24 @@ import MessageBox from '../index';
 import constants from '../../../utils/constants';
 
 describe('MessageBox component', () => {
+  const { messagesTypes } = constants;
+
   const person = {
     avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
     email: '',
     type: 'Client',
   };
 
-  const { messagesTypes } = constants;
+  const message = {
+    type: messagesTypes.TEXT,
+    text: 'Buenas Tardes',
+    person,
+    position: 'left',
+  };
+
 
   it('should render without issues', () => {
-    const component = shallow(<MessageBox status="read" person={person} />);
+    const component = shallow(<MessageBox status="read" message={message} />);
 
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
@@ -23,9 +31,11 @@ describe('MessageBox component', () => {
 
   it('should render a System message', () => {
     const props = {
-      type: messagesTypes.SYSTEM,
-      status: 'read',
-      person,
+      message: {
+        type: messagesTypes.SYSTEM,
+        status: 'read',
+        person,
+      },
     };
     const component = shallow(<MessageBox {...props} />);
 
@@ -33,11 +43,13 @@ describe('MessageBox component', () => {
     expect(toJson(component)).toMatchSnapshot();
   });
 
-  it('should render without issues', () => {
+  it('should render a Time message', () => {
     const props = {
-      type: messagesTypes.TIME,
-      status: 'read',
-      person,
+      message: {
+        type: messagesTypes.TIME,
+        status: 'read',
+        person,
+      },
     };
 
     const component = shallow(<MessageBox {...props} />);

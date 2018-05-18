@@ -20,6 +20,8 @@ const StyledPhotoContainer = styled.div`
   }
 `;
 
+StyledPhotoContainer.displayName = 'PhotoContainer';
+
 const StyledDownloadButton = styled.button`
   color: #efe;
   display: flex;
@@ -33,6 +35,8 @@ const StyledDownloadButton = styled.button`
   height: 100px;
   width: 100px;
 `;
+
+StyledDownloadButton.displayName = 'DownloadButton';
 
 const StyledDownloadActionsContainer = styled.div`
   position: absolute;
@@ -68,6 +72,8 @@ const PhotoMessage = (props) => {
       user-select: none;
     }
   `;
+  StyledImageContainer.displayName = 'ImageContainer';
+
   return (
     <StyledPhotoContainer>
       <StyledImageContainer

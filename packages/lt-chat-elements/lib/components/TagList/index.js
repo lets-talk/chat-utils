@@ -9,6 +9,8 @@ const StyledTagListContainer = styled.div`
   margin: 5px;
 `;
 
+StyledTagListContainer.displayName = 'TagListContainer';
+
 class TagList extends Component {
   onClick(item, i, e) {
     if (this.props.clickItem instanceof Function) {
@@ -21,7 +23,7 @@ class TagList extends Component {
     return (
       <StyledTagListContainer>
         {tags.map((tag) => (
-          <Tag key={tag.name} tag={tag} onClick={this.onCLick} />
+          <Tag key={tag.name} data={tag} onClick={this.onCLick} />
         ))}
       </StyledTagListContainer>
     );

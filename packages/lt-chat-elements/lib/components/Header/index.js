@@ -124,9 +124,7 @@ Header.defaultProps = {
   className: 'LT-Header-Container',
   title: '',
   subtitle: '',
-  person: {
-
-  },
+  person: {},
   toggleChat: null,
   openMenu: null,
   showMinimizeButton: true,

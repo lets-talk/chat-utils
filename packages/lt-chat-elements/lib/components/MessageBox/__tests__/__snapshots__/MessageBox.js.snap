@@ -1,84 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MessageBox component should render a System message 1`] = `
-<div
-  className="letstalk-container-mbox"
+<styled.div
+  className=""
   onClick={null}
   onKeyPress={null}
-  role="button"
-  tabIndex="-3"
 >
-  <SystemMessage
+  <SystemMessage />
+</styled.div>
+`;
+
+exports[`MessageBox component should render a Time message 1`] = `
+<styled.div
+  className=""
+  onClick={null}
+  onKeyPress={null}
+>
+  <styled.div>
+    <Avatar
+      alt=""
+      className="LT-Avatar-Container"
+      color={null}
+      size="xsmall"
+      sizes={null}
+      src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
+      srcSet={null}
+      status=""
+      type="circle"
+      withStatus={false}
+    />
+  </styled.div>
+  <TimeMarkMessage
+    className="LT-TimeMarkMessage-Container"
     text=""
   />
-</div>
+</styled.div>
 `;
 
 exports[`MessageBox component should render without issues 1`] = `
-<div
-  className="letstalk-container-mbox"
+<styled.div
+  className=""
   onClick={null}
   onKeyPress={null}
-  role="button"
-  tabIndex="-3"
 >
-  <div
-    className="letstalk-mbox-avatar-container letstalk-mbox-avatar-container-left"
+  <styled.div
+    position="left"
   >
     <Avatar
       alt=""
+      className="LT-Avatar-Container"
+      color={null}
       size="xsmall"
+      sizes={null}
       src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
-      status="online"
+      srcSet={null}
+      status=""
       type="circle"
       withStatus={false}
     />
-  </div>
-  <div
-    className="letstalk-mbox letstalk-mbox-left letstalk-mbox--clear-padding"
-  >
-    <div
-      className="letstalk-mbox-body"
-    >
-      <div
-        className="letstalk-mbox-time letstalk-mbox-time-block"
-      >
-        a few seconds ago
-        <span
-          className="letstalk-mbox-status"
-        >
-          <IoAndroidDoneAll
-            color="#4FC3F7"
-          />
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`MessageBox component should render without issues 2`] = `
-<div
-  className="letstalk-container-mbox"
-  onClick={null}
-  onKeyPress={null}
-  role="button"
-  tabIndex="-3"
->
-  <div
-    className="letstalk-mbox-avatar-container letstalk-mbox-avatar-container-left"
-  >
-    <Avatar
-      alt=""
-      size="xsmall"
-      src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
-      status="online"
-      type="circle"
-      withStatus={false}
-    />
-  </div>
-  <TimeMarkMessage
+  </styled.div>
+  <NormalMessageBox
+    className=""
+    message={
+      Object {
+        "person": Object {
+          "avatar": "https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg",
+          "email": "",
+          "type": "Client",
+        },
+        "position": "left",
+        "text": "Buenas Tardes",
+        "type": "Text",
+      }
+    }
+    onActionMessageClick={null}
+    onClick={null}
+    onDownload={null}
+    onForwardClick={null}
+    onMessageClick={null}
+    onOpen={null}
+    onTitleClick={null}
+    person={null}
+    position="left"
+    status="read"
     text=""
+    type="text"
   />
-</div>
+</styled.div>
 `;
