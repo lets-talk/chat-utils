@@ -16,7 +16,7 @@ const SimpleButton = styled.button`
 const ChatIcon = (props) => {
   const {
     imageUrl,
-  } = props.chat_icon_pic;
+  } = props;
 
   const {
     chatIconRadius = '0px',
@@ -42,6 +42,7 @@ const ChatIcon = (props) => {
     line-height: 24px;
     font-weight: 600;
   `;
+  StyledBubbleDiv.displayName = 'StyledBubbleDiv';
 
   const messagesBubble = (
     <StyledBubbleDiv>{ msgLbl }</StyledBubbleDiv>
@@ -75,6 +76,35 @@ const ChatIcon = (props) => {
       ${ellipsis('100%')}
     }
 `;
+  StyledButton.displayName = 'StyledButton';
+
+  const StyledImageIconContainer = styled.div`
+    width: ${props.width}px;
+    height: ${props.height}px;
+    margin: ${props.margin};
+
+    background-color: 'transparent';
+    position: relative;
+    margin-bottom: 50px;
+    float: right;
+    margin-right: 10px;
+    borderRadius: ${chatIconRadius};
+    cursor: pointer;
+    boxShadow: 0px 25px 13px -22px rgba(0,0,0,0.44);
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: calc(${props.height}px / 2);
+      line-height: calc(${props.height}px / 2);
+
+      border-radius: ${() =>
+    (props.type && props.type === 'rounded' && '5px 5px 0 0')
+      || (props.type && props.type === 'circle' && '50%')
+      || '0'};
+    }
+  `;
+  StyledImageIconContainer.displayName = 'StyledImageIconContainer';
 
   const defaultIcon = (
     <div className="letstalk-ChatIconContainer">
@@ -92,33 +122,13 @@ const ChatIcon = (props) => {
   );
 
   const imageIcon = (
-    <div
-      className="chat-icon"
-      style={{
-        backgroundColor: 'transparent',
-        height: '50px',
-        width: 'auto',
-        position: 'relative',
-        marginBottom: '50px',
-        float: 'right',
-        marginRight: '10px',
-        borderRadius: chatIconRadius,
-        cursor: 'pointer',
-        boxShadow: '0px 25px 13px -22px rgba(0,0,0,0.44)',
-      }}
-      iconStyle={{
-        borderRadius: chatIconRadius, backgroundColor: 'transparent', height: '50px', width: 'auto',
-      }}
-    >
+    <StyledImageIconContainer>
       <img
         alt="Launch chat"
         src={imageUrl}
-        style={{
-          borderRadius: chatIconRadius, backgroundColor: 'transparent', height: '50px', width: 'auto',
-        }}
       />
       { props.newMessages > 0 && messagesBubble }
-    </div>
+    </StyledImageIconContainer>
   );
 
   return (
@@ -165,9 +175,9 @@ ChatIcon.propTypes = {
    */
   onClick: PropTypes.func,
   /**
-  * chat_icon_pic: Image source of the image to show as chatIcon
+  * imageUrl: Image source of the image to show as chatIcon
   */
-  chat_icon_pic: PropTypes.string,
+  imageUrl: PropTypes.string,
   /**
   * chatIconRadius: The border radius of the chat icon
   */
@@ -186,7 +196,7 @@ ChatIcon.defaultProps = {
   height: 50,
   width: 250,
   margin: '',
-  chat_icon_pic: '',
+  imageUrl: '',
 };
 
 export default ChatIcon;

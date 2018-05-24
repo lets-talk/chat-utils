@@ -1,0 +1,853 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WidgetBox component should mount the component. The component must include Header, Body and Footer 1`] = `
+<WidgetBox
+  className="LT-WidgetBox-Container"
+>
+  <styled.div
+    className="LT-WidgetBox-Container"
+  >
+    <div
+      className="LT-WidgetBox-Container sc-gZMcBi dhQnFb"
+    >
+      <Header
+        className="LT-Header-Container"
+        height={50}
+        leftButtons={Array []}
+        openMenu={[MockFunction]}
+        person={Object {}}
+        rightButtons={Array []}
+        showMenuButton={true}
+        showMinimizeButton={true}
+        subtitle="Enque te podemos ayudar"
+        title="Emergencia Bancaria"
+        toggleChat={[MockFunction]}
+      >
+        <StyledHeaderContainer
+          className="LT-Header-Container"
+          height={50}
+        >
+          <div
+            className="LT-Header-Container sc-htoDjs javbTg"
+            height={50}
+          >
+            <Flex
+              alignItems="center"
+              theme={
+                Object {
+                  "breakpoints": Array [
+                    "40em",
+                    "52em",
+                    "64em",
+                  ],
+                  "fontSizes": Array [
+                    12,
+                    14,
+                    16,
+                    20,
+                    24,
+                    32,
+                    48,
+                    64,
+                    96,
+                    128,
+                  ],
+                  "space": Array [
+                    0,
+                    4,
+                    8,
+                    16,
+                    32,
+                    64,
+                    128,
+                    256,
+                    512,
+                  ],
+                }
+              }
+            >
+              <Clean.div
+                alignItems="center"
+                blacklist={
+                  Array [
+                    "m",
+                    "mt",
+                    "mr",
+                    "mb",
+                    "ml",
+                    "mx",
+                    "my",
+                    "p",
+                    "pt",
+                    "pr",
+                    "pb",
+                    "pl",
+                    "px",
+                    "py",
+                    "width",
+                    "w",
+                    "fontSize",
+                    "f",
+                    "color",
+                    "bg",
+                    "fontFamily",
+                    "font",
+                    "textAlign",
+                    "align",
+                    "lineHeight",
+                    "fontWeight",
+                    "letterSpacing",
+                    "display",
+                    "maxWidth",
+                    "minWidth",
+                    "height",
+                    "maxHeight",
+                    "minHeight",
+                    "size",
+                    "ratio",
+                    "alignItems",
+                    "alignContent",
+                    "justifyContent",
+                    "justify",
+                    "flexWrap",
+                    "wrap",
+                    "flexBasis",
+                    "flexDirection",
+                    "flex",
+                    "justifySelf",
+                    "alignSelf",
+                    "order",
+                    "gridGap",
+                    "gridColumnGap",
+                    "gridRowGap",
+                    "gridColumn",
+                    "gridRow",
+                    "gridAutoFlow",
+                    "gridAutoColumns",
+                    "gridAutoRows",
+                    "gridTemplateColumns",
+                    "gridTemplateRows",
+                    "border",
+                    "borderTop",
+                    "borderRight",
+                    "borderBottom",
+                    "borderLeft",
+                    "borderColor",
+                    "borderRadius",
+                    "boxShadow",
+                    "background",
+                    "backgroundImage",
+                    "bgImage",
+                    "backgroundSize",
+                    "bgSize",
+                    "backgroundPosition",
+                    "bgPosition",
+                    "backgroundRepeat",
+                    "bgRepeat",
+                    "position",
+                    "zIndex",
+                    "top",
+                    "right",
+                    "bottom",
+                    "left",
+                    "hover",
+                    "focus",
+                    "active",
+                    "disabledStyle",
+                    "textStyle",
+                    "colors",
+                    "buttonStyle",
+                    "borderWidth",
+                  ]
+                }
+                className="sc-bwzfXH jruoDg"
+                is="div"
+                theme={
+                  Object {
+                    "breakpoints": Array [
+                      "40em",
+                      "52em",
+                      "64em",
+                    ],
+                    "fontSizes": Array [
+                      12,
+                      14,
+                      16,
+                      20,
+                      24,
+                      32,
+                      48,
+                      64,
+                      96,
+                      128,
+                    ],
+                    "space": Array [
+                      0,
+                      4,
+                      8,
+                      16,
+                      32,
+                      64,
+                      128,
+                      256,
+                      512,
+                    ],
+                  }
+                }
+              >
+                <div
+                  className="sc-bwzfXH jruoDg"
+                >
+                  <Box
+                    flex="0 0 auto"
+                    mb="auto"
+                    theme={
+                      Object {
+                        "breakpoints": Array [
+                          "40em",
+                          "52em",
+                          "64em",
+                        ],
+                        "fontSizes": Array [
+                          12,
+                          14,
+                          16,
+                          20,
+                          24,
+                          32,
+                          48,
+                          64,
+                          96,
+                          128,
+                        ],
+                        "space": Array [
+                          0,
+                          4,
+                          8,
+                          16,
+                          32,
+                          64,
+                          128,
+                          256,
+                          512,
+                        ],
+                      }
+                    }
+                    width="40px"
+                  >
+                    <Clean.div
+                      blacklist={
+                        Array [
+                          "m",
+                          "mt",
+                          "mr",
+                          "mb",
+                          "ml",
+                          "mx",
+                          "my",
+                          "p",
+                          "pt",
+                          "pr",
+                          "pb",
+                          "pl",
+                          "px",
+                          "py",
+                          "width",
+                          "w",
+                          "fontSize",
+                          "f",
+                          "color",
+                          "bg",
+                          "fontFamily",
+                          "font",
+                          "textAlign",
+                          "align",
+                          "lineHeight",
+                          "fontWeight",
+                          "letterSpacing",
+                          "display",
+                          "maxWidth",
+                          "minWidth",
+                          "height",
+                          "maxHeight",
+                          "minHeight",
+                          "size",
+                          "ratio",
+                          "alignItems",
+                          "alignContent",
+                          "justifyContent",
+                          "justify",
+                          "flexWrap",
+                          "wrap",
+                          "flexBasis",
+                          "flexDirection",
+                          "flex",
+                          "justifySelf",
+                          "alignSelf",
+                          "order",
+                          "gridGap",
+                          "gridColumnGap",
+                          "gridRowGap",
+                          "gridColumn",
+                          "gridRow",
+                          "gridAutoFlow",
+                          "gridAutoColumns",
+                          "gridAutoRows",
+                          "gridTemplateColumns",
+                          "gridTemplateRows",
+                          "border",
+                          "borderTop",
+                          "borderRight",
+                          "borderBottom",
+                          "borderLeft",
+                          "borderColor",
+                          "borderRadius",
+                          "boxShadow",
+                          "background",
+                          "backgroundImage",
+                          "bgImage",
+                          "backgroundSize",
+                          "bgSize",
+                          "backgroundPosition",
+                          "bgPosition",
+                          "backgroundRepeat",
+                          "bgRepeat",
+                          "position",
+                          "zIndex",
+                          "top",
+                          "right",
+                          "bottom",
+                          "left",
+                          "hover",
+                          "focus",
+                          "active",
+                          "disabledStyle",
+                          "textStyle",
+                          "colors",
+                          "buttonStyle",
+                          "borderWidth",
+                        ]
+                      }
+                      className="sc-bdVaJa eVnes"
+                      flex="0 0 auto"
+                      is="div"
+                      mb="auto"
+                      theme={
+                        Object {
+                          "breakpoints": Array [
+                            "40em",
+                            "52em",
+                            "64em",
+                          ],
+                          "fontSizes": Array [
+                            12,
+                            14,
+                            16,
+                            20,
+                            24,
+                            32,
+                            48,
+                            64,
+                            96,
+                            128,
+                          ],
+                          "space": Array [
+                            0,
+                            4,
+                            8,
+                            16,
+                            32,
+                            64,
+                            128,
+                            256,
+                            512,
+                          ],
+                        }
+                      }
+                      width="40px"
+                    >
+                      <div
+                        className="sc-bdVaJa eVnes"
+                      >
+                        <button
+                          onClick={[MockFunction]}
+                        >
+                          <MdMenu
+                            size={20}
+                          >
+                            <IconBase
+                              size={20}
+                              viewBox="0 0 40 40"
+                            >
+                              <svg
+                                fill="currentColor"
+                                height={20}
+                                preserveAspectRatio="xMidYMid meet"
+                                style={
+                                  Object {
+                                    "color": undefined,
+                                    "verticalAlign": "middle",
+                                  }
+                                }
+                                viewBox="0 0 40 40"
+                                width={20}
+                              >
+                                <g>
+                                  <path
+                                    d="m5 10h30v3.4h-30v-3.4z m0 11.6v-3.2h30v3.2h-30z m0 8.4v-3.4h30v3.4h-30z"
+                                  />
+                                </g>
+                              </svg>
+                            </IconBase>
+                          </MdMenu>
+                        </button>
+                      </div>
+                    </Clean.div>
+                  </Box>
+                  <Box
+                    flex="1 1 auto"
+                    theme={
+                      Object {
+                        "breakpoints": Array [
+                          "40em",
+                          "52em",
+                          "64em",
+                        ],
+                        "fontSizes": Array [
+                          12,
+                          14,
+                          16,
+                          20,
+                          24,
+                          32,
+                          48,
+                          64,
+                          96,
+                          128,
+                        ],
+                        "space": Array [
+                          0,
+                          4,
+                          8,
+                          16,
+                          32,
+                          64,
+                          128,
+                          256,
+                          512,
+                        ],
+                      }
+                    }
+                  >
+                    <Clean.div
+                      blacklist={
+                        Array [
+                          "m",
+                          "mt",
+                          "mr",
+                          "mb",
+                          "ml",
+                          "mx",
+                          "my",
+                          "p",
+                          "pt",
+                          "pr",
+                          "pb",
+                          "pl",
+                          "px",
+                          "py",
+                          "width",
+                          "w",
+                          "fontSize",
+                          "f",
+                          "color",
+                          "bg",
+                          "fontFamily",
+                          "font",
+                          "textAlign",
+                          "align",
+                          "lineHeight",
+                          "fontWeight",
+                          "letterSpacing",
+                          "display",
+                          "maxWidth",
+                          "minWidth",
+                          "height",
+                          "maxHeight",
+                          "minHeight",
+                          "size",
+                          "ratio",
+                          "alignItems",
+                          "alignContent",
+                          "justifyContent",
+                          "justify",
+                          "flexWrap",
+                          "wrap",
+                          "flexBasis",
+                          "flexDirection",
+                          "flex",
+                          "justifySelf",
+                          "alignSelf",
+                          "order",
+                          "gridGap",
+                          "gridColumnGap",
+                          "gridRowGap",
+                          "gridColumn",
+                          "gridRow",
+                          "gridAutoFlow",
+                          "gridAutoColumns",
+                          "gridAutoRows",
+                          "gridTemplateColumns",
+                          "gridTemplateRows",
+                          "border",
+                          "borderTop",
+                          "borderRight",
+                          "borderBottom",
+                          "borderLeft",
+                          "borderColor",
+                          "borderRadius",
+                          "boxShadow",
+                          "background",
+                          "backgroundImage",
+                          "bgImage",
+                          "backgroundSize",
+                          "bgSize",
+                          "backgroundPosition",
+                          "bgPosition",
+                          "backgroundRepeat",
+                          "bgRepeat",
+                          "position",
+                          "zIndex",
+                          "top",
+                          "right",
+                          "bottom",
+                          "left",
+                          "hover",
+                          "focus",
+                          "active",
+                          "disabledStyle",
+                          "textStyle",
+                          "colors",
+                          "buttonStyle",
+                          "borderWidth",
+                        ]
+                      }
+                      className="sc-bdVaJa fSzdHl"
+                      flex="1 1 auto"
+                      is="div"
+                      theme={
+                        Object {
+                          "breakpoints": Array [
+                            "40em",
+                            "52em",
+                            "64em",
+                          ],
+                          "fontSizes": Array [
+                            12,
+                            14,
+                            16,
+                            20,
+                            24,
+                            32,
+                            48,
+                            64,
+                            96,
+                            128,
+                          ],
+                          "space": Array [
+                            0,
+                            4,
+                            8,
+                            16,
+                            32,
+                            64,
+                            128,
+                            256,
+                            512,
+                          ],
+                        }
+                      }
+                    >
+                      <div
+                        className="sc-bdVaJa fSzdHl"
+                      >
+                        <h4>
+                          Emergencia Bancaria
+                        </h4>
+                        <span>
+                          Enque te podemos ayudar
+                        </span>
+                      </div>
+                    </Clean.div>
+                  </Box>
+                  <Box
+                    flex="0 0 auto"
+                    mb="auto"
+                    theme={
+                      Object {
+                        "breakpoints": Array [
+                          "40em",
+                          "52em",
+                          "64em",
+                        ],
+                        "fontSizes": Array [
+                          12,
+                          14,
+                          16,
+                          20,
+                          24,
+                          32,
+                          48,
+                          64,
+                          96,
+                          128,
+                        ],
+                        "space": Array [
+                          0,
+                          4,
+                          8,
+                          16,
+                          32,
+                          64,
+                          128,
+                          256,
+                          512,
+                        ],
+                      }
+                    }
+                    width="40px"
+                  >
+                    <Clean.div
+                      blacklist={
+                        Array [
+                          "m",
+                          "mt",
+                          "mr",
+                          "mb",
+                          "ml",
+                          "mx",
+                          "my",
+                          "p",
+                          "pt",
+                          "pr",
+                          "pb",
+                          "pl",
+                          "px",
+                          "py",
+                          "width",
+                          "w",
+                          "fontSize",
+                          "f",
+                          "color",
+                          "bg",
+                          "fontFamily",
+                          "font",
+                          "textAlign",
+                          "align",
+                          "lineHeight",
+                          "fontWeight",
+                          "letterSpacing",
+                          "display",
+                          "maxWidth",
+                          "minWidth",
+                          "height",
+                          "maxHeight",
+                          "minHeight",
+                          "size",
+                          "ratio",
+                          "alignItems",
+                          "alignContent",
+                          "justifyContent",
+                          "justify",
+                          "flexWrap",
+                          "wrap",
+                          "flexBasis",
+                          "flexDirection",
+                          "flex",
+                          "justifySelf",
+                          "alignSelf",
+                          "order",
+                          "gridGap",
+                          "gridColumnGap",
+                          "gridRowGap",
+                          "gridColumn",
+                          "gridRow",
+                          "gridAutoFlow",
+                          "gridAutoColumns",
+                          "gridAutoRows",
+                          "gridTemplateColumns",
+                          "gridTemplateRows",
+                          "border",
+                          "borderTop",
+                          "borderRight",
+                          "borderBottom",
+                          "borderLeft",
+                          "borderColor",
+                          "borderRadius",
+                          "boxShadow",
+                          "background",
+                          "backgroundImage",
+                          "bgImage",
+                          "backgroundSize",
+                          "bgSize",
+                          "backgroundPosition",
+                          "bgPosition",
+                          "backgroundRepeat",
+                          "bgRepeat",
+                          "position",
+                          "zIndex",
+                          "top",
+                          "right",
+                          "bottom",
+                          "left",
+                          "hover",
+                          "focus",
+                          "active",
+                          "disabledStyle",
+                          "textStyle",
+                          "colors",
+                          "buttonStyle",
+                          "borderWidth",
+                        ]
+                      }
+                      className="sc-bdVaJa eVnes"
+                      flex="0 0 auto"
+                      is="div"
+                      mb="auto"
+                      theme={
+                        Object {
+                          "breakpoints": Array [
+                            "40em",
+                            "52em",
+                            "64em",
+                          ],
+                          "fontSizes": Array [
+                            12,
+                            14,
+                            16,
+                            20,
+                            24,
+                            32,
+                            48,
+                            64,
+                            96,
+                            128,
+                          ],
+                          "space": Array [
+                            0,
+                            4,
+                            8,
+                            16,
+                            32,
+                            64,
+                            128,
+                            256,
+                            512,
+                          ],
+                        }
+                      }
+                      width="40px"
+                    >
+                      <div
+                        className="sc-bdVaJa eVnes"
+                      >
+                        <button
+                          onClick={[MockFunction]}
+                        >
+                          <MdKeyboardArrowDown
+                            size={20}
+                          >
+                            <IconBase
+                              size={20}
+                              viewBox="0 0 40 40"
+                            >
+                              <svg
+                                fill="currentColor"
+                                height={20}
+                                preserveAspectRatio="xMidYMid meet"
+                                style={
+                                  Object {
+                                    "color": undefined,
+                                    "verticalAlign": "middle",
+                                  }
+                                }
+                                viewBox="0 0 40 40"
+                                width={20}
+                              >
+                                <g>
+                                  <path
+                                    d="m12.3 13l7.7 7.7 7.7-7.7 2.3 2.4-10 10-10-10z"
+                                  />
+                                </g>
+                              </svg>
+                            </IconBase>
+                          </MdKeyboardArrowDown>
+                        </button>
+                      </div>
+                    </Clean.div>
+                  </Box>
+                </div>
+              </Clean.div>
+            </Flex>
+          </div>
+        </StyledHeaderContainer>
+      </Header>
+      <Body>
+        <StyledBodyContainer>
+          <div
+            className="sc-iwsKbI gWrULo"
+          >
+            <span>
+              Child WidgetBox Body
+            </span>
+          </div>
+        </StyledBodyContainer>
+      </Body>
+      <Footer
+        height={50}
+      >
+        <StyledFlexFooter>
+          <div
+            className="sc-gqjmRU kTzIya"
+          >
+            <span>
+              I am a footer
+            </span>
+          </div>
+        </StyledFlexFooter>
+      </Footer>
+    </div>
+  </styled.div>
+</WidgetBox>
+`;
+
+exports[`WidgetBox component should render with custom props 1`] = `
+<styled.div
+  className="LT-WidgetBox-Container"
+>
+  <Header
+    className="LT-Header-Container"
+    height={50}
+    leftButtons={Array []}
+    openMenu={[MockFunction]}
+    person={Object {}}
+    rightButtons={Array []}
+    showMenuButton={true}
+    showMinimizeButton={true}
+    subtitle="Enque te podemos ayudar"
+    title="Emergencia Bancaria"
+    toggleChat={[MockFunction]}
+  />
+  <Body>
+    <span>
+      Child WidgetBox Body
+    </span>
+  </Body>
+</styled.div>
+`;
+
+exports[`WidgetBox component should render with no props 1`] = `
+<styled.div
+  className="LT-WidgetBox-Container"
+/>
+`;

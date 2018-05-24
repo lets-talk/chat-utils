@@ -16,26 +16,30 @@ import ActionableMessageBox from '../ActionableMessageBox';
 // Helpers components
 import MessageTimeBox from './MessageTimeBox';
 import MessageForwardBox from './MessageForwardBox';
+import { MessageType } from '../../utils/types';
 
 const StyledForwardDiv = styled.div`
   opacity: 0;
   visibility: hidden;
 `;
+StyledForwardDiv.displayName = 'StyledForwardDiv';
 
 const StyledMessageBody = styled.div`
   margin: 0;
   padding: 0;
   position: relative;
 `;
+StyledMessageBody.displayName = 'StyledMessageBody';
 
 const StyledMessageTitle = styled.div`
   margin: 0;
   margin-bottom: 8px;
 
   color: ${(props) => textColor(props.theme, 'light', 'primary')};
-  font-size: ${(props) => props.theme.typography.classes.caption.fontSize};
-  line-height: ${(props) => props.theme.typography.classes.caption.lineHeight};
-  font-weight: ${(props) => props.theme.typography.weights.fontWeightSemiBold};
+  color: rgb(67, 168, 158);
+  font-size: ${(props) => props.theme.typography.classes.footnote.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.footnote.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightBold};
 
   user-select: none;
   cursor: pointer;
@@ -46,16 +50,19 @@ const StyledMessageTitle = styled.div`
     text-decoration: underline;
   }
 `;
+StyledMessageTitle.displayName = 'StyledMessageTitle';
 
 const StyledTextMessage = styled.div`
-  display: inline-block;
-  width: calc(100% - 50px);
-  word-break: break-word;
+display: inline-block;
+width: calc(100% - 50px);
+word-break: break-word;
 `;
+StyledTextMessage.displayName = 'StyledTextMessage';
 
 const StyledTypingMessage = styled.div`
-  word-break: break-word;
+word-break: break-word;
 `;
+StyledTypingMessage.displayName = 'StyledTypingMessage';
 
 const NormalMessageBox = (props) => {
   const { messagesTypes, personTypes } = constants;
@@ -72,6 +79,7 @@ const NormalMessageBox = (props) => {
     flex-direction: column;
     margin-bottom: 3px;
     padding: 15px 10px;
+    max-width: calc(100% - 70px);
 
     ${() =>
     (message.position === 'left') &&
@@ -132,6 +140,7 @@ const NormalMessageBox = (props) => {
       visibility: visible;
     }
   `;
+  StyledNormalMessageContainer.displayName = 'StyledNormalMessageContainer';
 
   return (
     <StyledNormalMessageContainer>
@@ -172,39 +181,39 @@ const NormalMessageBox = (props) => {
 
         {
           message.type === messagesTypes.PHOTO &&
-          <PhotoMessage
-            onOpen={props.onOpen}
-            onDownload={props.onDownload}
-            data={message.data}
-            text={message.text}
-          />
+            <PhotoMessage
+              onOpen={props.onOpen}
+              onDownload={props.onDownload}
+              data={message.data}
+              text={message.text}
+            />
         }
 
         {
           message.type === messagesTypes.FILE &&
-          <FileMessage
-            onOpen={props.onOpen}
-            onDownload={props.onDownload}
-            data={message.data}
-            text={message.text}
-          />
+            <FileMessage
+              onOpen={props.onOpen}
+              onDownload={props.onDownload}
+              data={message.data}
+              text={message.text}
+            />
         }
 
         {
           message.type === messagesTypes.ACTIONABLE &&
-          <ActionableMessageBox
-            data={message.data}
-            onClickAction={props.onActionMessageClick}
-          />
+            <ActionableMessageBox
+              data={message.data}
+              onClickAction={props.onActionMessageClick}
+            />
         }
 
         {message.type !== messagesTypes.TYPING && message.type !== messagesTypes.ACTIONABLE &&
-        <MessageTimeBox
-          type={message.type}
-          status={message.status}
-          dateString={message.dateString}
-          date={message.date}
-        />
+          <MessageTimeBox
+            type={message.type}
+            status={message.status}
+            dateString={message.dateString}
+            date={message.date}
+          />
         }
 
       </StyledMessageBody>
@@ -214,52 +223,7 @@ const NormalMessageBox = (props) => {
 
 
 NormalMessageBox.propTypes = {
-  message: PropTypes.shape({
-    /**
-     * Position: What side the message is displayed inside the chatbox
-     */
-    position: PropTypes.string,
-    /**
-     * Type of Message: Type of the message. Values are defined as constants.
-     * The current supported types are: SYSTEM, TEXT, TYPING, TIME, ACTIONABLE, FILE, PHOTO.
-     */
-    type: PropTypes.string,
-    /**
-     * Text: Actual message content text.
-     */
-    text: PropTypes.string,
-    /**
-     * Title: Message title. Is used to display as a first line. It is also possible to make it clickable
-     */
-    title: PropTypes.string,
-    /**
-     * date: Message creation date.
-     */
-    date: PropTypes.instanceOf(Date),
-    /**
-     * data: Object with extra data used to display information about the message
-     */
-    data: PropTypes.object,
-    /**
-    * forwarded: Boolean that indicates if message was forwareded. If this is false (default) onForwardClick
-    * handler has no effect at all
-    */
-    forwarded: PropTypes.bool,
-    /**
-     * status: Message status. Values are defined as constants.
-     * Current supported values are: WAITING, SENT, RECEIVED, READ
-     */
-    status: PropTypes.string,
-    /**
-     * dateString: Formated date string to show. This is the default to use.
-     * If this is not provided by default to show the time moment(props.date).fromNow() is used.
-     */
-    dateString: PropTypes.string,
-    /**
-     * person: Object representing the person that created or submited this message.
-     */
-    person: PropTypes.object,
-  }),
+  message: MessageType,
   /**
    * onTitleClick: Handler function to be called when user click on message title
    */

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { rgba } from 'polished';
 import { themeColor } from '../../utils/style';
 
-const ActionList = styled.ul`
+const StyledActionList = styled.ul`
   display: block;
   cursor: pointer;
   padding: 0;
@@ -42,7 +42,7 @@ const ActionableMessageBox = (props) => {
   const { actions } = data;
 
   return (
-    <ActionList className={props.className}>
+    <StyledActionList className={props.className}>
       {actions.map((action, index) =>
         (
           <li
@@ -58,7 +58,7 @@ const ActionableMessageBox = (props) => {
             </span>
           </li>
         ))}
-    </ActionList>
+    </StyledActionList>
   );
 };
 

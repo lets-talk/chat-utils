@@ -1,6 +1,7 @@
 import React from 'react';
 // Storybook stuff
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean, number, select, object } from '@storybook/addon-knobs';
 
 import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
@@ -53,6 +54,8 @@ stories.addWithInfo(
           margin={text('Margin', '0px 10px 0px 0px')}
           showAvatars={boolean('showAvatars', true)}
           avatarPosition={select('AvatarPosition', { in: 'in', out: 'out' }, 'out')}
+          onClick={action('onClick')}
+          onDismiss={action('onDismiss')}
         />
       </WrapWithTheme>
     </div>

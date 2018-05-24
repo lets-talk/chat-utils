@@ -31,6 +31,7 @@ stories.addWithInfo(
           height={number('Height', 100)}
           margin={text('Margin', '0px 10px 0px 0px')}
           showRenderProp={boolean('showRenderProp', false)}
+          render={() => <h3>Can show any Component </h3>}
         />
       </WrapWithTheme>
     </div>

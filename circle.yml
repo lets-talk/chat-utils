@@ -67,8 +67,8 @@ jobs:
 
     steps:
       - run: 
-          name: "Executing deploy on each package that changed"
-          command: for dir in $(git log --name-only --oneline -1 | sed 1d | grep '/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd $dir; npm run deploy; cd..; done
+          name: "Executing build && deploy on each package that changed"
+          command: for dir in $(git log --name-only --oneline -1 | sed 1d | grep '/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd $dir; npm run build && npm run deploy; cd..; done
 
 
 # Workflows: one for build and other for deploy (only on master branch)

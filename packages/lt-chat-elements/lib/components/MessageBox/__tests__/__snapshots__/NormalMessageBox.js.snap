@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NormalMessageBox component Styled: Should Render expected Styles 1`] = `
+.c3 {
+  max-width: 80px;
+  text-align: right;
+  color: rgba(0,0,0,0.38);
+  font-size: calc(12 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 500;
+  float: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.c4 {
+  margin-left: 3px;
+}
+
+.c1 {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.c2 {
+  display: inline-block;
+  width: calc(100% - 50px);
+  word-break: break-word;
+}
+
+.c0 {
+  position: relative;
+  padding-bottom: 3px;
+  background-color: rgba(94,124,139,0.1);
+  border-radius: 5px;
+  box-shadow: none;
+  margin-top: 3px;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 3px;
+  padding: 15px 10px;
+  max-width: calc(100% - 70px);
+  color: rgba(0,0,0,0.87);
+  font-size: calc(14 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 500;
+  min-width: 170px;
+}
+
+.c0:hover .sc-jTzLTM {
+  opacity: 1;
+  visibility: visible;
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2"
+    >
+      Buenas Tardes
+    </div>
+    <div
+      className="c3"
+    >
+      <span
+        className="c4"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          preserveAspectRatio="xMidYMid meet"
+          style={
+            Object {
+              "color": "#4FC3F7",
+              "verticalAlign": "middle",
+            }
+          }
+          viewBox="0 0 40 40"
+          width="1em"
+        >
+          <g>
+            <path
+              d="m30.3 10.9l-10.9 10.9-2.4-2.4 10.9-10.9z m7.3-2.4l2.4 2.4-20.6 20.6-9.6-9.6 2.4-2.4 7.2 7.1z m-37.6 13.4l2.5-2.4 9.5 9.6-2.4 2.4z"
+            />
+          </g>
+        </svg>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NormalMessageBox component should render a Actionable message 1`] = `
+<StyledNormalMessageContainer>
+  <StyledMessageBody>
+    <ActionableMessageBox
+      className="LT-ActionableMessageBox-Container"
+      onClickAction={null}
+    />
+  </StyledMessageBody>
+</StyledNormalMessageContainer>
+`;
+
+exports[`NormalMessageBox component should render a File message 1`] = `
+<StyledNormalMessageContainer>
+  <StyledMessageBody>
+    <FileMessage
+      className="LT-FileMessage-Container"
+      data={Object {}}
+      onDownload={null}
+      onOpen={null}
+      text=""
+    />
+    <MessageTimeBox
+      date={null}
+      dateString=""
+      status=""
+      type="File"
+    />
+  </StyledMessageBody>
+</StyledNormalMessageContainer>
+`;
+
+exports[`NormalMessageBox component should render a Photo message 1`] = `
+<StyledNormalMessageContainer>
+  <StyledMessageBody>
+    <PhotoMessage
+      data={Object {}}
+      onDownload={null}
+      onOpen={null}
+      text=""
+    />
+    <MessageTimeBox
+      date={null}
+      dateString=""
+      status=""
+      type="Photo"
+    />
+  </StyledMessageBody>
+</StyledNormalMessageContainer>
+`;
+
+exports[`NormalMessageBox component should render a Text Message and contain the Text and status 1`] = `
+<StyledNormalMessageContainer>
+  <StyledMessageBody>
+    <StyledTextMessage>
+      Buenas Tardes
+    </StyledTextMessage>
+    <MessageTimeBox
+      date={null}
+      dateString=""
+      status="sent"
+      type="Text"
+    />
+  </StyledMessageBody>
+</StyledNormalMessageContainer>
+`;
+
+exports[`NormalMessageBox component should render a Text message 1`] = `
+<StyledNormalMessageContainer>
+  <StyledMessageBody>
+    <StyledTextMessage>
+      Buenas Tardes
+    </StyledTextMessage>
+    <MessageTimeBox
+      date={null}
+      dateString=""
+      status="read"
+      type="Text"
+    />
+  </StyledMessageBody>
+</StyledNormalMessageContainer>
+`;
+
+exports[`NormalMessageBox component should render a Typing message 1`] = `
+<StyledNormalMessageContainer>
+  <StyledMessageBody>
+    <StyledTypingMessage>
+      <Loader
+        active={true}
+        color="rgb(113, 131, 150)"
+        fullScreen={false}
+        size="xsmall"
+        type="ball-pulse"
+      />
+    </StyledTypingMessage>
+  </StyledMessageBody>
+</StyledNormalMessageContainer>
+`;

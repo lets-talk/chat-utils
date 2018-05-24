@@ -65,7 +65,7 @@ describe('ItemsMenu component', () => {
   };
 
   it('should render with empty data', () => {
-    const component = shallow(<ItemsMenu items={emptyData} />);
+    const component = shallow(<ItemsMenu items={emptyData} render={render} />);
 
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();

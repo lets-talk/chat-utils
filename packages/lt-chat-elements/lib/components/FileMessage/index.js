@@ -5,31 +5,37 @@ import styled from 'styled-components';
 import FaCloudDownload from 'react-icons/lib/fa/cloud-download';
 import FaFile from 'react-icons/lib/fa/file';
 
-const StyledMessageBox = styled.div`
-  padding-bottom: 13px;
+import { themeColor } from '../../utils/style';
 
-  button {
-      background: #e9e9e9;
-      display: flex;
-      border-radius: 5px;
-      margin-top: -3px;
-      margin-right: -6px;
-      margin-left: -6px;
-      align-items: center;
-      min-height: 52px;
-      max-width: 500px;
-      padding: 5px 0;
-      cursor: pointer;
-      user-select: none;
-      outline: none;
-      border:none;
-  }
+const StyledFileMessageContainer = styled.div`
+  display: inline-block;
+  margin-bottom: 10px;
+  max-width: calc(100% - 10px);
 `;
+StyledFileMessageContainer.displayName = 'StyledFileMessageContainer';
+
+const StyledFileMessageBody = styled.div`
+  background: #e9e9e9;
+  display: flex;
+  border-radius: 5px;
+  margin-top: -3px;
+  margin-right: -6px;
+  margin-left: -6px;
+  margin-bottom: 10px;
+  align-items: center;
+  min-height: 52px;
+  padding: 5px;
+  outline: none;
+  border:none;
+`;
+StyledFileMessageBody.displayName = 'StyledFileMessageBody';
 
 const StyledFileIcon = styled.div`
   font-size: 30px;
   align-items: center;
   display: flex;
+  padding: 0 10px;
+  color: ${(props) => themeColor(props.theme, 'accent', 'base')};
 
   div {
     font-size: 10px;
@@ -40,19 +46,28 @@ const StyledFileIcon = styled.div`
     text-overflow: ellipsis;
   }
 `;
+StyledFileIcon.displayName = 'StyledFileIcon';
 
 const StyledFileName = styled.div`
   font-size: 13.6px;
+  min-width: 100px;
+  max-width: 80%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+StyledFileName.displayName = 'StyledFileName';
 
-const StyledFileDownloadButtons = styled.div`
+const StyledFileDownloadButton = styled.div`
+  color: ${(props) => themeColor(props.theme, 'primary', 'base')};
+  padding: 0 10px;
   font-size: 30px;
   align-items: center;
   display: flex;
+  cursor: pointer;
+  user-select: none;
 `;
+StyledFileDownloadButton.displayName = 'StyledFileDownloadButton';
 
 export class FileMessage extends Component {
   constructor(props) {
@@ -71,37 +86,28 @@ export class FileMessage extends Component {
 
   render() {
     return (
-      <StyledMessageBox className={this.props.className}>
-        <button onClick={this.onClick}>
+      <StyledFileMessageContainer className={this.props.className}>
+        <StyledFileMessageBody>
           <StyledFileIcon>
-            <FaFile
-              color="#aaa"
-            />
-            <div>
-              {this.props.data.size}
-            </div>
+            <FaFile />
           </StyledFileIcon>
           <StyledFileName>
             {this.props.text}
           </StyledFileName>
-          <StyledFileDownloadButtons>
+          <StyledFileDownloadButton onClick={this.onClick}>
             {
               this.props.data.status &&
-                !this.props.data.status.download &&
-                !this.props.data.status.click &&
-                <FaCloudDownload
-                  color="#aaa"
-                />
+              <FaCloudDownload />
             }
-            {
-              this.props.data.status &&
+          </StyledFileDownloadButton>
+          {
+            this.props.data.status &&
                 typeof this.props.data.status.loading === 'number' &&
                 this.props.data.status.loading !== 0 &&
                 <div />
-            }
-          </StyledFileDownloadButtons>
-        </button>
-      </StyledMessageBox>
+          }
+        </StyledFileMessageBody>
+      </StyledFileMessageContainer>
     );
   }
 }

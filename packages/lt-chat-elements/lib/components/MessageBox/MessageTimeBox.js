@@ -14,9 +14,8 @@ import { textColor } from '../../utils/style';
 
 const { messagesTypes } = constants;
 
-const StyledMessageTimeBox = styled.div`
-  display: inline-block;
-  width: 50px;
+const StyledMessageTimeBoxContainer = styled.div`
+  max-width: 80px;
   text-align: right;
   color: ${(props) => textColor(props.theme, 'light', 'disabled')};
   font-size: ${(props) => props.theme.typography.classes.caption.fontSize};
@@ -27,19 +26,25 @@ const StyledMessageTimeBox = styled.div`
   bottom: 0;
   right: 0;
 `;
+StyledMessageTimeBoxContainer.displayName = 'StyledMessageTimeBoxContainer';
+
+const StyledTimeAgoText = styled.span`
+  font-size: ${(props) => props.theme.typography.classes.small.fontSize};
+`;
+StyledTimeAgoText.displayName = 'StyledTimeAgoText';
 
 const StyledStatusSpan = styled.span`
   margin-left: 3px;
 `;
+StyledStatusSpan.displayName = 'StyledStatusSpan';
 
 const MessageTimeBox = (props) => (
-  <StyledMessageTimeBox>
+  <StyledMessageTimeBoxContainer>
     {
       props.date && (props.type !== messagesTypes.TYPING) &&
-      (
-        props.dateString ||
-          moment(props.date).fromNow()
-      )
+      <StyledTimeAgoText>
+        {props.dateString || moment(props.date).fromNow()}
+      </StyledTimeAgoText>
     }
     {
       props.status &&
@@ -65,7 +70,7 @@ const MessageTimeBox = (props) => (
           }
         </StyledStatusSpan>
     }
-  </StyledMessageTimeBox>
+  </StyledMessageTimeBoxContainer>
 );
 
 MessageTimeBox.propTypes = {
@@ -73,7 +78,7 @@ MessageTimeBox.propTypes = {
    * Type of Message: Type of the message. Values are defined as constants.
    * The current supported types are: SYSTEM, TEXT, TYPING, TIME, ACTIONABLE, FILE, PHOTO.
    */
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
   /**
    * status: Message status. Values are defined as constants.
    * Current supported values are: WAITING, SENT, RECEIVED, READ
@@ -88,6 +93,12 @@ MessageTimeBox.propTypes = {
    * If this is not provided by default to show the time moment(props.date).fromNow() is used.
    */
   dateString: PropTypes.string,
+};
+
+MessageTimeBox.defaultProps = {
+  status: '',
+  date: null,
+  dateString: '',
 };
 
 export default MessageTimeBox;

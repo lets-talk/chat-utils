@@ -56,20 +56,24 @@ const StyledContainer = styled.div`
   }
 `;
 
-const SystemMessage = (props) =>
-  (
+const SystemMessage = (props) => {
+  const { message } = props;
+  return (
     <StyledContainer className={props.className}>
       <div>
         <div>
-          <span>{props.text}</span>
+          <span>{message.text}</span>
         </div>
       </div>
     </StyledContainer>
   );
+};
 
 SystemMessage.propTypes = {
   className: PropTypes.string,
-  text: PropTypes.string,
+  message: PropTypes.shape({
+    text: PropTypes.string,
+  }),
 };
 
 export default SystemMessage;

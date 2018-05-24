@@ -16,20 +16,18 @@ const StyledItemsList = styled.ul`
   line-height: ${(props) => props.theme.typography.classes.caption.lineHeight};
   font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
   box-shadow: ${(props) => props.theme.shadows['4p']};
-
-  li {
-    list-style: none;
-    padding: 15px;
-    color: ${(props) => textColor(props.theme, 'light', 'secondary')};
-
-    &:hover {
-      color: ${(props) => themeColor(props.theme, 'accent', 'base')};
-      background-color: ${(props) => rgba(themeColor(props.theme, 'accent', 'base'), 0.1)};
-    }
-  }
 `;
 
-const StyledListItem = styled.div``;
+const StyledListItem = styled.li`
+  list-style: none;
+  padding: 15px;
+  color: ${(props) => textColor(props.theme, 'light', 'secondary')};
+
+  &:hover {
+    color: ${(props) => themeColor(props.theme, 'accent', 'base')};
+    background-color: ${(props) => rgba(themeColor(props.theme, 'accent', 'base'), 0.1)};
+  }
+`;
 StyledListItem.displayName = 'StyledListItem';
 
 const StyledListDivider = styled.hr`
@@ -51,16 +49,13 @@ const ItemsMenu = (props) => {
       {items.map((item, index) =>
         (
           <StyledListItem
+            key={item.id}
             role="button"
             tabIndex={index}
             onClick={onItemClick && ((e) => onItemClick(item, index, e))}
             onKeyUp={onItemClick && ((e) => onItemClick(item, index, e))}
           >
-            <li
-              key={item.id}
-            >
-              {render(item)}
-            </li>
+            {render(item)}
             {withDivider && <StyledListDivider />}
           </StyledListItem>
         ))}

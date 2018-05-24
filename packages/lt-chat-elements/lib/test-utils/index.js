@@ -161,6 +161,7 @@ const renderWithTheme = (component) => renderer.create(<ThemeProvider theme={def
 const staticWithTheme = (component) => render(<ThemeProvider theme={defaultTheme}>{component}</ThemeProvider>);
 
 export {
+  defaultTheme,
   shallowWithTheme,
   mountWithTheme,
   staticWithTheme,

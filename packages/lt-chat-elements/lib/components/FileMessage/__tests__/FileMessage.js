@@ -38,7 +38,7 @@ describe('FileMessage component', () => {
 
     const component = shallow(<FileMessage onDownload={mockOnDownload} {...props} />);
 
-    component.find('.LT-FileMessage-Container button').simulate('click', fakeEventObject);
+    component.find('StyledFileDownloadButton').simulate('click', fakeEventObject);
     expect(mockOnDownload).toHaveBeenCalledTimes(1);
   });
 
@@ -58,7 +58,7 @@ describe('FileMessage component', () => {
     };
 
     const component = shallow(<FileMessage onOpen={mockOnOpen} {...customProps} />);
-    component.find('.LT-FileMessage-Container button').simulate('click', fakeEventObject);
+    component.find('StyledFileDownloadButton').simulate('click', fakeEventObject);
     expect(mockOnOpen).toHaveBeenCalledTimes(1);
   });
 });

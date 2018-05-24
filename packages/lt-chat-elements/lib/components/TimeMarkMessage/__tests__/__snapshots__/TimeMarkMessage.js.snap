@@ -1,31 +1,153 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TimeMarkMessage component should render with data 1`] = `
+exports[`TimeMarkMessage component Styled: Should Render expected Styles 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c0 div {
+  position: relative;
+  background-color: rgba(94,124,139,0.1);
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: 5px 0px;
+  padding: 6px 9px 8px 9px;
+  float: left;
+  max-width: 70%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c0 div > span {
+  text-align: center;
+  display: inline-block;
+  color: rgba(0,0,0,0.54);
+  font-size: $font-size-caption;
+  font-weight: $font-weight-semi-bold;
+}
+
 <div
-  className="letstalk-container-timemark LT-TimeMarkMessage-Container"
+  className="LT-TimeMarkMessage-Container c0"
 >
-  <div
-    className="letstalk-timemark"
-  >
-    <div
-      className="letstalk-timemark-text"
-    >
-      28/11/2017
-    </div>
+  <div>
+    <span>
+      
+    </span>
   </div>
 </div>
 `;
 
-exports[`TimeMarkMessage component should render without data 1`] = `
-<div
-  className="letstalk-container-timemark LT-TimeMarkMessage-Container"
+exports[`TimeMarkMessage component should mount with data and proper styles 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c0 div {
+  position: relative;
+  background-color: rgba(94,124,139,0.1);
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: 5px 0px;
+  padding: 6px 9px 8px 9px;
+  float: left;
+  max-width: 70%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c0 div > span {
+  text-align: center;
+  display: inline-block;
+  color: rgba(0,0,0,0.54);
+  font-size: $font-size-caption;
+  font-weight: $font-weight-semi-bold;
+}
+
+<TimeMarkMessage
+  className="LT-TimeMarkMessage-Container"
+  message={
+    Object {
+      "text": "",
+    }
+  }
+  text="28/11/2017"
 >
-  <div
-    className="letstalk-timemark"
+  <styled.div
+    className="LT-TimeMarkMessage-Container"
   >
     <div
-      className="letstalk-timemark-text"
-    />
+      className="LT-TimeMarkMessage-Container c0"
+    >
+      <div>
+        <span />
+      </div>
+    </div>
+  </styled.div>
+</TimeMarkMessage>
+`;
+
+exports[`TimeMarkMessage component should render with data 1`] = `
+<styled.div
+  className="LT-TimeMarkMessage-Container"
+>
+  <div>
+    <span />
   </div>
-</div>
+</styled.div>
+`;
+
+exports[`TimeMarkMessage component should render without data 1`] = `
+<styled.div
+  className="LT-TimeMarkMessage-Container"
+>
+  <div>
+    <span />
+  </div>
+</styled.div>
 `;

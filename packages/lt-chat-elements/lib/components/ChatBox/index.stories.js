@@ -344,6 +344,10 @@ stories.addWithInfo(
           person={object('Agent', agent)}
           messages={object('Messages', fileMessages)}
           onActionMessageClick={action('onActionMessageClick')}
+          onOpen={action('onOpen')}
+          onDownload={action('onDownload')}
+          onTitleClick={action('onTitleClick')}
+          onForwardClick={action('onForwardClick')}
         />
       </WrapWithTheme>
     </div>
