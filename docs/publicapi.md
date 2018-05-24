@@ -75,7 +75,7 @@ Una vez que el chat está instalado y activo en la web se le puede enviar metada
 
 ## window.$LT.isAvailable()
 
-**Atención este método no es recomendable y sera <span style="color:red">absoleto proximamente<span>.** Para chequear si el widget esta disponible se recomienda
+**Atención este método no es recomendable y será <span style="color:red">obsoleto proximamente<span>.** Para chequear si el widget esta disponible se recomienda
 el usa del evento *[api.events.availabe](apievents#apieventsavailable)*.
 
 *Ejemplo:*
