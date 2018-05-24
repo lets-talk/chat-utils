@@ -10,30 +10,6 @@ const ChatCard = (props) => {
     title, body, showRenderProp, render,
   } = props;
 
-  const StyledCardTitle = styled.div`
-    color: ${(innerProps) => textColor(innerProps.theme)};
-    font-size: ${(innerProps) => innerProps.theme.typography.classes.caption.fontSize};
-    font-weight: ${(innerProps) => innerProps.theme.typography.weights.fontWeightBold};
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 1.2;
-    padding-top: 2px;
-    ${ellipsis('100%')}
-  `;
-
-  const StyledCardBody = styled.div`
-    margin: 5px 0 0;
-    font-size: 14px;
-    overflow: hidden;
-    line-height: 22px;
-    color: #6e7a89;
-    -webkit-animation: intercom-notification-body-animation .5s ease;
-    animation: intercom-notification-body-animation .5s ease;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  `;
-
   const StyledCardContainer = styled.div`
     max-width: ${props.width}px;
     max-height: ${props.height}px;
@@ -48,6 +24,33 @@ const ChatCard = (props) => {
     height: 100%;
     position: relative;
   `;
+  StyledCardContainer.displayName = 'StyledCardContainer';
+
+  const StyledCardBody = styled.div`
+    margin: 5px 0 0;
+    font-size: 14px;
+    overflow: hidden;
+    line-height: 22px;
+    color: #6e7a89;
+    -webkit-animation: intercom-notification-body-animation .5s ease;
+    animation: intercom-notification-body-animation .5s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  `;
+  StyledCardBody.displayName = 'StyledCardBody';
+
+  const StyledCardTitle = styled.div`
+    color: ${(innerProps) => textColor(innerProps.theme)};
+    font-size: ${(innerProps) => innerProps.theme.typography.classes.caption.fontSize};
+    font-weight: ${(innerProps) => innerProps.theme.typography.weights.fontWeightBold};
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.2;
+    padding-top: 2px;
+    ${ellipsis('100%')}
+  `;
+  StyledCardTitle.displayName = 'StyledCardTitle';
 
   return (
     <StyledCardContainer>

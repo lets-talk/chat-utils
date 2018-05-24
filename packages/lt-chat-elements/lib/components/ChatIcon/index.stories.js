@@ -1,7 +1,7 @@
 import React from 'react';
 // Storybook stuff
 import { storiesOf } from '@storybook/react';
-import { withKnobs, text, boolean, number, select } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean, number, select, object } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
 import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
@@ -12,6 +12,10 @@ import { ChatIcon } from '../../../lib';
 const stories = storiesOf('ChatIcon', module);
 stories.addDecorator(withKnobs);
 stories.addDecorator(withTests('ChatIcon'));
+
+const defaultChatIconPic = {
+  imageUrl: '',
+};
 
 stories.addWithInfo(
   'ChatIcon',
@@ -32,6 +36,7 @@ stories.addWithInfo(
           disabled={boolean('Disabled', false)}
           animationStatus={false}
           newMessages={number('New Messages', 22)}
+          chat_icon_pic={object('Chat_Icon_Pic', defaultChatIconPic)}
         />
       </WrapWithTheme>
     </div>

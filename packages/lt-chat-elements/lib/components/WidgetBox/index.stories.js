@@ -2,11 +2,11 @@ import React from 'react';
 // Storybook stuff
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, text, boolean, object, select } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean, object, number, select } from '@storybook/addon-knobs';
 
 import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
 // Component to show on storybook
-import { WidgetBox, MessageList, Header } from '../../../lib';
+import { WidgetBox, MessageList } from '../../../lib';
 
 const stories = storiesOf('WidgetBox', module);
 stories.addDecorator(withKnobs);
@@ -30,20 +30,23 @@ stories.addWithInfo(
       <WrapWithTheme
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
-        <WidgetBox
-          title={text('Title', 'Ayuda en linea')}
-          subtitle={text('Subtitle', '')}
-          toggleChat={action('toggleChat')}
-          openMenu={action('openMenu')}
-          showMenuButton={boolean('Show Menu Button', true)}
-          showMinimizeButton={boolean('Show Minimize Button', true)}
-          person={object('Person', agent)}
-          header={(props) => <Header {...props} />}
-        >
-          <MessageList
-            messages={[]}
-            onActionMessageClick={action('onActionMessageClick')}
+        <WidgetBox>
+          <WidgetBox.Header
+            title={text('Title', 'Ayuda en linea')}
+            subtitle={text('Subtitle', '')}
+            toggleChat={action('toggleChat')}
+            openMenu={action('openMenu')}
+            showMenuButton={boolean('Show Menu Button', true)}
+            showMinimizeButton={boolean('Show Minimize Button', true)}
+            height={number('Height', 50)}
+            person={object('Person', agent)}
           />
+          <WidgetBox.Body>
+            <MessageList
+              messages={[]}
+              onActionMessageClick={action('onActionMessageClick')}
+            />
+          </WidgetBox.Body>
         </WidgetBox>
       </WrapWithTheme>
     </div>

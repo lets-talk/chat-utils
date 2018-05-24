@@ -1,43 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FileMessage component should render with data props 1`] = `
-<styled.div
+<StyledFileMessageContainer
   className="LT-FileMessage-Container"
 >
-  <button
-    onClick={[Function]}
-  >
-    <styled.div>
-      <FaFile
-        color="#aaa"
-      />
-      <div>
-        2Mb
-      </div>
-    </styled.div>
-    <styled.div />
-    <styled.div>
-      <div />
-    </styled.div>
-  </button>
-</styled.div>
+  <StyledFileMessageBody>
+    <StyledFileIcon>
+      <FaFile />
+    </StyledFileIcon>
+    <StyledFileName />
+    <StyledFileDownloadButton
+      onClick={[Function]}
+    >
+      <FaCloudDownload />
+    </StyledFileDownloadButton>
+    <div />
+  </StyledFileMessageBody>
+</StyledFileMessageContainer>
 `;
 
 exports[`FileMessage component should render without issues 1`] = `
-<styled.div
+<StyledFileMessageContainer
   className="LT-FileMessage-Container"
 >
-  <button
-    onClick={[Function]}
-  >
-    <styled.div>
-      <FaFile
-        color="#aaa"
-      />
-      <div />
-    </styled.div>
-    <styled.div />
-    <styled.div />
-  </button>
-</styled.div>
+  <StyledFileMessageBody>
+    <StyledFileIcon>
+      <FaFile />
+    </StyledFileIcon>
+    <StyledFileName />
+    <StyledFileDownloadButton
+      onClick={[Function]}
+    />
+  </StyledFileMessageBody>
+</StyledFileMessageContainer>
 `;

@@ -14,6 +14,7 @@ const StyledTeamContainer = styled.div`
   position: relative;
   float: left;
 `;
+StyledTeamContainer.displayName = 'StyledTeamContainer';
 
 const AvatarGroup = (props) => {
   const {
@@ -25,6 +26,7 @@ const AvatarGroup = (props) => {
     left: 0;
     margin-right: ${() => groupType === 'line' ? avatars.length * 10 : 0}px;
   `;
+  StyledAvatarGroupContainer.displayName = 'StyledAvatarGroupContainer';
 
   return (
     <StyledAvatarGroupContainer className={props.className}>

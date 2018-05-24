@@ -88,4 +88,20 @@ describe('AttachmentMenu component', () => {
     // The function is called with the item clicked, the index and the event (item, index, e)
     expect(onItemClick).toHaveBeenCalledWith(data.items[1], 1, fakeEventObject);
   });
+
+  it('should render ok with default icons', () => {
+    const defaultIconData = {
+      items: [
+        {
+          id: 1,
+          name: 'Imagen',
+          type: 'NOT_EXISTENT_TYPE',
+        },
+      ],
+    };
+    const component = shallow(<AttachmentMenu data={defaultIconData} />);
+
+    expect(component.length).toBe(1);
+    expect(toJson(component)).toMatchSnapshot();
+  });
 });

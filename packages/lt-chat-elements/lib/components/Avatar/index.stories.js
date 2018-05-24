@@ -52,7 +52,7 @@ stories.addWithInfo(
         status={select('Status', {
           online: 'online', offline: 'offline', sleeping: 'sleeping', live: 'live',
         }, 'online')}
-        color={color('Color', false)}
+        color={color('Color', '#000000')}
       >
         {text('Child Component (One letter Only)', 'A')}
       </Avatar>

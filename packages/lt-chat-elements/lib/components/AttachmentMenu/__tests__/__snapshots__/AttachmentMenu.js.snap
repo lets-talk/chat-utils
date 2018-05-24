@@ -273,6 +273,139 @@ exports[`AttachmentMenu component should have the correct styles (Those that dep
 </ul>
 `;
 
+exports[`AttachmentMenu component should render ok with default icons 1`] = `
+<styled.ul
+  className="LT-AttachmentMenu-Wrapper"
+>
+  <li
+    key="1"
+  >
+    <div
+      role="button"
+      tabIndex={0}
+    >
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
+        theme={
+          Object {
+            "breakpoints": Array [
+              "40em",
+              "52em",
+              "64em",
+            ],
+            "fontSizes": Array [
+              12,
+              14,
+              16,
+              20,
+              24,
+              32,
+              48,
+              64,
+              96,
+              128,
+            ],
+            "space": Array [
+              0,
+              4,
+              8,
+              16,
+              32,
+              64,
+              128,
+              256,
+              512,
+            ],
+          }
+        }
+      >
+        <Box
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+        >
+          <MdAttachFile
+            size={20}
+          />
+        </Box>
+        <Box
+          ml="auto"
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+          width={1}
+        >
+          <span>
+            Imagen
+          </span>
+        </Box>
+      </Flex>
+    </div>
+  </li>
+</styled.ul>
+`;
+
 exports[`AttachmentMenu component should render with data 1`] = `
 <styled.ul
   className="LT-AttachmentMenu-Wrapper"

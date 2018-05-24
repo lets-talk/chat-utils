@@ -1,30 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import StyledTimeMarkContainer from './styles';
 
-import './index.scss';
-
-const classNames = require('classnames');
-
-const TimeMarkMessage = (props) =>
-  (
-    <div className={classNames('letstalk-container-timemark', props.className)}>
-      <div
-        className="letstalk-timemark"
-      >
-        <div className="letstalk-timemark-text">
-          {props.text}
-        </div>
+const TimeMarkMessage = (props) => {
+  const { message } = props;
+  return (
+    <StyledTimeMarkContainer className={props.className}>
+      <div>
+        <span>
+          {message.text}
+        </span>
       </div>
-    </div>
+    </StyledTimeMarkContainer>
   );
+};
 
 TimeMarkMessage.propTypes = {
   className: PropTypes.string,
-  text: PropTypes.string,
+  message: PropTypes.shape({
+    text: PropTypes.string,
+  }),
 };
 
 TimeMarkMessage.defaultProps = {
-  text: '',
+  message: { text: '' },
   className: 'LT-TimeMarkMessage-Container',
 };
 

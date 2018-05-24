@@ -1,11 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Avatar component should render with data 1`] = `
-<styled.div
+exports[`Avatar component should render with data and children case (Component children) 1`] = `
+<StyledAvatarContainer
+  className="LT-Avatar-Container"
+  size="medium"
+>
+  <StyledChildrenContainer
+    color="#FEFEFE"
+    size="medium"
+    type="circle"
+  >
+    <SimpleComponent />
+    <StyledAvatarStatus
+      size="medium"
+      status="online"
+    >
+       
+    </StyledAvatarStatus>
+  </StyledChildrenContainer>
+</StyledAvatarContainer>
+`;
+
+exports[`Avatar component should render with data and children case (String children) 1`] = `
+<StyledAvatarContainer
+  className="LT-Avatar-Container"
+  size="xsmall"
+>
+  <StyledChildrenContainer
+    color="#FEFEFE"
+    size="xsmall"
+    type="circle"
+  >
+    S
+    <StyledAvatarStatus
+      size="xsmall"
+      status="live"
+    >
+       
+    </StyledAvatarStatus>
+  </StyledChildrenContainer>
+</StyledAvatarContainer>
+`;
+
+exports[`Avatar component should render with data and circle case 1`] = `
+<StyledAvatarContainer
   className="LT-Avatar-Container"
   size="small"
 >
-  <styled.div>
+  <StyledImageContainer>
     <styled.img
       alt="An avatar image"
       size="small"
@@ -14,19 +56,19 @@ exports[`Avatar component should render with data 1`] = `
       srcSet={null}
       type="circle"
     />
-    <styled.div />
-    <styled.div
+    <ImageInnerDiv />
+    <StyledAvatarStatus
       size="small"
       status="online"
     >
        
-    </styled.div>
-  </styled.div>
-</styled.div>
+    </StyledAvatarStatus>
+  </StyledImageContainer>
+</StyledAvatarContainer>
 `;
 
 exports[`Avatar component should render without data 1`] = `
-<styled.div
+<StyledAvatarContainer
   className="LT-Avatar-Container"
   size="medium"
 />

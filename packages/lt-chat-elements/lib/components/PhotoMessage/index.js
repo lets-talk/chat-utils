@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import FaCloudDownload from 'react-icons/lib/fa/cloud-download';
 
-
 const StyledPhotoContainer = styled.div`
   margin-top: -3px;
   margin-right: -6px;

@@ -1,10 +1,100 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SystemMessage component Styled: Should Render expected Styles 1`] = `
+.c0 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c0 div {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: 5px 0px;
+  padding: 6px 9px 8px 9px;
+  float: left;
+  max-width: 70%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c0 div div {
+  text-align: center;
+  line-height: 1;
+  display: inline-block;
+  color: rgba(0,0,0,0.38);
+  font-size: calc(12 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 500;
+}
+
+.c0 div div span {
+  display: inline-block;
+  position: relative;
+}
+
+.c0 div div span:before,
+.c0 div div span:after {
+  content: "";
+  position: absolute;
+  height: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.38);
+  top: 0;
+  width: 100%;
+}
+
+.c0 div div span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+
+.c0 div div span:after {
+  left: 100%;
+  margin-left: 15px;
+}
+
+<div
+  className="c0"
+>
+  <div>
+    <div>
+      <span>
+        Someone jointed the conversation
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`SystemMessage component should render without issues 1`] = `
 <styled.div>
   <div>
     <div>
-      <span />
+      <span>
+        Someone jointed the conversation
+      </span>
     </div>
   </div>
 </styled.div>

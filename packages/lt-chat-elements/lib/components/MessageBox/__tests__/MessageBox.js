@@ -14,21 +14,6 @@ describe('MessageBox component', () => {
     type: 'Client',
   };
 
-  const message = {
-    type: messagesTypes.TEXT,
-    text: 'Buenas Tardes',
-    person,
-    position: 'left',
-  };
-
-
-  it('should render without issues', () => {
-    const component = shallow(<MessageBox status="read" message={message} />);
-
-    expect(component.length).toBe(1);
-    expect(toJson(component)).toMatchSnapshot();
-  });
-
   it('should render a System message', () => {
     const props = {
       message: {
@@ -41,6 +26,8 @@ describe('MessageBox component', () => {
 
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
+    // Expect to render a <SystemMessage>
+    expect(component.find('SystemMessage').length).toBe(1);
   });
 
   it('should render a Time message', () => {
@@ -56,5 +43,7 @@ describe('MessageBox component', () => {
 
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
+    // Expect to render a <TimeMarkMessage>
+    expect(component.find('TimeMarkMessage').length).toBe(1);
   });
 });

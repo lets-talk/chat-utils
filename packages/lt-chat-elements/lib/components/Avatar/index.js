@@ -30,11 +30,13 @@ const StyledAvatarContainer = styled.div`
   margin: 0 auto;
   overflow: hidden;
 `;
+StyledAvatarContainer.displayName = 'StyledAvatarContainer';
 
 const StyledImageContainer = styled.div`
   ${(props) => avatarStyle('container', props.size)}
   position: relative;
 `;
+StyledImageContainer.displayName = 'StyledImageContainer';
 
 const StyledImage = styled.img`
   width: 100%;
@@ -48,7 +50,7 @@ const StyledImage = styled.img`
   vertical-align: middle;
 `;
 
-const StyledText = styled.div`
+const StyledChildrenContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,6 +73,7 @@ const StyledText = styled.div`
     || (props.type === 'circle' && '50%')
     || '0'};
 `;
+StyledChildrenContainer.displayName = 'StyledChildrenContainer';
 
 const ImageInnerDiv = styled.div`
   position: absolute;
@@ -79,8 +82,9 @@ const ImageInnerDiv = styled.div`
   width: 100%;
   height: 100%;
 `;
+ImageInnerDiv.displayName = 'ImageInnerDiv';
 
-const AvatarStatus = styled.div`
+const StyledAvatarStatus = styled.div`
   position: absolute;
   right: 0px;
   border-radius: 100%;
@@ -100,7 +104,7 @@ const AvatarStatus = styled.div`
     return props.theme.palette.common.sleeping;
   }}
 `;
-
+StyledAvatarStatus.displayName = 'StyledAvatarStatus';
 
 const Avatar = (props) => {
   const {
@@ -112,24 +116,21 @@ const Avatar = (props) => {
   let children = null;
 
   if (childrenProp) {
-    if (
-      typeof childrenProp !== 'string' &&
-      React.isValidElement(childrenProp)
-    ) {
+    if (typeof childrenProp !== 'string' && React.isValidElement(childrenProp)) {
       children = React.cloneElement(childrenProp);
     } else {
       children = childrenProp;
     }
 
     children = (
-      <StyledText
+      <StyledChildrenContainer
         color={props.color}
         type={props.type}
         size={props.size}
       >
         {children}
-        {props.withStatus && <AvatarStatus size={props.size} status={props.status}>&nbsp;</AvatarStatus>}
-      </StyledText>
+        {props.withStatus && <StyledAvatarStatus size={props.size} status={props.status}>&nbsp;</StyledAvatarStatus>}
+      </StyledChildrenContainer>
     );
   } else if (src || srcSet) {
     children = (
@@ -143,7 +144,7 @@ const Avatar = (props) => {
           type={props.type}
         />
         <ImageInnerDiv ></ImageInnerDiv>
-        {props.withStatus && <AvatarStatus size={props.size} status={props.status}>&nbsp;</AvatarStatus>}
+        {props.withStatus && <StyledAvatarStatus size={props.size} status={props.status}>&nbsp;</StyledAvatarStatus>}
       </StyledImageContainer>
     );
   }

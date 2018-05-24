@@ -35,6 +35,7 @@ const StyledMessageForwardBox = styled.div`
         left: -50px
       `};
 `;
+StyledMessageForwardBox.displayName = 'StyledMessageForwardBox';
 
 const MessageForwardBox = (props) => {
   const { message } = props;

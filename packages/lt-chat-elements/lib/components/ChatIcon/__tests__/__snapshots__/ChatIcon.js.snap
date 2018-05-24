@@ -10,7 +10,7 @@ exports[`ChatIcon component should render with custom props 1`] = `
   <div
     className="letstalk-ChatIconContainer"
   >
-    <styled.button
+    <StyledButton
       height={50}
       margin="0px 10px 0px 0px"
       type="circle"
@@ -21,7 +21,7 @@ exports[`ChatIcon component should render with custom props 1`] = `
         color="white"
         size={20}
       />
-    </styled.button>
+    </StyledButton>
   </div>
 </div>
 `;
@@ -36,7 +36,7 @@ exports[`ChatIcon component should render with no props 1`] = `
   <div
     className="letstalk-ChatIconContainer"
   >
-    <styled.button
+    <StyledButton
       height={50}
       margin=""
       type="rounded"
@@ -47,7 +47,7 @@ exports[`ChatIcon component should render with no props 1`] = `
         color="white"
         size={20}
       />
-    </styled.button>
+    </StyledButton>
   </div>
 </div>
 `;

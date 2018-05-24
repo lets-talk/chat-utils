@@ -6,7 +6,25 @@ exports[`MessageBox component should render a System message 1`] = `
   onClick={null}
   onKeyPress={null}
 >
-  <SystemMessage />
+  <SystemMessage
+    className=""
+    message={
+      Object {
+        "person": Object {
+          "avatar": "https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg",
+          "email": "",
+          "type": "Client",
+        },
+        "status": "read",
+        "type": "System",
+      }
+    }
+    onMessageClick={null}
+    person={null}
+    position="left"
+    text=""
+    type="text"
+  />
 </styled.div>
 `;
 
@@ -31,35 +49,6 @@ exports[`MessageBox component should render a Time message 1`] = `
     />
   </styled.div>
   <TimeMarkMessage
-    className="LT-TimeMarkMessage-Container"
-    text=""
-  />
-</styled.div>
-`;
-
-exports[`MessageBox component should render without issues 1`] = `
-<styled.div
-  className=""
-  onClick={null}
-  onKeyPress={null}
->
-  <styled.div
-    position="left"
-  >
-    <Avatar
-      alt=""
-      className="LT-Avatar-Container"
-      color={null}
-      size="xsmall"
-      sizes={null}
-      src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
-      srcSet={null}
-      status=""
-      type="circle"
-      withStatus={false}
-    />
-  </styled.div>
-  <NormalMessageBox
     className=""
     message={
       Object {
@@ -68,21 +57,13 @@ exports[`MessageBox component should render without issues 1`] = `
           "email": "",
           "type": "Client",
         },
-        "position": "left",
-        "text": "Buenas Tardes",
-        "type": "Text",
+        "status": "read",
+        "type": "Time",
       }
     }
-    onActionMessageClick={null}
-    onClick={null}
-    onDownload={null}
-    onForwardClick={null}
     onMessageClick={null}
-    onOpen={null}
-    onTitleClick={null}
     person={null}
     position="left"
-    status="read"
     text=""
     type="text"
   />

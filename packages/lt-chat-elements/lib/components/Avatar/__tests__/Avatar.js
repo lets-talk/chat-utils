@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import { shallowWithTheme, mountWithTheme } from '../../../test-utils';
 import Avatar from '../index';
 
 describe('Avatar component', () => {
@@ -11,7 +12,7 @@ describe('Avatar component', () => {
     expect(toJson(component)).toMatchSnapshot();
   });
 
-  it('should render with data', () => {
+  it('should render with data and circle case', () => {
     const props = {
       type: 'circle',
       size: 'small',
@@ -25,5 +26,91 @@ describe('Avatar component', () => {
 
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
+  });
+
+  it('should render with data and children case (String children)', () => {
+    const props = {
+      type: 'circle',
+      size: 'xsmall',
+      withStatus: true,
+      status: 'live',
+      src: 'http://i46.tinypic.com/sexbb8.png',
+      alt: 'An avatar image',
+      color: '#FEFEFE',
+    };
+
+    const component = shallowWithTheme(<Avatar {...props}>S</Avatar>);
+    expect(toJson(component)).toMatchSnapshot();
+
+    expect(component.length).toBe(1);
+    expect(component.find('StyledChildrenContainer').childAt(0).text()).toBe('S');
+    expect(component.find('StyledAvatarStatus').props().size).toBe('xsmall');
+    expect(component.find('StyledAvatarStatus').props().status).toBe('live');
+  });
+
+  it('should render with data and children case (Component children)', () => {
+    const props = {
+      type: 'circle',
+      size: 'medium',
+      withStatus: true,
+      status: 'online',
+      src: 'http://i46.tinypic.com/sexbb8.png',
+      alt: 'An avatar image',
+      color: '#FEFEFE',
+    };
+
+    const SimpleComponent = () => <h1>Simple component</h1>;
+
+    const component = shallowWithTheme(<Avatar {...props}><SimpleComponent /></Avatar>);
+    expect(toJson(component)).toMatchSnapshot();
+
+    expect(component.length).toBe(1);
+    expect(component.find('StyledChildrenContainer').find('SimpleComponent').length).toBe(1);
+    expect(component.find('StyledAvatarStatus').props().size).toBe('medium');
+    expect(component.find('StyledAvatarStatus').props().status).toBe('online');
+  });
+
+  it('Should render proper status and size', () => {
+    let component;
+    let newProps;
+
+    const props = {
+      type: 'circle',
+      size: 'xsmall',
+      withStatus: true,
+      status: 'live',
+      src: 'http://i46.tinypic.com/sexbb8.png',
+      alt: 'An avatar image',
+      color: '#FEFEFE',
+    };
+
+    component = mountWithTheme(<Avatar {...props}></Avatar>);
+
+    expect(component.length).toBe(1);
+    expect(component.find('StyledAvatarStatus').props().size).toBe('xsmall');
+    expect(component.find('StyledAvatarStatus').props().status).toBe('live');
+
+    newProps = { ...props, status: 'offline', size: 'small' };
+    component = mountWithTheme(<Avatar {...newProps}></Avatar>);
+
+    expect(component.length).toBe(1);
+    expect(component.find('StyledAvatarStatus').props().size).toBe('small');
+    expect(component.find('StyledAvatarStatus').props().status).toBe('offline');
+
+    newProps = { ...props, status: 'online', size: 'medium' };
+    component = mountWithTheme(<Avatar {...newProps}></Avatar>);
+
+    expect(component.length).toBe(1);
+    expect(component.find('StyledAvatarStatus').props().size).toBe('medium');
+    expect(component.find('StyledAvatarStatus').props().status).toBe('online');
+
+    newProps = {
+      ...props, status: 'sleeping', size: 'large', type: 'rounded',
+    };
+    component = mountWithTheme(<Avatar {...newProps}></Avatar>);
+
+    expect(component.length).toBe(1);
+    expect(component.find('StyledAvatarStatus').props().size).toBe('large');
+    expect(component.find('StyledAvatarStatus').props().status).toBe('sleeping');
   });
 });

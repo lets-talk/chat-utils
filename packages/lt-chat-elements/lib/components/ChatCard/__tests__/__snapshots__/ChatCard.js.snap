@@ -1,0 +1,980 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatCard component Styled: should have the correct styles (Those that depends on the theme) 1`] = `
+.c4 {
+  box-sizing: border-box;
+  width: 100%;
+  margin-left: auto;
+  padding: 8px;
+}
+
+.c1 {
+  box-sizing: border-box;
+  padding-left: 8px;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c3 {
+  box-sizing: border-box;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0 {
+  max-width: 150px;
+  max-height: 50px;
+  padding: 15px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: rgb(255,255,255);
+  border-radius: 6px;
+  box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12),0 5px 5px -3px rgba(0,0,0,0.2);
+  font-size: calc(12 * 1px);
+  line-height: calc(16 * 1px);
+  height: 100%;
+  position: relative;
+}
+
+.c5 {
+  margin: 5px 0 0;
+  font-size: 14px;
+  overflow: hidden;
+  line-height: 22px;
+  color: #6e7a89;
+  -webkit-animation: intercom-notification-body-animation .5s ease;
+  -webkit-animation: intercom-notification-body-animation .5s ease;
+  animation: intercom-notification-body-animation .5s ease;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.c2 {
+  color: rgba(0,0,0,0.87);
+  font-size: calc(12 * 1px);
+  font-weight: 700;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.2;
+  padding-top: 2px;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2"
+    >
+      Example Card
+    </div>
+  </div>
+  <div
+    className="c3"
+  >
+    <div
+      className="c4"
+    >
+      <div
+        className="c5"
+      >
+        This is an example card content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ChatCard component should render with custom props 1`] = `
+<StyledCardContainer>
+  <Flex
+    alignItems="center"
+    flex="1 1 auto"
+    pl={2}
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <h1>
+      Render child
+    </h1>
+    <StyledCardTitle>
+      Example Card
+    </StyledCardTitle>
+  </Flex>
+  <Flex
+    flex="1 1 auto"
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Box
+      ml="auto"
+      p={2}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width={1}
+    >
+      <StyledCardBody>
+        This is an example card content
+      </StyledCardBody>
+    </Box>
+  </Flex>
+</StyledCardContainer>
+`;
+
+exports[`ChatCard component should render with custom props 2`] = `
+.c4 {
+  box-sizing: border-box;
+  width: 100%;
+  margin-left: auto;
+  padding: 8px;
+}
+
+.c1 {
+  box-sizing: border-box;
+  padding-left: 8px;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c3 {
+  box-sizing: border-box;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0 {
+  max-width: 150px;
+  max-height: 50px;
+  padding: 15px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: rgb(255,255,255);
+  border-radius: 6px;
+  box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12),0 5px 5px -3px rgba(0,0,0,0.2);
+  font-size: calc(12 * 1px);
+  line-height: calc(16 * 1px);
+  height: 100%;
+  position: relative;
+}
+
+.c5 {
+  margin: 5px 0 0;
+  font-size: 14px;
+  overflow: hidden;
+  line-height: 22px;
+  color: #6e7a89;
+  -webkit-animation: intercom-notification-body-animation .5s ease;
+  -webkit-animation: intercom-notification-body-animation .5s ease;
+  animation: intercom-notification-body-animation .5s ease;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.c2 {
+  color: rgba(0,0,0,0.87);
+  font-size: calc(12 * 1px);
+  font-weight: 700;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.2;
+  padding-top: 2px;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<ChatCard
+  body="This is an example card content"
+  height={50}
+  showRenderProp={false}
+  title="Example Card"
+  width={150}
+>
+  <StyledCardContainer>
+    <div
+      className="c0"
+    >
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
+        pl={2}
+        theme={
+          Object {
+            "breakpoints": Array [
+              "40em",
+              "52em",
+              "64em",
+            ],
+            "fontSizes": Array [
+              12,
+              14,
+              16,
+              20,
+              24,
+              32,
+              48,
+              64,
+              96,
+              128,
+            ],
+            "space": Array [
+              0,
+              4,
+              8,
+              16,
+              32,
+              64,
+              128,
+              256,
+              512,
+            ],
+          }
+        }
+      >
+        <Clean.div
+          alignItems="center"
+          blacklist={
+            Array [
+              "m",
+              "mt",
+              "mr",
+              "mb",
+              "ml",
+              "mx",
+              "my",
+              "p",
+              "pt",
+              "pr",
+              "pb",
+              "pl",
+              "px",
+              "py",
+              "width",
+              "w",
+              "fontSize",
+              "f",
+              "color",
+              "bg",
+              "fontFamily",
+              "font",
+              "textAlign",
+              "align",
+              "lineHeight",
+              "fontWeight",
+              "letterSpacing",
+              "display",
+              "maxWidth",
+              "minWidth",
+              "height",
+              "maxHeight",
+              "minHeight",
+              "size",
+              "ratio",
+              "alignItems",
+              "alignContent",
+              "justifyContent",
+              "justify",
+              "flexWrap",
+              "wrap",
+              "flexBasis",
+              "flexDirection",
+              "flex",
+              "justifySelf",
+              "alignSelf",
+              "order",
+              "gridGap",
+              "gridColumnGap",
+              "gridRowGap",
+              "gridColumn",
+              "gridRow",
+              "gridAutoFlow",
+              "gridAutoColumns",
+              "gridAutoRows",
+              "gridTemplateColumns",
+              "gridTemplateRows",
+              "border",
+              "borderTop",
+              "borderRight",
+              "borderBottom",
+              "borderLeft",
+              "borderColor",
+              "borderRadius",
+              "boxShadow",
+              "background",
+              "backgroundImage",
+              "bgImage",
+              "backgroundSize",
+              "bgSize",
+              "backgroundPosition",
+              "bgPosition",
+              "backgroundRepeat",
+              "bgRepeat",
+              "position",
+              "zIndex",
+              "top",
+              "right",
+              "bottom",
+              "left",
+              "hover",
+              "focus",
+              "active",
+              "disabledStyle",
+              "textStyle",
+              "colors",
+              "buttonStyle",
+              "borderWidth",
+            ]
+          }
+          className="c1"
+          flex="1 1 auto"
+          is="div"
+          pl={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+        >
+          <div
+            className="c1"
+          >
+            <StyledCardTitle>
+              <div
+                className="c2"
+              >
+                Example Card
+              </div>
+            </StyledCardTitle>
+          </div>
+        </Clean.div>
+      </Flex>
+      <Flex
+        flex="1 1 auto"
+        theme={
+          Object {
+            "breakpoints": Array [
+              "40em",
+              "52em",
+              "64em",
+            ],
+            "fontSizes": Array [
+              12,
+              14,
+              16,
+              20,
+              24,
+              32,
+              48,
+              64,
+              96,
+              128,
+            ],
+            "space": Array [
+              0,
+              4,
+              8,
+              16,
+              32,
+              64,
+              128,
+              256,
+              512,
+            ],
+          }
+        }
+      >
+        <Clean.div
+          blacklist={
+            Array [
+              "m",
+              "mt",
+              "mr",
+              "mb",
+              "ml",
+              "mx",
+              "my",
+              "p",
+              "pt",
+              "pr",
+              "pb",
+              "pl",
+              "px",
+              "py",
+              "width",
+              "w",
+              "fontSize",
+              "f",
+              "color",
+              "bg",
+              "fontFamily",
+              "font",
+              "textAlign",
+              "align",
+              "lineHeight",
+              "fontWeight",
+              "letterSpacing",
+              "display",
+              "maxWidth",
+              "minWidth",
+              "height",
+              "maxHeight",
+              "minHeight",
+              "size",
+              "ratio",
+              "alignItems",
+              "alignContent",
+              "justifyContent",
+              "justify",
+              "flexWrap",
+              "wrap",
+              "flexBasis",
+              "flexDirection",
+              "flex",
+              "justifySelf",
+              "alignSelf",
+              "order",
+              "gridGap",
+              "gridColumnGap",
+              "gridRowGap",
+              "gridColumn",
+              "gridRow",
+              "gridAutoFlow",
+              "gridAutoColumns",
+              "gridAutoRows",
+              "gridTemplateColumns",
+              "gridTemplateRows",
+              "border",
+              "borderTop",
+              "borderRight",
+              "borderBottom",
+              "borderLeft",
+              "borderColor",
+              "borderRadius",
+              "boxShadow",
+              "background",
+              "backgroundImage",
+              "bgImage",
+              "backgroundSize",
+              "bgSize",
+              "backgroundPosition",
+              "bgPosition",
+              "backgroundRepeat",
+              "bgRepeat",
+              "position",
+              "zIndex",
+              "top",
+              "right",
+              "bottom",
+              "left",
+              "hover",
+              "focus",
+              "active",
+              "disabledStyle",
+              "textStyle",
+              "colors",
+              "buttonStyle",
+              "borderWidth",
+            ]
+          }
+          className="c3"
+          flex="1 1 auto"
+          is="div"
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+        >
+          <div
+            className="c3"
+          >
+            <Box
+              ml="auto"
+              p={2}
+              theme={
+                Object {
+                  "breakpoints": Array [
+                    "40em",
+                    "52em",
+                    "64em",
+                  ],
+                  "fontSizes": Array [
+                    12,
+                    14,
+                    16,
+                    20,
+                    24,
+                    32,
+                    48,
+                    64,
+                    96,
+                    128,
+                  ],
+                  "space": Array [
+                    0,
+                    4,
+                    8,
+                    16,
+                    32,
+                    64,
+                    128,
+                    256,
+                    512,
+                  ],
+                }
+              }
+              width={1}
+            >
+              <Clean.div
+                blacklist={
+                  Array [
+                    "m",
+                    "mt",
+                    "mr",
+                    "mb",
+                    "ml",
+                    "mx",
+                    "my",
+                    "p",
+                    "pt",
+                    "pr",
+                    "pb",
+                    "pl",
+                    "px",
+                    "py",
+                    "width",
+                    "w",
+                    "fontSize",
+                    "f",
+                    "color",
+                    "bg",
+                    "fontFamily",
+                    "font",
+                    "textAlign",
+                    "align",
+                    "lineHeight",
+                    "fontWeight",
+                    "letterSpacing",
+                    "display",
+                    "maxWidth",
+                    "minWidth",
+                    "height",
+                    "maxHeight",
+                    "minHeight",
+                    "size",
+                    "ratio",
+                    "alignItems",
+                    "alignContent",
+                    "justifyContent",
+                    "justify",
+                    "flexWrap",
+                    "wrap",
+                    "flexBasis",
+                    "flexDirection",
+                    "flex",
+                    "justifySelf",
+                    "alignSelf",
+                    "order",
+                    "gridGap",
+                    "gridColumnGap",
+                    "gridRowGap",
+                    "gridColumn",
+                    "gridRow",
+                    "gridAutoFlow",
+                    "gridAutoColumns",
+                    "gridAutoRows",
+                    "gridTemplateColumns",
+                    "gridTemplateRows",
+                    "border",
+                    "borderTop",
+                    "borderRight",
+                    "borderBottom",
+                    "borderLeft",
+                    "borderColor",
+                    "borderRadius",
+                    "boxShadow",
+                    "background",
+                    "backgroundImage",
+                    "bgImage",
+                    "backgroundSize",
+                    "bgSize",
+                    "backgroundPosition",
+                    "bgPosition",
+                    "backgroundRepeat",
+                    "bgRepeat",
+                    "position",
+                    "zIndex",
+                    "top",
+                    "right",
+                    "bottom",
+                    "left",
+                    "hover",
+                    "focus",
+                    "active",
+                    "disabledStyle",
+                    "textStyle",
+                    "colors",
+                    "buttonStyle",
+                    "borderWidth",
+                  ]
+                }
+                className="c4"
+                is="div"
+                ml="auto"
+                p={2}
+                theme={
+                  Object {
+                    "breakpoints": Array [
+                      "40em",
+                      "52em",
+                      "64em",
+                    ],
+                    "fontSizes": Array [
+                      12,
+                      14,
+                      16,
+                      20,
+                      24,
+                      32,
+                      48,
+                      64,
+                      96,
+                      128,
+                    ],
+                    "space": Array [
+                      0,
+                      4,
+                      8,
+                      16,
+                      32,
+                      64,
+                      128,
+                      256,
+                      512,
+                    ],
+                  }
+                }
+                width={1}
+              >
+                <div
+                  className="c4"
+                >
+                  <StyledCardBody>
+                    <div
+                      className="c5"
+                    >
+                      This is an example card content
+                    </div>
+                  </StyledCardBody>
+                </div>
+              </Clean.div>
+            </Box>
+          </div>
+        </Clean.div>
+      </Flex>
+    </div>
+  </StyledCardContainer>
+</ChatCard>
+`;
+
+exports[`ChatCard component should render with no props 1`] = `
+<StyledCardContainer>
+  <Flex
+    alignItems="center"
+    flex="1 1 auto"
+    pl={2}
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <StyledCardTitle />
+  </Flex>
+  <Flex
+    flex="1 1 auto"
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Box
+      ml="auto"
+      p={2}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width={1}
+    >
+      <StyledCardBody />
+    </Box>
+  </Flex>
+</StyledCardContainer>
+`;
