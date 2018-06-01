@@ -29,9 +29,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "packages/lt-widget/package.json" }}
+          - app-{{ .Environment.CACHE_VERSION }}-dependencies-{{ checksum "packages/lt-widget/package.json" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          - app-{{ .Environment.CACHE_VERSION }}-dependencies-
 
       # Install project dependencies
       - run: cd packages/lt-widget && npm install
@@ -39,7 +39,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "packages/lt-widget/package.json" }}
+          key: app-{{ .Environment.CACHE_VERSION }}-dependencies-{{ checksum "packages/lt-widget/package.json" }}
 
       # Check for updates!
       - run:
@@ -83,6 +83,7 @@ jobs:
           command: cd packages/lt-widget && npm run build:deploy
 
 
+# Workflows: one for build and other for deploy (only on master branch)
 workflows:
   version: 2
   build-and-deploy:
