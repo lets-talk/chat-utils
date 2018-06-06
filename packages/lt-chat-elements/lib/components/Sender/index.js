@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { rgba } from 'polished';
@@ -82,28 +82,51 @@ const StyledActionButton = styled.button`
     }
 `;
 
-const Sender = ({ sendMessage, placeholder, disabledInput }) =>
-  (
-    <StyledSenderContainer>
-      <div>
-        <textarea
-          type="text"
-          name="message"
-          placeholder={placeholder}
-          disabled={disabledInput}
-          autoComplete="off"
-        />
-        <StyledSenderButtonsContainer>
-          <StyledActionButton>
-            <MdAttachment size={20} />
-          </StyledActionButton>
-          <StyledActionButton onClick={sendMessage}>
-            <MdSend size={20} />
-          </StyledActionButton>
-        </StyledSenderButtonsContainer>
-      </div>
-    </StyledSenderContainer>
-  );
+
+class Sender extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { input: '' };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSend = this.handleSend.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({ input: e.target.value });
+  }
+
+  handleSend() {
+    const { sendMessage } = this.props;
+    sendMessage(this.state.input);
+  }
+
+  render() {
+    const { placeholder, disabledInput } = this.props;
+    return (
+      <StyledSenderContainer>
+        <div>
+          <textarea
+            type="text"
+            name="message"
+            value={this.state.input}
+            placeholder={placeholder}
+            disabled={disabledInput}
+            autoComplete="off"
+            onChange={this.handleChange}
+          />
+          <StyledSenderButtonsContainer>
+            <StyledActionButton>
+              <MdAttachment size={20} />
+            </StyledActionButton>
+            <StyledActionButton onClick={this.handleSend}>
+              <MdSend size={20} />
+            </StyledActionButton>
+          </StyledSenderButtonsContainer>
+        </div>
+      </StyledSenderContainer>
+    );
+  }
+}
 
 Sender.propTypes = {
   sendMessage: PropTypes.func,
