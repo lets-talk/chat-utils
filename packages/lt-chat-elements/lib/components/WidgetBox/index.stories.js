@@ -6,7 +6,7 @@ import { withKnobs, text, boolean, object, number, select } from '@storybook/add
 
 import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
 // Component to show on storybook
-import { WidgetBox, MessageList } from '../../../lib';
+import { WidgetBox, Header, MessageList } from '../../../lib';
 
 const stories = storiesOf('WidgetBox', module);
 stories.addDecorator(withKnobs);
@@ -31,16 +31,18 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <WidgetBox>
-          <WidgetBox.Header
-            title={text('Title', 'Ayuda en linea')}
-            subtitle={text('Subtitle', '')}
-            toggleChat={action('toggleChat')}
-            openMenu={action('openMenu')}
-            showMenuButton={boolean('Show Menu Button', true)}
-            showMinimizeButton={boolean('Show Minimize Button', true)}
-            height={number('Height', 50)}
-            person={object('Person', agent)}
-          />
+          <WidgetBox.Header>
+            <Header
+              title={text('Title', 'Ayuda en linea')}
+              subtitle={text('Subtitle', '')}
+              toggleChat={action('toggleChat')}
+              openMenu={action('openMenu')}
+              showMenuButton={boolean('Show Menu Button', true)}
+              showMinimizeButton={boolean('Show Minimize Button', true)}
+              height={number('Height', 50)}
+              person={object('Person', agent)}
+            />
+          </WidgetBox.Header>
           <WidgetBox.Body>
             <MessageList
               messages={[]}

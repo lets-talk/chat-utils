@@ -2,10 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
-import { Flex, Box } from 'grid-styled';
-import MdMenu from 'react-icons/lib/md/menu';
-import MdKeyboardArrowDown from 'react-icons/lib/md/keyboard-arrow-down';
-import Avatar from '../Avatar';
 import { headerMenuButton, themeColor, textColor } from '../../utils/style';
 
 const StyledHeaderContainer = styled.div`
@@ -39,103 +35,23 @@ const StyledHeaderContainer = styled.div`
 `;
 StyledHeaderContainer.displayName = 'StyledHeaderContainer';
 
-const StyledAvatarContainer = styled.div`
-  margin-bottom: 10px;
-`;
-
-const Header = ({
-  className, title, subtitle, person, toggleChat, openMenu, showMinimizeButton, showMenuButton, leftButtons, rightButtons, height,
-}) => {
-  const { avatar = false, status = '' } = person;
+const Header = (props) => {
+  const { children, className, height } = props;
   return (
-    <StyledHeaderContainer className={className} height={height} >
-      <Flex alignItems="center">
-        {showMenuButton &&
-          <Box flex="0 0 auto" mb="auto" width="40px">
-            <button onClick={openMenu}>
-              <MdMenu size={20} />
-            </button>
-          </Box>
-        }
-        {leftButtons.map((btn) => (
-          <Box flex="0 0 auto" mb="auto" width="40px">
-            <button onClick={btn.onClick}>
-              {btn.icon}
-            </button>
-          </Box>
-        ))}
-
-        <Box flex="1 1 auto">
-          {avatar &&
-            <StyledAvatarContainer>
-              <Avatar
-                src={avatar}
-                size="medium"
-                withStatus={status.length > 0}
-                status={status}
-              />
-            </StyledAvatarContainer>
-          }
-          {title && <h4>{title}</h4>}
-          {subtitle && <span>{subtitle}</span>}
-        </Box>
-
-        {rightButtons.map((btn) => (
-          <Box flex="0 0 auto" mb="auto" width="40px">
-            <button onClick={btn.onClick}>
-              {btn.icon}
-            </button>
-          </Box>
-        ))}
-
-        {showMinimizeButton &&
-          <Box flex="0 0 auto" mb="auto" width="40px">
-            <button onClick={toggleChat}>
-              <MdKeyboardArrowDown size={20} />
-            </button>
-          </Box>
-        }
-      </Flex>
+    <StyledHeaderContainer className={className} height={height}>
+      {children}
     </StyledHeaderContainer>
   );
 };
 
 Header.propTypes = {
+  children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
-  person: PropTypes.shape({
-    avatar: PropTypes.string,
-    status: PropTypes.string,
-    email: PropTypes.string,
-    type: PropTypes.string,
-  }),
-  toggleChat: PropTypes.func,
-  openMenu: PropTypes.func,
-  showMinimizeButton: PropTypes.bool,
-  showMenuButton: PropTypes.bool,
-  leftButtons: PropTypes.arrayOf(PropTypes.shape({
-    onClick: PropTypes.func,
-    icon: PropTypes.node,
-  })),
-  rightButtons: PropTypes.arrayOf(PropTypes.shape({
-    onClick: PropTypes.func,
-    icon: PropTypes.node,
-  })),
   height: PropTypes.number,
 };
 
 Header.defaultProps = {
   className: 'LT-Header-Container',
-  title: '',
-  subtitle: '',
-  person: {},
-  toggleChat: null,
-  openMenu: null,
-  showMinimizeButton: true,
-  showMenuButton: true,
-  leftButtons: [],
-  rightButtons: [],
   height: 50,
 };
 
