@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { rgba } from 'polished';
 
 import { textColor, themeColor } from '../../utils/style';
@@ -27,17 +27,16 @@ const StyledListItem = styled.li`
     color: ${(props) => themeColor(props.theme, 'accent', 'base')};
     background-color: ${(props) => rgba(themeColor(props.theme, 'accent', 'base'), 0.1)};
   }
+
+  ${(props) =>
+    props.withDivider &&
+      css`
+        &:not(:first-child) {
+          border-top: 1px solid #e0e0e0;
+        }
+      `};
 `;
 StyledListItem.displayName = 'StyledListItem';
-
-const StyledListDivider = styled.hr`
-  margin: 0;
-  margin-top: -1px;
-  margin-left: 0;
-  height: 1px;
-  border: none;
-  background-color: #e0e0e0;
-`;
 
 const ItemsMenu = (props) => {
   const {
@@ -52,11 +51,11 @@ const ItemsMenu = (props) => {
             key={item.id}
             role="button"
             tabIndex={index}
+            withDivider={withDivider}
             onClick={onItemClick && ((e) => onItemClick(item, index, e))}
             onKeyUp={onItemClick && ((e) => onItemClick(item, index, e))}
           >
             {render(item)}
-            {withDivider && <StyledListDivider />}
           </StyledListItem>
         ))}
     </StyledItemsList>
