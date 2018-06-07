@@ -5,7 +5,6 @@ exports[`ConversationListBox component should render with custom props 1`] = `
   className="LT-ConversationListBox-Container"
 >
   <Header
-    className="LT-Header-Container"
     leftButtons={Array []}
     openMenu={null}
     person={Object {}}
@@ -55,7 +54,6 @@ exports[`ConversationListBox component should render with minimal props 1`] = `
   className="LT-ConversationListBox-Container"
 >
   <Header
-    className="LT-Header-Container"
     leftButtons={Array []}
     openMenu={null}
     person={Object {}}

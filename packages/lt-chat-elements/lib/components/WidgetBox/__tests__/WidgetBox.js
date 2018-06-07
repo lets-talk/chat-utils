@@ -13,29 +13,11 @@ describe('WidgetBox component', () => {
   });
 
   it('should render with custom props', () => {
-    const props = {
-      title: 'Emergencia Bancaria',
-      subtitle: 'Enque te podemos ayudar',
-      toggleChat: jest.fn(),
-      openMenu: jest.fn(),
-      showMenuButton: true,
-      showMinimizeButton: true,
-      height: 50,
-      person: {},
-    };
-
     /* eslint-disable react/jsx-closing-tag-location */
     const component = shallow(<WidgetBox>
-      <WidgetBox.Header
-        title={props.title}
-        subtitle={props.subtitle}
-        toggleChat={props.toggleChat}
-        openMenu={props.openMenu}
-        showMenuButton={props.showMenuButton}
-        showMinimizeButton={props.showMinimizeButton}
-        height={props.height}
-        person={props.person}
-      />
+      <WidgetBox.Header>
+        <div>Header Child</div>
+      </WidgetBox.Header>
       <WidgetBox.Body><span>Child WidgetBox Body</span></WidgetBox.Body>
     </WidgetBox>);
     /* eslint-disable react/jsx-closing-tag-location */
@@ -49,28 +31,10 @@ describe('WidgetBox component', () => {
   });
 
   it('should mount the component. The component must include Header, Body and Footer', () => {
-    const props = {
-      title: 'Emergencia Bancaria',
-      subtitle: 'Enque te podemos ayudar',
-      toggleChat: jest.fn(),
-      openMenu: jest.fn(),
-      showMenuButton: true,
-      showMinimizeButton: true,
-      height: 50,
-      person: {},
-    };
-
     const component = mountWithTheme(<WidgetBox>
-      <WidgetBox.Header
-        title={props.title}
-        subtitle={props.subtitle}
-        toggleChat={props.toggleChat}
-        openMenu={props.openMenu}
-        showMenuButton={props.showMenuButton}
-        showMinimizeButton={props.showMinimizeButton}
-        height={props.height}
-        person={props.person}
-      />
+      <WidgetBox.Header>
+        <div>Header Child</div>
+      </WidgetBox.Header>
       <WidgetBox.Body>
         <span>Child WidgetBox Body</span>
       </WidgetBox.Body>
