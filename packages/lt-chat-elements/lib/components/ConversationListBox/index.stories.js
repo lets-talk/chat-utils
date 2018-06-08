@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean, select, object } from '@storybook/addon-knobs';
 
-import { WrapWithTheme } from '../../utils/stories';
+import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
 import withTests from '../../test-utils/storiesWithTest';
 // Component to show on storybook
 import { ConversationListBox } from '../../../lib';
@@ -92,10 +92,10 @@ const conversationList = [
     },
     tags: [
       {
-        name: 'SPU-PYME',
+        name: 'SPU-UY',
       },
       {
-        name: 'SPU-CLAVE',
+        name: 'SPU-CH',
       },
     ],
   },
@@ -112,17 +112,24 @@ const conversationList = [
   },
 ];
 
+const person = {
+  avatar: '',
+  email: '',
+  type: 'Agent',
+  status: 'online',
+};
+
 stories.addWithInfo(
   'Simple Conversation List',
   'This is the basic usage of a ConversationList with providing a label to show the text.',
   () => (
     <div
       style={{
-        position: 'fixed', bottom: 0, right: '10px', width: '400px',
+        position: 'fixed', bottom: 0, right: '10px', width: 'calc(100% - 20px)',
       }}
     >
       <WrapWithTheme
-        themeName={select('Theme', { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' }, 'default')}
+        themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <ConversationListBox
           title={text('title', 'Conversaciones')}
@@ -135,11 +142,10 @@ stories.addWithInfo(
           showMinimizeButton={boolean('showMinimizeButton', false)}
           showAddConversationButton={boolean('showAddConversationButton', true)}
           emptyStateText={text('emptyStateText', 'Sin conversaciones abiertas')}
-          avatar={text('avatar', '')}
-          avatarStatus={text('avatarStatus', '')}
           noMoreDataText={text('noMoreDataText', 'No hay mas conversaciones')}
           newConversationText={text('newConversationText', 'Nueva conversación')}
           conversations={object('conversations', conversationList)}
+          person={object('person', person)}
           toBottomHeight="100%"
         />
       </WrapWithTheme>

@@ -1,19 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import styled from 'styled-components';
 
 import Header from '../Header';
 import ConversationList from '../ConversationList/Loadable';
 import Button from '../Button';
-import './index.scss';
+
+const ConversationListBoxContainer = styled.div`
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: ${(props) => props.theme.shadows['2p']};
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  max-width: none;
+  padding-bottom: 10px;
+`;
 
 const ConversationListBox = (props) => {
   const {
     conversations,
     title,
     subtitle,
-    avatar,
-    avatarStatus,
+    person,
     className,
     toggleChat,
     newConversationHandler,
@@ -28,12 +36,11 @@ const ConversationListBox = (props) => {
   } = props;
 
   return (
-    <div className={classNames('conversation-listbox-container', className)}>
+    <ConversationListBoxContainer className={className}>
       <Header
         title={title}
         subtitle={subtitle}
-        avatar={avatar}
-        avatarStatus={avatarStatus}
+        person={person}
         toggleChat={toggleChat}
         openMenu={openMenu}
         showMinimizeButton={showMinimizeButton}
@@ -52,7 +59,7 @@ const ConversationListBox = (props) => {
           value={newConversationText}
         />
       }
-    </div>
+    </ConversationListBoxContainer>
   );
 };
 
@@ -70,13 +77,9 @@ ConversationListBox.propTypes = {
    */
   subtitle: PropTypes.string,
   /**
-   * avatar: Avatar image to display on the header of the component
+   * persona: Avatar image to display on the header of the component
    */
-  avatar: PropTypes.string,
-  /**
-   * avatar: Avatar status to display bewlow the avatar. If empty none is displayed
-   */
-  avatarStatus: PropTypes.string,
+  person: PropTypes.object,
   /**
    * toggleChat: Callback function called when user clicks on the toggle button
    */
@@ -129,7 +132,7 @@ ConversationListBox.propTypes = {
 ConversationListBox.defaultProps = {
   title: '',
   subtitle: '',
-  avatar: '',
+  person: {},
   toggleChat: null,
   openMenu: null,
   clickConversationHandler: null,
@@ -140,7 +143,7 @@ ConversationListBox.defaultProps = {
   noMoreDataText: '',
   newConversationText: '',
   emptyStateText: '',
-  className: '',
+  className: 'LT-ConversationListBox-Container',
 };
 
 export default ConversationListBox;

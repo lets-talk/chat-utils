@@ -1,0 +1,873 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatNotification component Should not render an AvatarGroup 1`] = `
+<StyledNotificationContainer>
+  <Flex
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Box
+      p={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width={1}
+    >
+      <StyledDismissButton
+        onClick={null}
+      >
+        <div>
+          Close
+        </div>
+        <span>
+          <MdClose
+            size={15}
+          />
+        </span>
+      </StyledDismissButton>
+    </Box>
+  </Flex>
+  <Flex
+    onClick={null}
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Box
+      m={2}
+      p={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+    />
+    <Box
+      pt={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width={1}
+    >
+      <StyledNotificationBody>
+        <StyledChatSnippet>
+          <ChatCard
+            body="If you want more pricing information you can talk with an Agent"
+            height={100}
+            render={[Function]}
+            showRenderProp={false}
+            title="Do you want to see more info"
+            width={350}
+          />
+        </StyledChatSnippet>
+      </StyledNotificationBody>
+    </Box>
+  </Flex>
+</StyledNotificationContainer>
+`;
+
+exports[`ChatNotification component Should render an AvatarGroup with Avatars 1`] = `
+<StyledNotificationContainer>
+  <Flex
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Box
+      p={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width={1}
+    >
+      <StyledDismissButton
+        onClick={null}
+      >
+        <div>
+          Cerrar
+        </div>
+        <span>
+          <MdClose
+            size={15}
+          />
+        </span>
+      </StyledDismissButton>
+    </Box>
+  </Flex>
+  <Flex
+    onClick={null}
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Box
+      m={2}
+      p={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+    >
+      <AvatarGroup
+        avatars={
+          Array [
+            Object {
+              "avatar": "https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg",
+              "email": "",
+              "status": "online",
+              "type": "Agent",
+            },
+            Object {
+              "avatar": "https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg",
+              "email": "",
+              "status": "online",
+              "type": "Agent",
+            },
+            Object {
+              "avatar": "https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg",
+              "email": "",
+              "status": "online",
+              "type": "Agent",
+            },
+          ]
+        }
+        className="LT-AvatarGroup-Container"
+        groupType="circle"
+        size="xsmall"
+        type="circle"
+        withStatus={false}
+        xDistance={12}
+        yDistance={12}
+      />
+    </Box>
+    <Box
+      pt={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width={1}
+    >
+      <StyledNotificationBody>
+        <StyledChatSnippet>
+          <ChatCard
+            body="If you want more pricing information you can talk with an Agent"
+            height={100}
+            render={[Function]}
+            showRenderProp={false}
+            title="Do you want to see more info"
+            width={350}
+          />
+        </StyledChatSnippet>
+      </StyledNotificationBody>
+    </Box>
+  </Flex>
+</StyledNotificationContainer>
+`;
+
+exports[`ChatNotification component should render with basic required Props 1`] = `
+<StyledNotificationContainer>
+  <Flex
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Box
+      p={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width={1}
+    >
+      <StyledDismissButton
+        onClick={null}
+      >
+        <div>
+          Cerrar
+        </div>
+        <span>
+          <MdClose
+            size={15}
+          />
+        </span>
+      </StyledDismissButton>
+    </Box>
+  </Flex>
+  <Flex
+    onClick={null}
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Box
+      m={2}
+      p={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+    />
+    <Box
+      pt={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width={1}
+    >
+      <StyledNotificationBody>
+        <StyledChatSnippet>
+          <ChatCard
+            body="If you want more pricing information you can talk with an Agent"
+            height={100}
+            render={[Function]}
+            showRenderProp={true}
+            title="Do you want to see more info"
+            width={350}
+          />
+        </StyledChatSnippet>
+      </StyledNotificationBody>
+    </Box>
+  </Flex>
+</StyledNotificationContainer>
+`;
+
+exports[`ChatNotification component should render with custom props 1`] = `
+<StyledNotificationContainer>
+  <Flex
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Box
+      p={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width={1}
+    >
+      <StyledDismissButton
+        onClick={null}
+      >
+        <div>
+          Cerrar
+        </div>
+        <span>
+          <MdClose
+            size={15}
+          />
+        </span>
+      </StyledDismissButton>
+    </Box>
+  </Flex>
+  <Flex
+    onClick={null}
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Box
+      m={2}
+      p={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+    />
+    <Box
+      pt={1}
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width={1}
+    >
+      <StyledNotificationBody>
+        <StyledChatSnippet>
+          <ChatCard
+            body="If you want more pricing information you can talk with an Agent"
+            height={100}
+            render={[Function]}
+            showRenderProp={true}
+            title="Do you want to see more info"
+            width={350}
+          />
+        </StyledChatSnippet>
+      </StyledNotificationBody>
+    </Box>
+  </Flex>
+</StyledNotificationContainer>
+`;

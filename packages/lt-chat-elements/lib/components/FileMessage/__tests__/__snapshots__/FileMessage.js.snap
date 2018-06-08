@@ -1,61 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FileMessage component should render with data props 1`] = `
-<div
-  className="letstalk-mbox-attachment letstalk-mbox-file"
+<StyledFileMessageContainer
+  className="LT-FileMessage-Container"
 >
-  <button
-    className="letstalk-mbox-file-download"
-    onClick={[Function]}
-  >
-    <div
-      className="letstalk-mbox-file--icon"
+  <StyledFileMessageBody>
+    <StyledFileIcon>
+      <FaFile />
+    </StyledFileIcon>
+    <StyledFileName />
+    <StyledFileDownloadButton
+      onClick={[Function]}
     >
-      <FaFile
-        color="#aaa"
-      />
-      <div
-        className="letstalk-mbox-file--size"
-      >
-        2Mb
-      </div>
-    </div>
-    <div
-      className="letstalk-mbox-file--text"
-    />
-    <div
-      className="letstalk-mbox-file--buttons"
-    >
-      <div />
-    </div>
-  </button>
-</div>
+      <FaCloudDownload />
+    </StyledFileDownloadButton>
+    <div />
+  </StyledFileMessageBody>
+</StyledFileMessageContainer>
 `;
 
 exports[`FileMessage component should render without issues 1`] = `
-<div
-  className="letstalk-mbox-attachment letstalk-mbox-file"
+<StyledFileMessageContainer
+  className="LT-FileMessage-Container"
 >
-  <button
-    className="letstalk-mbox-file-download"
-    onClick={[Function]}
-  >
-    <div
-      className="letstalk-mbox-file--icon"
-    >
-      <FaFile
-        color="#aaa"
-      />
-      <div
-        className="letstalk-mbox-file--size"
-      />
-    </div>
-    <div
-      className="letstalk-mbox-file--text"
+  <StyledFileMessageBody>
+    <StyledFileIcon>
+      <FaFile />
+    </StyledFileIcon>
+    <StyledFileName />
+    <StyledFileDownloadButton
+      onClick={[Function]}
     />
-    <div
-      className="letstalk-mbox-file--buttons"
-    />
-  </button>
-</div>
+  </StyledFileMessageBody>
+</StyledFileMessageContainer>
 `;

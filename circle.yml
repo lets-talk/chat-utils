@@ -33,8 +33,8 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - app-{{ .Environment.CACHE_VERSION }}-dependencies-
 
-      # Install project dependencies
-      - run: cd packages/lt-widget && npm install
+      # Install project dependencies (for every package)
+      - run: npm install
 
       - save_cache:
           paths:
@@ -42,21 +42,13 @@ jobs:
           key: app-{{ .Environment.CACHE_VERSION }}-dependencies-{{ checksum "packages/lt-widget/package.json" }}
 
       # Check for updates!
-      - run:
-          name: "Checking for npm packages not uptdated"
-          command: cd packages/lt-widget && npm run check-updates
+      # - run:
+      #     name: "Checking for npm packages not uptdated"
+      #     command: npm run check-updates
 
       # Run tests!
-      - run:
-          name: "Running tests"
-          environment:
-            JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
-          command: cd packages/lt-widget && npm run test:ci
-
-      # Save the generated file for use in the deploy job
-      - persist_to_workspace:
-          root: .
-          paths: packages/lt-widget
+      # Get packages names that changes and only execute on those that has git changes
+      - run: for dir in $(git log --name-only --oneline -1 | sed 1d | grep '/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd packages/$dir; npm run test:ci; cd..; done
 
       # Create temp directories
       - run: |
@@ -74,13 +66,9 @@ jobs:
     working_directory: ~/lt-tool-kit
 
     steps:
-      - attach_workspace:
-          at: ~/lt-tool-kit
-
-      # Upload to AmazonS3
-      - run:
-          name: "Uploading dist/widget.js to AmazonS3"
-          command: cd packages/lt-widget && npm run build:deploy
+      - run: 
+          name: "Executing build && deploy on each package that changed"
+          command: for dir in $(git log --name-only --oneline -1 | sed 1d | grep '/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd $dir; npm run build && npm run deploy; cd..; done
 
 
 # Workflows: one for build and other for deploy (only on master branch)

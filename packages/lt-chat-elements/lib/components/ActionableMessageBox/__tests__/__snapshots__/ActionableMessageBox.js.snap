@@ -1,95 +1,194 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ActionableMessageBox component should render with data 1`] = `
+exports[`ActionableMessageBox component should have the correct styles (Those that depends on the theme) 1`] = `
+.c0 {
+  display: block;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  border-radius: 5px;
+  background-color: rgb(255,255,255);
+  font-size: calc(12 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 500;
+}
+
+.c0 li {
+  list-style: none;
+  padding: 15px;
+  color: rgb(255,87,50);
+}
+
+.c0 li:hover {
+  background-color: rgba(255,87,50,0.1);
+}
+
+.c0 li:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.c0 li:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.c0 li:not(:last-child) {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
 <ul
-  className="letstalk-actionable-mbox"
+  className="LT-ActionableMessageBox-Container c0"
 >
-  <li
-    className="letstalk-actionable-item"
-    key="1"
-    onClick={null}
-    role="button"
-  >
-    <span>
+  <li>
+    <span
+      onClick={null}
+      onKeyUp={null}
+      role="button"
+      tabIndex={0}
+    >
       Emergencia Bancaria
     </span>
   </li>
-  <li
-    className="letstalk-actionable-item"
-    key="2"
-    onClick={null}
-    role="button"
-  >
-    <span>
+  <li>
+    <span
+      onClick={null}
+      onKeyUp={null}
+      role="button"
+      tabIndex={1}
+    >
       Tarjeta de crédito
     </span>
   </li>
-  <li
-    className="letstalk-actionable-item"
-    key="3"
-    onClick={null}
-    role="button"
-  >
-    <span>
+  <li>
+    <span
+      onClick={null}
+      onKeyUp={null}
+      role="button"
+      tabIndex={2}
+    >
       Crédito Personal
     </span>
   </li>
-  <li
-    className="letstalk-actionable-item"
-    key="4"
-    onClick={null}
-    role="button"
-  >
-    <span>
+  <li>
+    <span
+      onClick={null}
+      onKeyUp={null}
+      role="button"
+      tabIndex={3}
+    >
       Otro
     </span>
   </li>
 </ul>
 `;
 
-exports[`ActionableMessageBox component should render without data 1`] = `
-<ul
-  className="letstalk-actionable-mbox"
+exports[`ActionableMessageBox component should render with data 1`] = `
+<styled.ul
+  className="LT-ActionableMessageBox-Container"
 >
   <li
-    className="letstalk-actionable-item"
     key="1"
-    onClick={null}
-    role="button"
   >
-    <span>
+    <span
+      onClick={null}
+      onKeyUp={null}
+      role="button"
+      tabIndex={0}
+    >
       Emergencia Bancaria
     </span>
   </li>
   <li
-    className="letstalk-actionable-item"
     key="2"
-    onClick={null}
-    role="button"
   >
-    <span>
+    <span
+      onClick={null}
+      onKeyUp={null}
+      role="button"
+      tabIndex={1}
+    >
       Tarjeta de crédito
     </span>
   </li>
   <li
-    className="letstalk-actionable-item"
     key="3"
-    onClick={null}
-    role="button"
   >
-    <span>
+    <span
+      onClick={null}
+      onKeyUp={null}
+      role="button"
+      tabIndex={2}
+    >
       Crédito Personal
     </span>
   </li>
   <li
-    className="letstalk-actionable-item"
     key="4"
-    onClick={null}
-    role="button"
   >
-    <span>
+    <span
+      onClick={null}
+      onKeyUp={null}
+      role="button"
+      tabIndex={3}
+    >
       Otro
     </span>
   </li>
-</ul>
+</styled.ul>
+`;
+
+exports[`ActionableMessageBox component should render without data 1`] = `
+<styled.ul
+  className="LT-ActionableMessageBox-Container"
+>
+  <li
+    key="1"
+  >
+    <span
+      onClick={null}
+      onKeyUp={null}
+      role="button"
+      tabIndex={0}
+    >
+      Emergencia Bancaria
+    </span>
+  </li>
+  <li
+    key="2"
+  >
+    <span
+      onClick={null}
+      onKeyUp={null}
+      role="button"
+      tabIndex={1}
+    >
+      Tarjeta de crédito
+    </span>
+  </li>
+  <li
+    key="3"
+  >
+    <span
+      onClick={null}
+      onKeyUp={null}
+      role="button"
+      tabIndex={2}
+    >
+      Crédito Personal
+    </span>
+  </li>
+  <li
+    key="4"
+  >
+    <span
+      onClick={null}
+      onKeyUp={null}
+      role="button"
+      tabIndex={3}
+    >
+      Otro
+    </span>
+  </li>
+</styled.ul>
 `;

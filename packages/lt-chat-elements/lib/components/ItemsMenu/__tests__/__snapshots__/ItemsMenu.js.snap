@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemsMenu component should have the correct styles (Those that depends on the theme) 1`] = `
+.c0 {
+  display: block;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  border-radius: 5px;
+  background-color: rgb(255,255,255);
+  font-size: calc(12 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 500;
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12),0 2px 4px -1px rgba(0,0,0,0.2);
+}
+
+.c1 {
+  list-style: none;
+  padding: 15px;
+  color: rgba(0,0,0,0.54);
+}
+
+.c1:hover {
+  color: rgb(255,87,50);
+  background-color: rgba(255,87,50,0.1);
+}
+
+.c1:not(:first-child) {
+  border-top: 1px solid #e0e0e0;
+}
+
+<ul
+  className="c0"
+>
+  <li
+    className="c1"
+    onClick={undefined}
+    onKeyUp={undefined}
+    role="button"
+    tabIndex={0}
+  >
+    <div>
+      Parent 1
+    </div>
+  </li>
+  <li
+    className="c1"
+    onClick={undefined}
+    onKeyUp={undefined}
+    role="button"
+    tabIndex={1}
+  >
+    <div>
+      Parent 2
+    </div>
+  </li>
+  <li
+    className="c1"
+    onClick={undefined}
+    onKeyUp={undefined}
+    role="button"
+    tabIndex={2}
+  >
+    <div>
+      Child 1.1
+    </div>
+  </li>
+  <li
+    className="c1"
+    onClick={undefined}
+    onKeyUp={undefined}
+    role="button"
+    tabIndex={3}
+  >
+    <div>
+      Child 1.2
+    </div>
+  </li>
+  <li
+    className="c1"
+    onClick={undefined}
+    onKeyUp={undefined}
+    role="button"
+    tabIndex={4}
+  >
+    <div>
+      Child 1.2.1
+    </div>
+  </li>
+</ul>
+`;
+
+exports[`ItemsMenu component should render with data 1`] = `
+<styled.ul>
+  <StyledListItem
+    key="1"
+    role="button"
+    tabIndex={0}
+    withDivider={true}
+  >
+    <div>
+      Parent 1
+    </div>
+  </StyledListItem>
+  <StyledListItem
+    key="2"
+    role="button"
+    tabIndex={1}
+    withDivider={true}
+  >
+    <div>
+      Parent 2
+    </div>
+  </StyledListItem>
+  <StyledListItem
+    key="3"
+    role="button"
+    tabIndex={2}
+    withDivider={true}
+  >
+    <div>
+      Child 1.1
+    </div>
+  </StyledListItem>
+  <StyledListItem
+    key="4"
+    role="button"
+    tabIndex={3}
+    withDivider={true}
+  >
+    <div>
+      Child 1.2
+    </div>
+  </StyledListItem>
+  <StyledListItem
+    key="5"
+    role="button"
+    tabIndex={4}
+    withDivider={true}
+  >
+    <div>
+      Child 1.2.1
+    </div>
+  </StyledListItem>
+</styled.ul>
+`;
+
+exports[`ItemsMenu component should render with empty data 1`] = `<styled.ul />`;

@@ -1,67 +1,340 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header component should render with data 1`] = `
-<div
-  className="letstalk-header"
->
-  <button
-    className="letstalk-minimize-button"
-    onClick={[Function]}
+<div>
+  <Flex
+    alignItems="center"
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
   >
-    <MdKeyboardArrowDown
-      color="white"
-      size={20}
-    />
-  </button>
-  <button
-    className="letstalk-menu-button"
-    onClick={[Function]}
-  >
-    <MdMenu
-      color="white"
-      size={20}
-    />
-  </button>
-  <h4
-    className="letstalk-title"
-  >
-    Header Title
-  </h4>
-  <span
-    className="letstalk-subtitle"
-  >
-    Header subtitle
-  </span>
+    <Box
+      flex="0 0 auto"
+      mb="auto"
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width="40px"
+    >
+      <button
+        onClick={[Function]}
+      >
+        <MdMenu
+          size={20}
+        />
+      </button>
+    </Box>
+    <Box
+      flex="1 1 auto"
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+    >
+      <h4>
+        Header Title
+      </h4>
+      <span>
+        Header subtitle
+      </span>
+    </Box>
+    <Box
+      flex="0 0 auto"
+      mb="auto"
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width="40px"
+    >
+      <button
+        onClick={[Function]}
+      >
+        <MdKeyboardArrowDown
+          size={20}
+        />
+      </button>
+    </Box>
+  </Flex>
 </div>
 `;
 
 exports[`Header component should render with minimal props 1`] = `
-<div
-  className="letstalk-header"
->
-  <button
-    className="letstalk-minimize-button"
-    onClick={null}
+<div>
+  <Flex
+    alignItems="center"
+    theme={
+      Object {
+        "breakpoints": Array [
+          "40em",
+          "52em",
+          "64em",
+        ],
+        "fontSizes": Array [
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          48,
+          64,
+          96,
+          128,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
   >
-    <MdKeyboardArrowDown
-      color="white"
-      size={20}
+    <Box
+      flex="0 0 auto"
+      mb="auto"
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width="40px"
+    >
+      <button
+        onClick={null}
+      >
+        <MdMenu
+          size={20}
+        />
+      </button>
+    </Box>
+    <Box
+      flex="1 1 auto"
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
     />
-  </button>
-  <button
-    className="letstalk-menu-button"
-    onClick={null}
-  >
-    <MdMenu
-      color="white"
-      size={20}
-    />
-  </button>
-  <h4
-    className="letstalk-title"
-  />
-  <span
-    className="letstalk-subtitle"
-  />
+    <Box
+      flex="0 0 auto"
+      mb="auto"
+      theme={
+        Object {
+          "breakpoints": Array [
+            "40em",
+            "52em",
+            "64em",
+          ],
+          "fontSizes": Array [
+            12,
+            14,
+            16,
+            20,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+          ],
+          "space": Array [
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+          ],
+        }
+      }
+      width="40px"
+    >
+      <button
+        onClick={null}
+      >
+        <MdKeyboardArrowDown
+          size={20}
+        />
+      </button>
+    </Box>
+  </Flex>
 </div>
 `;

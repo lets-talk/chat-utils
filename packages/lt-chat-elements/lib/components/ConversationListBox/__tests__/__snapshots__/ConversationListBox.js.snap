@@ -1,13 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConversationListBox component should render with custom props 1`] = `
-<div
-  className="conversation-listbox-container"
+<styled.div
+  className="LT-ConversationListBox-Container"
 >
   <Header
-    avatar=""
-    avatarStatus=""
+    leftButtons={Array []}
     openMenu={null}
+    person={Object {}}
+    rightButtons={Array []}
     showMenuButton={false}
     showMinimizeButton={false}
     subtitle=""
@@ -39,21 +40,24 @@ exports[`ConversationListBox component should render with custom props 1`] = `
     noMoreDataText=""
   />
   <Button
+    className="LT-Button-Container"
     clickHandler={[Function]}
+    disabled={false}
     type="submit"
     value=""
   />
-</div>
+</styled.div>
 `;
 
 exports[`ConversationListBox component should render with minimal props 1`] = `
-<div
-  className="conversation-listbox-container"
+<styled.div
+  className="LT-ConversationListBox-Container"
 >
   <Header
-    avatar=""
-    avatarStatus=""
+    leftButtons={Array []}
     openMenu={null}
+    person={Object {}}
+    rightButtons={Array []}
     showMenuButton={false}
     showMinimizeButton={false}
     subtitle=""
@@ -85,9 +89,11 @@ exports[`ConversationListBox component should render with minimal props 1`] = `
     noMoreDataText=""
   />
   <Button
+    className="LT-Button-Container"
     clickHandler={[Function]}
+    disabled={false}
     type="submit"
     value=""
   />
-</div>
+</styled.div>
 `;

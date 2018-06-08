@@ -13,7 +13,10 @@ const Loading = ({ isLoading, pastDelay, error }) => {
 
 Loading.propTypes = {
   isLoading: PropTypes.bool,
-  pastDelay: PropTypes.number,
+  pastDelay: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.bool,
+  ]),
   error: PropTypes.object,
 };
 

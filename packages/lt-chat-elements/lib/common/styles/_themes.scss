@@ -1,0 +1,410 @@
+@import "colors";
+// Colors
+$color-accent: rgb(255, 87, 50);
+$color-primary: rgb(4, 38, 73);
+$color-foreground: rgb(94, 124, 139);
+$color-background: rgb(255, 255, 255);
+// FALTAN SEMANTICOS -> warning, danger y sucess
+
+// Fonts
+$fontUnit: 1px; // 1pt - 0.75px
+$unit: 8px;
+
+$preferred-font: 'Nimbus sans-serif', 'Sans', 'Helvetica', Arial;
+$font-size-default: calc(1 * #{$fontUnit});
+$font-size-small: calc(10 * #{$fontUnit});// 10pt
+$font-size-caption: calc(12 * #{$fontUnit}); // 12pt
+$font-size-footnote: calc(14 * #{$fontUnit}); // 14pt
+$font-size-body: calc(16 * #{$fontUnit}); // 16pt
+$font-size-subhead: calc(18 * #{$fontUnit}); // 18pt
+$font-size-title: calc(20 * #{$fontUnit}); // 20pt
+$font-size-headline: calc(24 * #{$fontUnit}); // 24pt
+$font-size-jumbo: calc(44 * #{$fontUnit}); // 44pt
+$font-size-mega: calc(56 * #{$fontUnit}); // 56pt
+
+$line-height-small: calc(12 * #{$fontUnit}); // 12pt
+$line-height-normal: calc(16 * #{$fontUnit}); // 16pt
+$line-height-big: calc(20 * #{$fontUnit}); // 20pt
+
+$font-weight-ultra-thin: 100;
+$font-weight-thin: 300;
+$font-weight-normal: 300;
+$font-weight-medium: 500;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+$font-weight-condensed-bold: 900;
+
+$shadow-2p: "0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)";
+$shadow-3p: "0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 1px 8px 0 rgba(0, 0, 0, 0.12)";
+$shadow-4p: "0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2)";
+$shadow-6p: "0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2)";
+$shadow-8p: "0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2)";
+$shadow-16p: "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)";
+
+$shadow-key-umbra-opacity: 0.2;
+$shadow-key-penumbra-opacity: 0.14;
+$shadow-ambient-shadow-opacity: 0.12;
+
+$zdepth-shadow-1: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+$zdepth-shadow-2: 0 3px 10px rgba(0, 0, 0, 0.16), 0 3px 10px rgba(0, 0, 0, 0.23);
+$zdepth-shadow-3: 0 10px 30px rgba(0, 0, 0, 0.19), 0 6px 10px rgba(0, 0, 0, 0.23);
+$zdepth-shadow-4: 0 14px 45px rgba(0, 0, 0, 0.25), 0 10px 18px rgba(0, 0, 0, 0.22);
+$zdepth-shadow-5: 0 19px 60px rgba(0, 0, 0, 0.3), 0 15px 20px rgba(0, 0, 0, 0.22);
+
+$animation-duration: 0.35s;
+$animation-delay: calc(#{$animation-duration} / 5);
+$animation-curve-fast-out-slow-in: cubic-bezier(0.4, 0, 0.2, 1);
+$animation-curve-linear-out-slow-in: cubic-bezier(0, 0, 0.2, 1);
+$animation-curve-fast-out-linear-in: cubic-bezier(0.4, 0, 1, 1);
+$animation-curve-default: $animation-curve-fast-out-slow-in;
+
+$z-index-highest: 300;
+$z-index-higher: 200;
+$z-index-high: 100;
+$z-index-normal: 1;
+$z-index-low: -100;
+$z-index-lower: -200;
+
+/// Map deep get
+/// @author Hugo Giraudel
+/// @access public
+/// @param {Map} $map - Map
+/// @param {Arglist} $keys - Key chain
+/// @return {*} - Desired value
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+      $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
+@function set-text-color($color, $backgroundColor) {
+  @if (lightness($backgroundColor) > 50) {
+    @return #000; // Lighter backgorund, return dark color
+  } @else {
+    @return #FFF; // Darker background, return light color
+  }
+}
+
+$typographiesClasses : (
+  body: (
+    fontSize: $font-size-body,
+    lineHeight: $line-height-normal
+  ),
+  caption: (
+    fontSize: $font-size-caption,
+    lineHeight: $line-height-normal
+  ),
+  footnote: (
+    fontSize: $font-size-footnote,
+    lineHeight: $line-height-normal
+  ),
+  small: (
+    fontSize: $font-size-small,
+    lineHeight: $line-height-normal
+  ),
+  headline: (
+    fontSize: $font-size-headline,
+    lineHeight: $line-height-normal
+  ),
+  subhead: (
+    fontSize: $font-size-subhead,
+    lineHeight: $line-height-normal
+  ),
+  title: (
+    fontSize: $font-size-title,
+    lineHeight: $line-height-normal
+  ),
+  jumbo: (
+    fontSize: $font-size-jumbo,
+    lineHeight: $line-height-normal
+  ),
+  mega: (
+    fontSize: $font-size-mega,
+    lineHeight: $line-height-normal
+  )
+);
+
+@function createTheme($colors, $contrast-colors) {
+  $theme: ();
+  $color-accent: map-deep-get($colors, 'accent', 'base');
+  $color-primary: map-deep-get($colors, 'primary', 'base');
+  $color-foreground: map-deep-get($colors, 'foreground', 'base');
+  $color-background: map-deep-get($colors, 'background', 'base');
+  
+  $theme: (
+    palette: (
+      common: (
+        black: $color-black,
+        white: $color-white,
+        online: $palette-green-600,
+        offline: $palette-red-600,
+        sleeping: $palette-yellow-600,
+      ),
+      colors: $colors,
+      contrastColors: $contrast-colors,
+      error: (
+        light: "#e57373",
+        main: "#f44336",
+        dark: "#d32f2f",
+        contrastText: "#fff",
+      ),
+      divider: rgba($color-primary, .1),
+      action: (
+        active: rgba($color-background, .9),
+        hover: rgba($color-background, .08),
+        selected: rgba($color-background, .14),
+        disabled: rgba($color-background, .26),
+        disabledBackground: rgba($color-background, .12),
+      ),
+    ),
+    shadows: (
+      2p: $shadow-2p,
+      3p: $shadow-3p,
+      4p: $shadow-4p,
+      6p: $shadow-6p,
+      8p: $shadow-8p,
+      16p: $shadow-16p,
+    ),
+    typography: (
+      fontFamily: $preferred-font,
+      fontSize: $font-size-default,
+      weights: (
+        fontWeightUltraThin: $font-weight-ultra-thin,
+        fontWeightThin: $font-weight-thin,
+        fontWeightNormal: $font-weight-normal,
+        fontWeightMedium: $font-weight-medium,
+        fontWeightSemibold: $font-weight-semi-bold,
+        fontWeightBold: $font-weight-bold,
+      ),
+      classes: $typographiesClasses,
+    ),
+    components: (
+      // COMPONENTS STYLES
+      conversationBox: (
+        externalBackgroundColor: rgba(94, 124, 139, .1),
+        internalBackgroundColor: rgba(255, 213, 0, .2),
+        importantBackgroundColor: #fff6f4,
+      ),
+      loader: (
+        background-color: #fc5830,
+      )
+    )
+  );
+
+  @return $theme;
+};
+
+$theme-colors: (
+  'primary': (
+    'base': $color-primary,
+    'light': lighten($color-primary, 50%),
+    'dark': darken($color-primary, 20%),
+  ),
+  'accent': (
+    'base': $color-accent,
+    'light': lighten($color-accent, 20%),
+    'dark': darken($color-accent, 20%),
+  ),
+  'foreground': (
+    'base': $color-foreground,
+    'light': lighten($color-foreground, 20%),
+    'dark': darken($color-foreground, 20%),
+  ),
+  'background': (
+    'base': $color-background,
+    'light': lighten($color-background, 20%),
+    'dark': darken($color-background, 20%),
+  ),
+);
+
+$contrast-colors: (
+  'dark': (
+    'primary': rgb(255, 255, 255),
+    'secondary': rgba(255, 255, 255, .70),
+    'disabled': rgba(255, 255, 255, .5),
+    'hint': rgba(255, 255, 255, .12)
+  ),
+  'light': (
+    'primary': rgb(4, 38, 73),
+    'secondary': rgba(4, 38, 73, .60),
+    'disabled': rgba(4, 38, 73, .30),
+    'hint': rgba(4, 38, 73, .60)
+  ),
+);
+
+@function generateContrastColors($color-foreground, $color-background) {
+  $map: (
+    dark: (
+      primary: $color-background,
+      secondary: rgba($color-background, .60),
+      disabled: rgba($color-background, .30),
+      hint: transparentize($color-background, .60)
+    ),
+    light: (
+      primary: $color-foreground,
+      secondary: rgba($color-foreground, .65),
+      disabled: rgba($color-foreground, .35),
+      hint: transparentize($color-foreground, .65)
+    )
+  );
+
+  @return $map;
+}
+
+@function contrast($background: 'light', $type: 'primary') {
+  $map: map-get($contrast-colors, $background);
+  @return map-get($map, $type);
+}
+
+@mixin contrast($background: 'light', $type: 'primary') {
+  color: contrast($background, $type)
+}
+
+@function generateLightVariants($colors, $factor) {
+  $color-accent: map-deep-get($colors, 'accent', 'base');
+  $color-primary: map-deep-get($colors, 'primary', 'base');
+  $color-foreground: map-deep-get($colors, 'foreground', 'base');
+  $color-background: map-deep-get($colors, 'background', 'base');
+
+  $new-color-accent: lighten($color-accent, $factor);
+  $new-color-primary: lighten($color-primary, $factor);
+  $new-color-foreground: lighten($color-foreground, $factor);
+  $new-color-background: lighten($color-background, $factor);
+
+  $newColors: (
+    'primary': (
+      'base': $new-color-primary,
+      'light': lighten($new-color-primary, 50%),
+      'dark': darken($new-color-primary, 20%),
+    ),
+    'accent': (
+      'base': $new-color-accent,
+      'light': lighten($new-color-accent, 50%),
+      'dark': darken($new-color-accent, 20%),
+    ),
+    'foreground': (
+      'base': $new-color-foreground,
+      'light': lighten($new-color-foreground, 20%),
+      'dark': darken($new-color-foreground, 20%),
+    ),
+    'background': (
+      'base': $new-color-background,
+      'light': lighten($new-color-background, 20%),
+      'dark': darken($new-color-background, 20%),
+    ),
+  );
+  @return $newColors;
+}
+
+@function generateDarkVariants($colors, $factor) {
+  $color-accent: map-deep-get($colors, 'accent', 'base');
+  $color-primary: map-deep-get($colors, 'primary', 'base');
+  $color-foreground: map-deep-get($colors, 'foreground', 'base');
+  $color-background: map-deep-get($colors, 'background', 'base');
+
+  $new-color-accent: darken($color-accent, $factor);
+  $new-color-primary: darken($color-primary, $factor);
+  $new-color-foreground: darken($color-foreground, $factor);
+  $new-color-background: darken($color-background, $factor);
+
+  $newColors: (
+    'primary': (
+      'base': $new-color-primary,
+      'light': lighten($new-color-primary, 50%),
+      'dark': darken($new-color-primary, 20%),
+    ),
+    'accent': (
+      'base': $new-color-accent,
+      'light': lighten($new-color-accent, 50%),
+      'dark': darken($new-color-accent, 20%),
+    ),
+    'foreground': (
+      'base': $new-color-foreground,
+      'light': lighten($new-color-foreground, 20%),
+      'dark': darken($new-color-foreground, 20%),
+    ),
+    'background': (
+      'base': $new-color-background,
+      'light': lighten($new-color-background, 20%),
+      'dark': darken($new-color-background, 20%),
+    ),
+  );
+  @return $newColors;
+}
+
+$themeDarkFactor: 10%;
+$themeDarkestFactor: 30%;
+$themeLightFactor: 5%;
+$themeLightestFactor: 15%;
+
+$defaultsDark: (
+  'primary': (
+    'base': #153359,
+    'light': lighten(#153359, 50%),
+    'dark': darken(#153359, 20%),
+  ),
+  'accent': (
+    'base': #7679C4,
+    'light': lighten(#7679C4, 20%),
+    'dark': darken(#7679C4, 20%),
+  ),
+  'foreground': (
+    'base': #63717A,
+    'light': lighten(#63717A, 20%),
+    'dark': darken(#63717A, 20%),
+  ),
+  'background': (
+    'base': #007cc6,
+    'light': lighten(#007cc6, 20%),
+    'dark': darken(#007cc6, 20%),
+  ),
+);
+
+$defaultsLight: (
+  'primary': (
+    'base': #153359,
+    'light': lighten(#153359, 50%),
+    'dark': darken(#153359, 20%),
+  ),
+  'accent': (
+    'base': #63717A,
+    'light': lighten(#63717A, 20%),
+    'dark': darken(#63717A, 20%),
+  ),
+  'foreground': (
+    'base': #7679C4,
+    'light': lighten(#7679C4, 20%),
+    'dark': darken(#7679C4, 20%),
+  ),
+  'background': (
+    'base': #009687,
+    'light': lighten(#009687, 20%),
+    'dark': darken(#009687, 20%),
+  ),
+);
+
+$lighterColors: generateLightVariants($theme-colors, $themeLightFactor);
+$lightestColors: generateLightVariants($theme-colors, $themeLightestFactor);
+$darkerColors: generateDarkVariants($theme-colors, $themeDarkFactor);
+$darkestColors: generateDarkVariants($theme-colors, $themeDarkestFactor);
+
+@debug $defaultsLight;
+@debug $lighterColors;
+@debug $lightestColors;
+@debug $defaultsDark;
+@debug $darkerColors;
+@debug $darkestColors;
+
+$themes: (
+  default: createTheme($theme-colors, $contrast-colors),
+  light: createTheme($theme-colors, generateContrastColors(map-deep-get($theme-colors, 'foreground', 'base'), map-deep-get($theme-colors, 'background', 'base'))),
+  lighter: createTheme($lighterColors, generateContrastColors(map-deep-get($lighterColors, 'foreground', 'base'), map-deep-get($lighterColors, 'background', 'base'))),
+  lightest: createTheme($lightestColors, generateContrastColors(map-deep-get($lightestColors, 'foreground', 'base'), map-deep-get($lightestColors, 'background', 'base'))),
+  dark: createTheme($theme-colors, generateContrastColors(map-deep-get($theme-colors, 'foreground', 'base'), map-deep-get($theme-colors, 'background', 'base'))),
+  darker: createTheme($darkerColors, generateContrastColors(map-deep-get($darkerColors, 'foreground', 'base'), map-deep-get($darkerColors, 'background', 'base'))),
+  darkest: createTheme($darkestColors, generateContrastColors(map-deep-get($darkestColors, 'foreground', 'base'), map-deep-get($darkestColors, 'background', 'base')))
+);
+
+
+// @debug $themes;
