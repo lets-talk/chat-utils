@@ -1,52 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Avatar component should render with data 1`] = `
-<div
-  className="letstalk-avatar-container circle small"
+exports[`Avatar component should render with data and children case (Component children) 1`] = `
+<StyledAvatarContainer
+  className="LT-Avatar-Container"
+  size="medium"
 >
-  <div
-    className="letstalk-avatar-inner"
+  <StyledChildrenContainer
+    color="#FEFEFE"
+    size="medium"
+    type="circle"
   >
-    <div
-      className="letstalk-avatar-image-container"
+    <SimpleComponent />
+    <StyledAvatarStatus
+      size="medium"
+      status="online"
     >
-      <img
-        alt="An avatar image"
-        className="letstalk-avatar-image"
-        src="http://i46.tinypic.com/sexbb8.png"
-      />
-      <div
-        className="letstalk-avatar-image-div"
-      />
-    </div>
-  </div>
-  <div
-    className="letstalk-avatar-status online"
+       
+    </StyledAvatarStatus>
+  </StyledChildrenContainer>
+</StyledAvatarContainer>
+`;
+
+exports[`Avatar component should render with data and children case (String children) 1`] = `
+<StyledAvatarContainer
+  className="LT-Avatar-Container"
+  size="xsmall"
+>
+  <StyledChildrenContainer
+    color="#FEFEFE"
+    size="xsmall"
+    type="circle"
   >
-     
-  </div>
-</div>
+    S
+    <StyledAvatarStatus
+      size="xsmall"
+      status="live"
+    >
+       
+    </StyledAvatarStatus>
+  </StyledChildrenContainer>
+</StyledAvatarContainer>
+`;
+
+exports[`Avatar component should render with data and circle case 1`] = `
+<StyledAvatarContainer
+  className="LT-Avatar-Container"
+  size="small"
+>
+  <StyledImageContainer>
+    <styled.img
+      alt="An avatar image"
+      size="small"
+      sizes={null}
+      src="http://i46.tinypic.com/sexbb8.png"
+      srcSet={null}
+      type="circle"
+    />
+    <ImageInnerDiv />
+    <StyledAvatarStatus
+      size="small"
+      status="online"
+    >
+       
+    </StyledAvatarStatus>
+  </StyledImageContainer>
+</StyledAvatarContainer>
 `;
 
 exports[`Avatar component should render without data 1`] = `
-<div
-  className="letstalk-avatar-container circle medium"
->
-  <div
-    className="letstalk-avatar-inner"
-  >
-    <div
-      className="letstalk-avatar-image-container"
-    >
-      <img
-        alt=""
-        className="letstalk-avatar-image"
-        src=""
-      />
-      <div
-        className="letstalk-avatar-image-div"
-      />
-    </div>
-  </div>
-</div>
+<StyledAvatarContainer
+  className="LT-Avatar-Container"
+  size="medium"
+/>
 `;

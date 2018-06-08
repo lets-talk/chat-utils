@@ -21,7 +21,7 @@ describe('PhotoMessage component', () => {
   });
 
   it('Test clickHandler event with Promise', () => {
-    const mockClickHandler = jest.fn(() => Promise.resolve({}));
+    const mockOnOpen = jest.fn(() => Promise.resolve({}));
     const fakeEventObject = { preventDefault() {}, stopPropagation() {} };
 
     const props = {
@@ -36,13 +36,13 @@ describe('PhotoMessage component', () => {
       },
     };
 
-    const button = shallow((<PhotoMessage onOpen={mockClickHandler} {...props} />));
-    button.find('.letstalk-mbox-photo--img').simulate('click', fakeEventObject);
-    expect(mockClickHandler.mock.calls.length).toEqual(1);
+    const shallowComponent = shallow((<PhotoMessage onOpen={mockOnOpen} {...props} />));
+    shallowComponent.find('ImageContainer').simulate('click', fakeEventObject);
+    expect(mockOnOpen).toHaveBeenCalled();
   });
 
   it('Test clickHandler event with Promise', () => {
-    const mockClickHandler = jest.fn(() => Promise.resolve({}));
+    const onDownloadMock = jest.fn(() => Promise.resolve({}));
     const fakeEventObject = { preventDefault() {}, stopPropagation() {} };
 
     const props = {
@@ -58,8 +58,8 @@ describe('PhotoMessage component', () => {
       },
     };
 
-    const button = shallow((<PhotoMessage onDownload={mockClickHandler} {...props} />));
-    button.find('.letstalk-mbox-photo--download').simulate('click', fakeEventObject);
-    expect(mockClickHandler.mock.calls.length).toEqual(1);
+    const shallowComponent = shallow((<PhotoMessage onDownload={onDownloadMock} {...props} />));
+    shallowComponent.find('DownloadButton').simulate('click', fakeEventObject);
+    expect(onDownloadMock).toHaveBeenCalled();
   });
 });

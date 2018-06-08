@@ -2,9 +2,9 @@ import React from 'react';
 // Storybook stuff
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, select } from '@storybook/addon-knobs';
+import { withKnobs, select, object } from '@storybook/addon-knobs';
 
-import { WrapWithTheme } from '../../utils/stories';
+import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
 import withTests from '../../test-utils/storiesWithTest';
 // Component to show on storybook
 import MessageBox from '.';
@@ -12,9 +12,6 @@ import MessageBox from '.';
 const stories = storiesOf('MessageBox', module);
 stories.addDecorator(withKnobs);
 stories.addDecorator(withTests('MessageBox', 'FileMessage', 'PhotoMessage', 'SystemMessage'));
-
-const themeOptions = { default: 'DefaultTheme', light: 'LightTheme', dark: 'DarkTheme' };
-const defaultTheme = 'default';
 
 const messages = [
   {
@@ -32,6 +29,7 @@ const messages = [
       avatar: '',
       email: '',
       type: 'Bot',
+      status: 'online',
     },
   },
   {
@@ -59,11 +57,12 @@ const messages = [
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
       email: '',
       type: 'Client',
+      status: 'sleeping',
     },
   },
   {
     position: 'right',
-    forwarded: false,
+    forwarded: true,
     type: 'Photo',
     theme: 'white',
     view: 'list',
@@ -86,6 +85,7 @@ const messages = [
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
       email: '',
       type: 'Client',
+      status: 'online',
     },
   },
   {
@@ -122,11 +122,12 @@ const messages = [
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
       email: '',
       type: 'Client',
+      status: 'sleeping',
     },
   },
   {
     position: 'right',
-    forwarded: true,
+    forwarded: false,
     type: 'Typing',
     theme: 'white',
     view: 'list',
@@ -139,11 +140,12 @@ const messages = [
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
       email: '',
       type: 'Agent',
+      status: 'offline',
     },
   },
   {
     position: 'left',
-    forwarded: true,
+    forwarded: false,
     type: 'Time',
     theme: 'white',
     view: 'list',
@@ -156,11 +158,12 @@ const messages = [
       avatar: '',
       email: '',
       type: 'Bot',
+      status: 'online',
     },
   },
   {
     position: 'left',
-    forwarded: true,
+    forwarded: false,
     type: 'System',
     theme: 'white',
     view: 'list',
@@ -173,6 +176,7 @@ const messages = [
       avatar: '',
       email: '',
       type: 'Bot',
+      status: 'online',
     },
   },
 ];
@@ -186,12 +190,12 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[0]}
+          message={object('message', messages[0])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
@@ -208,12 +212,12 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[1]}
+          message={object('message', messages[1])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
@@ -230,12 +234,12 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[2]}
+          message={object('message', messages[2])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
@@ -252,12 +256,12 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[3]}
+          message={object('message', messages[3])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
@@ -274,12 +278,12 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[4]}
+          message={object('message', messages[4])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
@@ -296,12 +300,12 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[5]}
+          message={object('message', messages[5])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
@@ -322,12 +326,12 @@ stories.addWithInfo(
         themeName={select('Theme', themeOptions, defaultTheme)}
       >
         <MessageBox
-          {...messages[6]}
+          message={object('message', messages[6])}
           onOpen={action('onOpen')}
           onDownload={action('onDownload')}
           onTitleClick={action('onTitleClick')}
           onForwardClick={action('onForwardClick')}
-          onClick={action('onClick')}
+          onMessageClick={action('onMessageClick')}
           onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>

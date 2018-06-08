@@ -6,43 +6,44 @@ import MessageBox from '../index';
 import constants from '../../../utils/constants';
 
 describe('MessageBox component', () => {
+  const { messagesTypes } = constants;
+
   const person = {
     avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
     email: '',
     type: 'Client',
   };
 
-  const { messagesTypes } = constants;
-
-  it('should render without issues', () => {
-    const component = shallow(<MessageBox status="read" person={person} />);
-
-    expect(component.length).toBe(1);
-    expect(toJson(component)).toMatchSnapshot();
-  });
-
   it('should render a System message', () => {
     const props = {
-      type: messagesTypes.SYSTEM,
-      status: 'read',
-      person,
+      message: {
+        type: messagesTypes.SYSTEM,
+        status: 'read',
+        person,
+      },
     };
     const component = shallow(<MessageBox {...props} />);
 
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
+    // Expect to render a <SystemMessage>
+    expect(component.find('SystemMessage').length).toBe(1);
   });
 
-  it('should render without issues', () => {
+  it('should render a Time message', () => {
     const props = {
-      type: messagesTypes.TIME,
-      status: 'read',
-      person,
+      message: {
+        type: messagesTypes.TIME,
+        status: 'read',
+        person,
+      },
     };
 
     const component = shallow(<MessageBox {...props} />);
 
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
+    // Expect to render a <TimeMarkMessage>
+    expect(component.find('TimeMarkMessage').length).toBe(1);
   });
 });

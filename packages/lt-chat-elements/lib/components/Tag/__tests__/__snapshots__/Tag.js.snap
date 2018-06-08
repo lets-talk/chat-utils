@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tag component should render with custom props 1`] = `
+<styled.span
+  onClick={[Function]}
+>
+  SPU-CLAVE
+</styled.span>
+`;
+
+exports[`Tag component should render with empty props 1`] = `
+<styled.span
+  onClick={[Function]}
+/>
+`;

@@ -1,0 +1,1050 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AttachmentMenu component should have the correct styles (Those that depends on the theme) 1`] = `
+.c2 {
+  box-sizing: border-box;
+  padding: 8px;
+}
+
+.c3 {
+  box-sizing: border-box;
+  width: 100%;
+  margin-left: auto;
+  padding: 8px;
+}
+
+.c1 {
+  box-sizing: border-box;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c0 {
+  display: block;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  border-radius: 5px;
+  background-color: rgb(255,255,255);
+  font-size: calc(12 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 500;
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12),0 2px 4px -1px rgba(0,0,0,0.2);
+}
+
+.c0 li {
+  list-style: none;
+  padding: 15px;
+  color: rgba(0,0,0,0.54);
+}
+
+.c0 li:hover {
+  color: rgb(255,87,50);
+  background-color: rgba(255,87,50,0.1);
+}
+
+<ul
+  className="LT-AttachmentMenu-Wrapper c0"
+>
+  <li>
+    <div
+      onClick={undefined}
+      onKeyUp={undefined}
+      role="button"
+      tabIndex={0}
+    >
+      <div
+        className="c1"
+      >
+        <div
+          className="c2"
+        >
+          <svg
+            fill="currentColor"
+            height={20}
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "color": undefined,
+                "verticalAlign": "middle",
+              }
+            }
+            viewBox="0 0 40 40"
+            width={20}
+          >
+            <g>
+              <path
+                d="m14.1 22.5l-5.7 7.5h23.2l-7.5-10-5.7 7.5z m20.9 9.1q0 1.4-1 2.4t-2.4 1h-23.2q-1.4 0-2.4-1t-1-2.4v-23.2q0-1.4 1-2.4t2.4-1h23.2q1.4 0 2.4 1t1 2.4v23.2z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          className="c3"
+        >
+          <span>
+            Imagen
+          </span>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div
+      onClick={undefined}
+      onKeyUp={undefined}
+      role="button"
+      tabIndex={1}
+    >
+      <div
+        className="c1"
+      >
+        <div
+          className="c2"
+        >
+          <svg
+            fill="currentColor"
+            height={20}
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "color": undefined,
+                "verticalAlign": "middle",
+              }
+            }
+            viewBox="0 0 40 40"
+            width={20}
+          >
+            <g>
+              <path
+                d="m20 24.1l10-7.5-10-7.5v15z m13.4-20.7c1.8 0 3.2 1.4 3.2 3.2v20c0 1.8-1.4 3.4-3.2 3.4h-20c-1.8 0-3.4-1.6-3.4-3.4v-20c0-1.8 1.6-3.2 3.4-3.2h20z m-26.8 6.6v23.4h23.4v3.2h-23.4c-1.8 0-3.2-1.4-3.2-3.2v-23.4h3.2z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          className="c3"
+        >
+          <span>
+            Video
+          </span>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div
+      onClick={undefined}
+      onKeyUp={undefined}
+      role="button"
+      tabIndex={2}
+    >
+      <div
+        className="c1"
+      >
+        <div
+          className="c2"
+        >
+          <svg
+            fill="currentColor"
+            height={20}
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "color": undefined,
+                "verticalAlign": "middle",
+              }
+            }
+            viewBox="0 0 40 40"
+            width={20}
+          >
+            <g>
+              <path
+                d="m20 5h11.6v5h-6.6v18.4h-0.1c-0.4 3.7-3.6 6.6-7.4 6.6-4.1 0-7.5-3.4-7.5-7.5s3.4-7.5 7.5-7.5c0.9 0 1.7 0.2 2.5 0.5v-15.5z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          className="c3"
+        >
+          <span>
+            Audio
+          </span>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div
+      onClick={undefined}
+      onKeyUp={undefined}
+      role="button"
+      tabIndex={3}
+    >
+      <div
+        className="c1"
+      >
+        <div
+          className="c2"
+        >
+          <svg
+            fill="currentColor"
+            height={20}
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "color": undefined,
+                "verticalAlign": "middle",
+              }
+            }
+            viewBox="0 0 40 40"
+            width={20}
+          >
+            <g>
+              <path
+                d="m14.1 22.5l-5.7 7.5h23.2l-7.5-10-5.7 7.5z m20.9 9.1q0 1.4-1 2.4t-2.4 1h-23.2q-1.4 0-2.4-1t-1-2.4v-23.2q0-1.4 1-2.4t2.4-1h23.2q1.4 0 2.4 1t1 2.4v23.2z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          className="c3"
+        >
+          <span>
+            Documento
+          </span>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div
+      onClick={undefined}
+      onKeyUp={undefined}
+      role="button"
+      tabIndex={4}
+    >
+      <div
+        className="c1"
+      >
+        <div
+          className="c2"
+        >
+          <svg
+            fill="currentColor"
+            height={20}
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "color": undefined,
+                "verticalAlign": "middle",
+              }
+            }
+            viewBox="0 0 40 40"
+            width={20}
+          >
+            <g>
+              <path
+                d="m30 33.4v-16.8h-20v16.8h20z m0-20c1.8 0 3.4 1.4 3.4 3.2v16.8c0 1.8-1.6 3.2-3.4 3.2h-20c-1.8 0-3.4-1.4-3.4-3.2v-16.8c0-1.8 1.6-3.2 3.4-3.2h15.2v-3.4c0-2.8-2.4-5.2-5.2-5.2s-5.2 2.4-5.2 5.2h-3.2c0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4v3.4h1.6z m-10 15c-1.8 0-3.4-1.6-3.4-3.4s1.6-3.4 3.4-3.4 3.4 1.6 3.4 3.4-1.6 3.4-3.4 3.4z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          className="c3"
+        >
+          <span>
+            Link de verificación
+          </span>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+`;
+
+exports[`AttachmentMenu component should render ok with default icons 1`] = `
+<styled.ul
+  className="LT-AttachmentMenu-Wrapper"
+>
+  <li
+    key="1"
+  >
+    <div
+      role="button"
+      tabIndex={0}
+    >
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
+        theme={
+          Object {
+            "breakpoints": Array [
+              "40em",
+              "52em",
+              "64em",
+            ],
+            "fontSizes": Array [
+              12,
+              14,
+              16,
+              20,
+              24,
+              32,
+              48,
+              64,
+              96,
+              128,
+            ],
+            "space": Array [
+              0,
+              4,
+              8,
+              16,
+              32,
+              64,
+              128,
+              256,
+              512,
+            ],
+          }
+        }
+      >
+        <Box
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+        >
+          <MdAttachFile
+            size={20}
+          />
+        </Box>
+        <Box
+          ml="auto"
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+          width={1}
+        >
+          <span>
+            Imagen
+          </span>
+        </Box>
+      </Flex>
+    </div>
+  </li>
+</styled.ul>
+`;
+
+exports[`AttachmentMenu component should render with data 1`] = `
+<styled.ul
+  className="LT-AttachmentMenu-Wrapper"
+>
+  <li
+    key="1"
+  >
+    <div
+      role="button"
+      tabIndex={0}
+    >
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
+        theme={
+          Object {
+            "breakpoints": Array [
+              "40em",
+              "52em",
+              "64em",
+            ],
+            "fontSizes": Array [
+              12,
+              14,
+              16,
+              20,
+              24,
+              32,
+              48,
+              64,
+              96,
+              128,
+            ],
+            "space": Array [
+              0,
+              4,
+              8,
+              16,
+              32,
+              64,
+              128,
+              256,
+              512,
+            ],
+          }
+        }
+      >
+        <Box
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+        >
+          <MdImage
+            size={20}
+          />
+        </Box>
+        <Box
+          ml="auto"
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+          width={1}
+        >
+          <span>
+            Imagen
+          </span>
+        </Box>
+      </Flex>
+    </div>
+  </li>
+  <li
+    key="2"
+  >
+    <div
+      role="button"
+      tabIndex={1}
+    >
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
+        theme={
+          Object {
+            "breakpoints": Array [
+              "40em",
+              "52em",
+              "64em",
+            ],
+            "fontSizes": Array [
+              12,
+              14,
+              16,
+              20,
+              24,
+              32,
+              48,
+              64,
+              96,
+              128,
+            ],
+            "space": Array [
+              0,
+              4,
+              8,
+              16,
+              32,
+              64,
+              128,
+              256,
+              512,
+            ],
+          }
+        }
+      >
+        <Box
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+        >
+          <MdVideoLibrary
+            size={20}
+          />
+        </Box>
+        <Box
+          ml="auto"
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+          width={1}
+        >
+          <span>
+            Video
+          </span>
+        </Box>
+      </Flex>
+    </div>
+  </li>
+  <li
+    key="3"
+  >
+    <div
+      role="button"
+      tabIndex={2}
+    >
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
+        theme={
+          Object {
+            "breakpoints": Array [
+              "40em",
+              "52em",
+              "64em",
+            ],
+            "fontSizes": Array [
+              12,
+              14,
+              16,
+              20,
+              24,
+              32,
+              48,
+              64,
+              96,
+              128,
+            ],
+            "space": Array [
+              0,
+              4,
+              8,
+              16,
+              32,
+              64,
+              128,
+              256,
+              512,
+            ],
+          }
+        }
+      >
+        <Box
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+        >
+          <MdAudiotrack
+            size={20}
+          />
+        </Box>
+        <Box
+          ml="auto"
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+          width={1}
+        >
+          <span>
+            Audio
+          </span>
+        </Box>
+      </Flex>
+    </div>
+  </li>
+  <li
+    key="4"
+  >
+    <div
+      role="button"
+      tabIndex={3}
+    >
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
+        theme={
+          Object {
+            "breakpoints": Array [
+              "40em",
+              "52em",
+              "64em",
+            ],
+            "fontSizes": Array [
+              12,
+              14,
+              16,
+              20,
+              24,
+              32,
+              48,
+              64,
+              96,
+              128,
+            ],
+            "space": Array [
+              0,
+              4,
+              8,
+              16,
+              32,
+              64,
+              128,
+              256,
+              512,
+            ],
+          }
+        }
+      >
+        <Box
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+        >
+          <MdImage
+            size={20}
+          />
+        </Box>
+        <Box
+          ml="auto"
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+          width={1}
+        >
+          <span>
+            Documento
+          </span>
+        </Box>
+      </Flex>
+    </div>
+  </li>
+  <li
+    key="5"
+  >
+    <div
+      role="button"
+      tabIndex={4}
+    >
+      <Flex
+        alignItems="center"
+        flex="1 1 auto"
+        theme={
+          Object {
+            "breakpoints": Array [
+              "40em",
+              "52em",
+              "64em",
+            ],
+            "fontSizes": Array [
+              12,
+              14,
+              16,
+              20,
+              24,
+              32,
+              48,
+              64,
+              96,
+              128,
+            ],
+            "space": Array [
+              0,
+              4,
+              8,
+              16,
+              32,
+              64,
+              128,
+              256,
+              512,
+            ],
+          }
+        }
+      >
+        <Box
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+        >
+          <MdLockOpen
+            size={20}
+          />
+        </Box>
+        <Box
+          ml="auto"
+          p={2}
+          theme={
+            Object {
+              "breakpoints": Array [
+                "40em",
+                "52em",
+                "64em",
+              ],
+              "fontSizes": Array [
+                12,
+                14,
+                16,
+                20,
+                24,
+                32,
+                48,
+                64,
+                96,
+                128,
+              ],
+              "space": Array [
+                0,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256,
+                512,
+              ],
+            }
+          }
+          width={1}
+        >
+          <span>
+            Link de verificación
+          </span>
+        </Box>
+      </Flex>
+    </div>
+  </li>
+</styled.ul>
+`;
+
+exports[`AttachmentMenu component should render with empty data 1`] = `
+<styled.ul
+  className="LT-AttachmentMenu-Wrapper"
+/>
+`;

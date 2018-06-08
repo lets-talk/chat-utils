@@ -3,7 +3,7 @@
   "plugins": ["dynamic-import-node"],
   "env": {
     "test": {
-      "plugins": ["dynamic-import-node"]
+      "plugins": ["dynamic-import-node", "react-docgen"]
     }
   }
 }

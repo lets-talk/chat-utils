@@ -1,41 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ChatIcon component should render with custom props 1`] = `
-<div>
+<div
+  onClick={null}
+  onKeyUp={null}
+  role="button"
+  tabIndex="0"
+>
   <div
     className="letstalk-ChatIconContainer"
   >
-    <styled.button
-      className="letstalk-ChatIcon circle"
+    <StyledButton
+      height={50}
+      margin="0px 10px 0px 0px"
+      type="circle"
+      width={50}
     >
-      <styled.span
-        className="intro-message"
-      />
+      <span />
       <MdChat
         color="white"
         size={20}
       />
-    </styled.button>
+    </StyledButton>
   </div>
 </div>
 `;
 
 exports[`ChatIcon component should render with no props 1`] = `
-<div>
+<div
+  onClick={null}
+  onKeyUp={null}
+  role="button"
+  tabIndex="0"
+>
   <div
     className="letstalk-ChatIconContainer"
   >
-    <styled.button
-      className="letstalk-ChatIcon rounded"
+    <StyledButton
+      height={50}
+      margin=""
+      type="rounded"
+      width={250}
     >
-      <styled.span
-        className="intro-message"
-      />
+      <span />
       <MdChat
         color="white"
         size={20}
       />
-    </styled.button>
+    </StyledButton>
   </div>
 </div>
 `;

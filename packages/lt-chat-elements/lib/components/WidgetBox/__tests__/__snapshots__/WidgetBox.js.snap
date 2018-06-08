@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WidgetBox component should mount the component. The component must include Header, Body and Footer 1`] = `
+<WidgetBox
+  className="LT-WidgetBox-Container"
+>
+  <styled.div
+    className="LT-WidgetBox-Container"
+  >
+    <div
+      className="LT-WidgetBox-Container sc-htpNat kwWgIV"
+    >
+      <Header
+        className="LT-Header-Container"
+        height={50}
+      >
+        <StyledHeaderContainer
+          className="LT-Header-Container"
+          height={50}
+        >
+          <div
+            className="LT-Header-Container sc-bdVaJa dFfQGU"
+            height={50}
+          >
+            <div>
+              Header Child
+            </div>
+          </div>
+        </StyledHeaderContainer>
+      </Header>
+      <Body>
+        <StyledBodyContainer>
+          <div
+            className="sc-bwzfXH bQmfDh"
+          >
+            <span>
+              Child WidgetBox Body
+            </span>
+          </div>
+        </StyledBodyContainer>
+      </Body>
+      <Footer
+        height={50}
+      >
+        <StyledFlexFooter>
+          <div
+            className="sc-bxivhb hVXoeT"
+          >
+            <span>
+              I am a footer
+            </span>
+          </div>
+        </StyledFlexFooter>
+      </Footer>
+    </div>
+  </styled.div>
+</WidgetBox>
+`;
+
+exports[`WidgetBox component should render with custom props 1`] = `
+<styled.div
+  className="LT-WidgetBox-Container"
+>
+  <Header
+    className="LT-Header-Container"
+    height={50}
+  >
+    <div>
+      Header Child
+    </div>
+  </Header>
+  <Body>
+    <span>
+      Child WidgetBox Body
+    </span>
+  </Body>
+</styled.div>
+`;
+
+exports[`WidgetBox component should render with no props 1`] = `
+<styled.div
+  className="LT-WidgetBox-Container"
+/>
+`;

@@ -17,3 +17,6 @@
   * [Abrir con click](example1.md)
   * [Iniciar con Inquiry](example2.md)
   * [Playground](playground.md)
+
+* Component Library
+  * [Showcase](storybook.md)

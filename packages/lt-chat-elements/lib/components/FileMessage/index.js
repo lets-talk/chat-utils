@@ -1,11 +1,73 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import styled from 'styled-components';
 
 import FaCloudDownload from 'react-icons/lib/fa/cloud-download';
 import FaFile from 'react-icons/lib/fa/file';
 
-import './index.scss';
+import { themeColor } from '../../utils/style';
+
+const StyledFileMessageContainer = styled.div`
+  display: inline-block;
+  margin-bottom: 10px;
+  max-width: calc(100% - 10px);
+`;
+StyledFileMessageContainer.displayName = 'StyledFileMessageContainer';
+
+const StyledFileMessageBody = styled.div`
+  background: #e9e9e9;
+  display: flex;
+  border-radius: 5px;
+  margin-top: -3px;
+  margin-right: -6px;
+  margin-left: -6px;
+  margin-bottom: 10px;
+  align-items: center;
+  min-height: 52px;
+  padding: 5px;
+  outline: none;
+  border:none;
+`;
+StyledFileMessageBody.displayName = 'StyledFileMessageBody';
+
+const StyledFileIcon = styled.div`
+  font-size: 30px;
+  align-items: center;
+  display: flex;
+  padding: 0 10px;
+  color: ${(props) => themeColor(props.theme, 'accent', 'base')};
+
+  div {
+    font-size: 10px;
+    margin-top: 3px;
+    max-width: 52px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+StyledFileIcon.displayName = 'StyledFileIcon';
+
+const StyledFileName = styled.div`
+  font-size: 13.6px;
+  min-width: 100px;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+StyledFileName.displayName = 'StyledFileName';
+
+const StyledFileDownloadButton = styled.div`
+  color: ${(props) => themeColor(props.theme, 'primary', 'base')};
+  padding: 0 10px;
+  font-size: 30px;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+`;
+StyledFileDownloadButton.displayName = 'StyledFileDownloadButton';
 
 export class FileMessage extends Component {
   constructor(props) {
@@ -24,63 +86,46 @@ export class FileMessage extends Component {
 
   render() {
     return (
-      <div className={classNames('letstalk-mbox-attachment', 'letstalk-mbox-file')}>
-        <button className="letstalk-mbox-file-download" onClick={this.onClick}>
-          <div className="letstalk-mbox-file--icon">
-            <FaFile
-              color="#aaa"
-            />
-            <div className="letstalk-mbox-file--size">
-              {this.props.data.size}
-            </div>
-          </div>
-          <div className="letstalk-mbox-file--text">
+      <StyledFileMessageContainer className={this.props.className}>
+        <StyledFileMessageBody>
+          <StyledFileIcon>
+            <FaFile />
+          </StyledFileIcon>
+          <StyledFileName>
             {this.props.text}
-          </div>
-          <div className="letstalk-mbox-file--buttons">
+          </StyledFileName>
+          <StyledFileDownloadButton onClick={this.onClick}>
             {
               this.props.data.status &&
-                !this.props.data.status.download &&
-                !this.props.data.status.click &&
-                <FaCloudDownload
-                  color="#aaa"
-                />
+              <FaCloudDownload />
             }
-            {
-              this.props.data.status &&
+          </StyledFileDownloadButton>
+          {
+            this.props.data.status &&
                 typeof this.props.data.status.loading === 'number' &&
                 this.props.data.status.loading !== 0 &&
                 <div />
-            }
-          </div>
-        </button>
-      </div>
+          }
+        </StyledFileMessageBody>
+      </StyledFileMessageContainer>
     );
   }
 }
 
 FileMessage.propTypes = {
+  className: PropTypes.string,
   text: PropTypes.string,
   data: PropTypes.object,
-  onClick: PropTypes.func,
   onDownload: PropTypes.func,
   onOpen: PropTypes.func,
 };
 
 FileMessage.defaultProps = {
+  className: 'LT-FileMessage-Container',
   text: '',
   data: {},
-  onClick: null,
   onDownload: null,
   onOpen: null,
 };
-
-
-// <CircularProgress
-//   mode="determinate"
-//   value={this.props.data.status.loading}
-//   size={80}
-//   thickness={5}
-// />
 
 export default FileMessage;

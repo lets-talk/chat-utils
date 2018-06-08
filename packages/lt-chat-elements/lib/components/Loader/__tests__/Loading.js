@@ -16,7 +16,7 @@ describe('Loader component', () => {
       active: true,
       fullScreen: false,
       type: 'ball-pulse',
-      color: false,
+      color: '#FFFFFF',
       className: undefined,
     };
 
@@ -31,7 +31,7 @@ describe('Loader component', () => {
       active: true,
       fullScreen: true,
       type: 'ball-pulse',
-      color: false,
+      color: '#FFFFFF',
       className: undefined,
     };
 
@@ -61,7 +61,7 @@ describe('Loader component', () => {
       active: true,
       fullScreen: true,
       type: 'ball-clip-rotate',
-      color: false,
+      color: '#FFFFFF',
       className: undefined,
     };
 

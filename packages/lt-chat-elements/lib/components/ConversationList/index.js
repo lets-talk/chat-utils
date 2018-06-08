@@ -1,11 +1,70 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MdChatBubble from 'react-icons/lib/md/chat-bubble';
+import styled, { css } from 'styled-components';
 
 import { withAutoScroll } from '../../utils/hoc';
+import { animate, textColor } from '../../utils/style';
 
 import ConversationBox from '../ConversationBox';
-import './index.scss';
+
+const StyledConversationListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-height: none;
+  background-color: ${(props) => props.theme.palette.common.white};
+  overflow-y: auto;
+  ${css`
+      animation: ${animate('slide-in')} 3s;
+    `};
+  `;
+
+const StyledConversationListSeparator = styled.div`
+  margin-top: 10px;
+  margin-left: 80px;
+  padding: 20px 0px;
+  
+  color: ${(props) => textColor(props.theme, 'light', 'disabled')};
+  font-size: ${(props) => props.theme.typography.classes.small.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.small.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
+  border-top: 1px solid ${(props) => props.theme.palette.divider};
+`;
+
+const StyledConversationBoxContainer = styled.div`
+  // transition: box-shadow .3s;
+  // &:hover {
+  //   box-shadow: ${(props) => props.theme.shadows['2p']};
+  // }
+`;
+
+const StyledNoConversation = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center; /*centers items on the line (the x-axis by default)*/
+  align-items: center; /*centers items on the cross-axis (y by default)*/
+  flex-direction: column;
+
+  color: ${(props) => textColor(props.theme, 'dark', 'disabled')};
+  font-size: ${(props) => props.theme.typography.classes.body.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.body.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
+`;
+
+const StyledSvgContainer = styled.div`
+  margin-bottom: 10px;
+`;
+
+const StyledEmptyContainer = styled.div`
+  max-width: 80%;
+
+  color: ${(props) => textColor(props.theme, 'dark', 'disabled')};
+  font-size: ${(props) => props.theme.typography.classes.footnote.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.footnote.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
+`;
 
 class ConversationList extends Component {
   onClick(item, i, e) {
@@ -16,41 +75,41 @@ class ConversationList extends Component {
 
   render() {
     return (
-      <div ref={this.props.cmpRef} id="conversations" className="letstalk-conversations-container">
+      <StyledConversationListWrapper
+        innerRef={this.props.cmpRef}
+        className={this.props.className}
+      >
         {this.props.conversations.length > 0 &&
-          <div className="letstalk-conversations-list">
+          <div>
             {this.props.conversations.map((conversation, index) =>
               (
-                <div
-                  role="button"
-                  tabIndex={index + 1}
-                  className="letstalk-conversation-container"
+                <StyledConversationBoxContainer
                   key={conversation.id}
                   onClick={this.props.clickItem && ((e) => this.onClick(conversation, index, e))}
                   onKeyPress={this.props.clickItem && ((e) => this.onClick(conversation, index, e))}
                 >
                   <ConversationBox
                     conversation={conversation}
-                    key={`conversation-${index}`}
+                    key={`conversation-${conversation.id}`}
                   />
-                </div>
+                </StyledConversationBoxContainer>
               ))
             }
-            <div className="conversations-list-separator">{this.props.noMoreDataText}</div>
+            <StyledConversationListSeparator>{this.props.noMoreDataText}</StyledConversationListSeparator>
           </div>
         }
 
         {this.props.conversations.length === 0 &&
-          <div className="letstalk-conversations-empty-state-container">
-            <div className="svg-container">
+          <StyledNoConversation>
+            <StyledSvgContainer>
               <MdChatBubble color="#e5e9ec" size={40} />
-            </div>
-            <div className="empty-state">
+            </StyledSvgContainer>
+            <StyledEmptyContainer>
               {this.props.emptyStateText}
-            </div>
-          </div>
+            </StyledEmptyContainer>
+          </StyledNoConversation>
         }
-      </div>
+      </StyledConversationListWrapper>
     );
   }
 }
@@ -66,12 +125,19 @@ ConversationList.propTypes = {
    */
   clickItem: PropTypes.func,
   /**
+   * Extra className to style the component
+   */
+  className: PropTypes.string,
+  /**
+   * Text to be used to show noMoreDataText
+   */
+  noMoreDataText: PropTypes.string,
+  /**
    * Text to be used when no conversations
    */
   emptyStateText: PropTypes.string,
   /**
-   * cmpRef is a function that is called by anyone
-   * that needs an instance ref of this component
+   * cmpRef is a function that return this component inner reference
    */
   cmpRef: PropTypes.func,
 };
@@ -81,6 +147,7 @@ ConversationList.defaultProps = {
   clickItem: null,
   cmpRef: null,
   emptyStateText: '',
+  noMoreDataText: '',
 };
 
 const autoScrollOptions = { threshold: 300, direction: 'top' };

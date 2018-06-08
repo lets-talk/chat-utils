@@ -14,21 +14,21 @@ const Loader = (props) => {
     'ball-clip-rotate': 1,
   };
 
-  const renderDiv = (n) => {
+  const renderDiv = (n, color) => {
     const styles = {};
     if (props.color) {
       if (props.type !== 'ball-clip-rotate') {
-        styles.backgroundColor = props.color;
+        styles.backgroundColor = color;
       }
-      styles.borderTopColor = props.color;
-      styles.borderRightColor = props.color;
-      styles.borderLeftColor = props.color;
+      styles.borderTopColor = color;
+      styles.borderRightColor = color;
+      styles.borderLeftColor = color;
     }
     return <div key={n} className="letstalk-ball-div" style={styles} />;
   };
 
   const {
-    type, size, active, fullScreen, className,
+    type, size, active, fullScreen, className, color,
   } = props;
   const classes = classNames({
     'letstalk-loader': true,
@@ -38,7 +38,7 @@ const Loader = (props) => {
   }, className);
   const balls = [];
   for (let i = 0; i < ballTypes[type]; i += 1) {
-    balls.push(renderDiv(i));
+    balls.push(renderDiv(i, color));
   }
   return (
     <div className={classes}>
@@ -61,7 +61,7 @@ Loader.propTypes = {
   /**
    * Hexadecimal color used for the balls on the loader.
    */
-  color(myprops, propName, componentName) {
+  color: (myprops, propName, componentName) => {
     if (!myprops[propName]) {
       // When no color specified default is false, let it pass validation
       return null;
@@ -90,7 +90,7 @@ Loader.defaultProps = {
   active: false,
   fullScreen: false,
   type: 'ball-pulse',
-  color: false,
+  color: '#ff5732',
   className: undefined,
 };
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import 'jest-styled-components';
 import toJson from 'enzyme-to-json';
 import Header from '../index';
 
-const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
+import { mountWithTheme } from '../../../test-utils';
 
 describe('Header component', () => {
   it('should render with minimal props', () => {
@@ -41,33 +42,33 @@ describe('Header component', () => {
         subtitle: 'Header subtitle',
         avatar: '',
         avatarStatus: 'online',
-        openMenu: () => null,
+        toggleChat: mockToggleChat,
         showMinimizeButton: true,
         showMenuButton: true,
       };
 
-      const button = shallow((<Header toggleChat={mockToggleChat} {...props} />));
-      button.find('.letstalk-minimize-button').simulate('click', fakeEventObject);
+      const wrapper = mountWithTheme(<Header toggleChat={mockToggleChat} {...props} />);
+      wrapper.find('button').last().simulate('click', fakeEventObject);
       expect(mockToggleChat.mock.calls.length).toEqual(1);
     });
-  });
 
-  it('Test openMenu function handler is being called when clicked on proper button', () => {
-    const mockOpenMenu = jest.fn();
-    const fakeEventObject = { preventDefault() {}, stopPropagation() {} };
+    it('Test openMenu function handler is being called when clicked on proper button', () => {
+      const mockOpenMenu = jest.fn();
+      const fakeEventObject = { preventDefault() {}, stopPropagation() {} };
 
-    const props = {
-      title: 'Header Title',
-      subtitle: 'Header subtitle',
-      avatar: '',
-      avatarStatus: 'online',
-      toggleChat: () => null,
-      showMinimizeButton: true,
-      showMenuButton: true,
-    };
+      const props = {
+        title: 'Header Title',
+        subtitle: 'Header subtitle',
+        avatar: '',
+        avatarStatus: 'online',
+        openMenu: mockOpenMenu,
+        showMinimizeButton: true,
+        showMenuButton: true,
+      };
 
-    const button = shallow((<Header openMenu={mockOpenMenu} {...props} />));
-    button.find('.letstalk-menu-button').simulate('click', fakeEventObject);
-    expect(mockOpenMenu.mock.calls.length).toEqual(1);
+      const wrapper = mountWithTheme(<Header openMenu={mockOpenMenu} {...props} />);
+      wrapper.find('button').first().simulate('click', fakeEventObject);
+      expect(mockOpenMenu.mock.calls.length).toEqual(1);
+    });
   });
 });

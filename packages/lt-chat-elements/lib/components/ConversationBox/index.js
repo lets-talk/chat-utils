@@ -1,81 +1,174 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import moment from 'moment';
+import styled from 'styled-components';
+
+import { ellipsis, flexRow, flexColumn, textColor } from '../../utils/style';
 
 // Other components used by this component
+import TagList from '../TagList';
 import Avatar from '../Avatar';
 
-// Component styles
-import './index.scss';
+const bgColorChooser = (theme, type) => {
+  if (type === 'internal') return theme.components.conversationBox.internalBackgroundColor;
+  else if (type === 'important') return theme.components.conversationBox.importantBackgroundColor;
+
+  return theme.palette.common.white;
+};
+
+const ConversationBoxWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  min-height: 50px;
+  background-color: ${(props) => bgColorChooser(props.theme, props.type)};
+`;
+
+
+const CBoxRow = styled.div`
+  ${flexRow()}
+`;
+
+const CBoxColumn = styled.div`
+  ${flexColumn()}
+`;
+
+const CBoxRowLeft = styled.div`
+  min-width: 50px;
+  order: 1;
+  padding: 10px;
+`;
+
+const CBoxRowRight = styled.div`
+  ${flexRow()}
+  position: relative;
+  width: calc(100% - 80px);
+  flex-basis: 1;
+  order: 2;
+  padding: 10px;
+  padding-left: 0px;
+`;
+
+const StyledTitleDiv = styled.div`
+  flex: 1;
+  order: 1
+
+  color: ${(props) => textColor(props.theme, 'light', 'primary')};
+  font-size: ${(props) => props.theme.typography.classes.body.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.body.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightBold};
+
+  ${ellipsis('100%')}
+`;
+
+const StyledSubTitleDiv = styled.div`
+  flex: 1;
+  order: 1;
+
+  color: ${(props) => textColor(props.theme, 'light', 'secondary')};
+  font-size: ${(props) => props.theme.typography.classes.footnote.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.footnote.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
+
+  ${ellipsis('100%')}
+`;
+
+const StyledTimeInfoDiv = styled.div`
+  display: flex;
+  align-items: center;
+  order: 2;
+
+  color: ${(props) => textColor(props.theme, 'dark', 'secondary')};
+  font-size: ${(props) => props.theme.typography.classes.caption.fontSize};
+  line-height: ${(props) => props.theme.typography.classes.caption.lineHeight};
+  font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
+
+  div {
+    display: inline-block;
+    text-align: right;
+    font-size: ${(props) => props.theme.typography.classes.small.fontSize};
+    position: relative;
+    color: ${(props) =>
+    (props.readed && props.theme.palette.colors.primary.base)
+      || (!props.readed && props.theme.palette.colors.accent.base)};
+  }
+`;
+
+const CircleDiv = styled.div`
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 3px;
+  background-color: ${(props) => props.theme.palette.colors.accent.base};
+`;
 
 const ConversationBox = (props) => {
-  const { conversation } = props;
-  const tags = conversation.tags ? [conversation.tags[0]] : [];
+  const { conversation, onClickAction } = props;
+  const tags = conversation.tags ? conversation.tags : [];
   const lastMessageType = conversation.last_message.type ? conversation.last_message.type : '';
   const lastMessageReaded = conversation.last_message.readed;
   const timeAgo = moment(conversation.last_message.created_at).fromNow(true);
 
   return (
-    <div
-      className={classNames(
-        'letstalk-cbox', lastMessageType, props.className,
-        {
-          'not-read': !lastMessageReaded,
-        }
-      )}
+    <ConversationBoxWrapper
+      className={props.className}
+      type={lastMessageType}
+      onClick={onClickAction}
     >
       {
         conversation.client.avatar &&
-        <div
-          className={classNames('cbox-left', 'letstalk-cbox-avatar-container')}
-        >
+        <CBoxRowLeft>
           <Avatar
             src={conversation.client.avatar}
             withStatus={false}
             size="small"
             status="online"
           />
-        </div>
+        </CBoxRowLeft>
       }
 
-      <div
-        className={classNames('cbox-right', 'cbox-row')}
-      >
-        <div className="cbox-column">
-          <div className="cbox-title">{conversation.client.name}</div>
-          <div className="cbox-time-info-col">{!lastMessageReaded && <div className="cbox-circle">&nbsp;</div>}
-            <div className="cbox-time">{timeAgo}</div>
-          </div>
-        </div>
+      <CBoxRowRight>
+        <CBoxColumn>
+          <StyledTitleDiv>{conversation.client.name}</StyledTitleDiv>
+          <StyledTimeInfoDiv readed={lastMessageReaded}>{!lastMessageReaded && <CircleDiv>&nbsp;</CircleDiv>}
+            <div>{timeAgo}</div>
+          </StyledTimeInfoDiv>
+        </CBoxColumn>
 
-        <div className="cbox-row">
-          <div className="cbox-column">
-            <div className="cbox-subtitle">{conversation.last_message.content}</div>
-            <div className="cbox-tags">
-              {tags.map((tag, index) => (
-                <span key={index} className="cbox-tag">
-                  {tag.name}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+        <CBoxRow>
+          <CBoxColumn>
+            <StyledSubTitleDiv>{conversation.last_message.content}</StyledSubTitleDiv>
+            <TagList tags={tags} />
+          </CBoxColumn>
+        </CBoxRow>
+      </CBoxRowRight>
 
-    </div>
+    </ConversationBoxWrapper>
   );
 };
 
 ConversationBox.propTypes = {
+  /**
+   * The Conversation object
+   */
   conversation: PropTypes.object.isRequired,
-  onClick: PropTypes.func,
+  /**
+   * Function callback called when clicking on an item
+   */
+  onClickAction: PropTypes.func,
+  /**
+   * Extra className to style the component
+   */
   className: PropTypes.string,
 };
 
 ConversationBox.defaultProps = {
-  onClick: null,
+  onClickAction: null,
+  className: 'LT-ConversationBox-Container',
 };
-
 
 export default ConversationBox;
