@@ -88,11 +88,28 @@ class Sender extends Component {
     super(props);
     this.state = { input: '' };
     this.handleChange = this.handleChange.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleSend = this.handleSend.bind(this);
   }
 
+
   handleChange(e) {
-    this.setState({ input: e.target.value });
+    const newValue = e.target.value;
+
+    this.setState({ input: newValue });
+
+    if (this.props.onChange) {
+      this.props.onChange(newValue);
+    }
+  }
+
+  handleKeyDown(e) {
+    const { sendMessage } = this.props;
+
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      sendMessage(this.state.input);
+      this.setState({ input: '' });
+    }
   }
 
   handleSend() {
@@ -101,7 +118,7 @@ class Sender extends Component {
   }
 
   render() {
-    const { placeholder, disabledInput } = this.props;
+    const { placeholder, disabled } = this.props;
     return (
       <StyledSenderContainer>
         <div>
@@ -110,9 +127,10 @@ class Sender extends Component {
             name="message"
             value={this.state.input}
             placeholder={placeholder}
-            disabled={disabledInput}
+            disabled={disabled}
             autoComplete="off"
             onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
           />
           <StyledSenderButtonsContainer>
             <StyledActionButton>
@@ -129,9 +147,10 @@ class Sender extends Component {
 }
 
 Sender.propTypes = {
+  onChange: PropTypes.func,
   sendMessage: PropTypes.func,
   placeholder: PropTypes.string,
-  disabledInput: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default Sender;
