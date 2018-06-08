@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { MessagePropType } from '../../utils/types';
 import { withAutoScroll } from '../../utils/hoc';
-
-import MessageBox from '../MessageBox';
 
 const StyledMessageListContainer = styled.div`
   max-height: 100vh;
@@ -55,7 +52,7 @@ class MessageList extends Component {
 
   render() {
     const {
-      cmpRef, className, messages, onOpen, onDownload, onTitleClick, onForwardClick, onClick, onActionMessageClick,
+      cmpRef, className,
     } = this.props;
     return (
       <StyledMessageListContainer
@@ -63,46 +60,29 @@ class MessageList extends Component {
         className={className}
         id="messages"
       >
-        {
-          messages.map((message, index) =>
-            (
-              <MessageBox
-                key={`message-${message.id}`}
-                message={message}
-                onOpen={onOpen && ((e) => this.onOpen(message, index, e))}
-                onDownload={onDownload && ((e) => this.onDownload(message, index, e))}
-                onTitleClick={onTitleClick && ((e) => this.onTitleClick(message, index, e))}
-                onForwardClick={onForwardClick && ((e) => this.onForwardClick(message, index, e))}
-                onClick={onClick && ((e) => this.onClick(message, index, e))}
-                onActionMessageClick={onActionMessageClick}
-              />
-            ))
-        }
+        { this.props.children }
       </StyledMessageListContainer>
     );
   }
 }
 
 MessageList.propTypes = {
-  messages: PropTypes.arrayOf(MessagePropType),
+  children: PropTypes.array,
   onClick: PropTypes.func,
   onTitleClick: PropTypes.func,
   onForwardClick: PropTypes.func,
   onOpen: PropTypes.func,
   onDownload: PropTypes.func,
-  onActionMessageClick: PropTypes.func,
   cmpRef: PropTypes.func,
   className: PropTypes.string,
 };
 
 MessageList.defaultProps = {
-  messages: [],
   onClick: null,
   onTitleClick: null,
   onForwardClick: null,
   onOpen: null,
   onDownload: null,
-  onActionMessageClick: null,
   cmpRef: null,
   className: 'LT-MessageList-Container',
 };
