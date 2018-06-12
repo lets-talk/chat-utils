@@ -67,4 +67,21 @@ describe('ChatIcon component', () => {
     expect(component.find('StyledButton').length).toBe(0);
     expect(component.find('StyledImageIconContainer').length).toBe(1);
   });
+
+  it('should show 20+ message bubble', () => {
+    const props = {
+      newMessages: 21,
+      type: 'rounded',
+      text: '',
+      showIcon: true,
+      margin: '0px 10px 0px 0px',
+      imageUrl: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+      display: 'minimized',
+    };
+
+    const component = mountWithTheme(<ChatIcon {...props} />);
+    expect(component.length).toBe(1);
+    expect(component.find('StyledButton').length).toBe(0);
+    expect(component.find('StyledBubbleDiv').text()).toContain('20+');
+  });
 });

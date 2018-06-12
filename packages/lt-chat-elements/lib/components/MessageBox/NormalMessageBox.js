@@ -175,7 +175,7 @@ const NormalMessageBox = (props) => {
         {
           message.type === messagesTypes.TYPING &&
           <StyledTypingMessage>
-            <Loader active type="ball-pulse" size="xsmall" color="rgb(113, 131, 150)" />
+            <Loader active type="ball-pulse" size="xsmall" color="#718396" />
           </StyledTypingMessage>
         }
 

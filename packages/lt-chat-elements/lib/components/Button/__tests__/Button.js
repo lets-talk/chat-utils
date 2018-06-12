@@ -1,9 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import { mountWithTheme } from '../../../test-utils';
 import Button from '../index';
-
-const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
 describe('Button component', () => {
   it('should render with minimal props', () => {
@@ -12,7 +11,6 @@ describe('Button component', () => {
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
   });
-
   it('should render with data', () => {
     const props = {
       type: 'button',
@@ -42,7 +40,7 @@ describe('Button component', () => {
 
       const button = shallow((<Button clickHandler={mockCallBack} {...props} />));
       button.find('.letstalk-button').simulate('click', fakeEventObject);
-      expect(mockCallBack.mock.calls.length).toEqual(1);
+      expect(mockCallBack).toHaveBeenCalled();
     });
   });
 
@@ -59,6 +57,13 @@ describe('Button component', () => {
 
     const button = shallow((<Button clickHandler={mockClickHandler} {...props} />));
     button.find('.letstalk-button').simulate('click', fakeEventObject);
-    expect(mockClickHandler.mock.calls.length).toEqual(1);
+    expect(mockClickHandler).toHaveBeenCalled();
+  });
+
+  it('should mouth with a Theme', () => {
+    const component = mountWithTheme(<Button type="submit" value="submit" clickHandler={(e) => e} />);
+
+    expect(component.length).toBe(1);
+    expect(component).toMatchSnapshot();
   });
 });

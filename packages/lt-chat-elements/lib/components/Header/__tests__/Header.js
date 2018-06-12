@@ -7,6 +7,12 @@ import Header from '../index';
 import { mountWithTheme } from '../../../test-utils';
 
 describe('Header component', () => {
+  const person = {
+    avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
+    email: '',
+    type: 'Client',
+  };
+
   it('should render with minimal props', () => {
     const component = shallow(<Header />);
 
@@ -18,8 +24,7 @@ describe('Header component', () => {
     const props = {
       title: 'Header Title',
       subtitle: 'Header subtitle',
-      avatar: '',
-      avatarStatus: 'online',
+      person: {},
       toggleChat: () => null,
       openMenu: () => null,
       showMinimizeButton: true,
@@ -32,6 +37,24 @@ describe('Header component', () => {
     expect(toJson(component)).toMatchSnapshot();
   });
 
+  it('should render with a person and display an avatar', () => {
+    const props = {
+      title: 'Header Title',
+      subtitle: 'Header subtitle',
+      person,
+      toggleChat: () => null,
+      openMenu: () => null,
+      showMinimizeButton: true,
+      showMenuButton: true,
+    };
+
+    const component = shallow(<Header {...props} />);
+
+    expect(component.length).toBe(1);
+    // Expect component to display an <Avatar> component
+    expect(component.find('Avatar').length).toBe(1);
+  });
+
   describe('Header with openMenu and toggleChat functions handlers', () => {
     it('Test toggleChat function handler is called when click on proper button', () => {
       const mockToggleChat = jest.fn();
@@ -40,8 +63,7 @@ describe('Header component', () => {
       const props = {
         title: 'Header Title',
         subtitle: 'Header subtitle',
-        avatar: '',
-        avatarStatus: 'online',
+        person: {},
         toggleChat: mockToggleChat,
         showMinimizeButton: true,
         showMenuButton: true,
@@ -49,7 +71,7 @@ describe('Header component', () => {
 
       const wrapper = mountWithTheme(<Header toggleChat={mockToggleChat} {...props} />);
       wrapper.find('button').last().simulate('click', fakeEventObject);
-      expect(mockToggleChat.mock.calls.length).toEqual(1);
+      expect(mockToggleChat).toHaveBeenCalled();
     });
 
     it('Test openMenu function handler is being called when clicked on proper button', () => {
@@ -59,8 +81,7 @@ describe('Header component', () => {
       const props = {
         title: 'Header Title',
         subtitle: 'Header subtitle',
-        avatar: '',
-        avatarStatus: 'online',
+        person: {},
         openMenu: mockOpenMenu,
         showMinimizeButton: true,
         showMenuButton: true,
@@ -68,7 +89,42 @@ describe('Header component', () => {
 
       const wrapper = mountWithTheme(<Header openMenu={mockOpenMenu} {...props} />);
       wrapper.find('button').first().simulate('click', fakeEventObject);
-      expect(mockOpenMenu.mock.calls.length).toEqual(1);
+      expect(mockOpenMenu).toHaveBeenCalled();
+    });
+
+    it('Test custom leftButtons and rightButtons. Check functions handlers are being called when clicked on proper buttons', () => {
+      const fakeEventObject = { preventDefault() {}, stopPropagation() {} };
+      const mockLeftButtonClick = jest.fn();
+      const mockRightButtonClick = jest.fn();
+
+      const props = {
+        title: 'Header Title',
+        subtitle: 'Header subtitle',
+        person: {},
+        showMinimizeButton: false,
+        showMenuButton: false,
+        leftButtons: [
+          {
+            id: 'leftButton',
+            icon: '<i>Left Button</i>',
+            onClick: mockLeftButtonClick,
+          },
+        ],
+        rightButtons: [
+          {
+            id: 'rightButton',
+            icon: '<i>Right Button</i>',
+            onClick: mockRightButtonClick,
+          },
+        ],
+      };
+
+      const wrapper = mountWithTheme(<Header {...props} />);
+      wrapper.find('button').first().simulate('click', fakeEventObject);
+      expect(mockLeftButtonClick).toHaveBeenCalled();
+      expect(mockRightButtonClick).not.toHaveBeenCalled();
+      wrapper.find('button').last().simulate('click', fakeEventObject);
+      expect(mockRightButtonClick).toHaveBeenCalled();
     });
   });
 });

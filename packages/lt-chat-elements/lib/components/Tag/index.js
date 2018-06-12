@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { textColor, themeColor } from '../../utils/style';
@@ -14,28 +14,16 @@ const StyledTag = styled.span`
   padding: 5px;
   border-radius: 2px;
 `;
+StyledTag.displayName = 'StyledTag';
 
-class Tag extends Component {
-  constructor() {
-    super();
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick(item, i, e) {
-    if (this.props.onClick instanceof Function) {
-      this.props.onClick(item, i, e);
-    }
-  }
-
-  render() {
-    const { data } = this.props;
-    return (
-      <StyledTag onClick={this.onClick}>
-        {data.name}
-      </StyledTag>
-    );
-  }
-}
+const Tag = (props) => {
+  const { data } = props;
+  return (
+    <StyledTag>
+      {data.name}
+    </StyledTag>
+  );
+};
 
 Tag.propTypes = {
   /**
@@ -47,16 +35,11 @@ Tag.propTypes = {
    */
   /* eslint-disable react/no-unused-prop-types */
   className: PropTypes.string,
-  /**
-   * Callback function to be called when an item is clicked
-   */
-  onClick: PropTypes.func,
 };
 
 Tag.defaultProps = {
   data: {},
   className: 'LT-Tag-Container',
-  onClick: null,
 };
 
 export default Tag;

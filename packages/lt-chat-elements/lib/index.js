@@ -12,6 +12,7 @@ import MessageList from './components/MessageList';
 import PhotoMessage from './components/PhotoMessage';
 import SystemMessage from './components/SystemMessage';
 import Sender from './components/Sender';
+import TagList from './components/TagList';
 import WidgetBox from './components/WidgetBox';
 import ConversationListBox from './components/ConversationListBox';
 
@@ -32,6 +33,7 @@ module.exports = {
   PhotoMessage,
   SystemMessage,
   Sender,
+  TagList,
   WidgetBox,
   ConversationListBox,
 };

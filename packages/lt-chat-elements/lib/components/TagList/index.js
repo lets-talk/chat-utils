@@ -9,11 +9,22 @@ const StyledTagListContainer = styled.div`
   margin: 5px;
 `;
 
-StyledTagListContainer.displayName = 'TagListContainer';
+const StyledTagItem = styled.span`
+  padding: 2px;
+`;
+
+StyledTagListContainer.displayName = 'StyledTagListContainer';
 
 class TagList extends Component {
+  constructor() {
+    super();
+    this.onClick = this.onClick.bind(this);
+  }
+
   onClick(item, i, e) {
-    if (this.props.clickItem instanceof Function) {
+    // TODO change for this.props.clickItem instanceof Function
+    // When thre is a jest fix to this bug: https://github.com/facebook/jest/issues/6329
+    if (typeof this.props.clickItem === 'function') {
       this.props.clickItem(item, i, e);
     }
   }
@@ -22,8 +33,10 @@ class TagList extends Component {
     const { tags } = this.props;
     return (
       <StyledTagListContainer>
-        {tags.map((tag) => (
-          <Tag key={tag.name} data={tag} onClick={this.onCLick} />
+        {tags.map((tag, i) => (
+          <StyledTagItem key={tag.name} onClick={(e) => this.onClick(tag, i, e)}>
+            <Tag data={tag} />
+          </StyledTagItem>
         ))}
       </StyledTagListContainer>
     );

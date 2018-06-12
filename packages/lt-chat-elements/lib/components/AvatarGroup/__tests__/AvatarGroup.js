@@ -65,4 +65,11 @@ describe('AvatarGroup component', () => {
     expect(tree).toMatchSnapshot();
     expect(tree).toHaveStyleRule('margin-right', '30px');
   });
+
+  it('Styled: should have the correct styles (Those that depends on the theme)', () => {
+    const newProps = { ...props, groupType: 'circle' };
+    const tree = renderWithTheme(<AvatarGroup {...newProps} />).toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(tree).toHaveStyleRule('margin-right', '0px');
+  });
 });

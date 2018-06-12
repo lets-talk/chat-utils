@@ -24,8 +24,9 @@ const StyledMessageBoxContainer = styled.div`
     visibility: visible;
   }
 `;
+StyledMessageBoxContainer.displayName = 'StyledMessageBoxContainer';
 
-const StyledAvatarContainer = styled.div`
+const StyledMessageBoxAvatarContainer = styled.div`
   display: inline-block;
   position: absolute;
   bottom: 0;
@@ -43,6 +44,7 @@ const StyledAvatarContainer = styled.div`
         right: 0;
       `};
 `;
+StyledMessageBoxAvatarContainer.displayName = 'StyledMessageBoxAvatarContainer';
 
 const renderAutomaticMessage = (props, message) => {
   if (message.type === messagesTypes.SYSTEM) {
@@ -69,13 +71,13 @@ const MessageBox = (props) => {
     >
       {
         person.avatar && type !== messagesTypes.SYSTEM &&
-        <StyledAvatarContainer position={position}>
+        <StyledMessageBoxAvatarContainer position={position}>
           <Avatar
             src={person.avatar}
             withStatus={false}
             size="xsmall"
           />
-        </StyledAvatarContainer>
+        </StyledMessageBoxAvatarContainer>
       }
 
       {
