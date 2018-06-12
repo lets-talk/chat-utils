@@ -29,7 +29,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - app-{{ .Environment.CACHE_VERSION }}-dependencies-{{ checksum "packages/lt-widget/package.json" }}
+          - app-{{ .Environment.CACHE_VERSION }}-dependencies-{{ checksum "packages/lt-widget/package.json" }}-{{ checksum "packages/lt-chat-elements/package.json" }}
           # fallback to using the latest cache if no exact match is found
           - app-{{ .Environment.CACHE_VERSION }}-dependencies-
 
@@ -39,7 +39,9 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: app-{{ .Environment.CACHE_VERSION }}-dependencies-{{ checksum "packages/lt-widget/package.json" }}
+            - packages/lt-widget/node_modules
+            - packages/lt-chat-elements/node_modules
+          key: app-{{ .Environment.CACHE_VERSION }}-dependencies-{{ checksum "packages/lt-widget/package.json" }}-{{ checksum "packages/lt-chat-elements/package.json" }}
 
       # Check for updates!
       # - run:
