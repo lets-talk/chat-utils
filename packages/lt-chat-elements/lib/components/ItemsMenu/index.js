@@ -98,4 +98,6 @@ ItemsMenu.defaultProps = {
   withDivider: true,
 };
 
+ItemsMenu.displayName = 'ItemsMenu';
+
 export default ItemsMenu;

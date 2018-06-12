@@ -117,4 +117,6 @@ AttachmentMenu.defaultProps = {
   iconSize: 20,
 };
 
+AttachmentMenu.displayName = 'AttachmentMenu';
+
 export default AttachmentMenu;

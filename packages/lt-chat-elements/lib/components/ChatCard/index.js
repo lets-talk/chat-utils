@@ -103,4 +103,6 @@ ChatCard.defaultProps = {
   showRenderProp: false,
 };
 
+ChatCard.displayName = 'ChatCard';
+
 export default ChatCard;
