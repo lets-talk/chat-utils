@@ -42,4 +42,6 @@ Tag.defaultProps = {
   className: 'LT-Tag-Container',
 };
 
+Tag.displayName = 'Tag';
+
 export default Tag;

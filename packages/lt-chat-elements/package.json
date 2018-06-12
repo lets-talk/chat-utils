@@ -12,7 +12,7 @@
     "build:prod": "webpack --config webpack.config.prod.js --progress --profile --colors",
     "build:watch": "babel lib -w -d build",
     "check-updates": "ncu --error-level 2",
-    "deploy": "exit 0;",
+    "deploy": "npm run storybook:build && npm run storybook:deploy",
     "lint": "eslint lib/**; exit 0",
     "lint:watch": "esw -w lib/**",
     "changelog": "pr-log --sloppy",

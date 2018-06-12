@@ -102,4 +102,6 @@ AvatarGroup.propTypes = {
   className: PropTypes.string,
 };
 
+AvatarGroup.displayName = 'AvatarGroup';
+
 export default AvatarGroup;

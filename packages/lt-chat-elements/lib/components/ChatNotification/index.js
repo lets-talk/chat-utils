@@ -161,4 +161,6 @@ ChatNotification.defaultProps = {
   height: 100,
 };
 
+ChatNotification.displayName = 'ChatNotification';
+
 export default ChatNotification;

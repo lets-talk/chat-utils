@@ -197,4 +197,6 @@ ChatIcon.defaultProps = {
   imageUrl: '',
 };
 
+ChatIcon.displayName = 'ChatIcon';
+
 export default ChatIcon;

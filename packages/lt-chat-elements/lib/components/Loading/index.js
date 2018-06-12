@@ -20,4 +20,6 @@ Loading.propTypes = {
   error: PropTypes.object,
 };
 
+Loading.displayName = 'Loading';
+
 export default Loading;

@@ -76,4 +76,6 @@ SystemMessage.propTypes = {
   }),
 };
 
+SystemMessage.displayName = 'SystemMessage';
+
 export default SystemMessage;
