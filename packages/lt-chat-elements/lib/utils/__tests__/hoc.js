@@ -1,105 +1,103 @@
-import React, { Component } from 'react';
-import { mount, shallow } from 'enzyme';
-import toJson from 'enzyme-to-json';
-import sinon from 'sinon';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { mount } from 'enzyme';
 
-const willMount = sinon.spy();
-const didMount = sinon.spy();
-const willUnmount = sinon.spy();
+import { withAutoScroll } from '../hoc';
 
-import {
-  withInfiniteScroll,
-  withScrollWatch,
-  withLoading,
-  withPaginated,
-  withAutoScroll,
-} from '../hoc';
+const SimpleItemsList = (props) => {
+  const { items, cmpRef } = props;
+  return (
+    <ul ref={cmpRef} id="super-simple-list">
+      {
+        items.map((item) => (<li key={item.name}>{item.name}</li>))
+      }
+    </ul>
+  );
+};
 
-class SimpleListComponent extends Component {
-  render() {
-    return (
-      <div ref={this.props.cmpRef} id="super-simple-list">
-        Super Simple
-      </div>
-    );
-  }
-}
+SimpleItemsList.propTypes = {
+  items: PropTypes.array,
+  cmpRef: PropTypes.func,
+};
 
 describe('utils/hoc', () => {
-  const MySimpleComponent = () => <div>Super Simple</div>;
   const autoScrollOptions = { threshold: 10, direction: 'bottom' };
-  const WithAutoScroll = withAutoScroll(autoScrollOptions)(SimpleListComponent);
-  const WithLoading = withLoading(MySimpleComponent);
-  const WithPaginated = withPaginated(MySimpleComponent);
-  const WithScrollWatch = withScrollWatch(MySimpleComponent);
-  const WithInfiniteScroll = withInfiniteScroll(MySimpleComponent);
 
-  //   // TODO --> Test behavior
-  // it('WithInfiniteScroll: calls componentDidMount() lifecycle method', () => {
-  //     // Fake windows events
-  //     const map = {};
-  //     window.addEventListener = jest.fn((event, cb) => {
-  //       map[event] = cb;
-  //     });
-  //     // Mount our component
-  //     const wrapper = mount(<WithInfiniteScroll />);
-  //     // Call the scroll event
-  //     map.scroll(fakeEventObject);
-  //     // Check if everything
-  //     assert.ok(WithInfiniteScroll.prototype.onScroll.calledOnce);
-  // });
-  //
-  // it('withAutoScroll: should adds autoscroll feature to a wrapper component', () => {
-  //
-  //   const wrapper = shallow(<WithAutoScroll />);
-  //   console.log('Wrapper is: ', wrapper.debug());
-  //   expect(wrapper.length).toBe(1);
-  //   expect(toJson(wrapper)).toMatchSnapshot();
-  //
-  //   const mockCallBack = jest.fn();
-  //   const fakeEventObject = {
-  //     scrollHeight: 100, scrollTop: 10, offsetHeight: 10, preventDefault() {}, stopPropagation() {},
-  //   };
-  //   wrapper.simulate('scroll', fakeEventObject);
-  //
-  //   expect(mockCallBack.mock.calls.length).toEqual(1);
-  // });
+  const props = {
+    items: [
+      { name: 'Item1' },
+      { name: 'Item2' },
+      { name: 'Item3' },
+      { name: 'Item4' },
+      { name: 'Item5' },
+      { name: 'Item6' },
+    ],
+  };
 
-  it('Component should call componentWillReceiveProps on update', () => {
-    const spy = sinon.spy(WithAutoScroll.prototype, 'componentWillReceiveProps');
+  it('withAutoScroll: calls getBottom(). Direction top call it when bottom above threshold', () => {
+    const SimpleItemsListHOC = withAutoScroll(autoScrollOptions)(SimpleItemsList);
+    // Mock getBottom to return 20 -> should trigger a calculation
+    SimpleItemsListHOC.prototype.getBottom = jest.fn(() => 20);
 
-    const props = {
-      conversations: [],
-      cmpRef: null,
-    };
-    const wrapper = mount(<WithAutoScroll {...props} />);
-
-    expect(spy.calledOnce).toEqual(false);
-    wrapper.setProps({ prop: 2 });
-    expect(spy.calledOnce).toEqual(true);
+    // Mount our component
+    const wrapper = mount(<SimpleItemsListHOC {...props} />);
+    wrapper.setProps({
+      items: [...props.items, { name: 'Item7' }, { name: 'Item8' }, { name: 'Item9' }],
+    });
+    // Call the scroll event
+    wrapper.simulate('scroll');
+    // Check if event is called !!
+    expect(SimpleItemsListHOC.prototype.getBottom).toHaveBeenCalled();
+    expect(wrapper.getDOMNode().scrollTop).toBe(wrapper.getDOMNode().scrollHeight);
   });
 
-  it('withLoading: should adds loading feature to a wrapper component', () => {
-    const wrapper = shallow(<WithLoading loading />);
-    expect(wrapper.length).toBe(1);
-    expect(toJson(wrapper)).toMatchSnapshot();
+  it('withAutoScroll: calls getBottom(). Direction bottom call it when bottom bellow threshold', () => {
+    const SimpleItemsListHOC = withAutoScroll({ threshold: 10, direction: 'top' })(SimpleItemsList);
+    // Mock getBottom to return 5 -> should trigger a calculation
+    SimpleItemsListHOC.prototype.getBottom = jest.fn(() => 5);
+
+    // Mount our component
+    const wrapper = mount(<SimpleItemsListHOC {...props} />);
+
+    wrapper.setProps({
+      items: [...props.items, { name: 'Item7' }, { name: 'Item8' }, { name: 'Item9' }],
+    });
+    // Call the scroll event
+    wrapper.simulate('scroll');
+    // Check if event is called !!
+    expect(SimpleItemsListHOC.prototype.getBottom).toHaveBeenCalled();
+    expect(wrapper.getDOMNode().scrollTop).toBe(0);
   });
 
-  it('withPaginated: should adds loading feature to a wrapper component', () => {
-    const wrapper = shallow(<WithPaginated />);
-    expect(wrapper.length).toBe(1);
-    expect(toJson(wrapper)).toMatchSnapshot();
+
+  it('withAutoScroll: calls getBottom(). Expect Lockable prop to work', () => {
+    const SimpleItemsListHOC = withAutoScroll({ threshold: 10, direction: 'top', lockable: true })(SimpleItemsList);
+    // Mock getBottom to return 5 -> should NOT trigger a calculation
+    SimpleItemsListHOC.prototype.getBottom = jest.fn(() => 50);
+
+    // Mount our component
+    const wrapper = mount(<SimpleItemsListHOC {...props} />);
+    wrapper.setProps({
+      items: [...props.items, { name: 'Item7' }, { name: 'Item8' }, { name: 'Item9' }],
+    });
+    // Call the scroll event
+    wrapper.simulate('scroll');
+    // Check if event is called !!
+    expect(SimpleItemsListHOC.prototype.getBottom).toHaveBeenCalled();
+    expect(wrapper.getDOMNode().scrollTop).toBe(wrapper.getDOMNode().scrollHeight - wrapper.getDOMNode().offsetHeight - 50);
   });
 
-  it('withScrollWatch: should adds loading feature to a wrapper component', () => {
-    const wrapper = shallow(<WithScrollWatch />);
-    expect(wrapper.length).toBe(1);
-    expect(toJson(wrapper)).toMatchSnapshot();
-  });
 
-  it('WithInfiniteScroll: should adds loading feature to a wrapper component', () => {
-    const wrapper = shallow(<WithInfiniteScroll />);
-    expect(wrapper.length).toBe(1);
-    expect(toJson(wrapper)).toMatchSnapshot();
+  it('withAutoScroll: calls getBottom(). Not mocking getBottom', () => {
+    const SimpleItemsListHOC = withAutoScroll({ threshold: 10, direction: 'top' })(SimpleItemsList);
+    // Mount our component
+    const wrapper = mount(<SimpleItemsListHOC {...props} />);
+    wrapper.setProps({
+      items: [...props.items, { name: 'Item7' }, { name: 'Item8' }, { name: 'Item9' }],
+    });
+    // Call the scroll event
+    wrapper.simulate('scroll');
+    // Check if event is called !!
+    expect(wrapper.getDOMNode().scrollTop).toBe(0);
   });
 });

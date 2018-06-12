@@ -1,10 +1,611 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ConversationBox component should have the correct styles (Those that depends on the theme) type=important 1`] = `
+.c14 {
+  color: rgb(255,255,255);
+  background-color: rgb(94,124,139);
+  font-size: calc(12 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 500;
+  margin: 5px 2px;
+  padding: 5px;
+  border-radius: 2px;
+}
+
+.c12 {
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
+  margin: 5px;
+}
+
+.c13 {
+  padding: 2px;
+}
+
+.c2 {
+  position: relative;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0, margin:0 auto;
+  -ms-flex-negative: 0, margin:0 auto;
+  flex-shrink: 0, margin:0 auto;
+  overflow: hidden;
+}
+
+.c3 {
+  width: undefined;
+  height: undefined;
+  position: relative;
+}
+
+.c4 {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(188,188,188);
+  width: calc(calc( 5 * 8px) - 5px);
+  height: calc(calc( 5 * 8px) - 5px);
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.c5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.c0 {
+  position: relative;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  min-height: 50px;
+  background-color: rgb(255,246,244);
+}
+
+.c10 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.c1 {
+  min-width: 50px;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  padding: 10px;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  width: calc(100% - 80px);
+  -webkit-flex-basis: 1;
+  -ms-flex-preferred-size: 1;
+  flex-basis: 1;
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
+  padding: 10px;
+  padding-left: 0px;
+}
+
+.c8 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  color: rgba(0,0,0,0.87);
+  font-size: calc(16 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 700;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c11 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  color: rgba(0,0,0,0.54);
+  font-size: calc(14 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 500;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
+  color: rgba(255,255,255,0.7);
+  font-size: calc(12 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 500;
+}
+
+.c9 div {
+  display: inline-block;
+  text-align: right;
+  font-size: calc(10 * 1px);
+  position: relative;
+  color: rgb(4,38,73);
+}
+
+<div
+  className="LT-ConversationBox-Container c0"
+  onClick={null}
+  type="important"
+>
+  <div
+    className="c1"
+  >
+    <div
+      className="LT-Avatar-Container c2"
+      size="small"
+    >
+      <div
+        className="c3"
+      >
+        <img
+          alt=""
+          className="c4"
+          size="small"
+          sizes={null}
+          src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
+          srcSet={null}
+          type="circle"
+        />
+        <div
+          className="c5"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="c6"
+  >
+    <div
+      className="c7"
+    >
+      <div
+        className="c8"
+      >
+        Georgia Harmon
+      </div>
+      <div
+        className="c9"
+      >
+        <div>
+          13 hours
+        </div>
+      </div>
+    </div>
+    <div
+      className="c10"
+    >
+      <div
+        className="c7"
+      >
+        <div
+          className="c11"
+        >
+          Lorem ipusum la la ejemplo largo
+        </div>
+        <div
+          className="c12"
+        >
+          <span
+            className="c13"
+            onClick={[Function]}
+          >
+            <span
+              className="c14"
+            >
+              SPU-CLAVE
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ConversationBox component should have the correct styles (Those that depends on the theme) type=internal 1`] = `
+.c14 {
+  color: rgb(255,255,255);
+  background-color: rgb(94,124,139);
+  font-size: calc(12 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 500;
+  margin: 5px 2px;
+  padding: 5px;
+  border-radius: 2px;
+}
+
+.c12 {
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
+  margin: 5px;
+}
+
+.c13 {
+  padding: 2px;
+}
+
+.c2 {
+  position: relative;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0, margin:0 auto;
+  -ms-flex-negative: 0, margin:0 auto;
+  flex-shrink: 0, margin:0 auto;
+  overflow: hidden;
+}
+
+.c3 {
+  width: undefined;
+  height: undefined;
+  position: relative;
+}
+
+.c4 {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(188,188,188);
+  width: calc(calc( 5 * 8px) - 5px);
+  height: calc(calc( 5 * 8px) - 5px);
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.c5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.c0 {
+  position: relative;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  min-height: 50px;
+  background-color: rgba(255,213,0,0.2);
+}
+
+.c10 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.c1 {
+  min-width: 50px;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  padding: 10px;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  width: calc(100% - 80px);
+  -webkit-flex-basis: 1;
+  -ms-flex-preferred-size: 1;
+  flex-basis: 1;
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
+  padding: 10px;
+  padding-left: 0px;
+}
+
+.c8 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  color: rgba(0,0,0,0.87);
+  font-size: calc(16 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 700;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c11 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  color: rgba(0,0,0,0.54);
+  font-size: calc(14 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 500;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
+  color: rgba(255,255,255,0.7);
+  font-size: calc(12 * 1px);
+  line-height: calc(16 * 1px);
+  font-weight: 500;
+}
+
+.c9 div {
+  display: inline-block;
+  text-align: right;
+  font-size: calc(10 * 1px);
+  position: relative;
+  color: rgb(4,38,73);
+}
+
+<div
+  className="LT-ConversationBox-Container c0"
+  onClick={null}
+  type="internal"
+>
+  <div
+    className="c1"
+  >
+    <div
+      className="LT-Avatar-Container c2"
+      size="small"
+    >
+      <div
+        className="c3"
+      >
+        <img
+          alt=""
+          className="c4"
+          size="small"
+          sizes={null}
+          src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
+          srcSet={null}
+          type="circle"
+        />
+        <div
+          className="c5"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="c6"
+  >
+    <div
+      className="c7"
+    >
+      <div
+        className="c8"
+      >
+        Georgia Harmon
+      </div>
+      <div
+        className="c9"
+      >
+        <div>
+          13 hours
+        </div>
+      </div>
+    </div>
+    <div
+      className="c10"
+    >
+      <div
+        className="c7"
+      >
+        <div
+          className="c11"
+        >
+          Lorem ipusum la la ejemplo largo
+        </div>
+        <div
+          className="c12"
+        >
+          <span
+            className="c13"
+            onClick={[Function]}
+          >
+            <span
+              className="c14"
+            >
+              SPU-CLAVE
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`ConversationBox component should render with custom props 1`] = `
 <styled.div
   className="LT-ConversationBox-Container"
   onClick={null}
-  type=""
+  readed={true}
+  type="normal"
 >
   <styled.div>
     <Avatar
@@ -25,10 +626,9 @@ exports[`ConversationBox component should render with custom props 1`] = `
       <styled.div>
         Georgia Harmon
       </styled.div>
-      <styled.div>
-        <styled.div>
-           
-        </styled.div>
+      <styled.div
+        readed={true}
+      >
         <div>
           13 hours
         </div>
@@ -60,7 +660,8 @@ exports[`ConversationBox component should render with minimal props 1`] = `
 <styled.div
   className="LT-ConversationBox-Container"
   onClick={null}
-  type=""
+  readed={true}
+  type="normal"
 >
   <styled.div>
     <Avatar
@@ -81,10 +682,9 @@ exports[`ConversationBox component should render with minimal props 1`] = `
       <styled.div>
         Georgia Harmon
       </styled.div>
-      <styled.div>
-        <styled.div>
-           
-        </styled.div>
+      <styled.div
+        readed={true}
+      >
         <div>
           13 hours
         </div>

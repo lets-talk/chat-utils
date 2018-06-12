@@ -5,7 +5,7 @@ import 'jest-styled-components';
 import NormalMessageBox from '../NormalMessageBox';
 // Constants
 import constants from '../../../utils/constants';
-import { renderWithTheme } from '../../../test-utils';
+import { renderWithTheme, mountWithTheme } from '../../../test-utils';
 
 describe('NormalMessageBox component', () => {
   const { messagesTypes } = constants;
@@ -26,7 +26,6 @@ describe('NormalMessageBox component', () => {
     };
     const props = {
       message,
-      person,
     };
     const component = shallow(<NormalMessageBox {...props} />);
 
@@ -54,6 +53,7 @@ describe('NormalMessageBox component', () => {
     const props = {
       message: {
         type: messagesTypes.ACTIONABLE,
+        data: { actions: [] },
         person,
       },
     };
@@ -103,6 +103,27 @@ describe('NormalMessageBox component', () => {
 
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
+  });
+
+
+  it('should mount a Text message. With a title and forwarded', () => {
+    const props = {
+      message: {
+        type: messagesTypes.TEXT,
+        title: 'Agent 1',
+        forwarded: true,
+        text: 'Buenas Tardes',
+        status: 'read',
+        person,
+      },
+    };
+
+    const component = mountWithTheme(<NormalMessageBox {...props} />);
+    expect(component.length).toBe(1);
+
+    // Expect to have Title and Forward div
+    expect(component.find('StyledMessageTitle').length).toBe(1);
+    expect(component.find('StyledForwardDiv').length).toBe(1);
   });
 
   /* TODO -> This component has lot of Styles depending of the Type of the message

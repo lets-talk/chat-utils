@@ -8,6 +8,7 @@ import { withAutoScroll } from '../../utils/hoc';
 import MessageBox from '../MessageBox';
 
 const StyledMessageListContainer = styled.div`
+  max-height: 100vh;
   background-color: ${(props) => props.theme.palette.common.white};
   overflow-y: auto;
   padding: 10px;
@@ -15,23 +16,41 @@ const StyledMessageListContainer = styled.div`
 
 class MessageList extends Component {
   onOpen(item, i, e) {
-    if (this.props.onOpen instanceof Function) { this.props.onOpen(item, i, e); }
+    // TODO change for this.props.onOpen instanceof Function
+    // When thre is a jest fix to this bug: https://github.com/facebook/jest/issues/6329
+    if (typeof this.props.onOpen === 'function') {
+      this.props.onOpen(item, i, e);
+    }
   }
 
   onDownload(item, i, e) {
-    if (this.props.onDownload instanceof Function) { this.props.onDownload(item, i, e); }
+    // TODO change for this.props.onDownload instanceof Function
+    // When thre is a jest fix to this bug: https://github.com/facebook/jest/issues/6329
+    if (typeof this.props.onDownload === 'function') {
+      this.props.onDownload(item, i, e);
+    }
   }
 
   onClick(item, i, e) {
-    if (this.props.onClick instanceof Function) { this.props.onClick(item, i, e); }
+    // TODO change for this.props.onDownload instanceof Function
+    // When thre is a jest fix to this bug: https://github.com/facebook/jest/issues/6329
+    if (typeof this.props.onClick === 'function') {
+      this.props.onClick(item, i, e);
+    }
   }
 
   onTitleClick(item, i, e) {
-    if (this.props.onTitleClick instanceof Function) { this.props.onTitleClick(item, i, e); }
+    // TODO change for this.props.onDownload instanceof Function
+    // When thre is a jest fix to this bug: https://github.com/facebook/jest/issues/6329
+    if (typeof this.props.onTitleClick === 'function') {
+      this.props.onTitleClick(item, i, e);
+    }
   }
 
   onForwardClick(item, i, e) {
-    if (this.props.onForwardClick instanceof Function) { this.props.onForwardClick(item, i, e); }
+    if (typeof this.props.onForwardClick === 'function') {
+      this.props.onForwardClick(item, i, e);
+    }
   }
 
   render() {

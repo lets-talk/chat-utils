@@ -80,7 +80,7 @@ const MessageType = shape({
   /**
    * person: Object representing the person that created or submited this message.
    */
-  person: shape(PersonType),
+  person: PersonType,
 });
 
 export {

@@ -208,6 +208,217 @@ exports[`AvatarGroup component Styled: should have the correct styles (Those tha
 </div>
 `;
 
+exports[`AvatarGroup component Styled: should have the correct styles (Those that depends on the theme) 2`] = `
+.c1 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c4 {
+  position: relative;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0, margin:0 auto;
+  -ms-flex-negative: 0, margin:0 auto;
+  flex-shrink: 0, margin:0 auto;
+  overflow: hidden;
+}
+
+.c5 {
+  width: undefined;
+  height: undefined;
+  position: relative;
+}
+
+.c6 {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(188,188,188);
+  width: calc(calc( 5 * 8px) - 5px);
+  height: calc(calc( 5 * 8px) - 5px);
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.c7 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.c8 {
+  position: absolute;
+  right: 0px;
+  border-radius: 100%;
+  padding: 1px;
+  font-weight: 600;
+  width: calc(calc( 5 * 8px) / 9);
+  height: calc(calc( 5 * 8px) / 9);
+  bottom: 0px;
+  right: 0px;
+  border: 1px solid #FFFFFF;
+  background-color: rgb(67,160,71);
+}
+
+.c2 {
+  width: 35px;
+  height: 35px;
+  position: relative;
+  float: left;
+}
+
+.c0 {
+  position: relative;
+  left: 0;
+  margin-right: 0px;
+}
+
+.c3 {
+  position: absolute;
+  top: -12px;
+  left: 7.347880794884119e-16px;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.c9 {
+  position: absolute;
+  top: 5.999999999999998px;
+  left: 10.392304845413264px;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.c10 {
+  position: absolute;
+  top: 6.0000000000000036px;
+  left: -10.392304845413262px;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+}
+
+<div
+  className="LT-AvatarGroup-Container c0 c1"
+>
+  <div
+    className="c2"
+  >
+    <div
+      className="c3"
+    >
+      <div
+        className="LT-Avatar-Container c4"
+        size="small"
+      >
+        <div
+          className="c5"
+        >
+          <img
+            alt=""
+            className="c6"
+            size="small"
+            sizes={null}
+            src="http://i46.tinypic.com/sexbb8.png"
+            srcSet={null}
+            type="circle"
+          />
+          <div
+            className="c7"
+          />
+          <div
+            className="c8"
+            size="small"
+          >
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="c9"
+    >
+      <div
+        className="LT-Avatar-Container c4"
+        size="small"
+      >
+        <div
+          className="c5"
+        >
+          <img
+            alt=""
+            className="c6"
+            size="small"
+            sizes={null}
+            src="http://i46.tinypic.com/sexbb8.png"
+            srcSet={null}
+            type="circle"
+          />
+          <div
+            className="c7"
+          />
+          <div
+            className="c8"
+            size="small"
+          >
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="c10"
+    >
+      <div
+        className="LT-Avatar-Container c4"
+        size="small"
+      >
+        <div
+          className="c5"
+        >
+          <img
+            alt=""
+            className="c6"
+            size="small"
+            sizes={null}
+            src="http://i46.tinypic.com/sexbb8.png"
+            srcSet={null}
+            type="circle"
+          />
+          <div
+            className="c7"
+          />
+          <div
+            className="c8"
+            size="small"
+          >
+             
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`AvatarGroup component should render a group in a circle (groupType: circle) 1`] = `
 <StyledAvatarGroupContainer
   className="LT-AvatarGroup-Container"

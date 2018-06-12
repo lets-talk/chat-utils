@@ -13,6 +13,7 @@ describe('ConversationList component', () => {
         avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
       },
       last_message: {
+        type: 'normal',
         content: 'Lorem ipusum la la ejemplo largo',
         created_at: '2017-11-20T09:43:57.000-0300',
       },
@@ -73,5 +74,16 @@ describe('ConversationList component', () => {
     const component = mountWithTheme(<ConversationList {...props} clickItem={() => mockCallBack()} />);
     component.find('.LT-ConversationBox-Container').first().simulate('click', fakeEventObject);
     expect(mockCallBack).toHaveBeenCalled();
+  });
+
+  it('Test mounting component with Empty conversation. Validate to containe prop.emptyStateText displayed.', () => {
+    const props = {
+      conversations: [],
+      cmpRef: null,
+      emptyStateText: 'No hay mas conversaciones',
+    };
+    // Need to call mount because the click is triggered in the child ConversationBox item element
+    const component = mountWithTheme(<ConversationList {...props} />);
+    expect(component.find('StyledNoConversation').text()).toContain('No hay mas conversaciones');
   });
 });

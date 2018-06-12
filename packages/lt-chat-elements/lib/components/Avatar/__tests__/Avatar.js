@@ -65,9 +65,45 @@ describe('Avatar component', () => {
     expect(toJson(component)).toMatchSnapshot();
 
     expect(component.length).toBe(1);
+    // Expect the component to render the <SimpleComponent>
     expect(component.find('StyledChildrenContainer').find('SimpleComponent').length).toBe(1);
+    // Expect the component have the proper props()
     expect(component.find('StyledAvatarStatus').props().size).toBe('medium');
     expect(component.find('StyledAvatarStatus').props().status).toBe('online');
+  });
+
+  it('should mount with data and children case (Component children)', () => {
+    let newProps;
+    let component;
+    const props = {
+      type: 'default', // Test using default case
+      size: 'xlarge',
+      withStatus: false,
+      status: 'online',
+      src: 'http://i46.tinypic.com/sexbb8.png',
+      alt: 'An avatar image',
+      color: '#FEFEFE',
+    };
+
+    const SimpleComponent = () => <h1>Simple component</h1>;
+
+    component = mountWithTheme(<Avatar {...props}><SimpleComponent /></Avatar>);
+    expect(component.length).toBe(1);
+    // Expect the component to render the <SimpleComponent> and have the content we passed
+    expect(component.find('StyledChildrenContainer').find('SimpleComponent').length).toBe(1);
+    expect(component.find('StyledChildrenContainer').text()).toContain('Simple component');
+
+    // Now the same but rounded
+    newProps = { ...props, type: 'rounded' };
+    component = mountWithTheme(<Avatar {...newProps}><SimpleComponent /></Avatar>);
+    expect(component.length).toBe(1);
+    // TODO -> Assert something specific here
+
+    // Now the same but circle
+    newProps = { ...props, type: 'circle' };
+    component = mountWithTheme(<Avatar {...newProps}><SimpleComponent /></Avatar>);
+    expect(component.length).toBe(1);
+    // TODO -> Assert something specific here
   });
 
   it('Should render proper status and size', () => {
@@ -81,7 +117,6 @@ describe('Avatar component', () => {
       status: 'live',
       src: 'http://i46.tinypic.com/sexbb8.png',
       alt: 'An avatar image',
-      color: '#FEFEFE',
     };
 
     component = mountWithTheme(<Avatar {...props}></Avatar>);

@@ -170,7 +170,7 @@ export function avatarStyle(element, sizeName) {
   return '';
 }
 
-export function avatarGroupItem(index, total, groupType, xDistance = 3, yDistance = 10) {
+export function avatarGroupItem(index, total, groupType, xDistance, yDistance) {
   let result;
   const circles = niceCircles(total);
   const circle = circles[index];
