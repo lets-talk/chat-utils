@@ -127,4 +127,6 @@ PhotoMessage.propTypes = {
   onOpen: PropTypes.func,
 };
 
+PhotoMessage.displayName = 'PhotoMessage';
+
 export default PhotoMessage;

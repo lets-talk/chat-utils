@@ -27,4 +27,6 @@ TimeMarkMessage.defaultProps = {
   className: 'LT-TimeMarkMessage-Container',
 };
 
+TimeMarkMessage.displayName = 'TimeMarkMessage';
+
 export default TimeMarkMessage;

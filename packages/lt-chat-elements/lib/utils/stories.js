@@ -32,6 +32,8 @@ WrapWithTheme.propTypes = {
   themeName: PropTypes.string,
 };
 
+WrapWithTheme.displayName = 'WrapWithTheme';
+
 const themeOptions = {
   default: 'DefaultTheme', light: 'LightTheme', lighter: 'lighterTheme', lightest: 'LightestTheme', dark: 'DarkTheme', darker: 'DarkerTheme', darkest: 'DarkestTheme',
 };

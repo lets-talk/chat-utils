@@ -26,6 +26,8 @@ const ScrollableList = (props) => {
   );
 };
 
+ScrollableList.displayName = 'ScrollableList';
+
 ScrollableList.propTypes = {
   children: PropTypes.array,
   cmpRef: PropTypes.func,

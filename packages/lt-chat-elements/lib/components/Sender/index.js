@@ -153,4 +153,6 @@ Sender.propTypes = {
   disabled: PropTypes.bool,
 };
 
+Sender.displayName = 'Sender';
+
 export default Sender;

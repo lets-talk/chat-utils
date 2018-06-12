@@ -79,9 +79,12 @@ ActionableMessageBox.propTypes = {
   onClickAction: PropTypes.func,
 };
 
+
 ActionableMessageBox.defaultProps = {
   onClickAction: null,
   className: 'LT-ActionableMessageBox-Container',
 };
+
+ActionableMessageBox.displayName = 'ActionableMessageBox';
 
 export default ActionableMessageBox;

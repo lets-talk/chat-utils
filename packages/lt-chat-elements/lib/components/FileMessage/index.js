@@ -128,4 +128,6 @@ FileMessage.defaultProps = {
   onOpen: null,
 };
 
+FileMessage.displayName = 'FileMessage';
+
 export default FileMessage;

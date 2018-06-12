@@ -173,4 +173,6 @@ ConversationBox.defaultProps = {
   className: 'LT-ConversationBox-Container',
 };
 
+ConversationBox.displayName = 'ConversationBox';
+
 export default ConversationBox;
