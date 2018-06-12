@@ -66,4 +66,6 @@ TagList.defaultProps = {
   clickItem: null,
 };
 
+TagList.displayName = 'TagList';
+
 export default TagList;

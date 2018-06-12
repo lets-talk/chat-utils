@@ -226,4 +226,6 @@ Avatar.defaultProps = {
   alt: '',
 };
 
+Avatar.displayName = 'Avatar';
+
 export default Avatar;

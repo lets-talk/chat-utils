@@ -86,4 +86,6 @@ ChatBox.defaultProps = {
   className: 'LT-ChatBox-Container',
 };
 
+ChatBox.displayName = 'ChatBox';
+
 export default ChatBox;

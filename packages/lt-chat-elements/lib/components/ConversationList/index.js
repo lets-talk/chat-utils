@@ -153,5 +153,7 @@ ConversationList.defaultProps = {
   noMoreDataText: '',
 };
 
+ConversationList.displayName = 'ConversationList';
+
 const autoScrollOptions = { threshold: 300, direction: 'top' };
 export default withAutoScroll(autoScrollOptions)(ConversationList);

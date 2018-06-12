@@ -175,5 +175,6 @@ MessageBox.defaultProps = {
   className: '',
 };
 
+MessageBox.displayName = 'MessageBox';
 
 export default MessageBox;

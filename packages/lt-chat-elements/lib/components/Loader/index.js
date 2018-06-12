@@ -92,4 +92,6 @@ Loader.defaultProps = {
   className: undefined,
 };
 
+Loader.displayName = 'Loader';
+
 export default Loader;
