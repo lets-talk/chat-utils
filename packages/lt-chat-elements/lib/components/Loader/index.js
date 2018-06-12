@@ -16,14 +16,12 @@ const Loader = (props) => {
 
   const renderDiv = (n, color) => {
     const styles = {};
-    if (props.color) {
-      if (props.type !== 'ball-clip-rotate') {
-        styles.backgroundColor = color;
-      }
-      styles.borderTopColor = color;
-      styles.borderRightColor = color;
-      styles.borderLeftColor = color;
+    if (props.type !== 'ball-clip-rotate') {
+      styles.backgroundColor = color;
     }
+    styles.borderTopColor = color;
+    styles.borderRightColor = color;
+    styles.borderLeftColor = color;
     return <div key={n} className="letstalk-ball-div" style={styles} />;
   };
 

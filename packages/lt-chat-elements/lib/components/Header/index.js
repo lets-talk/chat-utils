@@ -26,7 +26,7 @@ const Header = ({
         </Box>
         }
         {leftButtons.map((btn) => (
-          <Box flex="0 0 auto" mb="auto" width="40px">
+          <Box key={btn.id} flex="0 0 auto" mb="auto" width="40px">
             <button onClick={btn.onClick}>
               {btn.icon}
             </button>
@@ -49,7 +49,7 @@ const Header = ({
         </Box>
 
         {rightButtons.map((btn) => (
-          <Box flex="0 0 auto" mb="auto" width="40px">
+          <Box key={btn.id} flex="0 0 auto" mb="auto" width="40px">
             <button onClick={btn.onClick}>
               {btn.icon}
             </button>

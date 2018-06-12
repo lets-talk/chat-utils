@@ -52,6 +52,7 @@ const StyledNoConversation = styled.div`
   line-height: ${(props) => props.theme.typography.classes.body.lineHeight};
   font-weight: ${(props) => props.theme.typography.weights.fontWeightMedium};
 `;
+StyledNoConversation.displayName = 'StyledNoConversation';
 
 const StyledSvgContainer = styled.div`
   margin-bottom: 10px;
@@ -68,7 +69,9 @@ const StyledEmptyContainer = styled.div`
 
 class ConversationList extends Component {
   onClick(item, i, e) {
-    if (this.props.clickItem instanceof Function) {
+    // TODO change for this.props.clickItem instanceof Function
+    // When thre is a jest fix to this bug: https://github.com/facebook/jest/issues/6329
+    if (typeof this.props.clickItem === 'function') {
       this.props.clickItem(item, i, e);
     }
   }

@@ -102,6 +102,11 @@ exports[`NormalMessageBox component should render a Actionable message 1`] = `
   <StyledMessageBody>
     <ActionableMessageBox
       className="LT-ActionableMessageBox-Container"
+      data={
+        Object {
+          "actions": Array [],
+        }
+      }
       onClickAction={null}
     />
   </StyledMessageBody>
@@ -185,7 +190,7 @@ exports[`NormalMessageBox component should render a Typing message 1`] = `
     <StyledTypingMessage>
       <Loader
         active={true}
-        color="rgb(113, 131, 150)"
+        color="#718396"
         fullScreen={false}
         size="xsmall"
         type="ball-pulse"
