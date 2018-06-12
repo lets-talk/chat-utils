@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<MessageList /> component matches snapshot 1`] = `
+exports[`<ScrollableList /> component matches snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <_class2>
+  Symbol(enzyme.__unrendered__): <_class>
     <div>
       Child 1
     </div>
     <div>
       Child 2
     </div>
-  </_class2>,
+  </_class>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -22,7 +22,7 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "class",
+    "nodeType": "function",
     "props": Object {
       "children": Array [
         <div>
@@ -32,13 +32,8 @@ ShallowWrapper {
           Child 2
         </div>,
       ],
-      "className": "LT-MessageList-Container",
+      "className": "LT-ScrollableList-Container",
       "cmpRef": [Function],
-      "onClick": null,
-      "onDownload": null,
-      "onForwardClick": null,
-      "onOpen": null,
-      "onTitleClick": null,
     },
     "ref": null,
     "rendered": Array [
@@ -71,7 +66,7 @@ ShallowWrapper {
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "class",
+      "nodeType": "function",
       "props": Object {
         "children": Array [
           <div>
@@ -81,13 +76,8 @@ ShallowWrapper {
             Child 2
           </div>,
         ],
-        "className": "LT-MessageList-Container",
+        "className": "LT-ScrollableList-Container",
         "cmpRef": [Function],
-        "onClick": null,
-        "onDownload": null,
-        "onForwardClick": null,
-        "onOpen": null,
-        "onTitleClick": null,
       },
       "ref": null,
       "rendered": Array [
