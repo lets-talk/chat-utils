@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import MessageBox from '../index';
+import { mountWithTheme } from '../../../test-utils';
 // Constants
 import constants from '../../../utils/constants';
+import MessageBox from '../index';
 
 describe('MessageBox component', () => {
   const { messagesTypes } = constants;
@@ -18,6 +19,7 @@ describe('MessageBox component', () => {
     const props = {
       message: {
         type: messagesTypes.SYSTEM,
+        position: 'left',
         status: 'read',
         person,
       },
@@ -34,6 +36,7 @@ describe('MessageBox component', () => {
     const props = {
       message: {
         type: messagesTypes.TIME,
+        position: 'right',
         status: 'read',
         person,
       },
@@ -45,5 +48,59 @@ describe('MessageBox component', () => {
     expect(toJson(component)).toMatchSnapshot();
     // Expect to render a <TimeMarkMessage>
     expect(component.find('TimeMarkMessage').length).toBe(1);
+  });
+
+  it('should render a Normal message', () => {
+    const props = {
+      message: {
+        type: messagesTypes.TEXT,
+        position: 'left',
+        status: 'read',
+        person,
+      },
+    };
+
+    const component = shallow(<MessageBox {...props} />);
+
+    expect(component.length).toBe(1);
+    expect(toJson(component)).toMatchSnapshot();
+    // Expect to render a <TimeMarkMessage>
+    expect(component.find('NormalMessageBox').length).toBe(1);
+  });
+
+  it('should Mount a Normal message on the left', () => {
+    const props = {
+      message: {
+        type: messagesTypes.TEXT,
+        position: 'left',
+        status: 'read',
+        person,
+      },
+    };
+
+    const component = mountWithTheme(<MessageBox {...props} />);
+
+    expect(component.length).toBe(1);
+    // Expect to render a <TimeMarkMessage>
+    expect(component.find('NormalMessageBox').length).toBe(1);
+    expect(component.find('StyledMessageBoxAvatarContainer').props().position).toBe('left');
+  });
+
+  it('should Mount a Normal message on the right', () => {
+    const props = {
+      message: {
+        type: messagesTypes.TEXT,
+        position: 'right',
+        status: 'sent',
+        person,
+      },
+    };
+
+    const component = mountWithTheme(<MessageBox {...props} />);
+
+    expect(component.length).toBe(1);
+    // Expect to render a <TimeMarkMessage>
+    expect(component.find('NormalMessageBox').length).toBe(1);
+    expect(component.find('StyledMessageBoxAvatarContainer').props().position).toBe('right');
   });
 });

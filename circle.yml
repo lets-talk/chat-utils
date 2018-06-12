@@ -48,7 +48,7 @@ jobs:
 
       # Run tests!
       # Get packages names that changes and only execute on those that has git changes
-      - run: for dir in $(git log --name-only --oneline -1 | sed 1d | grep '/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd packages/$dir; npm run test:ci; cd..; done
+      - run: for dir in $(git log --name-only --oneline -1 | sed 1d | grep '/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd packages/$dir; npm run test:ci; cd ..; done
 
       # Create temp directories
       - run: |
@@ -68,7 +68,7 @@ jobs:
     steps:
       - run: 
           name: "Executing build && deploy on each package that changed"
-          command: for dir in $(git log --name-only --oneline -1 | sed 1d | grep '/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd $dir; npm run build && npm run deploy; cd..; done
+          command: for dir in $(git log --name-only --oneline -1 | sed 1d | grep '/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd $dir; npm run build && npm run deploy; cd ..; done
 
 
 # Workflows: one for build and other for deploy (only on master branch)

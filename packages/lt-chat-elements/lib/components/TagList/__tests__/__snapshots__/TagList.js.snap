@@ -1,20 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TagList component should render with custom props 1`] = `
-<TagListContainer>
-  <Tag
-    className="LT-Tag-Container"
-    data={
-      Object {
-        "name": "SPU-CLAVE",
+<StyledTagListContainer>
+  <styled.span
+    key="SPU-LOGIN"
+    onClick={[Function]}
+  >
+    <Tag
+      className="LT-Tag-Container"
+      data={
+        Object {
+          "name": "SPU-LOGIN",
+        }
       }
-    }
+    />
+  </styled.span>
+  <styled.span
     key="SPU-CLAVE"
-    onClick={null}
-  />
-</TagListContainer>
+    onClick={[Function]}
+  >
+    <Tag
+      className="LT-Tag-Container"
+      data={
+        Object {
+          "name": "SPU-CLAVE",
+        }
+      }
+    />
+  </styled.span>
+</StyledTagListContainer>
 `;
 
-exports[`TagList component should render with empty props 1`] = `<TagListContainer />`;
+exports[`TagList component should render with empty props 1`] = `<StyledTagListContainer />`;
 
-exports[`TagList component should render with no tags the empty state 1`] = `<TagListContainer />`;
+exports[`TagList component should render with no tags the empty state 1`] = `<StyledTagListContainer />`;

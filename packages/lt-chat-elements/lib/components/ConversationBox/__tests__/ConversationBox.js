@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import 'jest-styled-components';
+import { renderWithTheme } from '../../../test-utils';
 import ConversationBox from '../index';
 
 describe('ConversationBox component', () => {
@@ -13,6 +15,8 @@ describe('ConversationBox component', () => {
       avatar: 'https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg',
     },
     last_message: {
+      type: 'normal',
+      status: 'read',
       content: 'Lorem ipusum la la ejemplo largo',
       created_at: '2017-11-20T09:43:57.000-0300',
     },
@@ -40,5 +44,37 @@ describe('ConversationBox component', () => {
 
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
+  });
+
+  it('should have the correct styles (Those that depends on the theme) type=internal', () => {
+    const props = {
+      conversation: {
+        ...conversation,
+        last_message: {
+          ...conversation.last_message,
+          type: 'internal',
+        },
+      },
+      onClick: () => null,
+    };
+    const tree = renderWithTheme(<ConversationBox {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(tree).toHaveStyleRule('background-color', 'rgba(255,213,0,0.2)');
+  });
+
+  it('should have the correct styles (Those that depends on the theme) type=important', () => {
+    const props = {
+      conversation: {
+        ...conversation,
+        last_message: {
+          ...conversation.last_message,
+          type: 'important',
+        },
+      },
+      onClick: () => null,
+    };
+    const tree = renderWithTheme(<ConversationBox {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(tree).toHaveStyleRule('background-color', 'rgb(255,246,244)');
   });
 });

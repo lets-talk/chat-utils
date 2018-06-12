@@ -1,7 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`MessageBox component should render a Normal message 1`] = `
+<StyledMessageBoxContainer
+  className=""
+  onClick={null}
+  onKeyPress={null}
+>
+  <StyledMessageBoxAvatarContainer
+    position="left"
+  >
+    <Avatar
+      alt=""
+      className="LT-Avatar-Container"
+      color={null}
+      size="xsmall"
+      sizes={null}
+      src="https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg"
+      srcSet={null}
+      status=""
+      type="circle"
+      withStatus={false}
+    />
+  </StyledMessageBoxAvatarContainer>
+  <NormalMessageBox
+    className=""
+    message={
+      Object {
+        "person": Object {
+          "avatar": "https://pbs.twimg.com/profile_images/718588760003383296/2AG8omMO_400x400.jpg",
+          "email": "",
+          "type": "Client",
+        },
+        "position": "left",
+        "status": "read",
+        "type": "Text",
+      }
+    }
+    onActionMessageClick={null}
+    onClick={null}
+    onDownload={null}
+    onForwardClick={null}
+    onMessageClick={null}
+    onOpen={null}
+    onTitleClick={null}
+    person={null}
+    position="left"
+    text=""
+    type="text"
+  />
+</StyledMessageBoxContainer>
+`;
+
 exports[`MessageBox component should render a System message 1`] = `
-<styled.div
+<StyledMessageBoxContainer
   className=""
   onClick={null}
   onKeyPress={null}
@@ -15,6 +66,7 @@ exports[`MessageBox component should render a System message 1`] = `
           "email": "",
           "type": "Client",
         },
+        "position": "left",
         "status": "read",
         "type": "System",
       }
@@ -25,16 +77,18 @@ exports[`MessageBox component should render a System message 1`] = `
     text=""
     type="text"
   />
-</styled.div>
+</StyledMessageBoxContainer>
 `;
 
 exports[`MessageBox component should render a Time message 1`] = `
-<styled.div
+<StyledMessageBoxContainer
   className=""
   onClick={null}
   onKeyPress={null}
 >
-  <styled.div>
+  <StyledMessageBoxAvatarContainer
+    position="right"
+  >
     <Avatar
       alt=""
       className="LT-Avatar-Container"
@@ -47,7 +101,7 @@ exports[`MessageBox component should render a Time message 1`] = `
       type="circle"
       withStatus={false}
     />
-  </styled.div>
+  </StyledMessageBoxAvatarContainer>
   <TimeMarkMessage
     className=""
     message={
@@ -57,6 +111,7 @@ exports[`MessageBox component should render a Time message 1`] = `
           "email": "",
           "type": "Client",
         },
+        "position": "right",
         "status": "read",
         "type": "Time",
       }
@@ -67,5 +122,5 @@ exports[`MessageBox component should render a Time message 1`] = `
     text=""
     type="text"
   />
-</styled.div>
+</StyledMessageBoxContainer>
 `;

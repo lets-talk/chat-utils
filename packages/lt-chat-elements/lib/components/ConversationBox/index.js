@@ -9,7 +9,8 @@ import { ellipsis, flexRow, flexColumn, textColor } from '../../utils/style';
 import TagList from '../TagList';
 import Avatar from '../Avatar';
 
-const bgColorChooser = (theme, type) => {
+const bgColorChooser = (props) => {
+  const { theme, type } = props;
   if (type === 'internal') return theme.components.conversationBox.internalBackgroundColor;
   else if (type === 'important') return theme.components.conversationBox.importantBackgroundColor;
 
@@ -25,7 +26,7 @@ const ConversationBoxWrapper = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   min-height: 50px;
-  background-color: ${(props) => bgColorChooser(props.theme, props.type)};
+  background-color: ${(props) => bgColorChooser(props)};
 `;
 
 
@@ -110,14 +111,15 @@ const ConversationBox = (props) => {
   const { conversation, onClickAction } = props;
   const tags = conversation.tags ? conversation.tags : [];
   const lastMessageType = conversation.last_message.type ? conversation.last_message.type : '';
-  const lastMessageReaded = conversation.last_message.readed;
+  const lastMessageReaded = conversation.last_message.status === 'read';
   const timeAgo = moment(conversation.last_message.created_at).fromNow(true);
 
   return (
     <ConversationBoxWrapper
       className={props.className}
-      type={lastMessageType}
       onClick={onClickAction}
+      type={lastMessageType}
+      readed={lastMessageReaded}
     >
       {
         conversation.client.avatar &&

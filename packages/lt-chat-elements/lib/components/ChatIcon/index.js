@@ -57,8 +57,7 @@ const ChatIcon = (props) => {
 
     border-radius: ${() =>
     (props.type && props.type === 'rounded' && '5px 5px 0 0')
-    || (props.type && props.type === 'circle' && '50%')
-    || '0'};
+    || (props.type && props.type === 'circle' && '50%')};
 
     &:active {
       border-style: none;
@@ -100,8 +99,7 @@ const ChatIcon = (props) => {
 
       border-radius: ${() =>
     (props.type && props.type === 'rounded' && '5px 5px 0 0')
-      || (props.type && props.type === 'circle' && '50%')
-      || '0'};
+      || (props.type && props.type === 'circle' && '50%')};
     }
   `;
   StyledImageIconContainer.displayName = 'StyledImageIconContainer';
@@ -149,7 +147,7 @@ ChatIcon.propTypes = {
   /**
    * types: default, rounded, circle
    */
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['default', 'rounded', 'circle']),
   /**
    * text: Text to show on the component
    */
