@@ -14,6 +14,7 @@ describe('Button component', () => {
   it('should render with data', () => {
     const props = {
       type: 'button',
+      color: '#FEFEFE',
       className: 'my-custom-button-class',
       disabled: true,
       value: 'custom',
@@ -33,6 +34,7 @@ describe('Button component', () => {
 
       const props = {
         type: 'button',
+        color: '#FEFEFE',
         className: 'my-custom-button-class',
         disabled: false,
         value: 'custom',
@@ -50,6 +52,7 @@ describe('Button component', () => {
 
     const props = {
       type: 'button',
+      color: '#FEFEFE',
       className: 'my-custom-button-class',
       disabled: false,
       value: 'custom',
@@ -61,7 +64,11 @@ describe('Button component', () => {
   });
 
   it('should mouth with a Theme', () => {
-    const component = mountWithTheme(<Button type="submit" value="submit" clickHandler={(e) => e} />);
+    const component = mountWithTheme(<Button
+      type="submit"
+      value="submit"
+      clickHandler={(e) => e}
+    />);
 
     expect(component.length).toBe(1);
     expect(component).toMatchSnapshot();
