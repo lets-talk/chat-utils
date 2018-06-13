@@ -389,13 +389,6 @@ $lightestColors: generateLightVariants($theme-colors, $themeLightestFactor);
 $darkerColors: generateDarkVariants($theme-colors, $themeDarkFactor);
 $darkestColors: generateDarkVariants($theme-colors, $themeDarkestFactor);
 
-@debug $defaultsLight;
-@debug $lighterColors;
-@debug $lightestColors;
-@debug $defaultsDark;
-@debug $darkerColors;
-@debug $darkestColors;
-
 $themes: (
   default: createTheme($theme-colors, $contrast-colors),
   light: createTheme($theme-colors, generateContrastColors(map-deep-get($theme-colors, 'foreground', 'base'), map-deep-get($theme-colors, 'background', 'base'))),

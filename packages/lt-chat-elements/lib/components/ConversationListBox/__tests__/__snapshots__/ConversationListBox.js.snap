@@ -40,6 +40,7 @@ exports[`ConversationListBox component should render with custom props 1`] = `
     noMoreDataText=""
   />
   <Button
+    borderRadius="0"
     className="LT-Button-Container"
     clickHandler={[Function]}
     disabled={false}
@@ -89,6 +90,7 @@ exports[`ConversationListBox component should render with minimal props 1`] = `
     noMoreDataText=""
   />
   <Button
+    borderRadius="0"
     className="LT-Button-Container"
     clickHandler={[Function]}
     disabled={false}
