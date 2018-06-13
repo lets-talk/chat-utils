@@ -60,10 +60,12 @@ Loader.propTypes = {
    * Hexadecimal color used for the balls on the loader.
    */
   color: (myprops, propName, componentName) => {
+    /* istanbul ignore if  */
     if (!myprops[propName]) {
       // When no color specified default is false, let it pass validation
       return null;
     }
+    /* istanbul ignore if  */
     if (!/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(myprops[propName])) {
       return new Error(`Invalid prop \`${propName}\` supplied to \`${componentName}\`. Validation failed.`);
     }

@@ -12,17 +12,16 @@ const StyledButtonContainer = styled.div`
 `;
 
 const StyledButton = styled.input`
+  cursor: pointer;
   position: relative;
   color: ${(props) => textColor(props.theme, 'dark', 'primary')};
-  background-color: ${(props) => themeColor(props.theme, 'accent', 'base')};  
+  background-color: ${(props) => props.color ? props.color : themeColor(props.theme, 'accent', 'base')};  
   height: 40px;
-  border-radius: 20px;
+  border-radius: ${(props) => props.borderRadius};
   box-shadow: none;
   padding: 10px 25px;
   float: left;
 `;
-
-// import './index.scss';
 
 const DELAY = 300;
 const LOADER_DELAY = 900;
@@ -62,13 +61,15 @@ class Button extends Component {
 
   render() {
     const {
-      type, className, disabled, value,
+      type, className, disabled, value, color, borderRadius,
     } = this.props;
 
     return (
       <StyledButtonContainer className={className}>
         <StyledButton
+          color={color}
           type={type}
+          borderRadius={borderRadius}
           className={classNames('letstalk-button', className)}
           value={this.state.showLoading === true ? 'Processing...' : value}
           disabled={disabled === true ? disabled : this.state.disabled}
@@ -81,13 +82,16 @@ class Button extends Component {
 
 Button.propTypes = {
   type: PropTypes.oneOf(['button', 'submit', 'reset']).isRequired,
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
   value: PropTypes.string.isRequired,
-  clickHandler: PropTypes.func.isRequired,
+  borderRadius: PropTypes.string,
+  color: PropTypes.string,
+  disabled: PropTypes.bool,
+  clickHandler: PropTypes.func,
+  className: PropTypes.string,
 };
 
 Button.defaultProps = {
+  borderRadius: '0',
   className: 'LT-Button-Container',
   disabled: false,
 };
