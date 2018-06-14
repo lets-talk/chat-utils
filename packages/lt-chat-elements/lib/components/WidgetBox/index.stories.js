@@ -6,7 +6,7 @@ import { withKnobs, text, boolean, object, number, select } from '@storybook/add
 
 import { WrapWithTheme, defaultTheme, themeOptions } from '../../utils/stories';
 // Component to show on storybook
-import { WidgetBox, Header, MessageList } from '../../../lib';
+import { WidgetBox, Header, ScrollableList } from '../../../lib';
 
 const stories = storiesOf('WidgetBox', module);
 stories.addDecorator(withKnobs);
@@ -44,10 +44,7 @@ stories.addWithInfo(
             />
           </WidgetBox.Header>
           <WidgetBox.Body>
-            <MessageList
-              messages={[]}
-              onActionMessageClick={action('onActionMessageClick')}
-            />
+            <ScrollableList></ScrollableList>
           </WidgetBox.Body>
         </WidgetBox>
       </WrapWithTheme>
