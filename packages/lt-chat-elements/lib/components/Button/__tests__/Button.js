@@ -11,6 +11,7 @@ describe('Button component', () => {
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
   });
+
   it('should render with data', () => {
     const props = {
       type: 'button',
@@ -28,9 +29,8 @@ describe('Button component', () => {
   });
 
   describe('Button with and without clickHandler', () => {
-    it('Test clickHandler event without Promise', () => {
+    it('Test onClick event without Promise', () => {
       const mockCallBack = jest.fn();
-      const fakeEventObject = { preventDefault() {}, stopPropagation() {} };
 
       const props = {
         type: 'button',
@@ -40,30 +40,14 @@ describe('Button component', () => {
         value: 'custom',
       };
 
-      const button = shallow((<Button clickHandler={mockCallBack} {...props} />));
-      button.find('.letstalk-button').simulate('click', fakeEventObject);
+      const button = shallow((<Button onClick={mockCallBack} {...props} />));
+      button.find('.letstalk-button').simulate('click');
       expect(mockCallBack).toHaveBeenCalled();
     });
   });
 
-  it('Test clickHandler event with Promise', () => {
-    const mockClickHandler = jest.fn(() => Promise.resolve({}));
-    const fakeEventObject = { preventDefault() {}, stopPropagation() {} };
 
-    const props = {
-      type: 'button',
-      color: '#FEFEFE',
-      className: 'my-custom-button-class',
-      disabled: false,
-      value: 'custom',
-    };
-
-    const button = shallow((<Button clickHandler={mockClickHandler} {...props} />));
-    button.find('.letstalk-button').simulate('click', fakeEventObject);
-    expect(mockClickHandler).toHaveBeenCalled();
-  });
-
-  it('should mouth with a Theme', () => {
+  it('should mount with a Theme', () => {
     const component = mountWithTheme(<Button
       type="submit"
       value="submit"
