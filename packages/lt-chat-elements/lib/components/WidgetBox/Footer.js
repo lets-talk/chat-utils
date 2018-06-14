@@ -5,16 +5,18 @@ import styled from 'styled-components';
 const Footer = (props) => {
   const {
     children,
+    height,
+    className,
   } = props;
 
   const StyledFlexFooter = styled.div`
     flex: 0 0 auto;
-    flex-basis: ${() => `${props.height}px`};
+    flex-basis: ${() => `${height}px`};
   `;
   StyledFlexFooter.displayName = 'StyledFlexFooter';
 
   return (
-    <StyledFlexFooter>
+    <StyledFlexFooter className={className}>
       {children}
     </StyledFlexFooter>
   );
@@ -23,11 +25,14 @@ const Footer = (props) => {
 Footer.propTypes = {
   children: PropTypes.node.isRequired,
   height: PropTypes.number,
+  className: PropTypes.string,
 };
 
 Footer.defaultProps = {
   height: 50,
+  className: 'WidgetBoxFooter-Container',
 };
 
+Footer.displayName = 'WidgetBoxFooter';
 
 export default Footer;

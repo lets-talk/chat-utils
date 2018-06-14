@@ -51,10 +51,10 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  className: 'LT-Header-Container',
+  className: 'WidgetBoxHeader-Container',
   height: 50,
 };
 
-Header.displayName = 'Header';
+Header.displayName = 'WidgetBoxHeader';
 
 export default Header;
