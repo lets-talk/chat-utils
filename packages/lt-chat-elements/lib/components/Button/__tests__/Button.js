@@ -28,24 +28,21 @@ describe('Button component', () => {
     expect(toJson(component)).toMatchSnapshot();
   });
 
-  describe('Button with and without clickHandler', () => {
-    it('Test onClick event without Promise', () => {
-      const mockCallBack = jest.fn();
+  it('Test onClick event', () => {
+    const mockCallBack = jest.fn();
 
-      const props = {
-        type: 'button',
-        color: '#FEFEFE',
-        className: 'my-custom-button-class',
-        disabled: false,
-        value: 'custom',
-      };
+    const props = {
+      type: 'button',
+      color: '#FEFEFE',
+      className: 'my-custom-button-class',
+      disabled: false,
+      value: 'custom',
+    };
 
-      const button = shallow((<Button onClick={mockCallBack} {...props} />));
-      button.find('.letstalk-button').simulate('click');
-      expect(mockCallBack).toHaveBeenCalled();
-    });
+    const button = shallow((<Button onClick={mockCallBack} {...props} />));
+    button.find('.letstalk-button').simulate('click');
+    expect(mockCallBack).toHaveBeenCalled();
   });
-
 
   it('should mount with a Theme', () => {
     const component = mountWithTheme(<Button
