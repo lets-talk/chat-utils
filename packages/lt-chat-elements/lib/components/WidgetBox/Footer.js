@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Footer = (props) => {
+const WidgetBoxFooter = (props) => {
   const {
     children,
     height,
@@ -22,17 +22,15 @@ const Footer = (props) => {
   );
 };
 
-Footer.propTypes = {
+WidgetBoxFooter.propTypes = {
   children: PropTypes.node.isRequired,
   height: PropTypes.number,
   className: PropTypes.string,
 };
 
-Footer.defaultProps = {
+WidgetBoxFooter.defaultProps = {
   height: 50,
   className: 'WidgetBoxFooter-Container',
 };
 
-Footer.displayName = 'WidgetBoxFooter';
-
-export default Footer;
+export default WidgetBoxFooter;

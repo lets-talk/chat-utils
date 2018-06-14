@@ -35,7 +35,7 @@ const StyledHeaderContainer = styled.div`
 `;
 StyledHeaderContainer.displayName = 'StyledHeaderContainer';
 
-const Header = (props) => {
+const WidgetBoxHeader = (props) => {
   const { children, className, height } = props;
   return (
     <StyledHeaderContainer className={className} height={height}>
@@ -44,17 +44,15 @@ const Header = (props) => {
   );
 };
 
-Header.propTypes = {
+WidgetBoxHeader.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   height: PropTypes.number,
 };
 
-Header.defaultProps = {
+WidgetBoxHeader.defaultProps = {
   className: 'WidgetBoxHeader-Container',
   height: 50,
 };
 
-Header.displayName = 'WidgetBoxHeader';
-
-export default Header;
+export default WidgetBoxHeader;
