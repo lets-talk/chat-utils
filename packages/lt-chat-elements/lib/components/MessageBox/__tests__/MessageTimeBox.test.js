@@ -6,6 +6,10 @@ import MessageTimeBox from '../MessageTimeBox';
 // Constants
 import { renderWithTheme } from '../../../test-utils';
 
+jest.mock('moment', () => jest.fn(() => ({
+  fromNow: jest.fn(() => '3 days ago'),
+})));
+
 describe('MessageTimeBox component', () => {
   it('should render a Text Message and contain the Text and status', () => {
     const props = {

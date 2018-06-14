@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import styled from 'styled-components';
@@ -23,62 +23,25 @@ const StyledButton = styled.input`
   float: left;
 `;
 
-const DELAY = 300;
-const LOADER_DELAY = 900;
+const Button = (props) => {
+  const {
+    type, className, disabled, value, color, borderRadius, onClick,
+  } = props;
 
-class Button extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      disabled: false,
-      showLoading: false,
-    };
-  }
-
-  onClick(event) {
-    const { clickHandler } = this.props;
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.setState({ disabled: true });
-
-    const handler = clickHandler();
-    if (handler && handler instanceof Promise) {
-      const loader = setTimeout(() => this.setState({ showLoading: true }), LOADER_DELAY);
-      handler.then(() => {
-        clearTimeout(loader);
-
-        setTimeout(() => this.setState({
-          disabled: false,
-          showLoading: false,
-        }), DELAY);
-      });
-    } else {
-      this.setState({ disabled: false });
-    }
-  }
-
-  render() {
-    const {
-      type, className, disabled, value, color, borderRadius,
-    } = this.props;
-
-    return (
-      <StyledButtonContainer className={className}>
-        <StyledButton
-          color={color}
-          type={type}
-          borderRadius={borderRadius}
-          className={classNames('letstalk-button', className)}
-          value={this.state.showLoading === true ? 'Processing...' : value}
-          disabled={disabled === true ? disabled : this.state.disabled}
-          onClick={(event) => this.onClick(event)}
-        />
-      </StyledButtonContainer>
-    );
-  }
-}
+  return (
+    <StyledButtonContainer className={className}>
+      <StyledButton
+        color={color}
+        type={type}
+        borderRadius={borderRadius}
+        className={classNames('letstalk-button', className)}
+        value={value}
+        disabled={disabled}
+        onClick={onClick}
+      />
+    </StyledButtonContainer>
+  );
+};
 
 Button.propTypes = {
   type: PropTypes.oneOf(['button', 'submit', 'reset']).isRequired,
@@ -86,7 +49,7 @@ Button.propTypes = {
   borderRadius: PropTypes.string,
   color: PropTypes.string,
   disabled: PropTypes.bool,
-  clickHandler: PropTypes.func,
+  onClick: PropTypes.func,
   className: PropTypes.string,
 };
 
