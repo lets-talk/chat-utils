@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Header from './Header';
-import Footer from './Footer';
-import Body from './Body';
+import WidgetBoxHeader from './Header';
+import WidgetBoxFooter from './Footer';
+import WidgetBoxBody from './Body';
 
 const StyledWidgetBoxContainer = styled.div`
   border-radius: 10px 10px 0px 0px;
@@ -39,10 +39,8 @@ WidgetBox.defaultProps = {
   className: 'LT-WidgetBox-Container',
 };
 
-WidgetBox.Header = Header;
-WidgetBox.Footer = Footer;
-WidgetBox.Body = Body;
-
-WidgetBox.displayName = 'WidgetBox';
+WidgetBox.Header = WidgetBoxHeader;
+WidgetBox.Footer = WidgetBoxFooter;
+WidgetBox.Body = WidgetBoxBody;
 
 export default WidgetBox;

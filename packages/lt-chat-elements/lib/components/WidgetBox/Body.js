@@ -11,7 +11,7 @@ const StyledBodyContainer = styled.div`
 StyledBodyContainer.displayName = 'StyledBodyContainer';
 
 
-const Body = (props) => {
+const WidgetBoxBody = (props) => {
   const {
     children, className,
   } = props;
@@ -20,15 +20,13 @@ const Body = (props) => {
   );
 };
 
-Body.propTypes = {
+WidgetBoxBody.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
-Body.defaultProps = {
+WidgetBoxBody.defaultProps = {
   className: 'WidgetBoxBody-Container',
 };
 
-Body.displayName = 'WidgetBoxBody-Container';
-
-export default Body;
+export default WidgetBoxBody;
