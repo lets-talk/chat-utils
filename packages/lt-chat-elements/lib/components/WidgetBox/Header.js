@@ -55,4 +55,6 @@ WidgetBoxHeader.defaultProps = {
   height: 50,
 };
 
+WidgetBoxHeader.displayName = 'WidgetBoxHeader';
+
 export default WidgetBoxHeader;

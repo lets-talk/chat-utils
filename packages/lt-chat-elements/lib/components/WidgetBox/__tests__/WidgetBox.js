@@ -25,9 +25,9 @@ describe('WidgetBox component', () => {
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
 
-    expect(component.find('Header').length).toBe(1);
-    expect(component.find('Body').length).toBe(1);
-    expect(component.find('Body').children().text()).toBe('Child WidgetBox Body');
+    expect(component.find('WidgetBoxHeader').length).toBe(1);
+    expect(component.find('WidgetBoxBody').length).toBe(1);
+    expect(component.find('WidgetBoxBody').children().text()).toBe('Child WidgetBox Body');
   });
 
   it('should mount the component. The component must include Header, Body and Footer', () => {
@@ -46,9 +46,9 @@ describe('WidgetBox component', () => {
     expect(component.length).toBe(1);
     expect(toJson(component)).toMatchSnapshot();
 
-    expect(component.find('Header').length).toBe(1);
-    expect(component.find('Footer').length).toBe(1);
-    expect(component.find('Body').length).toBe(1);
-    expect(component.find('Body').children().text()).toBe('Child WidgetBox Body');
+    expect(component.find('WidgetBoxHeader').length).toBe(1);
+    expect(component.find('WidgetBoxFooter').length).toBe(1);
+    expect(component.find('WidgetBoxBody').length).toBe(1);
+    expect(component.find('WidgetBoxBody').children().text()).toBe('Child WidgetBox Body');
   });
 });

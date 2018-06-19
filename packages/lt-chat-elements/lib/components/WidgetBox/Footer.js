@@ -33,4 +33,6 @@ WidgetBoxFooter.defaultProps = {
   className: 'WidgetBoxFooter-Container',
 };
 
+WidgetBoxFooter.displayName = 'WidgetBoxFooter';
+
 export default WidgetBoxFooter;
