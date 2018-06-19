@@ -35,7 +35,7 @@ exports[`WidgetBox component should mount the component. The component must incl
           className="WidgetBoxBody-Container"
         >
           <div
-            className="WidgetBoxBody-Container sc-bwzfXH bQmfDh"
+            className="WidgetBoxBody-Container sc-bwzfXH cnKmQy"
           >
             <span>
               Child WidgetBox Body

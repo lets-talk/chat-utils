@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { withAutoScroll } from '../../utils/hoc';
 
 const StyledScrollableListContainer = styled.div`
-  max-height: 100vh;
+  flex: 1;
   background-color: ${(props) => props.theme.palette.common.white};
   overflow-y: auto;
   padding: 10px;
