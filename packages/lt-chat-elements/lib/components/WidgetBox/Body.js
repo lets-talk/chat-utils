@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 
 const StyledBodyContainer = styled.div`
+  display: flex;
   flex: 1 1 auto; /* same as flex: 1 1 auto; */
   position: relative; /* need this to position inner content */
   overflow-y: auto;
