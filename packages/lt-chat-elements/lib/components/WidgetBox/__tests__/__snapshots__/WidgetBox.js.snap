@@ -10,16 +10,16 @@ exports[`WidgetBox component should mount the component. The component must incl
     <div
       className="LT-WidgetBox-Container sc-htpNat kwWgIV"
     >
-      <Header
-        className="LT-Header-Container"
+      <WidgetBoxHeader
+        className="WidgetBoxHeader-Container"
         height={50}
       >
         <StyledHeaderContainer
-          className="LT-Header-Container"
+          className="WidgetBoxHeader-Container"
           height={50}
         >
           <div
-            className="LT-Header-Container sc-bdVaJa dFfQGU"
+            className="WidgetBoxHeader-Container sc-bdVaJa dFfQGU"
             height={50}
           >
             <div>
@@ -27,31 +27,38 @@ exports[`WidgetBox component should mount the component. The component must incl
             </div>
           </div>
         </StyledHeaderContainer>
-      </Header>
-      <Body>
-        <StyledBodyContainer>
+      </WidgetBoxHeader>
+      <WidgetBoxBody
+        className="WidgetBoxBody-Container"
+      >
+        <StyledBodyContainer
+          className="WidgetBoxBody-Container"
+        >
           <div
-            className="sc-bwzfXH bQmfDh"
+            className="WidgetBoxBody-Container sc-bwzfXH bQmfDh"
           >
             <span>
               Child WidgetBox Body
             </span>
           </div>
         </StyledBodyContainer>
-      </Body>
-      <Footer
+      </WidgetBoxBody>
+      <WidgetBoxFooter
+        className="WidgetBoxFooter-Container"
         height={50}
       >
-        <StyledFlexFooter>
+        <StyledFlexFooter
+          className="WidgetBoxFooter-Container"
+        >
           <div
-            className="sc-bxivhb hVXoeT"
+            className="WidgetBoxFooter-Container sc-bxivhb hVXoeT"
           >
             <span>
               I am a footer
             </span>
           </div>
         </StyledFlexFooter>
-      </Footer>
+      </WidgetBoxFooter>
     </div>
   </styled.div>
 </WidgetBox>
@@ -61,19 +68,21 @@ exports[`WidgetBox component should render with custom props 1`] = `
 <styled.div
   className="LT-WidgetBox-Container"
 >
-  <Header
-    className="LT-Header-Container"
+  <WidgetBoxHeader
+    className="WidgetBoxHeader-Container"
     height={50}
   >
     <div>
       Header Child
     </div>
-  </Header>
-  <Body>
+  </WidgetBoxHeader>
+  <WidgetBoxBody
+    className="WidgetBoxBody-Container"
+  >
     <span>
       Child WidgetBox Body
     </span>
-  </Body>
+  </WidgetBoxBody>
 </styled.div>
 `;
 

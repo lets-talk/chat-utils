@@ -29,4 +29,6 @@ WidgetBoxBody.defaultProps = {
   className: 'WidgetBoxBody-Container',
 };
 
+WidgetBoxBody.displayName = 'WidgetBoxBody';
+
 export default WidgetBoxBody;

@@ -43,4 +43,6 @@ WidgetBox.Header = WidgetBoxHeader;
 WidgetBox.Footer = WidgetBoxFooter;
 WidgetBox.Body = WidgetBoxBody;
 
+WidgetBox.displayName = 'WidgetBox';
+
 export default WidgetBox;
