@@ -82,7 +82,6 @@ const StyledActionButton = styled.button`
     }
 `;
 
-
 class Sender extends Component {
   constructor(props) {
     super(props);
@@ -118,6 +117,7 @@ class Sender extends Component {
   }
 
   render() {
+    /* eslint-disable jsx-a11y/no-autofocus */
     const { placeholder, disabled } = this.props;
     return (
       <StyledSenderContainer>
@@ -129,6 +129,7 @@ class Sender extends Component {
             placeholder={placeholder}
             disabled={disabled}
             autoComplete="off"
+            autoFocus
             onChange={this.handleChange}
             onKeyDown={this.handleKeyDown}
           />
