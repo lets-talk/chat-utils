@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 
 const StyledBodyContainer = styled.div`
+  display: flex;
   flex: 1 1 auto; /* same as flex: 1 1 auto; */
   position: relative; /* need this to position inner content */
   overflow-y: auto;
@@ -11,20 +12,24 @@ const StyledBodyContainer = styled.div`
 StyledBodyContainer.displayName = 'StyledBodyContainer';
 
 
-const Body = (props) => {
+const WidgetBoxBody = (props) => {
   const {
-    children,
+    children, className,
   } = props;
   return (
-    <StyledBodyContainer>{children}</StyledBodyContainer>
+    <StyledBodyContainer className={className}>{children}</StyledBodyContainer>
   );
 };
 
-Body.propTypes = {
+WidgetBoxBody.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 
-Body.defaultProps = {
+WidgetBoxBody.defaultProps = {
+  className: 'WidgetBoxBody-Container',
 };
 
-export default Body;
+WidgetBoxBody.displayName = 'WidgetBoxBody';
+
+export default WidgetBoxBody;

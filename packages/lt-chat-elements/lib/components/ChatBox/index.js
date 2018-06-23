@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import WidgetBox from '../WidgetBox';
-import MessageList from '../MessageList';
+import MessageBox from '../MessageBox';
+import ScrollableList from '../ScrollableList';
 import Sender from '../Sender';
 
 const ChatBox = (props) => {
@@ -15,11 +16,6 @@ const ChatBox = (props) => {
     className,
     toggleChat,
     disabledInput,
-    onActionMessageClick,
-    onOpen,
-    onDownload,
-    onTitleClick,
-    onForwardClick,
     openMenu,
     showMinimizeButton,
     showMenuButton,
@@ -39,14 +35,9 @@ const ChatBox = (props) => {
         person={person}
       />
       <WidgetBox.Body>
-        <MessageList
-          messages={messages}
-          onActionMessageClick={onActionMessageClick}
-          onOpen={onOpen}
-          onDownload={onDownload}
-          onTitleClick={onTitleClick}
-          onForwardClick={onForwardClick}
-        />
+        <ScrollableList>
+          {messages.map((message) => (<MessageBox message={message} />))}
+        </ScrollableList>
       </WidgetBox.Body>
       <WidgetBox.Footer>
         <Sender
@@ -66,11 +57,6 @@ ChatBox.propTypes = {
   person: PropTypes.object,
   className: PropTypes.string,
   sendMessage: PropTypes.func,
-  onActionMessageClick: PropTypes.func,
-  onOpen: PropTypes.func,
-  onDownload: PropTypes.func,
-  onTitleClick: PropTypes.func,
-  onForwardClick: PropTypes.func,
   senderPlaceHolder: PropTypes.string,
   toggleChat: PropTypes.func,
   openMenu: PropTypes.func,
