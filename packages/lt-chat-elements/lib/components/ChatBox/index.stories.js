@@ -343,11 +343,6 @@ stories.addWithInfo(
           disabledInput={boolean('Disable Input', false)}
           person={object('Agent', agent)}
           messages={object('Messages', fileMessages)}
-          onActionMessageClick={action('onActionMessageClick')}
-          onOpen={action('onOpen')}
-          onDownload={action('onDownload')}
-          onTitleClick={action('onTitleClick')}
-          onForwardClick={action('onForwardClick')}
         />
       </WrapWithTheme>
     </div>
@@ -436,7 +431,6 @@ stories.addWithInfo(
           disabledInput={boolean('Disable Input', false)}
           person={object('Agent', agent)}
           messages={object('Messages', photoMessages)}
-          onActionMessageClick={action('onActionMessageClick')}
         />
       </WrapWithTheme>
     </div>
@@ -542,7 +536,6 @@ stories.addWithInfo(
           senderPlaceHolder={text('Sender PlaceHolder', 'Escribe una respuesta')}
           toggleChat={action('toggleChat')}
           openMenu={action('openMenu')}
-          onActionMessageClick={action('onActionMessageClick')}
           showMenuButton={boolean('Show Menu Button', true)}
           showMinimizeButton={boolean('Show Minimize Button', true)}
           disabledInput={boolean('Disable Input', false)}
