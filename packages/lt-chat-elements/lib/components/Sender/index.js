@@ -108,12 +108,14 @@ class Sender extends Component {
     if (e.keyCode === 13 && e.shiftKey === false) {
       sendMessage(this.state.input);
       this.setState({ input: '' });
+      e.preventDefault();
     }
   }
 
   handleSend() {
     const { sendMessage } = this.props;
     sendMessage(this.state.input);
+    this.setState({ input: '' });
   }
 
   render() {

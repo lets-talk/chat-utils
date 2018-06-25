@@ -8,7 +8,7 @@ exports[`WidgetBox component should mount the component. The component must incl
     className="LT-WidgetBox-Container"
   >
     <div
-      className="LT-WidgetBox-Container sc-htpNat kwWgIV"
+      className="LT-WidgetBox-Container sc-bxivhb gjcbmK"
     >
       <WidgetBoxHeader
         className="WidgetBoxHeader-Container"
@@ -37,9 +37,15 @@ exports[`WidgetBox component should mount the component. The component must incl
           <div
             className="WidgetBoxBody-Container sc-bwzfXH cnKmQy"
           >
-            <span>
-              Child WidgetBox Body
-            </span>
+            <StyledBodyContainerContent>
+              <div
+                className="sc-htpNat bPwnTC"
+              >
+                <span>
+                  Child WidgetBox Body
+                </span>
+              </div>
+            </StyledBodyContainerContent>
           </div>
         </StyledBodyContainer>
       </WidgetBoxBody>
@@ -51,7 +57,7 @@ exports[`WidgetBox component should mount the component. The component must incl
           className="WidgetBoxFooter-Container"
         >
           <div
-            className="WidgetBoxFooter-Container sc-bxivhb hVXoeT"
+            className="WidgetBoxFooter-Container sc-ifAKCX fFhMjk"
           >
             <span>
               I am a footer

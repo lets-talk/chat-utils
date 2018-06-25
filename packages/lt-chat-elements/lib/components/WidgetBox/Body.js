@@ -11,13 +11,24 @@ const StyledBodyContainer = styled.div`
 `;
 StyledBodyContainer.displayName = 'StyledBodyContainer';
 
+const StyledBodyContainerContent = styled.div`
+  display: flex;
+  flex: 1 1 auto; /* same as flex: 1 1 auto; */
+  flex-direction: column;
+`;
+StyledBodyContainerContent.displayName = 'StyledBodyContainerContent';
+
 
 const WidgetBoxBody = (props) => {
   const {
     children, className,
   } = props;
   return (
-    <StyledBodyContainer className={className}>{children}</StyledBodyContainer>
+    <StyledBodyContainer className={className}>
+      <StyledBodyContainerContent>
+        {children}
+      </StyledBodyContainerContent>
+    </StyledBodyContainer>
   );
 };
 
