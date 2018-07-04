@@ -102,7 +102,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lets-talk/lt-tool-kit.git"
+    "url": "git+https://github.com/lets-talk/chat-utils.git"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/lib/test-utils/jest.setup.js",
@@ -206,8 +206,5 @@
       "eslint --fix",
       "git add"
     ]
-  },
-  "publishConfig": {
-    "registry": "http://localhost:4873/"
   }
 }

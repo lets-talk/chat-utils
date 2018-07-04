@@ -11,15 +11,13 @@
 
 This is a *monorepo* holding different frontend projects.
 
-Currently it contains 2 repos:
+Currently it contains 1 repos:
 
-1. **packages/lt-widget** The widget library that is used to build the file that is shared to clients using our Widget on their website
-2. **packages/lt-tool-kit** A component library for building Chat UI's. It contains reusable components to build web on top of it
+1. **packages/lt-tool-kit** A component library for building Chat UI's. It contains reusable components to build web on top of it
 
 # Documentation:
 
-1. [LT-Widget Documentation](https://lets-talk.github.io/lt-tool-kit/#/)
-2. [LT-Toolkit Documentation](https://lets-talk.github.io/lt-tool-kit/#/)
+1. [LT-Toolkit Documentation](https://lets-talk.github.io/lt-tool-kit/#/)
 
 
 # Repository Tools
@@ -34,8 +32,8 @@ Here are the few libraries we are going to use.
 
 # Setup Project
 ```
-git clone https://github.com/lets-talk/lt-tool-kit
-cd lt-tool-kit
+git clone https://github.com/lets-talk/chat-utils
+cd chat-utils
 npm install or yarn
 //after the installation complete
 npm run storybook or yarn storybook
