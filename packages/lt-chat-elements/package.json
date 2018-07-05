@@ -1,6 +1,6 @@
 {
-  "name": "@letstalk/lt-chat-elements",
-  "version": "0.1.0",
+  "name": "@lets-talk/lt-chat-elements",
+  "version": "0.1.1",
   "description": "React Component Library with a set of chat components that help implment LetsTalk interfaces.",
   "main": "build/index.js",
   "directories": {
