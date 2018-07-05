@@ -1,6 +1,6 @@
 {
   "name": "@letstalk/lt-chat-elements",
-  "version": "1.2.18",
+  "version": "1.2.21",
   "description": "React Component Library with a set of chat components that help implment LetsTalk interfaces.",
   "main": "build/index.js",
   "directories": {
@@ -206,5 +206,8 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
