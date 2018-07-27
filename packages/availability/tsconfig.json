@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "declaration": true,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSourceMap": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "newLine": "lf",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "dist",
+    "paths": {
+      "@ninoscript/*": ["./*/src"]
+    },
+    "removeComments": true,
+    "sourceRoot": "./",
+    "strict": true,
+    "target": "ES6",
+  }
+}
