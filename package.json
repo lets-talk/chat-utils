@@ -1,10 +1,10 @@
 {
   "devDependencies": {
     "@types/jest": "^21.1.2",
-    "jest": "^21.2.1",
-    "lerna": "^2.11.0",
-    "tslint": "^5.7.0",
-    "typescript": "^2.5.3"
+    "jest": "^23.4.2",
+    "lerna": "^3.0.0-rc.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.1"
   },
   "private": true,
   "scripts": {
