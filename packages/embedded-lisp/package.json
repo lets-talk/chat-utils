@@ -1,0 +1,16 @@
+{
+  "name": "@lets-talk/embedded-lisp",
+  "version": "0.1.0",
+  "description": "Minimal lisp implementation based on http://kanaka.github.io/miniMAL/",
+  "scripts": {
+    "prepublishOnly": "tsc"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "author": "Cristián Arenas",
+  "license": "ISC",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}
