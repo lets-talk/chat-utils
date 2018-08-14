@@ -1,0 +1,16 @@
+{
+  "name": "@lets-talk/rule-machine",
+  "version": "0.1.0",
+  "description": "Lisp Rules + triggers",
+  "scripts": {
+    "prepublishOnly": "tsc"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "author": "Cristián Arenas",
+  "license": "ISC",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}
