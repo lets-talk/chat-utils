@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/rule-machine",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Lisp Rules + triggers",
   "scripts": {
     "prepublishOnly": "tsc"
