@@ -1,19 +1,22 @@
 import 'isomorphic-fetch';
-import { App } from "./types";
+import { App, ObjectIndex } from "./types";
 
 export class AppManager {
   baseUrl: string;
+  urlParams: ObjectIndex;
 
-  constructor(baseURL: string) {
+  constructor(baseURL: string, params: ObjectIndex) {
     this.baseUrl = baseURL;
+    this.urlParams = params;
   }
 
   mountApp = (appId: Number, appOnload: () => void) => {
     const iframe = document.createElement('iframe');
     iframe.id = `letstalk-app-${appId}`;
     iframe.onload = appOnload;
-  
-    const widgetAppUrl = `${this.baseUrl}/api/v1/widget_apps/${appId}`;
+    
+    const urlParams = Object.keys(this.urlParams).map(key => `${key}=${encodeURIComponent(this.urlParams[key])}`).join('&');
+    const widgetAppUrl = `${this.baseUrl}/api/v1/widget_apps/${appId}?${urlParams}`;
     fetch(widgetAppUrl).then((widgetAppResonse) => {
       widgetAppResonse.json().then((appConfiguration: App) => {
         if (appConfiguration.payload_type === 'html') {
@@ -35,13 +38,23 @@ export class AppManager {
       document.body.removeChild(appIframe);
     }
   };
+
+  updateAppSettings = (appId: Number, settings: ObjectIndex) => {
+    const appIframe = document.getElementById(`letstalk-app-${appId}`);
+    if (appIframe) {
+      Object.keys(settings).forEach((key: string) => {
+        appIframe.style.setProperty(key, settings[key]);
+      });
+    }
+  };
 }
 
 
 export const setupManager = (
   baseUrl: string,
+  params: ObjectIndex,
 ) => {
-  const appManager = new AppManager(baseUrl);
+  const appManager = new AppManager(baseUrl, params);
   return appManager;
 };
 
