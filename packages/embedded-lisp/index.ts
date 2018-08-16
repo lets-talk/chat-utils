@@ -17,5 +17,17 @@ export {
 } from './src/types';
 
 export {
+    extractBoolean,
+    extractHashMap,
+    extractKeyword,
+    extractList,
+    extractNil,
+    extractNumber,
+    extractString,
+    extractSymbol,
+    extractVector
+} from './src/extractors';
+
+export {
     makeEval
 } from './src/mal';
