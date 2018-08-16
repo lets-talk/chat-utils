@@ -1,0 +1,16 @@
+{
+  "name": "@lets-talk/widgets-manager",
+  "version": "0.1.0",
+  "description": "Minimal widgets manager implementation to allow load / remove apps on a page",
+  "scripts": {
+    "prepublishOnly": "tsc"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "author": "Sandino Nunez",
+  "license": "ISC",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}
