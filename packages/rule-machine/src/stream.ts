@@ -26,4 +26,8 @@ export class Stream<T> {
             streams.forEach((s) => s.suscribe(next));
         });
     }
+
+    static empty<T>(): Stream<T> {
+        return new Stream<T>(() => {})
+    }
 }

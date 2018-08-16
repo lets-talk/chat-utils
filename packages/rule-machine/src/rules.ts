@@ -4,20 +4,21 @@ import { LauncherRule, LauncherTrigger } from "./types";
 export type CodeEvaluator = (code: string) => CodeResult;
 export type CodeResult = { type: string };
 
-const flatmap = <T, U>(a: T[], f: (t: T) => U[]): U[] =>
-    a.map(f).reduce((acc, val) => acc.concat(val), []);
+const makeRuleStream = (
+    setupTrigger: (trigger: LauncherTrigger) => Stream<unknown>,
+) =>
+    (rule: LauncherRule) => {
+        const allTriggerStreams = rule.triggers.map(setupTrigger)
+        const anyTriggerStream = Stream.mergeMap(allTriggerStreams);
+        const ruleStream = anyTriggerStream.map(() => rule.rule);
+        return ruleStream;
+    }
 
-export const setupRuleMachine = (
+export const makeRuleMachine = (
     setupTrigger: (trigger: LauncherTrigger) => Stream<unknown>,
     evalLisp: CodeEvaluator,
 ) =>
-    (rules: LauncherRule[]) =>
-        Stream.mergeMap(
-            flatmap(rules, (rule) =>
-                rule.triggers.map((trigger) =>
-                    setupTrigger(trigger).map(() =>
-                        evalLisp(rule.rule)
-                    )
-                )
-            )
-        );
+    (rules: LauncherRule[]): Stream<CodeResult> => {
+        const ruleStreams = rules.map(makeRuleStream(setupTrigger));
+        return Stream.mergeMap(ruleStreams).map(evalLisp);
+    }
