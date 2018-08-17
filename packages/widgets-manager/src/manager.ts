@@ -26,10 +26,10 @@ export class AppManager {
         Object.keys(appConfiguration.settings).forEach((key: string) => {
           iframe.style.setProperty(key, appConfiguration.settings[key]);
         });
+        // After setting all the configuration I append it to the dom
+        document.body.appendChild(iframe);
       });
     });
-
-    document.body.appendChild(iframe);
   };
   
   unMountApp = (appId: Number) => {
