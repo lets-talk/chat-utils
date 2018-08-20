@@ -10,6 +10,12 @@ export class AppManager {
     this.urlParams = params;
   }
 
+  addStyleString = (cssRules: string) => {
+    const node = document.createElement('style');
+    node.innerHTML = cssRules;
+    document.body.appendChild(node);
+  }
+
   mountApp = (appId: Number, appOnload: () => void) => {
     const iframe = document.createElement('iframe');
     iframe.id = `letstalk-app-${appId}`;
@@ -22,9 +28,12 @@ export class AppManager {
         if (appConfiguration.payload_type === 'html') {
           iframe.src = appConfiguration.payload;
         }
-  
-        Object.keys(appConfiguration.settings).forEach((key: string) => {
-          iframe.style.setProperty(key, appConfiguration.settings[key]);
+        // Add css style tag with style rules
+        this.addStyleString(appConfiguration.settings.css);
+        
+        // Apply settings to the iframe style property
+        Object.keys(appConfiguration.settings.inlineCss).forEach((key: string) => {
+          iframe.style.setProperty(key, appConfiguration.settings.inlineCss[key]);
         });
         // After setting all the configuration I append it to the dom
         document.body.appendChild(iframe);
