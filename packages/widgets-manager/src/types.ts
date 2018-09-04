@@ -98,6 +98,7 @@ export interface AddAppsStrategy {
 
 export interface PositionStrategy {
   getPositionProps(app: App, cell?: GridCell): ObjectIndex;
+  shouldAddNewPosition(): boolean;
 }
 
 export const makeHTMLFloatType = (rawString: string): HTMLFloatType => {

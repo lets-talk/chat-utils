@@ -1,0 +1,1 @@
+export { makePostionStrategy } from "./creator";
