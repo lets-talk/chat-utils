@@ -1,6 +1,6 @@
 import { PositionStrategy } from '../../types';
 import { FixedToTopPositionStrategy } from './fixedToTop';
-import { RelativeToPlacePositionStrategy } from './relativeToPlace';
+import { RelativeToPlacePositionStrategy } from './relativeToPosition';
 import { RelativeToElementPositionStrategy } from './relativeToElement';
 import {
   POSITION_RELATIVE_TO_ELEMENT,

@@ -7,7 +7,7 @@ Object.defineProperty(global.document, 'getElementById', {
   value: function(id) {
     if (id === 'mockElement') {
       return {
-        getBoundingClientRect: () => ({ bottom: 99, left: 22, right: 0, top: 0 }),
+        getBoundingClientRect: () => ({ bottom: 0, left: 0, right: 50, top: 200 }),
       };
     }
     return null;
