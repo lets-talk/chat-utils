@@ -30,7 +30,6 @@ export class AppManager {
   }
 
   _createIframeForApp = (app: App, cell: GridCell) => {
-    console.log('_createIframeForApp app, cell', app, cell);
     if (!document.getElementById(`letstalk-app-${app.id}`)) {
       const iframe = document.createElement('iframe');
       iframe.id = `letstalk-app-${app.id}`;
@@ -45,7 +44,7 @@ export class AppManager {
       });
 
       let positionStrategy: PositionStrategy;
-      console.log('_createIframeForApp app.settings.position.type:', app.settings.position.type);
+
       switch (app.settings.position.type) {
         case POSITION_RELATIVE_TO_ELEMENT:
           positionStrategy = new RelativeToElementPositionStrategy();
@@ -63,7 +62,6 @@ export class AppManager {
 
       try {
         const positionProps = positionStrategy.getPositionProps(app, cell);
-        console.log('_createIframeForApp positionProps:', positionProps);
   
         Object.keys(positionProps).forEach((key: string) => {
           iframe.style.setProperty(key, positionProps[key]);
