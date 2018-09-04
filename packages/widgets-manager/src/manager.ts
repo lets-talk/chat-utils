@@ -1,12 +1,10 @@
+import { makePostionStrategy } from './strategies/position/creator';
 import { diffBy } from './utils/index';
 import { POSITION_RELATIVE_TO_ELEMENT, POSITION_RELATIVE_TO_PLACE, POSITION_FIXED_TO_TOP } from './constants';
 import { GridManager } from './grid';
 import 'isomorphic-fetch';
-import { App, ObjectIndex, GridCell, PositionStrategy } from "./types";
+import { App, ObjectIndex, GridCell } from "./types";
 import { ReplaceAppStrategy } from './strategies/mounting/replace';
-import { RelativeToElementPositionStrategy } from './strategies/position/relativeToElement';
-import { RelativeToPlacePositionStrategy } from './strategies/position/relativeToPlace';
-import { FixedToTopPositionStrategy } from './strategies/position/fixedToTop';
 
 const diffByAppId = diffBy((x: App, y: App ) => x.id === y.id);
 
@@ -43,24 +41,8 @@ export class AppManager {
         iframe.style.setProperty(key, app.settings.inlineCss[key]);
       });
 
-      let positionStrategy: PositionStrategy;
-
-      switch (app.settings.position.type) {
-        case POSITION_RELATIVE_TO_ELEMENT:
-          positionStrategy = new RelativeToElementPositionStrategy();
-          break;
-        case POSITION_RELATIVE_TO_PLACE:
-          positionStrategy = new RelativeToPlacePositionStrategy();
-          break;
-        case POSITION_FIXED_TO_TOP:
-          positionStrategy = new FixedToTopPositionStrategy();
-          break;
-        default:
-          positionStrategy = new RelativeToPlacePositionStrategy();
-          break;
-      }
-
       try {
+        const positionStrategy = makePostionStrategy(app.settings.position.type);
         const positionProps = positionStrategy.getPositionProps(app, cell);
   
         Object.keys(positionProps).forEach((key: string) => {
@@ -186,6 +168,4 @@ export const setupManager = (
   const appManager = new AppManager(baseUrl, params, gridManager);
   return appManager;
 };
-
-
 

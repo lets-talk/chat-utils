@@ -1,5 +1,5 @@
-import { POSITION_RELATIVE_TO_ELEMENT, POSITION_FIXED_TO_TOP } from './constants';
-import { App, Grid, GridCell, GridSettings, AddAppsStrategy } from "./types";
+import { makePostionStrategy } from './strategies/position/creator';
+import { App, Grid, GridCell, GridSettings, AddAppsStrategy, PositionStrategy } from "./types";
 
 export class GridManager {
   grid: Grid;
@@ -15,6 +15,8 @@ export class GridManager {
     this._configureGrid(window.innerWidth, window.innerHeight);
   }
 
+  // TODO: Refactor this to use real media query break point values
+  /* istanbul ignore next */
   _getNumberOfColsForWidth(width: number): number {
     if (width <= 320) {
       return 1;
@@ -59,26 +61,41 @@ export class GridManager {
     return cell;
   }
 
+  _createNewCell(id: string, app: App): GridCell {
+    return {
+      id,
+      apps: this.addAppsStrategy.add(app, []),
+      position: {
+        x: app.settings.position.payload.offset.x,
+        y: app.settings.position.payload.offset.y,
+      },
+      size: { width: 0, height: 0 },
+    }
+  }
+
   addAppToCell(id: string, app: App) {
-    const foundIndex = this.grid.cells.findIndex((cell) => cell.id === id);
-    if (foundIndex !== -1) {
-      this.grid.cells[foundIndex].apps = this.addAppsStrategy.add(app, this.grid.cells[foundIndex].apps);
+    const existingCell = this._findCell(id);
+    if (existingCell) {
+      this._addToExistingCell(app, existingCell);
     } else {
-      const validCustomPositionsTypes = [
-        POSITION_RELATIVE_TO_ELEMENT, POSITION_FIXED_TO_TOP
-      ];
-      // Only add new position if it is in the list of custom positions types
-      if (validCustomPositionsTypes.indexOf(app.settings.position.type) !== -1) {
-        this.grid.cells.push({
-          id,
-          apps: this.addAppsStrategy.add(app, []),
-          position: {
-            x: app.settings.position.payload.offset.x,
-            y: app.settings.position.payload.offset.y,
-          },
-          size: { width: 0, height: 0 },
-        });
-      }
+      this._addToNewCell(app, id, makePostionStrategy(app.settings.position.type));
+    }
+  }
+
+  _findCell(id: string): GridCell | undefined {
+    const foundIndex = this.grid.cells.findIndex((cell) => cell.id === id);
+    if (foundIndex === -1) return undefined;
+
+    return this.grid.cells[foundIndex];
+  }
+
+  _addToExistingCell(app: App, cell: GridCell) {
+    cell.apps = this.addAppsStrategy.add(app, cell.apps);
+  }
+
+  _addToNewCell(app: App, id: string, positionStrategy: PositionStrategy) {
+    if (positionStrategy.shouldAddNewPosition()) {
+      this.grid.cells.push(this._createNewCell(id, app));
     }
   }
 
