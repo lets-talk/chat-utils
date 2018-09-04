@@ -88,8 +88,8 @@ describe('utils/index tests', () => {
   it('getElementPosition: should correctly get an element by id', () => {
     const element = getElementPosition('mockElement', HTMLFloatType.fixed);
     expect(element).toMatchObject({
-      x: 22,
-      y: 0,
+      x: 0,
+      y: 200,
     });
   });
 
