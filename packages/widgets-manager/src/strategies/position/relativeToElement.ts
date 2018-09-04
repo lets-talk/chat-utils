@@ -21,4 +21,6 @@ export class RelativeToElementPositionStrategy implements PositionStrategy {
     };
     
   };
+
+  public shouldAddNewPosition = () => true;
 }

@@ -15,4 +15,5 @@ export class RelativeToPlacePositionStrategy implements PositionStrategy {
       left: `${x}px`
     }
   };
+  public shouldAddNewPosition = () => false;
 }

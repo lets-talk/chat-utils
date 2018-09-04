@@ -17,4 +17,5 @@ export class FixedToTopPositionStrategy implements PositionStrategy {
       left: `${left}px`,
     }
   };
+  public shouldAddNewPosition = () => true;
 }
