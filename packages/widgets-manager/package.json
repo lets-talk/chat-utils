@@ -1,9 +1,10 @@
 {
   "name": "@lets-talk/widgets-manager",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "description": "Minimal widgets manager implementation to allow load / remove apps on a page",
   "scripts": {
-    "prepublishOnly": "tsc"
+    "prepublishOnly": "tsc",
+    "test": "jest --no-cache --coverage"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,5 +13,10 @@
   "private": false,
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.1",
+    "jest": "^23.5.0",
+    "ts-jest": "^23.1.4"
   }
 }
