@@ -62,73 +62,21 @@ jobs:
           path: /tmp/test-reports
       - store_artifacts:
           path: /tmp/artifacts
-  deploy:
+  publish:
     docker:
-      # specify the version you desire here
       - image: circleci/node:latest-browsers
-
-    working_directory: ~/chat-utils
-
     steps:
-      # Checkokut repository
       - checkout
-      # Install dependencies
-      - run:
-          name: Install Dependencies
-          command: npm install
-      # Install aws
-      - run: sudo apt-get update && sudo apt-get install -y python-dev
-      - run: sudo curl -O https://bootstrap.pypa.io/get-pip.py
-      - run: sudo python get-pip.py
-      - run: sudo pip install awscli --upgrade
-      - run: aws --version
-
-      - run: 
-          name: "Executing build && deploy on each package that changed"
-          command: for dir in $(git log --name-only --oneline -1 | sed 1d | grep '/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd $dir; npm run deploy; cd ../..; done
-
-  deploy-prod:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:latest-browsers
-
-    working_directory: ~/chat-utils
-
-    steps:
-      # Checkokut repository
-      - checkout
-      # Install dependencies
-      - run:
-          name: Install Dependencies
-          command: npm install
-      # Install aws
-      - run: sudo apt-get update && sudo apt-get install -y python-dev
-      - run: sudo curl -O https://bootstrap.pypa.io/get-pip.py
-      - run: sudo python get-pip.py
-      - run: sudo pip install awscli --upgrade
-      - run: aws --version
-
-      - run: 
-          name: "Executing build && deploy:production on each package that changed"
-          command: for dir in $(git log --name-only --oneline -1 | sed 1d | grep '/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd $dir; npm run deploy:production; cd ../../; done
-
-
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+      - run: npm publish
 
 # Workflows: one for build and other for deploy (only on master branch)
 workflows:
   version: 2
-  build-and-deploy:
+  tagged-build:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
+      - publish:
           filters:
-            branches:
-              only: develop
-      - deploy-prod:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
