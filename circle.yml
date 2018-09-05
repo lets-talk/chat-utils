@@ -68,7 +68,7 @@ jobs:
     steps:
       - checkout
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-      - run: npm publish
+      - run: for dir in $(git log --name-only --oneline -1 | sed 1d | grep 'packages/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd packages/$dir; npm publish; cd ../..; done
 
 # Workflows: one for build and other for deploy (only on master branch)
 workflows:
