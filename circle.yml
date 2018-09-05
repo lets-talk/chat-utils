@@ -81,7 +81,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
       - run:
           name: Publish packages that changed
-          command: lerna publish --c --yes
+          command: npm run publish
 
 # Workflows: one for build and other for deploy (only on master branch)
 workflows:

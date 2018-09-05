@@ -11,7 +11,8 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "postinstall": "node postinstall.js",
-    "test": "jest --no-cache --coverage"
+    "test": "jest --no-cache --coverage",
+    "publish": "lerna publish --c --yes"
   },
   "workspaces": [
     "packages/*"
