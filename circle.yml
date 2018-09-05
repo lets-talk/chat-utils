@@ -1,0 +1,134 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:latest-browsers
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/chat-utils
+
+    steps:
+      - run:
+          name: "Checking Versions (node && npm)"
+          command: |
+            node --version
+            npm --version
+
+      # Checkokut repository
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - app-{{ .Environment.CACHE_VERSION }}-dependencies-{{ checksum "packages/availability/package.json" }}-{{ checksum "packages/embedded-lisp/package.json" }}-{{ checksum "packages/rule-machine/package.json" }}-{{ checksum "packages/widgets-manager/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - app-{{ .Environment.CACHE_VERSION }}-dependencies-
+
+      # Install project dependencies (for every package)
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+            - packages/availability/node_modules
+            - packages/embedded-lisp/node_modules
+            - packages/rule-machine/node_modules
+            - packages/widgets-manager/node_modules
+          key: app-{{ .Environment.CACHE_VERSION }}-dependencies-{{ checksum "packages/availability/package.json" }}-{{ checksum "packages/embedded-lisp/package.json" }}-{{ checksum "packages/rule-machine/package.json" }}-{{ checksum "packages/widgets-manager/package.json" }}
+
+      # Check for updates!
+      # - run:
+      #     name: "Checking for npm packages not uptdated"
+      #     command: npm run check-updates
+
+      # Run tests!
+      # Get packages names that changes and only execute on those that has git changes
+      - run: for dir in $(git log --name-only --oneline -1 | sed 1d | grep 'packages/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd packages/$dir; npm run test:ci; cd ../..; done
+
+      # Create temp directories
+      - run: |
+          mkdir -p /tmp/artifacts
+          mkdir -p /tmp/test-reports
+      - store_test_results:
+          path: /tmp/test-reports
+      - store_artifacts:
+          path: /tmp/artifacts
+  deploy:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:latest-browsers
+
+    working_directory: ~/chat-utils
+
+    steps:
+      # Checkokut repository
+      - checkout
+      # Install dependencies
+      - run:
+          name: Install Dependencies
+          command: npm install
+      # Install aws
+      - run: sudo apt-get update && sudo apt-get install -y python-dev
+      - run: sudo curl -O https://bootstrap.pypa.io/get-pip.py
+      - run: sudo python get-pip.py
+      - run: sudo pip install awscli --upgrade
+      - run: aws --version
+
+      - run: 
+          name: "Executing build && deploy on each package that changed"
+          command: for dir in $(git log --name-only --oneline -1 | sed 1d | grep '/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd $dir; npm run deploy; cd ../..; done
+
+  deploy-prod:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:latest-browsers
+
+    working_directory: ~/chat-utils
+
+    steps:
+      # Checkokut repository
+      - checkout
+      # Install dependencies
+      - run:
+          name: Install Dependencies
+          command: npm install
+      # Install aws
+      - run: sudo apt-get update && sudo apt-get install -y python-dev
+      - run: sudo curl -O https://bootstrap.pypa.io/get-pip.py
+      - run: sudo python get-pip.py
+      - run: sudo pip install awscli --upgrade
+      - run: aws --version
+
+      - run: 
+          name: "Executing build && deploy:production on each package that changed"
+          command: for dir in $(git log --name-only --oneline -1 | sed 1d | grep '/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd $dir; npm run deploy:production; cd ../../; done
+
+
+
+# Workflows: one for build and other for deploy (only on master branch)
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: develop
+      - deploy-prod:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
