@@ -4,7 +4,10 @@
   "description": "Minimal widgets manager implementation to allow load / remove apps on a page",
   "scripts": {
     "prepublishOnly": "tsc",
-    "test": "jest --no-cache --coverage"
+    "test": "jest --no-cache --coverage",
+    "test:ci": "jest --no-cache --coverage",
+    "deploy": "echo 'No deploy yet'",
+    "deploy:production": "echo 'No deploy yet'"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
