@@ -1,5 +1,5 @@
 import { RelativeToElementPositionStrategy } from './../../../strategies/position/relativeToElement';
-import { AppPosition, HTMLFloatType, App, GridCell } from './../../../types';
+import { AppPosition, HTMLFloatType, App } from './../../../types';
 
 const mockPositionRelativeToElement: AppPosition = {
   type: 'relative-to-element',
