@@ -9,6 +9,7 @@
   },
   "private": true,
   "scripts": {
+    "postinstall": "node postinstall.js",
     "test": "jest --no-cache --coverage"
   },
   "workspaces": [
