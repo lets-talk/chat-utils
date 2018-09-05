@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  build-and-test:
     docker:
       # specify the version you desire here
       - image: circleci/node:latest-browsers
@@ -62,21 +62,33 @@ jobs:
           path: /tmp/test-reports
       - store_artifacts:
           path: /tmp/artifacts
+  
+      - persist_to_workspace:
+          root: ~/chat-utils
+          paths: .
   publish:
     docker:
       - image: circleci/node:latest-browsers
+    working_directory: ~/chat-utils
     steps:
-      - checkout
-      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-      - run: for dir in $(git log --name-only --oneline -1 | sed 1d | grep 'packages/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd packages/$dir; npm publish; cd ../..; done
+      - attach_workspace:
+          at: ~/chat-utils
+      - run:
+          name: Run lerna bootstrap
+          command: npm run bootstrap
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+      - run:
+          name: Publish packages that changed
+          command: lerna publish --c --yes
 
 # Workflows: one for build and other for deploy (only on master branch)
 workflows:
   version: 2
-  tagged-build:
+  build-test-and-publish:
     jobs:
-      - build
+      - build-and-test
       - publish:
-          filters:
-            tags:
-              only: /v[0-9]+(\.[0-9]+)*/
+          requires:
+            - build-and-test

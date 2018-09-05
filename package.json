@@ -9,11 +9,12 @@
   },
   "private": true,
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "postinstall": "node postinstall.js",
     "test": "jest --no-cache --coverage"
   },
   "workspaces": [
     "packages/*"
   ],
-  "version": "2.0.3"
+  "version": "0.2.3"
 }
