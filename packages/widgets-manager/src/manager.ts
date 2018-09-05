@@ -2,7 +2,6 @@ import { makePostionStrategy } from './strategies/position/creator';
 import { diffBy } from './utils/index';
 import { POSITION_RELATIVE_TO_ELEMENT, POSITION_RELATIVE_TO_PLACE, POSITION_FIXED_TO_TOP } from './constants';
 import { GridManager } from './grid';
-import 'isomorphic-fetch';
 import { App, ObjectIndex, GridCell } from "./types";
 import { ReplaceAppStrategy } from './strategies/mounting/replace';
 
@@ -10,12 +9,10 @@ const diffByAppId = diffBy((x: App, y: App ) => x.id === y.id);
 
 export class AppManager {
   gridManager: GridManager;
-  baseUrl: string;
-  urlParams: ObjectIndex;
-
-  constructor(baseURL: string, params: ObjectIndex, gridManager: GridManager) {
-    this.baseUrl = baseURL;
-    this.urlParams = params;
+  fetchAppData: (appId: number) => Promise<any>;
+  
+  constructor(fetchAppData: (appId: number) => Promise<any>, gridManager: GridManager) {
+    this.fetchAppData = fetchAppData;
     this.gridManager = gridManager;
   }
 
@@ -83,10 +80,8 @@ export class AppManager {
     });
   }
 
-  mountApp = (appId: Number) => {
-    const urlParams = Object.keys(this.urlParams).map(key => `${key}=${encodeURIComponent(this.urlParams[key])}`).join('&');
-    const widgetAppUrl = `${this.baseUrl}/api/v1/widget_apps/${appId}?${urlParams}`;
-    fetch(widgetAppUrl).then((widgetAppResonse) => {
+  mountApp = (appId: number) => {
+    this.fetchAppData(appId).then((widgetAppResonse) => {
       widgetAppResonse.json().then((appConfiguration: App) => {
         const { position } = appConfiguration.settings;
         let positionId;
@@ -144,8 +139,7 @@ export class AppManager {
 
 
 export const setupManager = (
-  baseUrl: string,
-  params: ObjectIndex,
+  fetchAppData: (appId: number) => Promise<any>,
 ) => {
   const settings = {
     columns: 3,
@@ -165,7 +159,7 @@ export const setupManager = (
   };
   const replaceAppStrategy = new ReplaceAppStrategy();
   const gridManager = new GridManager(settings, window, replaceAppStrategy);
-  const appManager = new AppManager(baseUrl, params, gridManager);
+  const appManager = new AppManager(fetchAppData, gridManager);
   return appManager;
 };
 
