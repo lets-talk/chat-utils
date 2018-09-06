@@ -11,7 +11,7 @@ const elementById = (id: string): HTMLElement => {
 }
 
 /**
- * Helper function to get an element bounding position 
+ * Gets an element bounding position 
  * @param elementId The id of the dom element (it must exist)
  */
 const getElementDomPosition = (elementId: string) => {
@@ -22,7 +22,7 @@ const getElementDomPosition = (elementId: string) => {
 }
 
 /**
- * Specialized function to calculate the position of a fixed floating element
+ * Gets position of a fixed floating element
  * @param elementId The id of the dom element
  */
 export const getElementPositionFixed = (elementId: string): Position => {
@@ -35,7 +35,7 @@ export const getElementPositionFixed = (elementId: string): Position => {
 }
 
 /**
- * Specialized function to calculate the position of a default floating element
+ * Gets position of a default floating element
  * @param elementId The id of the dom element
  */
 export const getElementPositionDefault = (elementId: string): Position => {
