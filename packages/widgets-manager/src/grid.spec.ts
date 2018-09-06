@@ -1,6 +1,6 @@
-import { GridManager } from '../grid';
-import { AppendAppStrategy } from '../strategies/mounting/append';
-import { App } from '../types';
+import { GridManager } from './grid';
+import { AppendAppStrategy } from './strategies/mounting/append';
+import { App } from './types';
 const windowObject: Window = window;
 
 const mockApp1: App = {
@@ -29,7 +29,7 @@ const mockApp2: App = {
   organization_id: 1,
 }
 
-describe('GridManager tests', () => {
+describe('GridManager', () => {
   const settings = {
     columns: 3,
     gutter: 10,
@@ -48,7 +48,7 @@ describe('GridManager tests', () => {
   };
   const addStrategy = new AppendAppStrategy();
 
-  it('I see GridManager correctly created and configured', () => {
+  it('creates and configures a GridManager', () => {
     const gm = new GridManager(settings, windowObject, addStrategy);
     expect(gm.grid.cells.length).toBe(9);
     expect(gm.grid.cells).toContainEqual(
@@ -83,7 +83,7 @@ describe('GridManager tests', () => {
 
   });
 
-  it('GridManager _setGridDimensions works on different scenarios', () => {
+  it('_setGridDimensions. It sets correct cell sizes', () => {
     const gm = new GridManager(settings, windowObject, addStrategy);
     const mobileWidth = 300;
     const mobileHeight = 600;
@@ -122,7 +122,7 @@ describe('GridManager tests', () => {
     );
   });
 
-  it('Can get the cell. getGridCell', () => {
+  it('getGridCell. Gets a cell by id', () => {
     const gm = new GridManager(settings, windowObject, addStrategy);
     gm.addAppToCell('center-center', mockApp1);
     const cell = gm.getGridCell('center-center')
@@ -141,7 +141,7 @@ describe('GridManager tests', () => {
     });
   });
 
-  it('Can get all apps in a cell. getAppsInCell', () => {
+  it('getAppsInCell. Gets all apps in a cell', () => {
     const gm = new GridManager(settings, windowObject, addStrategy);
     gm.addAppToCell('center-center', mockApp1);
     gm.addAppToCell('center-center', mockApp2);
@@ -152,7 +152,7 @@ describe('GridManager tests', () => {
     expect(apps).toContainEqual(mockApp2);
   });
 
-  it('Can get an app. getApp', () => {
+  it('getApp. Gets an app by id', () => {
     const gm = new GridManager(settings, windowObject, addStrategy);
     gm.addAppToCell('center-center', mockApp1);
     const app = gm.getApp(1);
@@ -160,7 +160,7 @@ describe('GridManager tests', () => {
     expect(app).toMatchObject(mockApp1);
   });
 
-  it('Can remove an app. removeApp', () => {
+  it('removeApp. Remove an app by id', () => {
     const gm = new GridManager(settings, windowObject, addStrategy);
     gm.addAppToCell('center-center', mockApp1);
     gm.removeApp(1);

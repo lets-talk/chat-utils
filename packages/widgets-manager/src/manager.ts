@@ -25,7 +25,7 @@ export class AppManager {
   }
 
   _createIframeForApp = (app: App, cell: GridCell) => {
-    if (!document.getElementById(`letstalk-app-${app.id}`)) {
+    if (!this._getAppIframe(app.id)) {
       const iframe = document.createElement('iframe');
       iframe.id = `letstalk-app-${app.id}`;
 
@@ -56,9 +56,17 @@ export class AppManager {
     }
   }
 
+  _getAppIframe = (appId: number): HTMLElement | null => {
+    return document.getElementById(`letstalk-app-${appId}`);
+  }
+
+  _getAppStyles = (appId: number): HTMLElement | null => {
+    return document.getElementById(`letstalk-app-${appId}-styles`);
+  }
+
   _removeIframeForApp = (appId: number) => {
-    const appIframe = document.getElementById(`letstalk-app-${appId}`);
-    const appStyles = document.getElementById(`letstalk-app-${appId}-styles`);
+    const appIframe = this._getAppIframe(appId);
+    const appStyles = this._getAppStyles(appId);
     if (appIframe) {
       document.body.removeChild(appIframe);
     }
@@ -81,8 +89,9 @@ export class AppManager {
   }
 
   mountApp = (appId: number) => {
-    this.fetchAppData(appId).then((widgetAppResonse) => {
-      widgetAppResonse.json().then((appConfiguration: App) => {
+    this.fetchAppData(appId)
+      .then((widgetAppResonse) => widgetAppResonse.json())
+      .then((appConfiguration: App) => {
         const { position } = appConfiguration.settings;
         let positionId;
         switch (position.type) {
@@ -115,7 +124,6 @@ export class AppManager {
           this._mountApps(cell, addapps);
         }
       });
-    });
   };
   
   unMountApp = (appId: number) => {
@@ -127,8 +135,8 @@ export class AppManager {
     return this.gridManager.getApp(appId);
   };
 
-  updateAppSettings = (appId: Number, settings: ObjectIndex) => {
-    const appIframe = document.getElementById(`letstalk-app-${appId}`);
+  updateAppSettings = (appId: number, settings: ObjectIndex) => {
+    const appIframe = this._getAppIframe(appId);
     if (appIframe) {
       Object.keys(settings).forEach((key: string) => {
         appIframe.style.setProperty(key, settings[key]);

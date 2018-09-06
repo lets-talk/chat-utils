@@ -1,4 +1,4 @@
-import { makeHTMLFloatType, HTMLFloatType } from './../types';
+import { makeHTMLFloatType, HTMLFloatType } from './types';
 
 describe('makeHTMLFloatType', () => {
   it('Creates a fixed type', () => {

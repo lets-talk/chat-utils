@@ -1,5 +1,5 @@
-import { ReplaceAppStrategy } from './../../../strategies/mounting/replace';
-import { App } from './../../../types';
+import { ReplaceAppStrategy } from './replace';
+import { App } from './../../types';
 
 const mockApp2: App = {
   id: 2,
@@ -15,7 +15,11 @@ const mockApp2: App = {
 }
 
 describe('ReplaceAppStrategy', () => {
-  it('Can create a ReplaceAppStrategy', () => {
+  it('can be created', () => {
+    expect(() => new ReplaceAppStrategy()).not.toThrow();
+  });
+
+  it('replaces apps', () => {
     const strategy = new ReplaceAppStrategy();
     const finalApps = strategy.add(mockApp2);
     expect(finalApps.length).toBe(1);

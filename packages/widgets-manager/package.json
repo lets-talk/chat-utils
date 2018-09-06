@@ -5,9 +5,7 @@
   "scripts": {
     "prepublishOnly": "tsc",
     "test": "jest --no-cache --coverage",
-    "test:ci": "jest --no-cache --coverage",
-    "deploy": "echo 'Deploy script not implemented.'",
-    "deploy:production": "echo 'Deploy script not implemented.'"
+    "test:ci": "jest --no-cache --coverage --runInBand"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

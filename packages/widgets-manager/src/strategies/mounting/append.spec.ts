@@ -1,5 +1,5 @@
-import { AppendAppStrategy } from './../../../strategies/mounting/append';
-import { App } from './../../../types';
+import { AppendAppStrategy } from './append';
+import { App } from './../../types';
 
 const mockApp1: App = {
   id: 1,
@@ -28,7 +28,11 @@ const mockApp2: App = {
 }
 
 describe('AppendAppStrategy', () => {
-  it('Can create a AppendAppStrategy', () => {
+  it('can be created', () => {
+    expect(() => new AppendAppStrategy()).not.toThrow();
+  });
+
+  it('appends apps', () => {
     const strategy = new AppendAppStrategy();
     const initialApps = [mockApp1];
     const finalApps = strategy.add(mockApp2, initialApps);

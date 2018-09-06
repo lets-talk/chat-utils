@@ -16,4 +16,4 @@ console.log("Runnig npm install on "+modPath);
 // install folder
 cp.execSync('npm install', { cwd: modPath, env: process.env, stdio: 'inherit' })
 //cp.spawn('npm', ['i'], { env: process.env, cwd: modPath, stdio: 'inherit' })
-})
+});
