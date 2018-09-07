@@ -3,7 +3,8 @@
   "version": "0.3.0",
   "description": "Minimal lisp implementation based on http://kanaka.github.io/miniMAL/",
   "scripts": {
-    "prepublishOnly": "tsc"
+    "prepublishOnly": "tsc",
+    "build": "webpack --config webpack.config.js --color -p --progress --hide-modules --display-optimization-bailout"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,5 +13,11 @@
   "private": false,
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "babel-loader": "7",
+    "ts-loader": "^5.0.0",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^3.0.1"
   }
 }
