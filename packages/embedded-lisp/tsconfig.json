@@ -20,6 +20,6 @@
     "removeComments": true,
     "sourceRoot": "./",
     "strict": true,
-    "target": "ES6",
+    "target": "ES5",
   }
 }
