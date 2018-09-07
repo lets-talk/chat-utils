@@ -3,7 +3,7 @@
   "version": "0.3.3",
   "description": "Minimal lisp implementation based on http://kanaka.github.io/miniMAL/",
   "scripts": {
-    "prepublishOnly": "tsc && build",
+    "prepublishOnly": "tsc && npm run build",
     "build": "webpack --config webpack.config.js --color -p --progress --hide-modules --display-optimization-bailout"
   },
   "main": "./dist/index.js",
