@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/embedded-lisp",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "description": "Minimal lisp implementation based on http://kanaka.github.io/miniMAL/",
   "scripts": {
     "prepublishOnly": "tsc"
