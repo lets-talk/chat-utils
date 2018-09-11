@@ -3,7 +3,9 @@
   "version": "0.2.0",
   "description": "Minimal lisp implementation based on http://kanaka.github.io/miniMAL/",
   "scripts": {
-    "prepublishOnly": "tsc"
+    "prepublishOnly": "tsc",
+    "test": "jest --no-cache --coverage",
+    "test:ci": "jest --no-cache --coverage --runInBand"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
