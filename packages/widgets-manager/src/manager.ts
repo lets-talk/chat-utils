@@ -2,16 +2,16 @@ import { makePostionStrategy } from './strategies/position/creator';
 import { diffBy } from './utils/index';
 import { POSITION_RELATIVE_TO_ELEMENT, POSITION_RELATIVE_TO_PLACE, POSITION_FIXED_TO_TOP } from './constants';
 import { GridManager } from './grid';
-import { App, ObjectIndex, GridCell } from "./types";
+import { App, GridCell, ObjectIndex, PromisedFunction } from "./types";
 import { ReplaceAppStrategy } from './strategies/mounting/replace';
 
 const diffByAppId = diffBy((x: App, y: App ) => x.id === y.id);
 
 export class AppManager {
   gridManager: GridManager;
-  fetchAppData: (appId: number) => Promise<any>;
+  fetchAppData: PromisedFunction;
   
-  constructor(fetchAppData: (appId: number) => Promise<any>, gridManager: GridManager) {
+  constructor(fetchAppData: PromisedFunction, gridManager: GridManager) {
     this.fetchAppData = fetchAppData;
     this.gridManager = gridManager;
   }
@@ -147,7 +147,7 @@ export class AppManager {
 
 
 export const setupManager = (
-  fetchAppData: (appId: number) => Promise<any>,
+  fetchAppData: PromisedFunction,
 ) => {
   const settings = {
     columns: 3,

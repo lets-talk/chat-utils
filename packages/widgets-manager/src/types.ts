@@ -101,6 +101,8 @@ export interface PositionStrategy {
   shouldAddNewPosition(): boolean;
 }
 
+export type PromisedFunction = (appId: number) => Promise<any>;
+
 export const makeHTMLFloatType = (rawString: string): HTMLFloatType => {
   switch (rawString) {
     case HTMLFloatType.fixed:
