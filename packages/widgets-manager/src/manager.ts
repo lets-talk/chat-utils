@@ -1,55 +1,142 @@
-import 'isomorphic-fetch';
-import { App, ObjectIndex } from "./types";
+import { makePostionStrategy } from './strategies/position/creator';
+import { diffBy } from './utils/index';
+import { POSITION_RELATIVE_TO_ELEMENT, POSITION_RELATIVE_TO_PLACE, POSITION_FIXED_TO_TOP } from './constants';
+import { GridManager } from './grid';
+import { App, GridCell, ObjectIndex, PromisedFunction } from "./types";
+import { ReplaceAppStrategy } from './strategies/mounting/replace';
+
+const diffByAppId = diffBy((x: App, y: App ) => x.id === y.id);
 
 export class AppManager {
-  baseUrl: string;
-  urlParams: ObjectIndex;
-
-  constructor(baseURL: string, params: ObjectIndex) {
-    this.baseUrl = baseURL;
-    this.urlParams = params;
+  gridManager: GridManager;
+  fetchAppData: PromisedFunction;
+  
+  constructor(fetchAppData: PromisedFunction, gridManager: GridManager) {
+    this.fetchAppData = fetchAppData;
+    this.gridManager = gridManager;
   }
 
-  addStyleString = (cssRules: string) => {
+  _addStyleString = (app: App) => {
+    const { css } = app.settings;
     const node = document.createElement('style');
-    node.innerHTML = cssRules;
+    node.id = `letstalk-app-${app.id}-styles`;
+    node.innerHTML = css;
     document.body.appendChild(node);
   }
 
-  mountApp = (appId: Number, appOnload: () => void) => {
-    const iframe = document.createElement('iframe');
-    iframe.id = `letstalk-app-${appId}`;
-    iframe.onload = appOnload;
-    
-    const urlParams = Object.keys(this.urlParams).map(key => `${key}=${encodeURIComponent(this.urlParams[key])}`).join('&');
-    const widgetAppUrl = `${this.baseUrl}/api/v1/widget_apps/${appId}?${urlParams}`;
-    fetch(widgetAppUrl).then((widgetAppResonse) => {
-      widgetAppResonse.json().then((appConfiguration: App) => {
-        if (appConfiguration.payload_type === 'html') {
-          iframe.src = appConfiguration.payload;
-        }
-        // Add css style tag with style rules
-        this.addStyleString(appConfiguration.settings.css);
-        
-        // Apply settings to the iframe style property
-        Object.keys(appConfiguration.settings.inlineCss).forEach((key: string) => {
-          iframe.style.setProperty(key, appConfiguration.settings.inlineCss[key]);
-        });
-        // After setting all the configuration I append it to the dom
-        document.body.appendChild(iframe);
+  _createIframeForApp = (app: App, cell: GridCell) => {
+    if (!this._getAppIframe(app.id)) {
+      const iframe = document.createElement('iframe');
+      iframe.id = `letstalk-app-${app.id}`;
+
+      if (app.payload_type === 'html') {
+        iframe.src = `${app.payload}?appId=${app.id}`;
+      }
+
+      // Apply settings to the iframe style property
+      Object.keys(app.settings.inlineCss).forEach((key: string) => {
+        iframe.style.setProperty(key, app.settings.inlineCss[key]);
       });
-    });
-  };
+
+      try {
+        const positionStrategy = makePostionStrategy(app.settings.position.type);
+        const positionProps = positionStrategy.getPositionProps(app, cell);
   
-  unMountApp = (appId: Number) => {
-    const appIframe = document.getElementById(`letstalk-app-${appId}`);
+        Object.keys(positionProps).forEach((key: string) => {
+          iframe.style.setProperty(key, positionProps[key]);
+        });
+  
+        document.body.appendChild(iframe);
+  
+        // Add css style tag with style rules
+        this._addStyleString(app);
+      } catch (error) {
+        console.error('Could not position app on the screen. Check your configuration', error)
+      }
+    }
+  }
+
+  _getAppIframe = (appId: number): HTMLElement | null => {
+    return document.getElementById(`letstalk-app-${appId}`);
+  }
+
+  _getAppStyles = (appId: number): HTMLElement | null => {
+    return document.getElementById(`letstalk-app-${appId}-styles`);
+  }
+
+  _removeIframeForApp = (appId: number) => {
+    const appIframe = this._getAppIframe(appId);
+    const appStyles = this._getAppStyles(appId);
     if (appIframe) {
       document.body.removeChild(appIframe);
     }
+    if (appStyles) {
+      document.body.removeChild(appStyles);
+    }
+  }
+
+  _unMountApps = (apps: App[]): void => {
+    apps.forEach((app) => {
+      this.unMountApp(app.id);
+      this.gridManager.removeApp(app.id);
+    });
+  }
+
+  _mountApps = (cell: GridCell, apps: App[]) => {
+    apps.forEach((app) => {
+      this._createIframeForApp(app, cell);
+    });
+  }
+
+  mountApp = (appId: number) => {
+    this.fetchAppData(appId)
+      .then((widgetAppResonse) => widgetAppResonse.json())
+      .then((appConfiguration: App) => {
+        const { position } = appConfiguration.settings;
+        let positionId;
+        switch (position.type) {
+          case POSITION_RELATIVE_TO_ELEMENT:
+            positionId = position.payload.relativeId;
+            break;
+          case POSITION_RELATIVE_TO_PLACE:
+            positionId = position.payload.positionId;
+            break;
+          case POSITION_FIXED_TO_TOP:
+            positionId = position.type;
+            break;
+          default:
+            positionId = '';
+            break;
+        }
+        
+        const currentApps = this.gridManager.getAppsInCell(positionId);
+        // Add this app to the positionId cell.id
+        // This will call the proper strategy for adding
+        this.gridManager.addAppToCell(positionId, appConfiguration);
+        const newApps = this.gridManager.getAppsInCell(positionId);
+
+        const removeapps = diffByAppId(currentApps, newApps);
+        const addapps = diffByAppId(newApps, currentApps);
+
+        const cell = this.gridManager.getGridCell(positionId);
+        if (cell) {
+          this._unMountApps(removeapps);
+          this._mountApps(cell, addapps);
+        }
+      });
+  };
+  
+  unMountApp = (appId: number) => {
+    this.gridManager.removeApp(appId);
+    this._removeIframeForApp(appId);
   };
 
-  updateAppSettings = (appId: Number, settings: ObjectIndex) => {
-    const appIframe = document.getElementById(`letstalk-app-${appId}`);
+  getApp = (appId: number) => {
+    return this.gridManager.getApp(appId);
+  };
+
+  updateAppSettings = (appId: number, settings: ObjectIndex) => {
+    const appIframe = this._getAppIframe(appId);
     if (appIframe) {
       Object.keys(settings).forEach((key: string) => {
         appIframe.style.setProperty(key, settings[key]);
@@ -60,12 +147,27 @@ export class AppManager {
 
 
 export const setupManager = (
-  baseUrl: string,
-  params: ObjectIndex,
+  fetchAppData: PromisedFunction,
 ) => {
-  const appManager = new AppManager(baseUrl, params);
+  const settings = {
+    columns: 3,
+    gutter: 10,
+    padding: 10,
+    positions: [
+      'top-left',
+      'top-center',
+      'top-right',
+      'mid-left',
+      'mid-center',
+      'mid-right',
+      'bottom-left',
+      'bottom-center',
+      'bottom-right',
+    ]
+  };
+  const replaceAppStrategy = new ReplaceAppStrategy();
+  const gridManager = new GridManager(settings, window, replaceAppStrategy);
+  const appManager = new AppManager(fetchAppData, gridManager);
   return appManager;
 };
-
-
 

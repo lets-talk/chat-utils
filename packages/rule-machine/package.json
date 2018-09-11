@@ -3,7 +3,9 @@
   "version": "0.2.0",
   "description": "Lisp Rules + triggers",
   "scripts": {
-    "prepublishOnly": "tsc"
+    "prepublishOnly": "tsc",
+    "test": "echo 'no test yet'",
+    "test:ci": "echo 'no test yet'"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

@@ -4,11 +4,15 @@
     "jest": "^23.4.2",
     "lerna": "^3.0.0-rc.0",
     "tslint": "^5.11.0",
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "ts-jest": "^23.1.4"
   },
   "private": true,
   "scripts": {
-    "test": "jest --no-cache --coverage"
+    "bootstrap": "lerna bootstrap",
+    "postinstall": "node postinstall.js",
+    "test": "jest --no-cache --coverage",
+    "publish": "lerna publish --c --yes"
   },
   "workspaces": [
     "packages/*"
