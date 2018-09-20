@@ -1,5 +1,5 @@
 import { AppPosition } from './types';
-export type PayloadType = 'html' | 'json';
+export type PayloadType = 'html' | 'json' | 'markdown';
 
 export type ObjectIndex = {
   [key:string]: string;
@@ -66,6 +66,7 @@ export type App = {
   payload: string;
   settings: Settings;
   organization_id: Number;
+  source: string;
 }
 
 export type Size = {

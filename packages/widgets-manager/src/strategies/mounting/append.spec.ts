@@ -12,6 +12,7 @@ const mockApp1: App = {
     position: {} as any,
   },
   organization_id: 1,
+  source: '',
 }
 
 const mockApp2: App = {
@@ -25,6 +26,7 @@ const mockApp2: App = {
     position: {} as any,
   },
   organization_id: 1,
+  source: '',
 }
 
 describe('AppendAppStrategy', () => {
