@@ -54,7 +54,6 @@ export class GridManager {
       cell.position.x = column * cell.size.width;
       cell.position.y = row * cell.size.height;
     });
-    console.log('Grid cells: ', this.grid.cells);
   }
 
   _createNewCell(id: string, app: App): GridCell {
