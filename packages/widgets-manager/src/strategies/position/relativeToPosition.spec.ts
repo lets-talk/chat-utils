@@ -27,6 +27,7 @@ const mockApp: App = {
     position: mockPositionRelativeToPosition,
   },
   organization_id: 1,
+  source: '',
 }
 
 const mockFailingApp: App = {
@@ -40,6 +41,7 @@ const mockFailingApp: App = {
     position: {} as any,
   },
   organization_id: 1,
+  source: '',
 }
 
 describe('RelativeToPlacePositionStrategy', () => {

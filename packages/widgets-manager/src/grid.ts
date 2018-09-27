@@ -54,11 +54,7 @@ export class GridManager {
       cell.position.x = column * cell.size.width;
       cell.position.y = row * cell.size.height;
     });
-  }
-
-  _getAppCell(appId: number): GridCell | undefined {
-    const cell = this.grid.cells.find((cell) => !!cell.apps.find((app) => app.id === appId));
-    return cell;
+    console.log('Grid cells: ', this.grid.cells);
   }
 
   _createNewCell(id: string, app: App): GridCell {
@@ -100,18 +96,23 @@ export class GridManager {
   }
 
   removeApp(appId: number) {
-    const cell = this._getAppCell(appId);
+    const cell = this.getAppCell(appId);
     if (cell) {
       this.removeAppFromCell(cell.id, appId);
     }
   }
 
   getApp(appId: number): App | undefined {
-    const cell = this._getAppCell(appId);
+    const cell = this.getAppCell(appId);
     if (!cell) return;
 
     const app = cell.apps.find((app) => app.id === appId);
     return app;
+  }
+
+  getAppCell(appId: number): GridCell | undefined {
+    const cell = this.grid.cells.find((cell) => !!cell.apps.find((app) => app.id === appId));
+    return cell;
   }
 
   removeAppFromCell(id: string, appId: number) {
@@ -130,5 +131,18 @@ export class GridManager {
     const cell = this.getGridCell(id);
     if (!cell) return [];
     return cell.apps;
+  }
+
+  getApps(): App[] {
+    let apps: App[] = [];
+    this.grid.cells.forEach(cell => {
+      apps = apps.concat(cell.apps)
+    });
+    return apps;
+  }
+
+  refreshGridDimension() {
+    let numberOfCols = this._getNumberOfColsForWidth(window.innerWidth);
+    this._setGridDimensions(numberOfCols, window.innerWidth, window.innerHeight);
   }
 }
