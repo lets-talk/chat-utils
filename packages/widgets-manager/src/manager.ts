@@ -29,8 +29,8 @@ export class AppManager {
       const iframe = document.createElement('iframe');
       iframe.id = `letstalk-app-${app.id}`;
 
-      if (app.payload_type === 'html') {
-        iframe.src = `${app.payload}?appId=${app.id}`;
+      if (app.payload_type === 'html' || app.payload_type === 'markdown') {
+        iframe.src = `${app.source}?appId=${app.id}`;
       }
 
       // Apply settings to the iframe style property

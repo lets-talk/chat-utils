@@ -23,6 +23,7 @@ const mockApp: App = {
     position: mockPositionRelativeToElement,
   },
   organization_id: 1,
+  source: '',
 }
 
 const mockFailingApp: App = {
@@ -36,6 +37,7 @@ const mockFailingApp: App = {
     position: {} as any,
   },
   organization_id: 1,
+  source: '',
 }
 
 

@@ -19,6 +19,7 @@ const mockFailingApp: App = {
     position: {} as any,
   },
   organization_id: 1,
+  source: '',
 }
 
 const mockApp: App = {
@@ -32,6 +33,7 @@ const mockApp: App = {
     position: mockPositionFixedToTop,
   },
   organization_id: 1,
+  source: '',
 }
 
 
