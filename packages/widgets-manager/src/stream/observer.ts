@@ -6,10 +6,8 @@ export class Observer {
   stream: Stream<{}> = new Stream<{}>(() => null);
 
   constructor(targets: Node[], callback: (mutations: MutationRecord[]) => void) {
-    console.log('Targets:', targets);
     // create an observer instance
     this.observer = new MutationObserver((mutations) => {
-      console.log('Got mutations baby!!!');
       this.stream = new Stream<{}>(() => callback(mutations));
     });
 

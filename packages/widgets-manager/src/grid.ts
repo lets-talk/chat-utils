@@ -46,8 +46,6 @@ export class GridManager {
       const row: number = Math.trunc(i / numberOfCols);
       const column:number = (i % numberOfCols);
       
-      cell.id = this.grid.settings.positions[(row * numberOfCols) + column],
-      
       cell.size.width = width / numberOfCols;
       cell.size.height = height / numberOfRows;
       
