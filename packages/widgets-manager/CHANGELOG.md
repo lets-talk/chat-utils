@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Release [0.4.2] - 2018-09-28
+### Fixed
+- Fixes having multiple listeners after unmounting app
+- Fixes overwritting app id
+
 ## Release [0.4.0] - 2018-09-27
 ### Fixed
 - Listen for Dom changes on element to allow apps position to react to changes
