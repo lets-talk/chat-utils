@@ -5,15 +5,23 @@ export type ObjectIndex = {
   [key:string]: string;
 }
 
+export type AppSize = {
+  width: string;
+  height: string;
+}
+
 export type Settings = {
   css: string;
   inlineCss: ObjectIndex;
   position: AppPosition;
+  size: AppSize;
 }
 
 export type Position = {
-  x: number;
-  y: number;
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
 }
 
 export enum HTMLFloatType {
@@ -26,10 +34,7 @@ export type RelativeToElementPosition = {
   payload: {
     relativeId: string;
     floatType: HTMLFloatType;
-    offset: {
-      x: number;
-      y: number;
-    },
+    offset: Position,
   }
 }
 
@@ -37,20 +42,14 @@ export type RelativeToPlacePosition = {
   type: 'relative-to-position';
   payload: {
     positionId: string;
-    offset: {
-      x: number;
-      y: number;
-    },
+    offset: Position,
   }
 }
 
 export type FixedToTopPosition = {
   type: 'fixed-to-top-position';
   payload: {
-    offset: {
-      x: number;
-      y: number;
-    },
+    offset: Position,
   }
 }
 

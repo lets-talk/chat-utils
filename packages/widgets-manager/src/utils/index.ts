@@ -27,11 +27,7 @@ const getElementDomPosition = (elementId: string) => {
  */
 export const getElementPositionFixed = (elementId: string): Position => {
   const domPosition = getElementDomPosition(elementId);
-
-  return {
-    x: domPosition.left,
-    y: domPosition.top
-  };
+  return domPosition;
 }
 
 /**
@@ -42,8 +38,10 @@ export const getElementPositionDefault = (elementId: string): Position => {
   const domPosition = getElementDomPosition(elementId);
 
   return {
-    x: domPosition.left + window.scrollX,
-    y: domPosition.top + window.scrollY
+    top: domPosition.top + window.scrollY,
+    right: domPosition.right,
+    bottom: domPosition.bottom,
+    left: domPosition.left + window.scrollX,
   };
 }
 

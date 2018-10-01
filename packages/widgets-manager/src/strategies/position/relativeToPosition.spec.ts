@@ -5,14 +5,14 @@ const mockPositionRelativeToPosition: AppPosition = {
   type: 'relative-to-position',
   payload: {
     positionId: 'mid-center',
-    offset: { x: 0, y: 0 },
+    offset: { top: 0, right: 0, bottom: 0, left: 0 },
   }
 };
 
 const mockCell: GridCell = {
   id: 'top-left',
   apps: [],
-  position: { x: 0, y: 0},
+  position: { top: 0, right: 0, bottom: 0, left: 0 },
   size: { width: 100, height: 100 },
 }
 
@@ -25,6 +25,7 @@ const mockApp: App = {
     css: '',
     inlineCss: {},
     position: mockPositionRelativeToPosition,
+    size: {} as any,
   },
   organization_id: 1,
   source: '',
@@ -39,6 +40,7 @@ const mockFailingApp: App = {
     css: '',
     inlineCss: {},
     position: {} as any,
+    size: {} as any,
   },
   organization_id: 1,
   source: '',

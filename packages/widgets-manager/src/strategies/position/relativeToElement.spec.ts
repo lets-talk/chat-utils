@@ -6,7 +6,7 @@ const mockPositionRelativeToElement: AppPosition = {
   payload: {
     floatType: HTMLFloatType.fixed,
     relativeId: 'mockElement',
-    offset: { x: 0, y: 0 },
+    offset: { top: 0, right: 0, bottom: 0, left: 0 },
   }
 };
 
@@ -17,7 +17,9 @@ const mockApp: App = {
   payload: '',
   settings: {
     css: '',
-    inlineCss: {
+    inlineCss: {},
+    size: {
+      width: '100%',
       height: '20px',
     },
     position: mockPositionRelativeToElement,
@@ -35,6 +37,10 @@ const mockFailingApp: App = {
     css: '',
     inlineCss: {},
     position: {} as any,
+    size: { 
+      width: '0px',
+      height: '0px'
+    }
   },
   organization_id: 1,
   source: '',

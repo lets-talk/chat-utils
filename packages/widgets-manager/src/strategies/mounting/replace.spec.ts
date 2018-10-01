@@ -10,6 +10,7 @@ const mockApp2: App = {
     css: '',
     inlineCss: {},
     position: {} as any,
+    size: {} as any,
   },
   organization_id: 1,
   source: '',
