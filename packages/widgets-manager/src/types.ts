@@ -1,5 +1,7 @@
-import { AppPosition } from './types';
+import { AppPosition, relationTypeY } from './types';
 export type PayloadType = 'html' | 'json' | 'markdown';
+export type relationTypeX = 'LL' | 'LR' | 'RL' | 'RR';
+export type relationTypeY = 'TT' | 'TB' | 'BT' | 'BB';
 
 export type ObjectIndex = {
   [key:string]: string;
@@ -29,12 +31,23 @@ export enum HTMLFloatType {
   default = "default"
 };
 
+export type offsetX = {
+  relationType: relationTypeX;
+  value: number;
+}
+
+export type offsetY = {
+  relationType: relationTypeY;
+  value: number;
+}
+
 export type RelativeToElementPosition = {
   type: 'relative-to-element';
   payload: {
     relativeId: string;
     floatType: HTMLFloatType;
-    offset: Position,
+    offsetX: offsetX,
+    offsetY: offsetY,
   }
 }
 

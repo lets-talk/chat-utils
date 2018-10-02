@@ -1,4 +1,3 @@
-import { POSITION_RELATIVE_TO_ELEMENT } from './constants';
 import { makePostionStrategy } from './strategies/position/creator';
 import { App, Grid, GridCell, GridSettings, AddAppsStrategy, PositionStrategy } from "./types";
 
@@ -6,13 +5,13 @@ export class GridManager {
   grid: Grid;
   addAppsStrategy: AddAppsStrategy;
 
-  constructor(settings: GridSettings, window: Window, addAppsStrategy: AddAppsStrategy) {
+  constructor(settings: GridSettings, window: Window, defaultAddAppsStrategy: AddAppsStrategy) {
     this.grid = {
       settings,
       cells: [],
     };
     this.grid.settings = settings;
-    this.addAppsStrategy = addAppsStrategy;
+    this.addAppsStrategy = defaultAddAppsStrategy;
     this._configureGrid(window.innerWidth, window.innerHeight);
   }
 
@@ -56,11 +55,10 @@ export class GridManager {
   }
 
   _createNewCell(id: string, app: App): GridCell {
-    if (app.settings.position.type === POSITION_RELATIVE_TO_ELEMENT) throw new Error('jej');
     return {
       id,
       apps: this.addAppsStrategy.add(app, []),
-      position: app.settings.position.payload.offset,
+      position: { top: 0, right: 0, bottom: 0, left: 0 },
       size: { width: 0, height: 0 },
     }
   }
