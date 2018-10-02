@@ -60,8 +60,10 @@ describe('GridManager', () => {
         id: 'top-left',
         apps: [],
         position: {
-          x: 0,
-          y: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
         },
         size: {
           width: windowObject.innerWidth / 3,
@@ -75,8 +77,10 @@ describe('GridManager', () => {
         id: 'top-right',
         apps: [],
         position: {
-          x: 2 * (windowObject.innerWidth / 3),
-          y: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 2 * (windowObject.innerWidth / 3),
         },
         size: {
           width: windowObject.innerWidth / 3,
@@ -100,8 +104,10 @@ describe('GridManager', () => {
         id: 'top-left',
         apps: [],
         position: {
-          x: 0,
-          y: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
         },
         size: {
           width: mobileWidth,
@@ -115,8 +121,10 @@ describe('GridManager', () => {
         id: 'top-center',
         apps: [],
         position: {
-          x: 0,
-          y: mobileHeight / 9,
+          top: mobileHeight / 9,
+          right: 0,
+          bottom: 0,
+          left: 0,
         },
         size: {
           width: mobileWidth,
@@ -135,8 +143,10 @@ describe('GridManager', () => {
       id: 'center-center',
       apps: [mockApp1],
       position: {
-        x: windowObject.innerWidth / 3,
-        y: windowObject.innerHeight / 3,
+        left: windowObject.innerWidth / 3,
+        right: 0,
+        bottom: 0,
+        top: windowObject.innerHeight / 3,
       },
       size: {
         width: windowObject.innerWidth / 3,
@@ -174,8 +184,10 @@ describe('GridManager', () => {
       id: 'center-center',
       apps: [],
       position: {
-        x: 1 * (windowObject.innerWidth / 3),
-        y: 1 * (windowObject.innerHeight / 3),
+        top: 1 * (windowObject.innerHeight / 3),
+        right: 0,
+        bottom: 0,
+        left: 1 * (windowObject.innerWidth / 3),
       },
       size: {
         width: windowObject.innerWidth / 3,

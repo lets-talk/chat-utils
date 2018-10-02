@@ -6,7 +6,14 @@ const mockPositionRelativeToElement: AppPosition = {
   payload: {
     floatType: HTMLFloatType.fixed,
     relativeId: 'mockElement',
-    offset: { top: 0, right: 0, bottom: 0, left: 0 },
+    offsetX: {
+      relationType: 'LL',
+      value: 0,
+    },
+    offsetY: {
+      relationType: 'BT',
+      value: 0,
+    }
   }
 };
 
@@ -59,7 +66,7 @@ describe('RelativeToElementPosition', () => {
   
       expect(postionProps).toMatchObject({
         left: '0px',
-        top: 'calc(200px - 20px)',
+        bottom: '568px',
       });
     });
   
