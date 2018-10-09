@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## HotFix [0.4.4] - 2018-09-28
+### Fixed
+- New version bump for npm publish
+
 ## HotFix [0.4.3] - 2018-09-28
 ### Fixed
 - Removed unused console log statments
