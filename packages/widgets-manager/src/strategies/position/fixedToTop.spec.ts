@@ -4,7 +4,7 @@ import { FixedToTopPositionStrategy } from './fixedToTop';
 const mockPositionFixedToTop: AppPosition = {
   type: 'fixed-to-top-position',
   payload: {
-    offset: { x: 0, y: 0 },
+    offset: { top: 0, right: 0, bottom: 0, left: 0 },
   }
 };
 
@@ -17,6 +17,7 @@ const mockFailingApp: App = {
     css: '',
     inlineCss: {},
     position: {} as any,
+    size: {} as any,
   },
   organization_id: 1,
   source: '',
@@ -31,6 +32,7 @@ const mockApp: App = {
     css: '',
     inlineCss: {},
     position: mockPositionFixedToTop,
+    size: {} as any,
   },
   organization_id: 1,
   source: '',

@@ -44,19 +44,17 @@ export class AppManager {
           id: app.id,
           observer: observer,
         }
-        console.log('Adding observable for app:', app.id);
         this.observables.push(observable);
       }
     }
   }
 
-  _unSubscribeToDomEvents(app: App) {
-    console.log('Removing observable for app:', app.id);
-    const removeObservable = this.observables.find((elem) => elem.id === app.id);
+  _unSubscribeToDomEvents(appId: number) {
+    const removeObservable = this.observables.find((elem) => elem.id === appId);
     if (removeObservable) {
       removeObservable.observer.disconnect();
     }
-    this.observables = this.observables.filter((elem) => elem.id === app.id);
+    this.observables = this.observables.filter((elem) => elem.id !== appId);
   }
 
   _createIframeForApp = (app: App, cell: GridCell): Node | null => {
@@ -67,6 +65,9 @@ export class AppManager {
       if (app.payload_type === 'html' || app.payload_type === 'markdown') {
         iframe.src = `${app.source}?appId=${app.id}`;
       }
+
+      iframe.style.setProperty('width', app.settings.size.width);
+      iframe.style.setProperty('height', app.settings.size.height);
 
       // Apply settings to the iframe style property
       Object.keys(app.settings.inlineCss).forEach((key: string) => {
@@ -117,13 +118,13 @@ export class AppManager {
   _unMountApps = (apps: App[]): void => {
     apps.forEach((app) => {
       this.unMountApp(app.id);
-      this.gridManager.removeApp(app.id);
     });
   }
 
   _mountApps = (cell: GridCell, apps: App[]) => {
     apps.forEach((app) => {
       this._createIframeForApp(app, cell);
+      this._subscribeToDomEvents(app);
     });
   }
 
@@ -152,7 +153,6 @@ export class AppManager {
         // Add this app to the positionId cell.id
         // This will call the proper strategy for adding
         this.gridManager.addAppToCell(positionId, app);
-        this._subscribeToDomEvents(app);
         const newApps = this.gridManager.getAppsInCell(positionId);
 
         const removeapps = diffByAppId(currentApps, newApps);
@@ -167,10 +167,9 @@ export class AppManager {
   };
   
   unMountApp = (appId: number) => {
-    const toRemove = this.getApp(appId);
-    this.gridManager.removeApp(appId);
     this._removeIframeForApp(appId);
-    if (toRemove) this._unSubscribeToDomEvents(toRemove);
+    this.gridManager.removeApp(appId);
+    this._unSubscribeToDomEvents(appId);
   };
 
   getApp = (appId: number) => {

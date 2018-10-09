@@ -6,7 +6,14 @@ const mockPositionRelativeToElement: AppPosition = {
   payload: {
     floatType: HTMLFloatType.fixed,
     relativeId: 'mockElement',
-    offset: { x: 0, y: 0 },
+    offsetX: {
+      relationType: 'LL',
+      value: 0,
+    },
+    offsetY: {
+      relationType: 'BT',
+      value: 0,
+    }
   }
 };
 
@@ -17,7 +24,9 @@ const mockApp: App = {
   payload: '',
   settings: {
     css: '',
-    inlineCss: {
+    inlineCss: {},
+    size: {
+      width: '100%',
       height: '20px',
     },
     position: mockPositionRelativeToElement,
@@ -35,6 +44,10 @@ const mockFailingApp: App = {
     css: '',
     inlineCss: {},
     position: {} as any,
+    size: { 
+      width: '0px',
+      height: '0px'
+    }
   },
   organization_id: 1,
   source: '',
@@ -53,7 +66,7 @@ describe('RelativeToElementPosition', () => {
   
       expect(postionProps).toMatchObject({
         left: '0px',
-        top: 'calc(200px - 20px)',
+        bottom: '568px',
       });
     });
   

@@ -5,13 +5,13 @@ export class GridManager {
   grid: Grid;
   addAppsStrategy: AddAppsStrategy;
 
-  constructor(settings: GridSettings, window: Window, addAppsStrategy: AddAppsStrategy) {
+  constructor(settings: GridSettings, window: Window, defaultAddAppsStrategy: AddAppsStrategy) {
     this.grid = {
       settings,
       cells: [],
     };
     this.grid.settings = settings;
-    this.addAppsStrategy = addAppsStrategy;
+    this.addAppsStrategy = defaultAddAppsStrategy;
     this._configureGrid(window.innerWidth, window.innerHeight);
   }
 
@@ -33,7 +33,7 @@ export class GridManager {
       this.grid.cells.push({
         id: this.grid.settings.positions[i],
         apps: [],
-        position: { x: 0, y: 0 },
+        position: { top: 0, right: 0, bottom: 0, left: 0 },
         size: { width: 0, height: 0 },
       })
     }
@@ -46,13 +46,11 @@ export class GridManager {
       const row: number = Math.trunc(i / numberOfCols);
       const column:number = (i % numberOfCols);
       
-      cell.id = this.grid.settings.positions[(row * numberOfCols) + column],
-      
       cell.size.width = width / numberOfCols;
       cell.size.height = height / numberOfRows;
       
-      cell.position.x = column * cell.size.width;
-      cell.position.y = row * cell.size.height;
+      cell.position.left = column * cell.size.width;
+      cell.position.top = row * cell.size.height;
     });
   }
 
@@ -60,10 +58,7 @@ export class GridManager {
     return {
       id,
       apps: this.addAppsStrategy.add(app, []),
-      position: {
-        x: app.settings.position.payload.offset.x,
-        y: app.settings.position.payload.offset.y,
-      },
+      position: { top: 0, right: 0, bottom: 0, left: 0 },
       size: { width: 0, height: 0 },
     }
   }

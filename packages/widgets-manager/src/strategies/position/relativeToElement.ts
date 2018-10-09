@@ -1,6 +1,8 @@
-import { POSITION_RELATIVE_TO_ELEMENT } from './../../constants';
-import { getElementPosition } from './../../utils/index';
-import { App, ObjectIndex, PositionStrategy, makeHTMLFloatType } from "../../types";
+import { 
+  POSITION_RELATIVE_TO_ELEMENT,
+} from './../../constants';
+import { getElementPosition, getRelativePosition } from './../../utils/index';
+import { App, PositionStrategy, makeHTMLFloatType, ObjectIndex } from "../../types";
 
 export class RelativeToElementPositionStrategy implements PositionStrategy {
   public getPositionProps(app: App): ObjectIndex {
@@ -11,15 +13,10 @@ export class RelativeToElementPositionStrategy implements PositionStrategy {
 
     const relativeToId = position.payload.relativeId;
     const htmlFloatType = makeHTMLFloatType(position.payload.floatType);
-    const { x, y } = getElementPosition(relativeToId, htmlFloatType);
-    
-    const left = x + position.payload.offset.x;
-    const top = y + position.payload.offset.y;
-    return {
-      top: `calc(${top}px - ${app.settings.inlineCss.height})`,
-      left: `${left}px`,
-    };
-    
+    const elementPositon = getElementPosition(relativeToId, htmlFloatType);
+    const relativePosition = getRelativePosition(elementPositon, position);
+
+    return relativePosition;
   };
 
   public shouldAddNewPosition = () => true;

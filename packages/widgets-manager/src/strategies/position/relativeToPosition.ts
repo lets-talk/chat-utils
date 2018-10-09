@@ -8,11 +8,11 @@ export class RelativeToPlacePositionStrategy implements PositionStrategy {
     if (position.type !== POSITION_RELATIVE_TO_PLACE) {
       throw Error('Can not get position props from an element that does not implement relativeToPlace strategy');
     }
-    const x = cell.position.x + position.payload.offset.x;
-    const y = cell.position.y + position.payload.offset.y;
+    const left = cell.position.left + position.payload.offset.left;
+    const top = cell.position.top + position.payload.offset.top;
     return {
-      top: `${y}px`,
-      left: `${x}px`
+      top: `${top}px`,
+      left: `${left}px`
     }
   };
   public shouldAddNewPosition = () => false;
