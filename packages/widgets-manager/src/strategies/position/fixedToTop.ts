@@ -9,8 +9,8 @@ export class FixedToTopPositionStrategy implements PositionStrategy {
       throw Error('Can not get position props from an element that does not implement fixedToTop strategy');
     }
 
-    const left = 0 + position.payload.offset.x;
-    const top = 0 + position.payload.offset.y;
+    const left = 0 + position.payload.offset.left;
+    const top = 0 + position.payload.offset.top;
 
     return {
       top: `${top}px`,

@@ -1,19 +1,29 @@
-import { AppPosition } from './types';
+import { AppPosition, relationTypeY } from './types';
 export type PayloadType = 'html' | 'json' | 'markdown';
+export type relationTypeX = 'LL' | 'LR' | 'RL' | 'RR';
+export type relationTypeY = 'TT' | 'TB' | 'BT' | 'BB';
 
 export type ObjectIndex = {
   [key:string]: string;
+}
+
+export type AppSize = {
+  width: string;
+  height: string;
 }
 
 export type Settings = {
   css: string;
   inlineCss: ObjectIndex;
   position: AppPosition;
+  size: AppSize;
 }
 
 export type Position = {
-  x: number;
-  y: number;
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
 }
 
 export enum HTMLFloatType {
@@ -21,15 +31,23 @@ export enum HTMLFloatType {
   default = "default"
 };
 
+export type offsetX = {
+  relationType: relationTypeX;
+  value: number;
+}
+
+export type offsetY = {
+  relationType: relationTypeY;
+  value: number;
+}
+
 export type RelativeToElementPosition = {
   type: 'relative-to-element';
   payload: {
     relativeId: string;
     floatType: HTMLFloatType;
-    offset: {
-      x: number;
-      y: number;
-    },
+    offsetX: offsetX,
+    offsetY: offsetY,
   }
 }
 
@@ -37,20 +55,14 @@ export type RelativeToPlacePosition = {
   type: 'relative-to-position';
   payload: {
     positionId: string;
-    offset: {
-      x: number;
-      y: number;
-    },
+    offset: Position,
   }
 }
 
 export type FixedToTopPosition = {
   type: 'fixed-to-top-position';
   payload: {
-    offset: {
-      x: number;
-      y: number;
-    },
+    offset: Position,
   }
 }
 

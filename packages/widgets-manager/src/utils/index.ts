@@ -1,4 +1,5 @@
-import { Position, HTMLFloatType } from './../types';
+import { RELATIVE_X_LEFT_LEFT, RELATIVE_X_LEFT_RIGHT, RELATIVE_X_RIGHT_LEFT, RELATIVE_X_RIGHT_RIGHT, RELATIVE_Y_TOP_TOP, RELATIVE_Y_TOP_BOTTOM, RELATIVE_Y_BOTTOM_BOTTOM, RELATIVE_Y_BOTTOM_TOP } from './../constants';
+import { Position, HTMLFloatType, ObjectIndex, RelativeToElementPosition } from './../types';
 
 /**
  * Return an element by its id or throws an error if it can not find one
@@ -27,11 +28,7 @@ const getElementDomPosition = (elementId: string) => {
  */
 export const getElementPositionFixed = (elementId: string): Position => {
   const domPosition = getElementDomPosition(elementId);
-
-  return {
-    x: domPosition.left,
-    y: domPosition.top
-  };
+  return domPosition;
 }
 
 /**
@@ -42,8 +39,10 @@ export const getElementPositionDefault = (elementId: string): Position => {
   const domPosition = getElementDomPosition(elementId);
 
   return {
-    x: domPosition.left + window.scrollX,
-    y: domPosition.top + window.scrollY
+    top: domPosition.top + window.scrollY,
+    right: domPosition.right,
+    bottom: domPosition.bottom,
+    left: domPosition.left + window.scrollX,
   };
 }
 
@@ -60,6 +59,50 @@ export const getElementPosition = (elementId: string, elementFloatType: HTMLFloa
       return getElementPositionFixed(elementId);
   }
 }
+
+export const getRelativePosition = (elementPositon: Position, positionConfig: RelativeToElementPosition): ObjectIndex => {
+    const { top, right, bottom, left } = elementPositon;
+    const { innerHeight, innerWidth } = window
+    let offset: ObjectIndex = {};
+    switch (positionConfig.payload.offsetX.relationType) {
+      case RELATIVE_X_LEFT_LEFT:
+        offset.left = `${left + positionConfig.payload.offsetX.value}px`
+        break;
+      case RELATIVE_X_LEFT_RIGHT:
+        offset.left = `${right + positionConfig.payload.offsetX.value}px`
+        break;
+      case RELATIVE_X_RIGHT_LEFT:
+        offset.right = `${innerWidth - left + positionConfig.payload.offsetX.value}px`
+        break;
+      case RELATIVE_X_RIGHT_RIGHT:
+        offset.right = `${innerWidth - right + positionConfig.payload.offsetX.value}px`
+        break;
+    
+      default:
+        break;
+    }
+
+    switch (positionConfig.payload.offsetY.relationType) {
+      case RELATIVE_Y_TOP_TOP:
+        offset.top = `${top + positionConfig.payload.offsetY.value}px`
+        break;
+      case RELATIVE_Y_TOP_BOTTOM:
+        offset.top = `${bottom + positionConfig.payload.offsetY.value}px`
+        break;
+      case RELATIVE_Y_BOTTOM_TOP:
+        offset.bottom = `${innerHeight - top + positionConfig.payload.offsetY.value}px`
+        break;
+      case RELATIVE_Y_BOTTOM_BOTTOM:
+        offset.bottom = `${innerHeight - bottom + positionConfig.payload.offsetY.value}px`
+        break;
+    
+      default:
+        break;
+    }
+
+    return offset;
+}
+
 /**
  * function to compare 2 arrays of elements using a predicate function
  * @param pred A predicate function to compare individual elements

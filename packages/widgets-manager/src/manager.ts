@@ -66,6 +66,9 @@ export class AppManager {
         iframe.src = `${app.source}?appId=${app.id}`;
       }
 
+      iframe.style.setProperty('width', app.settings.size.width);
+      iframe.style.setProperty('height', app.settings.size.height);
+
       // Apply settings to the iframe style property
       Object.keys(app.settings.inlineCss).forEach((key: string) => {
         iframe.style.setProperty(key, app.settings.inlineCss[key]);
