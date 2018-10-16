@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## HotFix [0.4.5] - 2018-10-16
+### Release
+- Version supporting lt-basic-container
+
 ## HotFix [0.4.4] - 2018-09-28
 ### Fixed
 - New version bump for npm publish
