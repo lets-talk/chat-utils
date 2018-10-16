@@ -61,11 +61,7 @@ export class AppManager {
     if (!this._getAppIframe(app.id)) {
       const iframe = document.createElement('iframe');
       iframe.id = `letstalk-app-${app.id}`;
-
-      if (app.payload_type === 'html' || app.payload_type === 'markdown') {
-        iframe.src = `${app.source}?appId=${app.id}`;
-      }
-
+      iframe.src = `${app.source}?appId=${app.id}`;
       iframe.style.setProperty('width', app.settings.size.width);
       iframe.style.setProperty('height', app.settings.size.height);
 
