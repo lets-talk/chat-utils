@@ -1,0 +1,23 @@
+{
+  "name": "@lets-talk/apps-sdk",
+  "version": "0.1.1",
+  "description": "Weekly schedule timescopes",
+  "scripts": {
+    "prepublishOnly": "tsc",
+    "test": "echo 'no test yet'",
+    "test:ci": "echo 'no test yet'"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "author": "Cristián Arenas",
+  "license": "ISC",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.1",
+    "jest": "^23.5.0",
+    "ts-jest": "^23.1.4"
+  }
+}
