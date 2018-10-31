@@ -1,16 +1,21 @@
 import { SDK } from '../sdk';
 
 import {
-  EVENT_TYPE_EXECUTE_APP_METHOD,
   EVENT_TYPE_GET_APP_SETTINGS,
   EVENT_TYPE_LOAD_APP,
   EVENT_TYPE_REMOVE_APP,
+  EVENT_TYPE_NOTIFY_APP_EVENT,
 } from '../constants';
 
 const mockedSend = jest.fn(() => new Promise((resolve) => resolve('OK')));
+const mockedOn = jest.fn();
+
 const mockChannel = {
   client: jest.fn(() => ({
     send: mockedSend,
+  })),
+  listener: jest.fn(() => ({
+    on: mockedOn,
   })),
 };
 
@@ -24,52 +29,33 @@ describe('SDK', () => {
     expect(sdk).not.toBeFalsy();
   });
 
-  it('Should call the openApp method', () => {
+  it('openApp should call mockChannel.send with correct params', () => {
     const sdk = new SDK(() => mockChannel);
-    const expectedSentPayload = { appNamespace: 'letstalk.banner.top-left' };
+    const expectedSentPayload = { appName: 'letstalk.banner-bci.top-left' };
     
-    const result = sdk.openApp('letstalk.banner.top-left');
-    expect(result).resolves.toBe('lemon');
+    const result = sdk.openApp('letstalk.banner-bci.top-left');
+    expect(result).resolves.toBe('OK');
     expect(mockedSend).toHaveBeenCalledWith(EVENT_TYPE_LOAD_APP, expectedSentPayload);
   });
   
-  it('Should call the closeApp method', () => {
+  it('closeApp should call mockChannel.send with correct params', () => {
     const sdk = new SDK(() => mockChannel);
-    const expectedSentPayload = { appNamespace: 'letstalk.banner.top-left' };
+    const expectedSentPayload = { appName: 'lt.my-mock-app.*' };
 
-    const result = sdk.closeApp('letstalk.banner.top-left');
-    expect(result).resolves.toBe('lemon');
+    const result = sdk.closeApp();
+    expect(result).resolves.toBe('OK');
     expect(mockedSend).toHaveBeenCalledWith(EVENT_TYPE_REMOVE_APP, expectedSentPayload);
   });
 
-  it('Should call the getAppSetttings method', () => {
+  it('getAppSetttings should call mockChannel.send with correct params', () => {
     const sdk = new SDK(() => mockChannel);
-    const expectedSentPayload = { appNamespace: 'letstalk.banner.top-left' };
+    const expectedSentPayload = { appName: 'my-mock-app' };
 
-    const result = sdk.getAppSettings('letstalk.banner.top-left');
-    expect(result).resolves.toBe('lemon');
+    const result = sdk.getAppSettings();
+    expect(result).resolves.toBe('OK');
     expect(mockedSend).toHaveBeenCalledWith(EVENT_TYPE_GET_APP_SETTINGS, expectedSentPayload);
   });
-  
-  it('Should call the openApp method', () => {
-    const sdk = new SDK(() => mockChannel);
-    const params = [
-      { vipUser: true },
-      true,
-    ];
 
-    const expectedSentPayload = {
-      appNamespace: 'letstalk.banner.top-left',
-      payload: {
-        method: 'addChatMetaData',
-        args: params,
-      }
-    }
-
-    const result = sdk.executeAppMethod('letstalk.banner.top-left', 'addChatMetaData', params);
-    expect(result).resolves.toBe('lemon');
-    expect(mockedSend).toHaveBeenCalledWith(EVENT_TYPE_EXECUTE_APP_METHOD, expectedSentPayload);
-  });
   it('openApp method really resolves to a value', async () => {
     expect.assertions(1);
 
@@ -77,5 +63,22 @@ describe('SDK', () => {
     const result = await sdk.openApp('letstalk.banner.top-left');
     
     expect(result).toBe('OK');
+  });
+  
+  it('notify method send the correct message', () => {
+    const sdk = new SDK(() => mockChannel);
+    const mockData = [ {key: 'key1', value: 'value1'} ];
+
+    sdk.notify('myCustomEvent', mockData);
+    
+    const expectedSentPayload = {
+      appName: "my-mock-app",
+      payload: {
+        data: [{ key: "key1", "value": "value1"}], 
+        eventName: "myCustomEvent"
+      }
+    };
+
+    expect(mockedSend).toHaveBeenCalledWith(EVENT_TYPE_NOTIFY_APP_EVENT, expectedSentPayload);
   });
 });
