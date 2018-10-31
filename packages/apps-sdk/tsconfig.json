@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./packages",
+    "baseUrl": "./src",
     "declaration": true,
     "downlevelIteration": true,
     "experimentalDecorators": true,
@@ -14,9 +14,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "dist",
-    "paths": {
-      "@ninoscript/*": ["./*/src"]
-    },
     "removeComments": true,
     "sourceRoot": "./",
     "strict": true,
