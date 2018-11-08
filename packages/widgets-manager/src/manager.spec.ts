@@ -112,8 +112,7 @@ describe('setupManager', () => {
 
   describe('Mounting apps', () => {
     it('I can mount apps', async () => {
-      const manager = setupManager([mockApp1, mockApp2], mockFetchAppData);
-      await manager.mountApp(3);
+      const manager = setupManager([mockApp1, mockApp2, mockApp3], mockFetchAppData);
 
       expect(manager.getApp(3)).toMatchObject(mockApp3);
     })

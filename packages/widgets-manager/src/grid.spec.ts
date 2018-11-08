@@ -36,9 +36,9 @@ describe('GridManager', () => {
       'top-left',
       'top-center',
       'top-right',
-      'center-left',
-      'center-center',
-      'center-right',
+      'mid-left',
+      'mid-center',
+      'mid-right',
       'bottom-left',
       'bottom-center',
       'bottom-right',
@@ -130,11 +130,26 @@ describe('GridManager', () => {
 
   it('getGridCell. Gets a cell by id', () => {
     const gm = new GridManager(settings, windowObject, addStrategy);
-    gm.addAppToCell('center-center', mockApp1);
-    const cell = gm.getGridCell('center-center')
+    const mockApp1: App = {
+      id: 1,
+      name: 'App1 Relative To Position mid-center',
+      payload_type: 'html',
+      payload: '',
+      settings: {
+        css: '',
+        inlineCss: {},
+        position: mockPositionRelativeToPosition,
+        size: {} as any,
+      },
+      organization_id: 1,
+      source: '',
+    }
+
+    gm.addAppToCell('mid-center', mockApp1);
+    const cell = gm.getGridCell('mid-center')
     
     expect(cell).toMatchObject({
-      id: 'center-center',
+      id: 'mid-center',
       apps: [mockApp1],
       position: {
         left: windowObject.innerWidth / 3,
@@ -181,9 +196,9 @@ describe('GridManager', () => {
       source: '',
     }
 
-    gm.addAppToCell('center-center', mockApp1);
-    gm.addAppToCell('center-center', mockApp2);
-    const apps = gm.getAppsInCell('center-center');
+    gm.addAppToCell('mid-center', mockApp1);
+    gm.addAppToCell('mid-center', mockApp2);
+    const apps = gm.getAppsInCell('mid-center');
     
     // Putting 2 apps with position relative to same POSITION
     // Should use replace stratey. So we expect 1 app only

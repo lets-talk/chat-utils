@@ -1,5 +1,5 @@
 import { makePostionStrategy } from './strategies/position/creator';
-import { App, Grid, GridCell, GridSettings, AddAppsStrategy, Position, Size, PositionStrategy } from "./types";
+import { App, Grid, GridCell, GridSettings, AddAppsStrategy, PositionStrategy } from "./types";
 
 export class GridManager {
   grid: Grid<GridCell>;
