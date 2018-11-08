@@ -66,10 +66,18 @@ export type FixedToTopPosition = {
   }
 }
 
+export type FixedToCenterPosition = {
+  type: 'fixed-to-center-position';
+  payload: {
+    offset: Position,
+  }
+}
+
 export type AppPosition =
   RelativeToElementPosition |
   RelativeToPlacePosition |
-  FixedToTopPosition;
+  FixedToTopPosition |
+  FixedToCenterPosition;
 
 export type App = {
   id: number;
