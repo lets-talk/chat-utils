@@ -1,8 +1,8 @@
 import { makePostionStrategy } from './strategies/position/creator';
-import { App, Grid, GridCell, GridSettings, AddAppsStrategy, PositionStrategy } from "./types";
+import { App, Grid, GridCell, GridSettings, AddAppsStrategy, Position, Size, PositionStrategy } from "./types";
 
 export class GridManager {
-  grid: Grid;
+  grid: Grid<GridCell>;
   addAppsStrategy: AddAppsStrategy;
 
   constructor(settings: GridSettings, window: Window, defaultAddAppsStrategy: AddAppsStrategy) {
@@ -35,14 +35,14 @@ export class GridManager {
         apps: [],
         position: { top: 0, right: 0, bottom: 0, left: 0 },
         size: { width: 0, height: 0 },
-      })
+      });
     }
     this._setGridDimensions(numberOfCols, maxWidth, maxHeight);
   }
 
   _setGridDimensions(numberOfCols: number, width: number, height: number): void {
     const numberOfRows = this.grid.settings.positions.length / numberOfCols;
-    this.grid.cells.map((cell, i) => {
+    this.grid.cells.map((cell: GridCell, i: number) => {
       const row: number = Math.trunc(i / numberOfCols);
       const column:number = (i % numberOfCols);
       
@@ -54,19 +54,19 @@ export class GridManager {
     });
   }
 
-  _createNewCell(id: string, app: App): GridCell {
+  _createNewCell(id: string, app: App, addStrategy: AddAppsStrategy): GridCell {
     return {
       id,
-      apps: this.addAppsStrategy.add(app, []),
+      apps: addStrategy.add(app, []),
       position: { top: 0, right: 0, bottom: 0, left: 0 },
       size: { width: 0, height: 0 },
-    }
+    };
   }
 
   addAppToCell(id: string, app: App) {
     const existingCell = this._findCell(id);
     if (existingCell) {
-      this._addToExistingCell(app, existingCell);
+      this._addToExistingCell(app, existingCell, makePostionStrategy(app.settings.position.type));
     } else {
       this._addToNewCell(app, id, makePostionStrategy(app.settings.position.type));
     }
@@ -79,13 +79,13 @@ export class GridManager {
     return this.grid.cells[foundIndex];
   }
 
-  _addToExistingCell(app: App, cell: GridCell) {
-    cell.apps = this.addAppsStrategy.add(app, cell.apps);
+  _addToExistingCell(app: App, cell: GridCell, positionStrategy: PositionStrategy) {
+    cell.apps = positionStrategy.mountStrategy().add(app, cell.apps);
   }
 
   _addToNewCell(app: App, id: string, positionStrategy: PositionStrategy) {
     if (positionStrategy.shouldAddNewPosition()) {
-      this.grid.cells.push(this._createNewCell(id, app));
+      this.grid.cells.push(this._createNewCell(id, app, positionStrategy.mountStrategy()));
     }
   }
 

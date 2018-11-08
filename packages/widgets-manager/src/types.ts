@@ -100,9 +100,9 @@ export type GridSettings = {
   positions: string[];
 }
 
-export type Grid = {
+export type Grid<T> = {
   settings: GridSettings;
-  cells: GridCell[];
+  cells: T[];
 }
 
 export interface AddAppsStrategy {
