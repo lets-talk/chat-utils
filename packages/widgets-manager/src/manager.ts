@@ -36,7 +36,7 @@ export class AppManager {
     const { css } = app.settings;
     
     const node = document.createElement('style');
-    node.id = `lt-${app.name}-styles`;
+    node.id = `lt-${app.slug}-styles`;
     node.innerHTML = css;
     document.body.appendChild(node);
   }
@@ -75,10 +75,10 @@ export class AppManager {
         // We only create a new iframe if it does not exist
         // If not we just reuse the one we have it created
         iframe = document.createElement('iframe');
-        iframe.id = `lt-${app.name}`;
+        iframe.id = `lt-${app.slug}`;
       }
         
-      iframe.src = `${app.source}?appName=${app.name}`;
+      iframe.src = `${app.source}?appName=${app.slug}`;
       iframe.style.setProperty('width', app.settings.size.width);
       iframe.style.setProperty('height', app.settings.size.height);
 
@@ -106,11 +106,11 @@ export class AppManager {
   }
 
   private getAppIframe = (app: App): HTMLElement | null => {
-    return document.getElementById(`lt-${app.name}`);
+    return document.getElementById(`lt-${app.slug}`);
   }
 
   private getAppStyles = (app: App): HTMLElement | null => {
-    return document.getElementById(`lt-${app.name}-styles`);
+    return document.getElementById(`lt-${app.slug}-styles`);
   }
 
   private removeIframeForApp = (app: App) => {
@@ -188,7 +188,7 @@ export class AppManager {
   };
   
   public getAppByName = (appName: string) => {
-    return this.registeredApps.find((app) => app.name === appName);
+    return this.registeredApps.find((app) => app.slug === appName);
   };
 
   public getApps = (): App[] => {

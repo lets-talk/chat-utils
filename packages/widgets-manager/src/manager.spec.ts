@@ -35,7 +35,8 @@ const mockPositionRelativeToPosition2: AppPosition = {
 
 const mockApp1: App = {
   id: 1,
-  name: 'html-notification',
+  name: 'HTML Notification',
+  slug: 'html-notification',
   payload_type: 'html',
   payload: '',
   settings: {
@@ -50,7 +51,8 @@ const mockApp1: App = {
 
 const mockApp2: App = {
   id: 2,
-  name: 'markdown-bci',
+  name: 'Markdown Bci',
+  slug: 'markdown-bci',
   payload_type: 'markdown',
   payload: '',
   settings: {
@@ -65,7 +67,8 @@ const mockApp2: App = {
 
 const mockApp3: App = {
   id: 3,
-  name: 'markdown-bci',
+  name: 'Markdown BCI 2',
+  slug: 'markdown-bci-2',
   payload_type: 'markdown',
   payload: '',
   settings: {

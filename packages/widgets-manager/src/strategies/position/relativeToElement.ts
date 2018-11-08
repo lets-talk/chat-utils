@@ -26,7 +26,7 @@ export class RelativeToElementPositionStrategy implements PositionStrategy {
   public mountStrategy = () => new AppendAppStrategy;
 
   public getNameId = (app: App) => {
-    const { name: appName } = app;
+    const { slug: appName } = app;
     const { position } = app.settings;
     if (position.type !== POSITION_RELATIVE_TO_ELEMENT) {
       throw Error('Can not get position props from an element that does not implement relativeToPlace strategy');

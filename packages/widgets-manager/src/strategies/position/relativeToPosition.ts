@@ -22,7 +22,7 @@ export class RelativeToPlacePositionStrategy implements PositionStrategy {
   public mountStrategy = () => new ReplaceAppStrategy;
 
   public getNameId = (app: App) => {
-    const { name: appName } = app;
+    const { slug: appName } = app;
     const { position } = app.settings;
     if (position.type !== POSITION_RELATIVE_TO_PLACE) {
       throw Error('Can not get position props from an element that does not implement relativeToPlace strategy');

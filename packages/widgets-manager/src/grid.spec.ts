@@ -133,6 +133,7 @@ describe('GridManager', () => {
     const mockApp1: App = {
       id: 1,
       name: 'App1 Relative To Position mid-center',
+      slug: 'app1-relative-to-position-mid-center',
       payload_type: 'html',
       payload: '',
       settings: {
@@ -169,6 +170,7 @@ describe('GridManager', () => {
     const mockApp1: App = {
       id: 1,
       name: 'App1 Relative To Position mid-center',
+      slug: 'app1-relative-to-position-mid-center',
       payload_type: 'html',
       payload: '',
       settings: {
@@ -184,6 +186,7 @@ describe('GridManager', () => {
     const mockApp2: App = {
       id: 2,
       name: 'App2 Relative To Position mid-center',
+      slug: 'app2-relative-to-position-mid-center',
       payload_type: 'html',
       payload: '',
       settings: {
@@ -212,6 +215,7 @@ describe('GridManager', () => {
     const mockApp1: App = {
       id: 1,
       name: 'Relative To Element',
+      slug: 'relative-to-element',
       payload_type: 'markdown',
       payload: '',
       settings: {
@@ -227,6 +231,7 @@ describe('GridManager', () => {
     const mockApp2: App = {
       id: 2,
       name: 'Relative to the same element different offsetX',
+      slug: 'relative-to-the-same-element-different-offsetX',
       payload_type: 'markdown',
       payload: '',
       settings: {
@@ -264,6 +269,7 @@ describe('GridManager', () => {
     const mockApp1: App = {
       id: 1,
       name: 'App1 Relative To Position mid-center',
+      slug: 'app1-relative-to-position-mid-center',
       payload_type: 'html',
       payload: '',
       settings: {
@@ -288,6 +294,7 @@ describe('GridManager', () => {
     const mockApp1: App = {
       id: 1,
       name: 'App1 Relative To Position mid-center',
+      slug: 'app1-relative-to-position-mid-center',
       payload_type: 'html',
       payload: '',
       settings: {
