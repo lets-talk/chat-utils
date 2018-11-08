@@ -144,7 +144,7 @@ describe('setupManager', () => {
       expect(allHtmlApps).toContainEqual(mockApp1);
       
       // Find all markdown apps not matter position -> We find 2 apps
-      const allMarkdownApps = manager.getAllAppsForNamespace('lt.markdown-bci.*');
+      const allMarkdownApps = manager.getAllAppsForNamespace('lt.markdown-bci*.*');
       expect(allMarkdownApps.length).toBe(2);
       expect(allMarkdownApps).toContainEqual(mockApp2);
       expect(allMarkdownApps).toContainEqual(mockApp3);
