@@ -16,23 +16,32 @@ type Observable = {
 export class AppManager {
   gridManager: GridManager;
   fetchAppData: PromisedFunction;
-  observables: Observable[]; 
+  registeredApps: App[];
+  observables: Observable[];
   
-  constructor(fetchAppData: PromisedFunction, gridManager: GridManager) {
+  constructor(registeredApps: App[], fetchAppData: PromisedFunction, gridManager: GridManager) {
     this.fetchAppData = fetchAppData;
     this.gridManager = gridManager;
+    this.registeredApps = registeredApps || [];
     this.observables = [];
   }
 
-  _addStyleString = (app: App) => {
+  private getAppPositionName = (app: App) => {
+    const positionStrategy = makePostionStrategy(app.settings.position.type);
+    const positionName = positionStrategy.getNameId(app);
+    return positionName;
+  }
+
+  private addStyleString = (app: App) => {
     const { css } = app.settings;
+    
     const node = document.createElement('style');
-    node.id = `letstalk-app-${app.id}-styles`;
+    node.id = `lt-${app.name}-styles`;
     node.innerHTML = css;
     document.body.appendChild(node);
   }
 
-  _subscribeToDomEvents(app: App) {
+  private subscribeToDomEvents(app: App) {
     if (app.settings.position.type === POSITION_RELATIVE_TO_ELEMENT) {
       const relativeElementId = app.settings.position.payload.relativeId;
       const relativeElement = document.getElementById(relativeElementId);
@@ -49,7 +58,7 @@ export class AppManager {
     }
   }
 
-  _unSubscribeToDomEvents(appId: number) {
+  private unSubscribeToDomEvents(appId: number) {
     const removeObservable = this.observables.find((elem) => elem.id === appId);
     if (removeObservable) {
       removeObservable.observer.disconnect();
@@ -57,11 +66,19 @@ export class AppManager {
     this.observables = this.observables.filter((elem) => elem.id !== appId);
   }
 
-  _createIframeForApp = (app: App, cell: GridCell): Node | null => {
-    if (!this._getAppIframe(app.id)) {
-      const iframe = document.createElement('iframe');
-      iframe.id = `letstalk-app-${app.id}`;
-      iframe.src = `${app.source}?appId=${app.id}`;
+  private createIframeForApp = (app: App, cell: GridCell): Node | null => {
+    try {
+      const positionStrategy = makePostionStrategy(app.settings.position.type);
+      let iframe = this.getAppIframe(app) as HTMLIFrameElement;
+
+      if (!iframe) {
+        // We only create a new iframe if it does not exist
+        // If not we just reuse the one we have it created
+        iframe = document.createElement('iframe');
+        iframe.id = `lt-${app.name}`;
+      }
+        
+      iframe.src = `${app.source}?appName=${app.name}`;
       iframe.style.setProperty('width', app.settings.size.width);
       iframe.style.setProperty('height', app.settings.size.height);
 
@@ -70,39 +87,35 @@ export class AppManager {
         iframe.style.setProperty(key, app.settings.inlineCss[key]);
       });
 
-      try {
-        const positionStrategy = makePostionStrategy(app.settings.position.type);
-        const positionProps = positionStrategy.getPositionProps(app, cell);
-  
-        Object.keys(positionProps).forEach((key: string) => {
-          iframe.style.setProperty(key, positionProps[key]);
-        });
-  
-        document.body.appendChild(iframe);
-  
-        // Add css style tag with style rules
-        this._addStyleString(app);
-      } catch (error) {
-        console.error('Could not position app on the screen. Check your configuration', error)
-      }
+      const positionProps = positionStrategy.getPositionProps(app, cell);
 
+      Object.keys(positionProps).forEach((key: string) => {
+        iframe.style.setProperty(key, positionProps[key]);
+      });
+
+      document.body.appendChild(iframe);
+
+      // Add css style tag with style rules
+      this.addStyleString(app);
       return iframe;
+    } catch (error) {
+      console.error('Could not position app on the screen. Check your configuration', error)
     }
 
     return null;
   }
 
-  _getAppIframe = (appId: number): HTMLElement | null => {
-    return document.getElementById(`letstalk-app-${appId}`);
+  private getAppIframe = (app: App): HTMLElement | null => {
+    return document.getElementById(`lt-${app.name}`);
   }
 
-  _getAppStyles = (appId: number): HTMLElement | null => {
-    return document.getElementById(`letstalk-app-${appId}-styles`);
+  private getAppStyles = (app: App): HTMLElement | null => {
+    return document.getElementById(`lt-${app.name}-styles`);
   }
 
-  _removeIframeForApp = (appId: number) => {
-    const appIframe = this._getAppIframe(appId);
-    const appStyles = this._getAppStyles(appId);
+  private removeIframeForApp = (app: App) => {
+    const appIframe = this.getAppIframe(app);
+    const appStyles = this.getAppStyles(app);
     if (appIframe) {
       document.body.removeChild(appIframe);
     }
@@ -111,22 +124,21 @@ export class AppManager {
     }
   }
 
-  _unMountApps = (apps: App[]): void => {
+  private unMountApps = (apps: App[]): void => {
     apps.forEach((app) => {
       this.unMountApp(app.id);
     });
   }
 
-  _mountApps = (cell: GridCell, apps: App[]) => {
+  private mountApps = (cell: GridCell, apps: App[]) => {
     apps.forEach((app) => {
-      this._createIframeForApp(app, cell);
-      this._subscribeToDomEvents(app);
+      this.createIframeForApp(app, cell);
+      this.subscribeToDomEvents(app);
     });
   }
 
-  mountApp = (appId: number) => {
+  public mountApp = (appId: number) => {
     this.fetchAppData(appId)
-      .then((widgetAppResonse) => widgetAppResonse.json())
       .then((app: App) => {
         const { position } = app.settings;
         let positionId;
@@ -156,51 +168,79 @@ export class AppManager {
 
         const cell = this.gridManager.getGridCell(positionId);
         if (cell) {
-          this._unMountApps(removeapps);
-          this._mountApps(cell, addapps);
+          this.unMountApps(removeapps);
+          this.mountApps(cell, addapps);
         }
       });
   };
   
-  unMountApp = (appId: number) => {
-    this._removeIframeForApp(appId);
-    this.gridManager.removeApp(appId);
-    this._unSubscribeToDomEvents(appId);
+  public unMountApp = (appId: number) => {
+    const app = this.getApp(appId);
+    if (app) {
+      this.removeIframeForApp(app);
+      this.gridManager.removeApp(appId);
+      this.unSubscribeToDomEvents(appId);
+    }
   };
 
-  getApp = (appId: number) => {
-    return this.gridManager.getApp(appId);
+  public getApp = (appId: number) => {
+    return this.registeredApps.find((app) => app.id === appId);
+  };
+  
+  public getAppByName = (appName: string) => {
+    return this.registeredApps.find((app) => app.name === appName);
   };
 
-  updateAllAppSettings = () => {
+  public getApps = (): App[] => {
+    return this.registeredApps;
+  }
+
+  public updateAllAppSettings = () => {
     this.gridManager.refreshGridDimension();
-    const apps: App[] = this.gridManager.getApps();
+    const apps: App[] = this.getApps();
     apps.forEach((app) => {
       this.updateAppSettings(app.id, app.settings.inlineCss);
     });
   }
 
-  updateAppSettings = (appId: number, settings: ObjectIndex) => {
-    const app = this.gridManager.getApp(appId);
+  public updateAppSettings = (appId: number, settings: ObjectIndex) => {
+    const app = this.getApp(appId);
     const cell = this.gridManager.getAppCell(appId);
-    const appIframe = this._getAppIframe(appId);
-    if (app && appIframe) {
-      Object.keys(settings).forEach((key: string) => {
-        appIframe.style.setProperty(key, settings[key]);
-      });
-
+    
+    if (app) {
       const positionStrategy = makePostionStrategy(app.settings.position.type);
       const positionProps = positionStrategy.getPositionProps(app, cell);
 
+      const appIframe = this.getAppIframe(app);
+
+      Object.keys(settings).forEach((key: string) => {
+        appIframe && appIframe.style.setProperty(key, settings[key]);
+      });
+
       Object.keys(positionProps).forEach((key: string) => {
-        appIframe.style.setProperty(key, positionProps[key]);
+        appIframe && appIframe.style.setProperty(key, positionProps[key]);
       });
     }
   };
+
+  public getAllAppsForNamespace = (appNamespace: string): App[] => {
+    const matchRule = (str: string, rule: string): boolean => {
+      return new RegExp("^" + rule.split(".").join("\\.").split("*").join(".*") + "$").test(str);
+    }
+    const matchedApps = this.registeredApps.filter((app) => {
+      const positionName = this.getAppPositionName(app);
+      
+      return matchRule(positionName, appNamespace);
+    });
+
+    return matchedApps;
+  }
+  
 }
 
 
 export const setupManager = (
+  registeredApps: App[],
   fetchAppData: PromisedFunction,
 ) => {
   const settings = {
@@ -221,7 +261,7 @@ export const setupManager = (
   };
   const replaceAppStrategy = new ReplaceAppStrategy();
   const gridManager = new GridManager(settings, window, replaceAppStrategy);
-  const appManager = new AppManager(fetchAppData, gridManager);
+  const appManager = new AppManager(registeredApps, fetchAppData, gridManager);
   return appManager;
 };
 

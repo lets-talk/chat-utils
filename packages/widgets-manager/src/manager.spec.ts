@@ -114,6 +114,8 @@ describe('setupManager', () => {
     it('I can mount apps', async () => {
       const manager = setupManager([mockApp1, mockApp2], mockFetchAppData);
       await manager.mountApp(3);
+
+      expect(manager.getApp(3)).toMatchObject(mockApp3);
     })
   });
 
@@ -180,19 +182,5 @@ describe('setupManager', () => {
       expect(none5.length).toBe(0);
     });
   });
-
-  describe('_addStyleString', () => {
-    it('creates and configures a Manager', () => {
-      document.createElement = jest.fn(() => ({}));
-      document.body.appendChild = jest.fn();
-
-      const manager = setupManager([], mockFetchAppData);      
-      manager._addStyleString(mockApp1);
-
-      expect(document.createElement).toHaveBeenCalledWith('style');
-      expect(document.body.appendChild).toHaveBeenCalled();
-    });
-  });
-
 
 });
