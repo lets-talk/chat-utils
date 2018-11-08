@@ -196,5 +196,44 @@ describe('GridManager', () => {
     });
   });
 
+  it('refreshGridDimension. Refresh Grid dimension when in mobile. 1 column case', () => {
+    // Set small window to emulate mobile
+    Object.defineProperty(windowObject, "innerWidth", {
+      value: 319,
+      writable: true
+    });
+    Object.defineProperty(windowObject, "innerHeight", {
+      value: 400,
+      writable: true
+    });
+    
+    const gm = new GridManager(settings, windowObject, addStrategy);
+    gm._setGridDimensions = jest.fn();
+    
+    // This will refresh the grid dimensions with 1 column only 
+    gm.refreshGridDimension();
+    
+    expect(gm._setGridDimensions).toBeCalledWith(1, 319, 400);
+  });
+  
+  it('refreshGridDimension. Refresh Grid dimension when in mobile. 2 columns case', () => {
+    // Set small window to emulate mobile
+    Object.defineProperty(windowObject, "innerWidth", {
+      value: 321,
+      writable: true
+    });
+    Object.defineProperty(windowObject, "innerHeight", {
+      value: 400,
+      writable: true
+    });
+    
+    const gm = new GridManager(settings, windowObject, addStrategy);
+    gm._setGridDimensions = jest.fn();
+    
+    // This will refresh the grid dimensions with 1 column only 
+    gm.refreshGridDimension();
+    
+    expect(gm._setGridDimensions).toBeCalledWith(2, 321, 400);
+  });
 
 });
