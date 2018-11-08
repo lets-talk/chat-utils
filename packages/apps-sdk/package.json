@@ -1,11 +1,11 @@
 {
   "name": "@lets-talk/apps-sdk",
-  "version": "0.1.1",
-  "description": "Weekly schedule timescopes",
+  "version": "0.1.0",
+  "description": "SDK for apps running on letstalk plataform",
   "scripts": {
     "prepublishOnly": "tsc",
-    "test": "echo 'no test yet'",
-    "test:ci": "echo 'no test yet'"
+    "test": "jest --no-cache --coverage",
+    "test:ci": "jest --no-cache --coverage --runInBand"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -16,11 +16,11 @@
     "access": "public"
   },
   "dependencies": {
-    "post-robot": "^8.0.19"
+    "post-robot": "^8.0.19",
+    "query-string": "^6.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@types/jest": "^23.3.1",
+    "@types/query-string": "^6.1.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "jest": "^23.5.0",

@@ -5,8 +5,7 @@ module.exports = {
   "transform": {
     "^.+\\.tsx?$": "ts-jest"
   },
-  "setupFiles": ["<rootDir>/jest.setup.js"],
-  "testURL": "http://localhost/",
+  "testURL": "http://localhost/someapphosted?appName=my-mock-app",
   "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
   "moduleFileExtensions": [
     "ts",

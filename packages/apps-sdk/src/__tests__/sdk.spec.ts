@@ -49,7 +49,7 @@ describe('SDK', () => {
 
   it('getAppSetttings should call mockChannel.send with correct params', () => {
     const sdk = new SDK(() => mockChannel);
-    const expectedSentPayload = { appName: 'my-mock-app' };
+    const expectedSentPayload = { appName: 'lt.my-mock-app.*' };
 
     const result = sdk.getAppSettings();
     expect(result).resolves.toBe('OK');
