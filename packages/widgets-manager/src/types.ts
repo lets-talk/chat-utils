@@ -112,6 +112,7 @@ export interface AddAppsStrategy {
 export interface PositionStrategy {
   getPositionProps(app: App, cell?: GridCell): ObjectIndex;
   shouldAddNewPosition(): boolean;
+  getNameId(app: App): string;
   mountStrategy(): AddAppsStrategy;
 }
 

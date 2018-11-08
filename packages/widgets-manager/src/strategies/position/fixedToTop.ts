@@ -23,4 +23,12 @@ export class FixedToTopPositionStrategy implements PositionStrategy {
 
   public mountStrategy = () => new ReplaceAppStrategy;
   
+  public getNameId = (app: App) => {
+    const { name: appName } = app;
+    const { position } = app.settings;
+    if (position.type !== POSITION_FIXED_TO_TOP) {
+      throw Error('Can not get position props from an element that does not implement relativeToPlace strategy');
+    }
+    return `lt.${appName}.fixed-to-top`;
+  };
 }
