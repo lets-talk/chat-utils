@@ -1,6 +1,7 @@
 
 import { POSITION_FIXED_TO_TOP } from './../../constants';
 import { App, ObjectIndex, PositionStrategy } from "../../types";
+import { ReplaceAppStrategy } from '../mounting/replace';
 
 export class FixedToTopPositionStrategy implements PositionStrategy {
   public getPositionProps(app: App): ObjectIndex {
@@ -17,5 +18,9 @@ export class FixedToTopPositionStrategy implements PositionStrategy {
       left: `${left}px`,
     }
   };
+
   public shouldAddNewPosition = () => true;
+
+  public mountStrategy = () => new ReplaceAppStrategy;
+  
 }

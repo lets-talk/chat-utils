@@ -2,6 +2,8 @@ import {
   POSITION_RELATIVE_TO_ELEMENT,
 } from './../../constants';
 import { getElementPosition, getRelativePosition } from './../../utils/index';
+import { AppendAppStrategy } from '../mounting/append';
+
 import { App, PositionStrategy, makeHTMLFloatType, ObjectIndex } from "../../types";
 
 export class RelativeToElementPositionStrategy implements PositionStrategy {
@@ -20,4 +22,7 @@ export class RelativeToElementPositionStrategy implements PositionStrategy {
   };
 
   public shouldAddNewPosition = () => true;
+
+  public mountStrategy = () => new AppendAppStrategy;
+
 }
