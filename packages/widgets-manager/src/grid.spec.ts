@@ -1,37 +1,31 @@
 import { GridManager } from './grid';
 import { AppendAppStrategy } from './strategies/mounting/append';
-import { App } from './types';
+import { App, AppPosition, HTMLFloatType } from './types';
 const windowObject: Window = window;
 
-const mockApp1: App = {
-  id: 1,
-  name: 'Test App',
-  payload_type: 'html',
-  payload: '',
-  settings: {
-    css: '',
-    inlineCss: {},
-    position: {} as any,
-    size: {} as any,
-  },
-  organization_id: 1,
-  source: '',
-}
+const mockPositionRelativeToPosition: AppPosition = {
+  type: 'relative-to-position',
+  payload: {
+    positionId: 'mid-center',
+    offset: { top: 0, right: 0, bottom: 0, left: 0 },
+  }
+};
 
-const mockApp2: App = {
-  id: 2,
-  name: 'Test App2',
-  payload_type: 'html',
-  payload: '',
-  settings: {
-    css: '',
-    inlineCss: {},
-    position: {} as any,
-    size: {} as any,
-  },
-  organization_id: 1,
-  source: '',
-}
+const mockPositionRelativeToElement: AppPosition = {
+  type: 'relative-to-element',
+  payload: {
+    floatType: HTMLFloatType.fixed,
+    relativeId: 'mockElement',
+    offsetX: {
+      relationType: 'LL',
+      value: 0,
+    },
+    offsetY: {
+      relationType: 'BT',
+      value: 0,
+    }
+  }
+};
 
 describe('GridManager', () => {
   const settings = {
@@ -155,12 +149,96 @@ describe('GridManager', () => {
     });
   });
 
-  it('getAppsInCell. Gets all apps in a cell', () => {
+  it('getAppsInCell. I can get the app relative to a position', () => {
     const gm = new GridManager(settings, windowObject, addStrategy);
+    const mockApp1: App = {
+      id: 1,
+      name: 'App1 Relative To Position mid-center',
+      payload_type: 'html',
+      payload: '',
+      settings: {
+        css: '',
+        inlineCss: {},
+        position: mockPositionRelativeToPosition,
+        size: {} as any,
+      },
+      organization_id: 1,
+      source: '',
+    }
+    
+    const mockApp2: App = {
+      id: 2,
+      name: 'App2 Relative To Position mid-center',
+      payload_type: 'html',
+      payload: '',
+      settings: {
+        css: '',
+        inlineCss: {},
+        position: mockPositionRelativeToPosition,
+        size: {} as any,
+      },
+      organization_id: 1,
+      source: '',
+    }
+
     gm.addAppToCell('center-center', mockApp1);
     gm.addAppToCell('center-center', mockApp2);
     const apps = gm.getAppsInCell('center-center');
     
+    // Putting 2 apps with position relative to same POSITION
+    // Should use replace stratey. So we expect 1 app only
+    expect(apps.length).toBe(1);
+    expect(apps).toContainEqual(mockApp2);
+  });
+
+  it('getAppsInCell. I can obtain the 2 apps relative to and element', () => {
+    const gm = new GridManager(settings, windowObject, addStrategy);
+
+    const mockApp1: App = {
+      id: 1,
+      name: 'Relative To Element',
+      payload_type: 'markdown',
+      payload: '',
+      settings: {
+        css: '',
+        inlineCss: {},
+        position: mockPositionRelativeToElement,
+        size: {} as any,
+      },
+      organization_id: 1,
+      source: '',
+    }
+    
+    const mockApp2: App = {
+      id: 2,
+      name: 'Relative to the same element different offsetX',
+      payload_type: 'markdown',
+      payload: '',
+      settings: {
+        css: '',
+        inlineCss: {},
+        position: { 
+          ...mockPositionRelativeToElement,
+          payload: {
+            ...mockPositionRelativeToElement.payload,
+            offsetX: {
+              relationType: 'LR',
+              value: 0,
+            }
+          }
+        },
+        size: {} as any,
+      },
+      organization_id: 1,
+      source: '',
+    }
+
+    gm.addAppToCell('mockElement', mockApp1);
+    gm.addAppToCell('mockElement', mockApp2);
+    const apps = gm.getAppsInCell('mockElement');
+    
+    // Putting 2 apps with position relative to same ELEMENT
+    // Should use add stratey. So we expect 2 apps
     expect(apps.length).toBe(2);
     expect(apps).toContainEqual(mockApp1);
     expect(apps).toContainEqual(mockApp2);
@@ -168,7 +246,22 @@ describe('GridManager', () => {
 
   it('getApp. Gets an app by id', () => {
     const gm = new GridManager(settings, windowObject, addStrategy);
-    gm.addAppToCell('center-center', mockApp1);
+    const mockApp1: App = {
+      id: 1,
+      name: 'App1 Relative To Position mid-center',
+      payload_type: 'html',
+      payload: '',
+      settings: {
+        css: '',
+        inlineCss: {},
+        position: mockPositionRelativeToPosition,
+        size: {} as any,
+      },
+      organization_id: 1,
+      source: '',
+    }
+
+    gm.addAppToCell('mid-center', mockApp1);
     const app = gm.getApp(1);
     
     expect(app).toMatchObject(mockApp1);
@@ -176,12 +269,28 @@ describe('GridManager', () => {
 
   it('removeApp. Remove an app by id', () => {
     const gm = new GridManager(settings, windowObject, addStrategy);
-    gm.addAppToCell('center-center', mockApp1);
+
+    const mockApp1: App = {
+      id: 1,
+      name: 'App1 Relative To Position mid-center',
+      payload_type: 'html',
+      payload: '',
+      settings: {
+        css: '',
+        inlineCss: {},
+        position: mockPositionRelativeToPosition,
+        size: {} as any,
+      },
+      organization_id: 1,
+      source: '',
+    }
+
+    gm.addAppToCell('mid-center', mockApp1);
     gm.removeApp(1);
-    const cell = gm.getGridCell('center-center');
+    const cell = gm.getGridCell('mid-center');
     
     expect(cell).toMatchObject({
-      id: 'center-center',
+      id: 'mid-center',
       apps: [],
       position: {
         top: 1 * (windowObject.innerHeight / 3),
