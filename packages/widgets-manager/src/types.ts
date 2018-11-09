@@ -82,6 +82,7 @@ export type AppPosition =
 export type App = {
   id: number;
   name: string;
+  slug: string;
   payload_type: PayloadType;
   payload: string;
   settings: Settings;
