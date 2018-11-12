@@ -2,6 +2,8 @@ import {
   POSITION_RELATIVE_TO_ELEMENT,
 } from './../../constants';
 import { getElementPosition, getRelativePosition } from './../../utils/index';
+import { AppendAppStrategy } from '../mounting/append';
+
 import { App, PositionStrategy, makeHTMLFloatType, ObjectIndex } from "../../types";
 
 export class RelativeToElementPositionStrategy implements PositionStrategy {
@@ -20,4 +22,15 @@ export class RelativeToElementPositionStrategy implements PositionStrategy {
   };
 
   public shouldAddNewPosition = () => true;
+
+  public mountStrategy = () => new AppendAppStrategy;
+
+  public getNameId = (app: App) => {
+    const { slug: appName } = app;
+    const { position } = app.settings;
+    if (position.type !== POSITION_RELATIVE_TO_ELEMENT) {
+      throw Error('Can not get position props from an element that does not implement relativeToPlace strategy');
+    }
+    return `lt.${appName}.relative-${position.payload.relativeId}-${position.payload.offsetX.relationType}-${position.payload.offsetY.relationType}`;
+  };
 }

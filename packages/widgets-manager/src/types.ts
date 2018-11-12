@@ -74,6 +74,7 @@ export type AppPosition =
 export type App = {
   id: number;
   name: string;
+  slug: string;
   payload_type: PayloadType;
   payload: string;
   settings: Settings;
@@ -100,9 +101,9 @@ export type GridSettings = {
   positions: string[];
 }
 
-export type Grid = {
+export type Grid<T> = {
   settings: GridSettings;
-  cells: GridCell[];
+  cells: T[];
 }
 
 export interface AddAppsStrategy {
@@ -112,6 +113,8 @@ export interface AddAppsStrategy {
 export interface PositionStrategy {
   getPositionProps(app: App, cell?: GridCell): ObjectIndex;
   shouldAddNewPosition(): boolean;
+  getNameId(app: App): string;
+  mountStrategy(): AddAppsStrategy;
 }
 
 export type PromisedFunction = (appId: number) => Promise<any>;
