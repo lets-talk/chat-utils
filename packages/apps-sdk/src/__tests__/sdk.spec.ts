@@ -23,7 +23,7 @@ describe('SDK', () => {
   beforeEach(() => {
     mockedSend.mockClear();
   });
-  it('Should create a SDK instance without crashing', () => {
+  it('Should create an SDK instance without crashing', () => {
     const sdk = new SDK();
     
     expect(sdk).not.toBeFalsy();
