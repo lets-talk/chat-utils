@@ -1,0 +1,28 @@
+{
+  "name": "health-check",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js",
+    "deploy:production": "yarn run build && yarn run deploy:production:app && yarn run deploy:production:sync",
+    "deploy:production:sync": "aws s3 sync ./dist s3://static.production.letsta.lk/health-check/$npm_package_version --delete",
+    "deploy:production:app": "aws s3 sync ./dist s3://static.production.letsta.lk/health-check/$npm_package_version"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pubnub": "^4.21.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
+    "babel-loader": "^8.0.4",
+    "copy-webpack-plugin": "^4.6.0",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
+  }
+}

@@ -1,0 +1,105 @@
+<html>
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Begin of LetsTalk script -->
+ <script src="health_check.js"></script>
+ <!-- End of LetsTalk script -->
+ <style>
+  .check_info, .check_success, .check_warning, .check_error {
+    margin: 10px 0px;
+    padding:12px;
+  }
+  .check_info {
+      color: #00529B;
+      background-color: #BDE5F8;
+  }
+  .check_success {
+      color: #4F8A10;
+      background-color: #DFF2BF;
+  }
+  .check_warning {
+      color: #9F6000;
+      background-color: #FEEFB3;
+  }
+  .check_error {
+      color: #D8000C;
+      background-color: #FFD2D2;
+  }
+  .check_info i, .check_success i, .check_warning i, .check_error i {
+      margin:10px 22px;
+      font-size:2em;
+      vertical-align:middle;
+  }
+  body {
+    text-align: center;
+}
+
+  .button {
+    display: inline-block;
+    margin: 10px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow:    0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+    -moz-box-shadow: 0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+    box-shadow: 0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+    -webkit-transition: -webkit-box-shadow .1s ease-in-out;
+    -moz-transition: -moz-box-shadow .1s ease-in-out;
+    -o-transition: -o-box-shadow .1s ease-in-out;
+    transition: box-shadow .1s ease-in-out;
+    font-size: 50px;
+    color: #fff;
+  }
+
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    padding: 20px 30px;
+    background-color: #ec528d;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(hsla(338, 90%, 80%, .8)), to(hsla(338, 90%, 70%, .2)));
+    background-image: -webkit-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+    background-image: -moz-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+    background-image: -o-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+    -moz-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+    box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+    font-family: 'Pacifico', Arial, sans-serif;
+    line-height: 1;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, .7);
+    -webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
+    -moz-transition: background-color .2s ease-in-out, -moz-transform .1s ease-in-out;
+    -o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
+    transition: background-color .2s ease-in-out, transform .1s ease-in-out;
+  }
+
+  .button:hover span {
+    background-color: #ec6a9c;
+    text-shadow: 0 -1px 1px rgba(107, 86, 94, 0.9), 0 0 5px rgba(255, 255, 255, .8);
+  }
+
+  .button:active, .button:focus {
+    -webkit-box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
+    box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
+  }
+
+  .button:active span {
+    -webkit-transform: translate(0, 4px);
+    -moz-transform: translate(0, 4px);
+    -o-transform: translate(0, 4px);
+    transform: translate(0, 4px);
+  }
+ </style>
+</head>
+<body>
+  <div>
+    <object data="images/brand-letstalk.svg" type="image/svg+xml"></object>
+  </div>
+  <div class="button">
+    <span onClick="window.checkHealth()">Probar Conectividad</span>
+  </div>
+</body>
+</html>
