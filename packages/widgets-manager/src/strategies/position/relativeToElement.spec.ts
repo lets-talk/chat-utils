@@ -20,6 +20,7 @@ const mockPositionRelativeToElement: AppPosition = {
 const mockApp: App = {
   id: 1,
   name: 'Test App',
+  slug: 'test-app',
   payload_type: 'html',
   payload: '',
   settings: {
@@ -38,6 +39,7 @@ const mockApp: App = {
 const mockFailingApp: App = {
   id: 1,
   name: 'Test App',
+  slug: 'test-app',
   payload_type: 'html',
   payload: '',
   settings: {

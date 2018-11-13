@@ -11,6 +11,7 @@ const mockPositionFixedToTop: AppPosition = {
 const mockFailingApp: App = {
   id: 1,
   name: 'Test App',
+  slug: 'test-app',
   payload_type: 'html',
   payload: '',
   settings: {
@@ -26,6 +27,7 @@ const mockFailingApp: App = {
 const mockApp: App = {
   id: 2,
   name: 'Test App2',
+  slug: 'test-ap2',
   payload_type: 'html',
   payload: '',
   settings: {

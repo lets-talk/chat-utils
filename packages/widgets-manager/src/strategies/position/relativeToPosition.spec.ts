@@ -19,6 +19,7 @@ const mockCell: GridCell = {
 const mockApp: App = {
   id: 3,
   name: 'Test App3',
+  slug: 'test-app3',
   payload_type: 'html',
   payload: '',
   settings: {
@@ -34,6 +35,7 @@ const mockApp: App = {
 const mockFailingApp: App = {
   id: 1,
   name: 'Test App',
+  slug: 'test-app',
   payload_type: 'html',
   payload: '',
   settings: {
