@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:ci": "echo \"Error: no test specified\" && exit 0",
     "build": "webpack --config webpack.config.js",
     "deploy:production": "yarn run build && yarn run deploy:production:app && yarn run deploy:production:sync",
     "deploy:production:sync": "aws s3 sync ./dist s3://static.production.letsta.lk/health-check/$npm_package_version --delete",
