@@ -1,0 +1,14 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "packages/apps-sdk/package.json",
+        "packages/availability/package.json",
+        "packages/embedded-lisp/package.json",
+        "packages/rule-machine/package.json",
+        "packages/widgets-manager/package.json"
+      ]
+    }
+  }
+}
