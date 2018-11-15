@@ -52,7 +52,7 @@ jobs:
 
       # Run tests!
       # Get packages names that changes and only execute on those that has git changes
-      - run: for dir in $(git diff --name-only $CIRCLE_BRANCH $(git merge-base $CIRCLE_BRANCH origin/develop) | sed 1d | grep 'packages/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd packages/$dir; echo "running tests for package $dir"; npm run test:ci; cd ../..; done
+      - run: for dir in $(git diff --name-only $CIRCLE_BRANCH $(git merge-base $CIRCLE_BRANCH origin/$git-branch) | sed 1d | grep 'packages/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd packages/$dir; echo "running tests for package $dir"; npm run test:ci; cd ../..; done
 
       # Create temp directories
       - run: |
@@ -88,7 +88,20 @@ workflows:
   version: 2
   build-test-and-publish:
     jobs:
-      - build-and-test
+      - build-and-test-develop:
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: develop
+          context: chat-utils-develop
+      - build-and-test-master:
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: master
+          context: chat-utils-master
       - publish:
           requires:
             - build-and-test
