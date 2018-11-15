@@ -94,14 +94,14 @@ workflows:
           filters:
             branches:
               only: develop
-          context: chat-utils-develop
+          context: chat-utils-branch-develop
       - build-and-test-master:
           requires:
             - build-and-test
           filters:
             branches:
               only: master
-          context: chat-utils-master
+          context: chat-utils-branch-master
       - publish:
           requires:
             - build-and-test
