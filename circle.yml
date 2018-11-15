@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build-and-test-develop:
+  build-and-test-pr:
     docker:
       # specify the version you desire here
       - image: circleci/node:latest-browsers
@@ -155,14 +155,14 @@ workflows:
   version: 2
   build-test-and-publish:
     jobs:
-      - build-and-test-develop:
+      - build-and-test-pr:
           filters:
             branches:
-              only: develop
+              ignore: master
       - build-and-test-master:
           filters:
             branches:
               only: master
       - publish:
           requires:
-            - build-and-test
+            - build-and-test-master
