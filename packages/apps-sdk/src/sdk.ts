@@ -50,7 +50,7 @@ export class SDK {
    * getAppSettings: Returns a promise that resolves to the App Settings
    */
   public getAppSettings(): Promise<AppSettingsResult> {
-    return this.sendChannel.send(EVENT_TYPE_GET_APP_SETTINGS, { appName: `lt.${this.appName}.*` });
+    return this.sendChannel.send(EVENT_TYPE_GET_APP_SETTINGS, { appName: this.appName });
   }
 
   /**
