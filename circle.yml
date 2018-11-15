@@ -90,13 +90,16 @@ workflows:
     jobs:
       - build-and-test
       - build-and-test-develop:
+          environment:
+            GIT_BRANCH: develop
           requires:
             - build-and-test
           filters:
             branches:
               only: develop
-          context: chat-utils-branch-develop
       - build-and-test-master:
+          environment:
+            GIT_BRANCH: master
           requires:
             - build-and-test
           filters:
