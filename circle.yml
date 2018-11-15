@@ -105,7 +105,6 @@ workflows:
           filters:
             branches:
               only: master
-          context: chat-utils-branch-master
       - publish:
           requires:
             - build-and-test
