@@ -36,8 +36,8 @@ export class SDK {
    * openApp
    * @param appNamespace The app namespace to execute the open
    */
-  public openApp(appNamespace: string): Promise<any> {
-    return this.sendChannel.send(EVENT_TYPE_LOAD_APP, { appName: appNamespace });
+  public openApp(appNamespace: string, initialData: any): Promise<any> {
+    return this.sendChannel.send(EVENT_TYPE_LOAD_APP, { appName: appNamespace, initialData });
   }
 
   /**
