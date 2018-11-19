@@ -76,6 +76,10 @@ export class AppManager {
         // If not we just reuse the one we have it created
         iframe = document.createElement('iframe');
         iframe.id = `lt-${app.slug}`;
+        
+        if (app.payload_type === 'lt-basic-container-multimedia') {
+          (iframe as any).allow = "microphone *; camera *";
+        }
       }
         
       iframe.src = `${app.source}?appName=${app.slug}`;
@@ -137,9 +141,13 @@ export class AppManager {
     });
   }
 
-  public mountApp = (appId: number) => {
+  public mountApp = (appId: number, initialData: any) => {
     this.fetchAppData(appId)
       .then((app: App) => {
+        // Set app initial data if any
+        this.setAppInitialData(appId, initialData);
+
+        // Determine app position
         const { position } = app.settings;
         let positionId;
         switch (position.type) {
@@ -157,12 +165,14 @@ export class AppManager {
             break;
         }
         
+        // Get current loaded apps for the position
         const currentApps = this.gridManager.getAppsInCell(positionId);
         // Add this app to the positionId cell.id
         // This will call the proper strategy for adding
         this.gridManager.addAppToCell(positionId, app);
         const newApps = this.gridManager.getAppsInCell(positionId);
 
+        // Obtain apps we need to add / remove
         const removeapps = diffByAppId(currentApps, newApps);
         const addapps = diffByAppId(newApps, currentApps);
 
@@ -193,6 +203,13 @@ export class AppManager {
 
   public getApps = (): App[] => {
     return this.registeredApps;
+  }
+
+  public setAppInitialData = (appId: number, initialData: any): void => {
+    const appIndex = this.registeredApps.findIndex((app) => app.id === appId);
+    if (appIndex) {
+      this.registeredApps[appIndex].initialData = initialData;
+    }
   }
 
   public updateAllAppSettings = () => {
