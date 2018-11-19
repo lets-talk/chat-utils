@@ -31,7 +31,7 @@ describe('SDK', () => {
 
   it('openApp should call mockChannel.send with correct params', () => {
     const sdk = new SDK(() => mockChannel);
-    const expectedSentPayload = { appName: 'letstalk.banner-bci.top-left' };
+    const expectedSentPayload = { appName: 'letstalk.banner-bci.top-left', initialData: {} };
     
     const result = sdk.openApp('letstalk.banner-bci.top-left', {});
     expect(result).resolves.toBe('OK');
@@ -49,7 +49,7 @@ describe('SDK', () => {
 
   it('getAppSetttings should call mockChannel.send with correct params', () => {
     const sdk = new SDK(() => mockChannel);
-    const expectedSentPayload = { appName: 'lt.my-mock-app.*' };
+    const expectedSentPayload = { appName: 'my-mock-app' };
 
     const result = sdk.getAppSettings();
     expect(result).resolves.toBe('OK');
