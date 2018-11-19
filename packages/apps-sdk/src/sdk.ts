@@ -2,6 +2,9 @@ import postRobot from 'post-robot';
 import * as queryString from 'query-string';
 
 import { AppSettingsResult } from './types';
+import {
+  deserialize,
+} from './utils/serialization';
 
 import {
   EVENT_TYPE_GET_APP_SETTINGS,
@@ -62,4 +65,36 @@ export class SDK {
   public notify(eventName: string, data: any): Promise<any> {
     return this.sendChannel.send(EVENT_TYPE_NOTIFY_APP_EVENT, { appName: this.appName, payload: { eventName, data } });
   }
+
+  /**
+   * Calls a public method from an encoded data
+   * @param encodedData String encoded of the function call with args
+   */
+  public async executeSDKEvent64(encodedData: string): Promise<any> {
+    const deserialzed = deserialize(encodedData);
+    const { appName, method, args } = deserialzed;
+    if (!(Array.isArray(args) && (typeof method === 'string'))) {
+      // If deserializad method and args are not of the proper shape throw an error
+      throw new Error('Invalid deserialized object');
+    }
+    return this.executeSDKEvent(appName, deserialzed.method, deserialzed.args);
+  }
+
+  public async executeSDKEvent(appName: string, method: string, params: any[]): Promise<any> {
+    let eventData;
+    switch (method) {
+      case 'openApp':
+        eventData =  { appName, initialData: params[0], payload: { method } };
+        break;
+    
+      default:
+        break;
+    }
+    return this.sendChannel.send('execute-app-sdk-method', eventData).then((event: any) => {
+      console.log(`Called method ${method}:`, event);
+    }).catch((error: any) => {
+      console.error('postRobot client error:', error);
+    });
+  }
+
 }
