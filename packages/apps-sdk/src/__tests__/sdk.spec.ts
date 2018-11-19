@@ -33,7 +33,7 @@ describe('SDK', () => {
     const sdk = new SDK(() => mockChannel);
     const expectedSentPayload = { appName: 'letstalk.banner-bci.top-left' };
     
-    const result = sdk.openApp('letstalk.banner-bci.top-left');
+    const result = sdk.openApp('letstalk.banner-bci.top-left', {});
     expect(result).resolves.toBe('OK');
     expect(mockedSend).toHaveBeenCalledWith(EVENT_TYPE_LOAD_APP, expectedSentPayload);
   });
@@ -60,7 +60,7 @@ describe('SDK', () => {
     expect.assertions(1);
 
     const sdk = new SDK(() => mockChannel);
-    const result = await sdk.openApp('letstalk.banner.top-left');
+    const result = await sdk.openApp('letstalk.banner.top-left', {});
     
     expect(result).toBe('OK');
   });
