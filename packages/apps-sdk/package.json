@@ -1,7 +1,7 @@
 {
-  "name": "@lets-talk/widgets-manager",
-  "version": "0.5.0",
-  "description": "Minimal widgets manager implementation to allow load / remove apps on a page",
+  "name": "@lets-talk/apps-sdk",
+  "version": "0.1.1",
+  "description": "SDK for apps running on letstalk plataform",
   "scripts": {
     "prepublishOnly": "tsc",
     "test": "jest --no-cache --coverage",
@@ -15,9 +15,16 @@
   "publishConfig": {
     "access": "public"
   },
+  "dependencies": {
+    "post-robot": "^9.0.2",
+    "query-string": "^6.2.0"
+  },
   "devDependencies": {
-    "@types/jest": "^23.3.9",
+    "@types/query-string": "^6.1.1",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "jest": "^23.5.0",
+    "regenerator-runtime": "^0.13.0",
     "ts-jest": "^23.1.4"
   }
 }

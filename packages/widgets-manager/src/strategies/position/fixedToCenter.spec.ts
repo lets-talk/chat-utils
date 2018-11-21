@@ -1,8 +1,8 @@
 import { AppPosition, App } from './../../types';
-import { FixedToTopPositionStrategy } from './fixedToTop';
+import { FixedToCenterPositionStrategy } from './fixedToCenter';
 
-const mockPositionFixedToTop: AppPosition = {
-  type: 'fixed-to-top-position',
+const mockPositionFixedToCenter: AppPosition = {
+  type: 'fixed-to-center-position',
   payload: {
     offset: { top: 0, right: 0, bottom: 0, left: 0 },
   }
@@ -27,13 +27,13 @@ const mockFailingApp: App = {
 const mockApp: App = {
   id: 2,
   name: 'Test App2',
-  slug: 'test-ap2',
+  slug: 'test-app2',
   payload_type: 'html',
   payload: '',
   settings: {
     css: '',
     inlineCss: {},
-    position: mockPositionFixedToTop,
+    position: mockPositionFixedToCenter,
     size: {} as any,
   },
   organization_id: 1,
@@ -41,35 +41,35 @@ const mockApp: App = {
 }
 
 
-describe('FixedToTopPositionStrategy', () => {
+describe('FixedToCenterPositionStrategy', () => {
 
   it('can be created', () => {
-    expect(() => new FixedToTopPositionStrategy()).not.toThrow();
+    expect(() => new FixedToCenterPositionStrategy()).not.toThrow();
   });
   describe('getPositionProps', () => {
     it('Works on valid app', () => {
-      const strategy = new FixedToTopPositionStrategy();
+      const strategy = new FixedToCenterPositionStrategy();
       
       const postionProps = strategy.getPositionProps(mockApp);
       expect(postionProps).toMatchObject({
-        top: '0px',
-        left: '0px',
+        top: 'calc(50% + 0px)',
+        left: 'calc(50% + 0px)',
       });
     });
 
     it('Fails on invalid app', () => {
-      const strategy = new FixedToTopPositionStrategy();
+      const strategy = new FixedToCenterPositionStrategy();
       expect(() => strategy.getPositionProps(mockFailingApp)).toThrow();
     });
   });
 
-  it('Can not create a FixedToTopPositionStrategy for an app that is not configured with another type', () => {
-    const strategy = new FixedToTopPositionStrategy();
+  it('Can not create a FixedToCenterPositionStrategy for an app that is not configured with another type', () => {
+    const strategy = new FixedToCenterPositionStrategy();
     expect(() => strategy.getPositionProps(mockFailingApp)).toThrow();
   });
 
   it('shouldAddNewPosition', () => {
-    const strategy = new FixedToTopPositionStrategy();
+    const strategy = new FixedToCenterPositionStrategy();
 
     expect(strategy.shouldAddNewPosition()).toBeTruthy();
   });

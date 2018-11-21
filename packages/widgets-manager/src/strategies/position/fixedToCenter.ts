@@ -1,21 +1,21 @@
 
-import { POSITION_FIXED_TO_TOP } from './../../constants';
+import { POSITION_FIXED_TO_CENTER } from './../../constants';
 import { App, ObjectIndex, PositionStrategy } from "../../types";
 import { ReplaceAppStrategy } from '../mounting/replace';
 
-export class FixedToTopPositionStrategy implements PositionStrategy {
+export class FixedToCenterPositionStrategy implements PositionStrategy {
   public getPositionProps(app: App): ObjectIndex {
     const { position } = app.settings;
-    if (position.type !== POSITION_FIXED_TO_TOP) {
-      throw Error('Can not get position props from an element that does not implement fixedToTop strategy');
+    if (position.type !== POSITION_FIXED_TO_CENTER) {
+      throw Error('Can not get position props from an element that does not implement fixedToCenter strategy');
     }
 
     const left = 0 + position.payload.offset.left;
     const top = 0 + position.payload.offset.top;
 
     return {
-      top: `${top}px`,
-      left: `${left}px`,
+      top: `calc(50% + ${top}px)`,
+      left: `calc(50% + ${left}px)`,
     }
   };
 
@@ -26,9 +26,9 @@ export class FixedToTopPositionStrategy implements PositionStrategy {
   public getNameId = (app: App) => {
     const { slug: appName } = app;
     const { position } = app.settings;
-    if (position.type !== POSITION_FIXED_TO_TOP) {
+    if (position.type !== POSITION_FIXED_TO_CENTER) {
       throw Error('Can not get position props from an element that does not implement relativeToPlace strategy');
     }
-    return `lt.${appName}.fixed-to-top`;
+    return `lt.${appName}.fixed-to-center`;
   };
 }

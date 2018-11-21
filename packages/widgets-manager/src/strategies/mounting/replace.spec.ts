@@ -4,6 +4,7 @@ import { App } from './../../types';
 const mockApp2: App = {
   id: 2,
   name: 'Test App2',
+  slug: 'test-app2',
   payload_type: 'html',
   payload: '',
   settings: {
