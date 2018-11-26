@@ -207,7 +207,7 @@ export class AppManager {
 
   public setAppInitialData = (appId: number, initialData: any): void => {
     const appIndex = this.registeredApps.findIndex((app) => app.id === appId);
-    if (appIndex) {
+    if (appIndex !== -1) {
       this.registeredApps[appIndex].initialData = initialData;
     }
   }
