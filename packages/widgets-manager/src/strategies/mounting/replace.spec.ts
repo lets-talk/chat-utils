@@ -15,6 +15,7 @@ const mockApp2: App = {
   },
   organization_id: 1,
   source: '',
+  initialData: {} as any,
 }
 
 describe('ReplaceAppStrategy', () => {

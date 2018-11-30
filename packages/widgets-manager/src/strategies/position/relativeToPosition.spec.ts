@@ -30,6 +30,7 @@ const mockApp: App = {
   },
   organization_id: 1,
   source: '',
+  initialData: {} as any,
 }
 
 const mockFailingApp: App = {
@@ -46,6 +47,7 @@ const mockFailingApp: App = {
   },
   organization_id: 1,
   source: '',
+  initialData: {} as any,
 }
 
 describe('RelativeToPlacePositionStrategy', () => {

@@ -144,6 +144,7 @@ describe('GridManager', () => {
       },
       organization_id: 1,
       source: '',
+      initialData: {} as any,
     }
 
     gm.addAppToCell('mid-center', mockApp1);
@@ -181,6 +182,7 @@ describe('GridManager', () => {
       },
       organization_id: 1,
       source: '',
+      initialData: {} as any,
     }
     
     const mockApp2: App = {
@@ -197,6 +199,7 @@ describe('GridManager', () => {
       },
       organization_id: 1,
       source: '',
+      initialData: {} as any,
     }
 
     gm.addAppToCell('mid-center', mockApp1);
@@ -226,6 +229,7 @@ describe('GridManager', () => {
       },
       organization_id: 1,
       source: '',
+      initialData: {} as any,
     }
     
     const mockApp2: App = {
@@ -251,6 +255,7 @@ describe('GridManager', () => {
       },
       organization_id: 1,
       source: '',
+      initialData: {} as any,
     }
 
     gm.addAppToCell('mockElement', mockApp1);
@@ -280,6 +285,7 @@ describe('GridManager', () => {
       },
       organization_id: 1,
       source: '',
+      initialData: {} as any,
     }
 
     gm.addAppToCell('mid-center', mockApp1);
@@ -305,6 +311,7 @@ describe('GridManager', () => {
       },
       organization_id: 1,
       source: '',
+      initialData: {} as any,
     }
 
     gm.addAppToCell('mid-center', mockApp1);

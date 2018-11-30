@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/widgets-manager",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Minimal widgets manager implementation to allow load / remove apps on a page",
   "scripts": {
     "prepublishOnly": "tsc",
