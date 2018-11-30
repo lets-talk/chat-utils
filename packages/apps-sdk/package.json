@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/apps-sdk",
-  "version": "0.2.0",
+  "version": "0.2.0-beta",
   "description": "SDK for apps running on letstalk plataform",
   "scripts": {
     "prepublishOnly": "tsc",
@@ -16,7 +16,7 @@
     "access": "public"
   },
   "dependencies": {
-    "post-robot": "^9.0.2",
+    "post-robot": "^8.0.19",
     "query-string": "5.1.1"
   },
   "devDependencies": {
