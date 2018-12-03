@@ -78,7 +78,7 @@ jobs:
       GIT_BRANCH: master
     <<: *build-and-test-defaults
 
-  publish:
+  release:
     <<: *docker-defaults
     steps:
       - attach_workspace:
@@ -87,8 +87,8 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/chat-utils/.npmrc
       - run:
-          name: Publish packages that changed to npm
-          command: npm run publish
+          name: Publish packages that changed to npm registry (running yarn release)
+          command: yarn release
 # Workflows: one for build and other for deploy (only on master branch)
 workflows:
   version: 2
@@ -102,13 +102,13 @@ workflows:
           filters:
             branches:
               only: master
-      - publish-pr:
+      - release:
           requires:
             - build-and-test-pr
           filters:
             branches:
               ignore: master
-      - publish-master:
+      - release:
           requires:
             - build-and-test-master
           filters:
