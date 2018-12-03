@@ -14,9 +14,6 @@ fi;
 
 yarn build;
 
-git add dist;
-git commit -m "Dist" || echo "Nothing to distribute";
-
 yarn version ${1-patch};
 
 git push;
