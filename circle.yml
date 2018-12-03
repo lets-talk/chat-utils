@@ -64,7 +64,19 @@ build-and-test-defaults: &build-and-test-defaults
           root: ~/chat-utils
           paths: .
 
+
 release-defaults: &release-defaults
+  steps:
+    - attach_workspace:
+        at: ~/chat-utils
+    # Checkokut repository
+    - checkout
+        
+    - run:
+        name: Running release example
+        command: git config user.email $GITHUB_USER_EMAIL; git config user.name $GITHUB_USER_NAME;
+
+release-defaults_ori: &release-defaults_ori
   steps:
     - attach_workspace:
         at: ~/chat-utils
@@ -85,8 +97,6 @@ release-defaults: &release-defaults
     - run:
         name: Publish packages that changed to npm registry (running yarn release)
         command: for dir in $(git diff --name-only $CIRCLE_BRANCH $(git merge-base $CIRCLE_BRANCH origin/$GIT_BRANCH) | sed 1d | grep 'packages/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd packages/$dir; echo "Release command for package $dir"; yarn release:$NPM_PUBLISH_VERSION; cd ../..; done
-      
-
 
 version: 2
 jobs:
@@ -108,6 +118,7 @@ jobs:
       GIT_BRANCH: develop
       NPM_PUBLISH_VERSION: patch
     <<: *release-defaults
+
   release-master:
     <<: *docker-defaults
     environment:
