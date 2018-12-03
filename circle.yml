@@ -97,9 +97,13 @@ jobs:
 
   release-pr:
     <<: *docker-defaults
+    environment:
+      GIT_BRANCH: develop
     <<: *release-defaults
   release-master:
     <<: *docker-defaults
+    environment:
+      GIT_BRANCH: master
     <<: *release-defaults
 
 # Workflows: one for build and other for deploy (only on master branch)
