@@ -12,9 +12,9 @@ if ! git diff-index --quiet --cached HEAD; then
     exit 1;
 fi;
 
+yarn config set version-tag-prefix "apps-skd-v"
 yarn build;
-
-yarn version ${1-patch};
+yarn version --new-version --${1};
 
 git push;
 git push --tags;
