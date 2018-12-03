@@ -64,19 +64,7 @@ build-and-test-defaults: &build-and-test-defaults
           root: ~/chat-utils
           paths: .
 
-
 release-defaults: &release-defaults
-  steps:
-    - attach_workspace:
-        at: ~/chat-utils
-    # Checkokut repository
-    - checkout
-        
-    - run:
-        name: Running release example
-        command: git config user.email $GITHUB_USER_EMAIL; git config user.name $GITHUB_USER_NAME;
-
-release-defaults-ori: &release-defaults-ori
   steps:
     - attach_workspace:
         at: ~/chat-utils
