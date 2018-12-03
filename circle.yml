@@ -77,7 +77,7 @@ release-defaults: &release-defaults
         command: for dir in $(git diff --name-only $CIRCLE_BRANCH $(git merge-base $CIRCLE_BRANCH origin/$GIT_BRANCH) | sed 1d | grep 'packages/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd packages/$dir; echo "Authenticate npm for package $dir"; echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc; cd ../..; done  
     - run:
         name: Publish packages that changed to npm registry (running yarn release)
-        command: for dir in $(git diff --name-only $CIRCLE_BRANCH $(git merge-base $CIRCLE_BRANCH origin/$GIT_BRANCH) | sed 1d | grep 'packages/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd packages/$dir; echo "Release command for package $dir"; yarn release; cd ../..; done
+        command: for dir in $(git diff --name-only $CIRCLE_BRANCH $(git merge-base $CIRCLE_BRANCH origin/$GIT_BRANCH) | sed 1d | grep 'packages/' | cut -d "/" -f2 | sed '/^\.circleci$/d' | sort -u); do cd packages/$dir; echo "Release command for package $dir"; yarn release:$NPM_PUBLISH_VERSION; cd ../..; done
       
 
 
@@ -99,11 +99,13 @@ jobs:
     <<: *docker-defaults
     environment:
       GIT_BRANCH: develop
+      NPM_PUBLISH_VERSION: patch
     <<: *release-defaults
   release-master:
     <<: *docker-defaults
     environment:
       GIT_BRANCH: master
+      NPM_PUBLISH_VERSION: minor
     <<: *release-defaults
 
 # Workflows: one for build and other for deploy (only on master branch)
