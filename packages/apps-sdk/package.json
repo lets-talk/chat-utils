@@ -1,11 +1,12 @@
 {
   "name": "@lets-talk/apps-sdk",
-  "version": "0.2.1",
+  "version": "0.3.10",
   "description": "SDK for apps running on letstalk plataform",
   "scripts": {
     "prepublishOnly": "tsc",
     "test": "jest --no-cache --coverage",
     "test:ci": "jest --no-cache --coverage --runInBand",
+    "build": "tsc",
     "release": "./publish.sh",
     "release:patch": "./publish.sh patch",
     "release:minor": "./publish.sh minor",
