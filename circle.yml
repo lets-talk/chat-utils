@@ -102,4 +102,15 @@ workflows:
           filters:
             branches:
               only: master
-      - publish
+      - publish-pr:
+          requires:
+            - build-and-test-pr
+          filters:
+            branches:
+              ignore: master
+      - publish-master:
+          requires:
+            - build-and-test-master
+          filters:
+            branches:
+              only: master
