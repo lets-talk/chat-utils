@@ -72,7 +72,7 @@ release-defaults: &release-defaults
     - checkout
     # Release for all packages that changed
     # Get packages names that changes and only execute on those that has git changes
-    - add_ssh_keys
+    - add_ssh_keys:
         fingerprints:
           - $GITHUB_SSH_KEY
         
