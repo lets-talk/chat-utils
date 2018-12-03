@@ -5,7 +5,11 @@
   "scripts": {
     "prepublishOnly": "tsc",
     "test": "jest --no-cache --coverage",
-    "test:ci": "jest --no-cache --coverage --runInBand"
+    "test:ci": "jest --no-cache --coverage --runInBand",
+    "release": "./publish.sh",
+    "release:patch": "./publish.sh patch",
+    "release:minor": "./publish.sh minor",
+    "release:major": "./publish.sh major"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
