@@ -16,6 +16,6 @@ yarn config set version-tag-prefix "@lets-talk/apps-skd@"
 yarn build;
 yarn version --new-version ${1};
 
-git push;
+git push -u origin $CIRCLE_BRANCH;
 git push --tags;
 yarn publish;
