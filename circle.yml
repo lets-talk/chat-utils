@@ -72,6 +72,10 @@ release-defaults: &release-defaults
     - checkout
     # Release for all packages that changed
     # Get packages names that changes and only execute on those that has git changes
+    - add_ssh_keys
+        fingerprints:
+          - $GITHUB_SSH_KEY
+        
     - run:
         name: Doing git config with username and email from environment 
         command: git config user.email $GITHUB_USER_EMAIL; git config user.name $GITHUB_USER_NAME;
