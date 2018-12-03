@@ -76,7 +76,7 @@ release-defaults: &release-defaults
         name: Running release example
         command: git config user.email $GITHUB_USER_EMAIL; git config user.name $GITHUB_USER_NAME;
 
-release-defaults_ori: &release-defaults_ori
+release-defaults-ori: &release-defaults-ori
   steps:
     - attach_workspace:
         at: ~/chat-utils
