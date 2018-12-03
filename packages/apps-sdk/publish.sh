@@ -12,10 +12,9 @@ if ! git diff-index --quiet --cached HEAD; then
     exit 1;
 fi;
 
-yarn config set version-tag-prefix "@lets-talk/apps-skd@"
+yarn config set version-tag-prefix "@lets-talk/apps-sdk@"
 yarn build;
-yarn version --new-version ${1};
+yarn publish --new-version ${1};
 
 git push -u origin $CIRCLE_BRANCH;
 git push --tags;
-yarn publish;
