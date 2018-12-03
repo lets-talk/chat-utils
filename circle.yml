@@ -68,6 +68,8 @@ release-defaults: &release-defaults
   steps:
     - attach_workspace:
         at: ~/chat-utils
+    # Checkokut repository
+    - checkout
     # Release for all packages that changed
     # Get packages names that changes and only execute on those that has git changes
     - run:
