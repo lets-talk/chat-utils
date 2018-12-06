@@ -1,11 +1,16 @@
 {
   "name": "@lets-talk/apps-sdk",
-  "version": "0.1.1",
+  "version": "0.3.10",
   "description": "SDK for apps running on letstalk plataform",
   "scripts": {
     "prepublishOnly": "tsc",
     "test": "jest --no-cache --coverage",
-    "test:ci": "jest --no-cache --coverage --runInBand"
+    "test:ci": "jest --no-cache --coverage --runInBand",
+    "build": "tsc",
+    "release": "./publish.sh",
+    "release:patch": "./publish.sh patch",
+    "release:minor": "./publish.sh minor",
+    "release:major": "./publish.sh major"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -16,8 +21,8 @@
     "access": "public"
   },
   "dependencies": {
-    "post-robot": "^9.0.2",
-    "query-string": "^6.2.0"
+    "post-robot": "8.0.14",
+    "query-string": "5.1.1"
   },
   "devDependencies": {
     "@types/query-string": "^6.1.1",

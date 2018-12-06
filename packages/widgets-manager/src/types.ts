@@ -1,5 +1,5 @@
 import { AppPosition, relationTypeY } from './types';
-export type PayloadType = 'html' | 'json' | 'markdown' | 'lt-basic-container';
+export type PayloadType = 'html' | 'json' | 'markdown' | 'lt-basic-container' | 'lt-basic-container-multimedia';
 export type relationTypeX = 'LL' | 'LR' | 'RL' | 'RR';
 export type relationTypeY = 'TT' | 'TB' | 'BT' | 'BB';
 
@@ -88,6 +88,7 @@ export type App = {
   settings: Settings;
   organization_id: Number;
   source: string;
+  initialData: any;
 }
 
 export type Size = {

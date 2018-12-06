@@ -47,6 +47,7 @@ const mockApp1: App = {
   },
   organization_id: 1,
   source: '',
+  initialData: {} as any,
 }
 
 const mockApp2: App = {
@@ -63,6 +64,7 @@ const mockApp2: App = {
   },
   organization_id: 1,
   source: '',
+  initialData: {} as any,
 }
 
 const mockApp3: App = {
@@ -79,6 +81,7 @@ const mockApp3: App = {
   },
   organization_id: 1,
   source: '',
+  initialData: {} as any,
 }
 
 describe('setupManager', () => {
@@ -119,14 +122,27 @@ describe('setupManager', () => {
 
       expect(manager.getApp(3)).toMatchObject(mockApp3);
     })
+
+    it('I can mount app with initial data', async () => {
+      const manager = setupManager([mockApp1, mockApp2, mockApp3], mockFetchAppData);
+      const mockInitialData = {
+        conversationId: 22,
+      };
+      await manager.mountApp(1, mockInitialData);
+
+      const mountedApp = manager.getAppByName(mockApp1.slug);
+      expect(mountedApp).toBeDefined();
+
+      expect(mountedApp!.initialData).toMatchObject(mockInitialData);
+    })
   });
 
   describe('getAllAppsForNamespace', () => {
     it('Can get all apps for a namespace', async () => {
       const manager = setupManager([mockApp1, mockApp2, mockApp3], mockFetchAppData);
-      await manager.mountApp(1);
-      await manager.mountApp(2);
-      await manager.mountApp(3);
+      await manager.mountApp(1, {});
+      await manager.mountApp(2, {});
+      await manager.mountApp(3, {});
       
       // Exact match -> We find one and just one app
       const selectedApp1 = manager.getAllAppsForNamespace('lt.html-notification.relative-mockElement-LL-BT');

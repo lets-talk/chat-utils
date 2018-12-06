@@ -22,6 +22,7 @@ const mockFailingApp: App = {
   },
   organization_id: 1,
   source: '',
+  initialData: {} as any,
 }
 
 const mockApp: App = {
@@ -38,6 +39,7 @@ const mockApp: App = {
   },
   organization_id: 1,
   source: '',
+  initialData: {} as any,
 }
 
 
