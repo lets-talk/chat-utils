@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Release [0.7.0] - 2018-12-12
+### Release
+- Suport new type lt-webrtc
+
 ## Release [0.5.0] - 2018-11-13
 ### Release
 - Use slug for naming the apps
