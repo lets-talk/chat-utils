@@ -77,7 +77,9 @@ export class AppManager {
         iframe = document.createElement('iframe');
         iframe.id = `lt-${app.slug}`;
         
-        if (app.payload_type === 'lt-basic-container-multimedia') {
+        if (app.payload_type === 'lt-basic-container-multimedia' ||
+            app.payload_type === 'lt-webrtc'
+        ) {
           (iframe as any).allow = "microphone *; camera *";
         }
       }

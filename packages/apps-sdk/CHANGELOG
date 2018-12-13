@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Release [0.4.x] - 2018-12-06
 ### Added
-- Undo upgrade of postRobot. Downgrade to version 0.8.x
+- Undo upgrade of postRobot. Downgrade to version 0.8.x.
+- Release this version to npm.
 
 ## Release [0.3.x] - 2018-12-05
 ### Added

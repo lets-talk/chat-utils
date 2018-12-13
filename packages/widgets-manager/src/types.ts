@@ -1,5 +1,5 @@
 import { AppPosition, relationTypeY } from './types';
-export type PayloadType = 'html' | 'json' | 'markdown' | 'lt-basic-container' | 'lt-basic-container-multimedia';
+export type PayloadType = 'html' | 'json' | 'markdown' | 'lt-webrtc' | 'lt-basic-container' | 'lt-basic-container-multimedia';
 export type relationTypeX = 'LL' | 'LR' | 'RL' | 'RR';
 export type relationTypeY = 'TT' | 'TB' | 'BT' | 'BB';
 
