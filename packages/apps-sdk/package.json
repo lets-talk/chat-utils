@@ -21,7 +21,7 @@
     "access": "public"
   },
   "dependencies": {
-    "post-robot": "8.0.14",
+    "post-robot": "10.0.2",
     "query-string": "5.1.1"
   },
   "devDependencies": {
