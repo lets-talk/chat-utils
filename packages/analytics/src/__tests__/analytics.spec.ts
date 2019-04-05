@@ -5,7 +5,7 @@ import { ILTAnalyticsOptions } from 'lt-analytics';
 const mockEventFn = jest.fn();
 const mockScreenViewFn = jest.fn();
 const mockSetFn = jest.fn();
-const mockNameFn = jest.fn(() => ({
+const mockNameFn = jest.fn((_trackerName: string) => ({
   set: mockSetFn,
   event: mockEventFn,
   screenview: mockScreenViewFn
