@@ -81,6 +81,7 @@ const mockConfiguration: ILTAnalyticsOptions = {
 }
 
 describe('LT Analytics Module', () => {
+	let mockAppName = 'myMockApp';
   beforeEach(() => {
     mockEventFn.mockClear();
     mockNameFn.mockClear();
@@ -92,13 +93,14 @@ describe('LT Analytics Module', () => {
 
     describe('When proper configuration is provided', () => {
       it('Creates Analytics instance without crashing', () => {
-        const instance = new LTAnalytics(mockConfiguration);
+        const instance = new LTAnalytics(mockAppName, mockConfiguration);
 
-        expect(instance).not.toBeFalsy();
+				expect(instance).not.toBeFalsy();
+				expect(mockSetFn).toBeCalledWith('appName', mockAppName);
       });
 
       it('It creates a tracker for all defined tracking IDs', () => {
-        const instance = new LTAnalytics(mockConfiguration);
+        const instance = new LTAnalytics(mockAppName, mockConfiguration);
 
         expect(instance).not.toBeFalsy();
 
@@ -113,7 +115,7 @@ describe('LT Analytics Module', () => {
       it('It throws an error about miss configuration', () => {
         let instance;
         expect(() => {
-          instance = new LTAnalytics({ ...mockConfiguration, trackers: [] });
+          instance = new LTAnalytics(mockAppName, { ...mockConfiguration, trackers: [] });
         }).toThrow();
 
         expect(instance).toBeFalsy();
@@ -122,7 +124,7 @@ describe('LT Analytics Module', () => {
   });
 
   describe('event()', () => {
-    const instance = new LTAnalytics(mockConfiguration);
+    const instance = new LTAnalytics(mockAppName, mockConfiguration);
     describe('When the event Category is enabled for some trackers', () => {
       it('Should track the event in the corresponding tracker', () => {
         instance.event('Inquiry', 'BROWSE', 'My Inquiry', 1);
@@ -164,7 +166,7 @@ describe('LT Analytics Module', () => {
   });
 
   describe('screenview()', () => {
-    const instance = new LTAnalytics(mockConfiguration);
+    const instance = new LTAnalytics(mockAppName, mockConfiguration);
     describe('When the screenView name is enabled for some trackers', () => {
       it('Should track the event in the corresponding tracker', () => {
         instance.screenview('Login', {});
@@ -197,7 +199,7 @@ describe('LT Analytics Module', () => {
   });
 
   describe('set()', () => {
-    const instance = new LTAnalytics(mockConfiguration);
+    const instance = new LTAnalytics(mockAppName, mockConfiguration);
 
     describe('When correctlty called', () => {
       it('Should set property we pass to it', () => {
