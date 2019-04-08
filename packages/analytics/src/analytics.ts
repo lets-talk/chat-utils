@@ -5,7 +5,7 @@ export class LTAnalytics implements ILTAnalytics {
   private allTrackersIDs: string[];
   private options: ILTAnalyticsOptions;
 
-  constructor(options: ILTAnalyticsOptions) {
+  constructor(appName: string, options: ILTAnalyticsOptions) {
     this.options = options;
     this.allTrackersIDs = this.options.trackers;
 
@@ -17,7 +17,9 @@ export class LTAnalytics implements ILTAnalytics {
     analytics.initialize(defaultTrackingID, options.createOptions);
 
     this.allTrackersIDs.forEach((tracker) => {
-      analytics.create(tracker, this.getTrackerName(tracker));
+      const trackerName = this.getTrackerName(tracker);
+      analytics.create(tracker, trackerName);
+      analytics.name(trackerName).set('appName', appName);
     })
 
   }
