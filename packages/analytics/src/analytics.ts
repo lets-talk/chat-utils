@@ -20,6 +20,7 @@ export class LTAnalytics implements ILTAnalytics {
       const trackerName = this.getTrackerName(tracker);
       analytics.create(tracker, trackerName);
       analytics.name(trackerName).set('appName', appName);
+      analytics.name(trackerName).set('dimension1', appName);
     })
 
   }
