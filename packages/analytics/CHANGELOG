@@ -1,0 +1,17 @@
+# Change Log
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## Release [0.0.3] - 2019-04-09
+### Added dimension1 as applicationName when creating the tracker
+
+## Release [0.0.2] - 2019-04-08
+### Added appName when creating the tracker
+
+## Release [0.0.1] - 2019-04-05
+### Added
+- First release of the project
+- For now support just one provider (Google)
+- Support set, event and screenview events only
