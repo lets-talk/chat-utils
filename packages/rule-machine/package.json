@@ -1,10 +1,11 @@
 {
   "name": "@lets-talk/rule-machine",
-  "version": "0.5.0-beta-3",
+  "version": "0.5.0-beta-4",
   "description": "Lisp Rules + triggers",
   "scripts": {
-    "build": "webpack",
-    "prepublishOnly": "tsc",
+    "build": "webpack --mode development --config=./webpack.dev.config.js",
+    "build:production": "webpack --mode production --config=./webpack.prod.config.js",
+    "prepublishOnly": "yarn build:production",
     "test": "echo 'no test yet'",
     "test:ci": "echo 'no test yet'"
   },
