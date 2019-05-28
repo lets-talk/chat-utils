@@ -41,6 +41,11 @@ export type offsetY = {
   value: number;
 }
 
+export type RelativeCoords = {
+  offsetX: offsetX,
+  offsetY: offsetY,
+}
+
 export type RelativeToElementPosition = {
   type: 'relative-to-element';
   payload: {
@@ -55,7 +60,8 @@ export type RelativeToPlacePosition = {
   type: 'relative-to-position';
   payload: {
     positionId: string;
-    offset: Position,
+    offsetX: offsetX,
+    offsetY: offsetY,
   }
 }
 

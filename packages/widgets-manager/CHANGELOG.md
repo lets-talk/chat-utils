@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased - 2019-05-28
+### Release (shuld be 1.0.0 because there are breaking changes)
+- 'relative-to-position' position strategy changes format
+- **BREAKING CHANGES**: Format for relative to postion changes from:
+  - { offset: Position } to { offsetX: offsetX, offsetY: offsetY }
+
 ## Release [0.7.0] - 2018-12-12
 ### Release
 - Suport new type lt-webrtc

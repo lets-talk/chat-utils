@@ -2,6 +2,7 @@ import { POSITION_RELATIVE_TO_PLACE } from './../../constants';
 import { GridCell } from './../../types';
 import { App, ObjectIndex, PositionStrategy } from "../../types";
 import { ReplaceAppStrategy } from '../mounting/replace';
+import { getRelativePosition } from '../../utils';
 
 export class RelativeToPlacePositionStrategy implements PositionStrategy {
   public getPositionProps(app: App, cell: GridCell): ObjectIndex {
@@ -9,12 +10,11 @@ export class RelativeToPlacePositionStrategy implements PositionStrategy {
     if (position.type !== POSITION_RELATIVE_TO_PLACE) {
       throw Error('Can not get position props from an element that does not implement relativeToPlace strategy');
     }
-    const left = cell.position.left + position.payload.offset.left;
-    const top = cell.position.top + position.payload.offset.top;
-    return {
-      top: `${top}px`,
-      left: `${left}px`
-    }
+    
+    const relativeInfo = { offsetX: position.payload.offsetX, offsetY: position.payload.offsetY };
+    const relativePosition = getRelativePosition(cell.position, relativeInfo);
+
+    return relativePosition;
   };
   
   public shouldAddNewPosition = () => false;
