@@ -1,30 +1,29 @@
-import { Stream } from "./stream";
-import { LauncherRule, LauncherTrigger } from "./types";
-
-export type CodeParam = { rule: string, event: any};
-export type CodeEvaluator = (code: CodeParam) => CodeResult;
-export type CodeResult = { type: string };
+import { from } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
+import { LauncherRule, LauncherTrigger, CodeEvaluator, CodeResult } from "./types";
+import { Observable } from "rxjs/internal/Observable";
 
 const makeRuleStream = (
-    setupTrigger: (trigger: LauncherTrigger) => Stream<unknown>,
+    setupTrigger: (trigger: LauncherTrigger) => Observable<LauncherTrigger>,
 ) =>
     (rule: LauncherRule) => {
-        const allTriggerStreams = rule.triggers.map(setupTrigger)
-        const anyTriggerStream = Stream.mergeMap(allTriggerStreams);
-        const ruleStream = anyTriggerStream.map((e) => {
-          return {
-            rule: rule.rule,
-            event: e,
-          }
-        });
-        return ruleStream;
+      const allTriggerStreams = from(rule.triggers);
+      const ruleStream = allTriggerStreams.pipe(
+        mergeMap(setupTrigger),
+        map((e: LauncherTrigger) => ({ rule: rule.rule, event: e })),
+      )
+      
+      return ruleStream;
     }
 
 export const makeRuleMachine = (
-    setupTrigger: (trigger: LauncherTrigger) => Stream<unknown>,
+    setupTrigger: (trigger: LauncherTrigger) => Observable<any>,
     evalLisp: CodeEvaluator,
 ) =>
-    (rules: LauncherRule[]): Stream<CodeResult> => {
-        const ruleStreams = rules.map(makeRuleStream(setupTrigger));
-        return Stream.mergeMap(ruleStreams).map(evalLisp);
+    (rules: LauncherRule[]): Observable<CodeResult> => {
+        const ruleStreams = from(rules);
+        return ruleStreams.pipe(
+          mergeMap(makeRuleStream(setupTrigger)),
+          map(evalLisp)
+        );
     }
