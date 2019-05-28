@@ -1,11 +1,11 @@
 {
   "name": "@lets-talk/rule-machine",
-  "version": "0.5.0-beta-7",
+  "version": "0.5.0-beta-8",
   "description": "Lisp Rules + triggers",
   "scripts": {
     "build": "webpack --config=./webpack.dev.config.js",
     "build:production": "webpack --config=./webpack.prod.config.js",
-    "prepublishOnly": "yarn build:production",
+    "prepublishOnly": "tsc",
     "test": "echo 'no test yet'",
     "test:ci": "echo 'no test yet'"
   },
@@ -19,10 +19,5 @@
   },
   "dependencies": {
     "rxjs": "^6.5.2"
-  },
-  "devDependencies": {
-    "ts-loader": "^6.0.1",
-    "webpack": "^4.32.2",
-    "webpack-cli": "^3.3.2"
   }
 }
