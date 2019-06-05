@@ -5,7 +5,14 @@ const mockPositionRelativeToPosition: AppPosition = {
   type: 'relative-to-position',
   payload: {
     positionId: 'mid-center',
-    offset: { top: 0, right: 0, bottom: 0, left: 0 },
+    offsetX: {
+      relationType: 'LL',
+      value: 0,
+    },
+    offsetY: {
+      relationType: 'TB',
+      value: 0,
+    }
   }
 };
 

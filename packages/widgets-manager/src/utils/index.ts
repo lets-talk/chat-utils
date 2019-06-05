@@ -1,5 +1,5 @@
 import { RELATIVE_X_LEFT_LEFT, RELATIVE_X_LEFT_RIGHT, RELATIVE_X_RIGHT_LEFT, RELATIVE_X_RIGHT_RIGHT, RELATIVE_Y_TOP_TOP, RELATIVE_Y_TOP_BOTTOM, RELATIVE_Y_BOTTOM_BOTTOM, RELATIVE_Y_BOTTOM_TOP } from './../constants';
-import { Position, HTMLFloatType, ObjectIndex, RelativeToElementPosition } from './../types';
+import { Position, HTMLFloatType, ObjectIndex, RelativeCoords } from './../types';
 
 /**
  * Return an element by its id or throws an error if it can not find one
@@ -60,40 +60,40 @@ export const getElementPosition = (elementId: string, elementFloatType: HTMLFloa
   }
 }
 
-export const getRelativePosition = (elementPositon: Position, positionConfig: RelativeToElementPosition): ObjectIndex => {
+export const getRelativePosition = (elementPositon: Position, relativeInfo: RelativeCoords): ObjectIndex => {
     const { top, right, bottom, left } = elementPositon;
-    const { innerHeight, innerWidth } = window
+    const { innerHeight, innerWidth } = window;
     let offset: ObjectIndex = {};
-    switch (positionConfig.payload.offsetX.relationType) {
+    switch (relativeInfo.offsetX.relationType) {
       case RELATIVE_X_LEFT_LEFT:
-        offset.left = `${left + positionConfig.payload.offsetX.value}px`
+        offset.left = `${left + relativeInfo.offsetX.value}px`
         break;
       case RELATIVE_X_LEFT_RIGHT:
-        offset.left = `${right + positionConfig.payload.offsetX.value}px`
+        offset.left = `${right + relativeInfo.offsetX.value}px`
         break;
       case RELATIVE_X_RIGHT_LEFT:
-        offset.right = `${innerWidth - left + positionConfig.payload.offsetX.value}px`
+        offset.right = `${innerWidth - left + relativeInfo.offsetX.value}px`
         break;
       case RELATIVE_X_RIGHT_RIGHT:
-        offset.right = `${innerWidth - right + positionConfig.payload.offsetX.value}px`
+        offset.right = `${innerWidth - right + relativeInfo.offsetX.value}px`
         break;
     
       default:
         break;
     }
 
-    switch (positionConfig.payload.offsetY.relationType) {
+    switch (relativeInfo.offsetY.relationType) {
       case RELATIVE_Y_TOP_TOP:
-        offset.top = `${top + positionConfig.payload.offsetY.value}px`
+        offset.top = `${top + relativeInfo.offsetY.value}px`
         break;
       case RELATIVE_Y_TOP_BOTTOM:
-        offset.top = `${bottom + positionConfig.payload.offsetY.value}px`
+        offset.top = `${bottom + relativeInfo.offsetY.value}px`
         break;
       case RELATIVE_Y_BOTTOM_TOP:
-        offset.bottom = `${innerHeight - top + positionConfig.payload.offsetY.value}px`
+        offset.bottom = `${innerHeight - top + relativeInfo.offsetY.value}px`
         break;
       case RELATIVE_Y_BOTTOM_BOTTOM:
-        offset.bottom = `${innerHeight - bottom + positionConfig.payload.offsetY.value}px`
+        offset.bottom = `${innerHeight - bottom + relativeInfo.offsetY.value}px`
         break;
     
       default:
