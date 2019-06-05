@@ -4,8 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased - 2019-05-28
-### Release (shuld be 1.0.0 because there are breaking changes)
+### Release [1.0.0] - 2019-06-04
 - 'relative-to-position' position strategy changes format
 - **BREAKING CHANGES**: Format for relative to postion changes from:
   - { offset: Position } to { offsetX: offsetX, offsetY: offsetY }
