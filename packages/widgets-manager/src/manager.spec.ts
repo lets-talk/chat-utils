@@ -21,7 +21,14 @@ const mockPositionRelativeToPosition: AppPosition = {
   type: 'relative-to-position',
   payload: {
     positionId: 'mid-center',
-    offset: { top: 0, right: 0, bottom: 0, left: 0 },
+    offsetX: {
+      relationType: 'LL',
+      value: 0,
+    },
+    offsetY: {
+      relationType: 'BT',
+      value: 0,
+    }
   }
 };
 
@@ -29,7 +36,14 @@ const mockPositionRelativeToPosition2: AppPosition = {
   type: 'relative-to-position',
   payload: {
     positionId: 'bottom-left',
-    offset: { top: 0, right: 0, bottom: 0, left: 0 },
+    offsetX: {
+      relationType: 'LL',
+      value: 0,
+    },
+    offsetY: {
+      relationType: 'BT',
+      value: 0,
+    }
   }
 };
 

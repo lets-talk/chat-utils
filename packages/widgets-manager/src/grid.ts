@@ -50,7 +50,9 @@ export class GridManager {
       cell.size.height = height / numberOfRows;
       
       cell.position.left = column * cell.size.width;
+      cell.position.right = (column * cell.size.width) + cell.size.width;
       cell.position.top = row * cell.size.height;
+      cell.position.bottom = (row * cell.size.height) + cell.size.height;
     });
   }
 

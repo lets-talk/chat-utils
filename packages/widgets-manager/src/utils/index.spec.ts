@@ -1,6 +1,6 @@
-import { relationTypeX, relationTypeY } from './../types';
+import { relationTypeX, relationTypeY, RelativeCoords } from './../types';
 import { diffBy, getElementPosition, getRelativePosition } from './';
-import { HTMLFloatType, Position, RelativeToElementPosition } from '../types';
+import { HTMLFloatType, Position } from '../types';
 
 describe('utils/index', () => {
   describe('diffBy', () => {
@@ -117,19 +117,14 @@ describe('utils/index', () => {
     };
 
     const generateMockPositionConfig = (relationTypeX: relationTypeX, relationTypeY: relationTypeY) => {
-      const mockPositionConfig: RelativeToElementPosition = {
-        type: 'relative-to-element',
-        payload: {
-          relativeId: 'lt-messenger-iframe',
-          floatType: HTMLFloatType.fixed,
-          offsetX: {
-            relationType: relationTypeX,
-            value: 0,
-          },
-          offsetY: {
-            relationType: relationTypeY,
-            value: 0,
-          }
+      const mockPositionConfig: RelativeCoords = {
+        offsetX: {
+          relationType: relationTypeX,
+          value: 0,
+        },
+        offsetY: {
+          relationType: relationTypeY,
+          value: 0,
         }
       };
     

@@ -16,7 +16,8 @@ export class RelativeToElementPositionStrategy implements PositionStrategy {
     const relativeToId = position.payload.relativeId;
     const htmlFloatType = makeHTMLFloatType(position.payload.floatType);
     const elementPositon = getElementPosition(relativeToId, htmlFloatType);
-    const relativePosition = getRelativePosition(elementPositon, position);
+    const relativeInfo = { offsetX: position.payload.offsetX, offsetY: position.payload.offsetY };
+    const relativePosition = getRelativePosition(elementPositon, relativeInfo);
 
     return relativePosition;
   };

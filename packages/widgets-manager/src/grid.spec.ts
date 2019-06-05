@@ -7,7 +7,14 @@ const mockPositionRelativeToPosition: AppPosition = {
   type: 'relative-to-position',
   payload: {
     positionId: 'mid-center',
-    offset: { top: 0, right: 0, bottom: 0, left: 0 },
+    offsetX: {
+      relationType: 'LL',
+      value: 0,
+    },
+    offsetY: {
+      relationType: 'BT',
+      value: 0,
+    }
   }
 };
 
@@ -48,6 +55,10 @@ describe('GridManager', () => {
 
   it('creates and configures a GridManager', () => {
     const gm = new GridManager(settings, windowObject, addStrategy);
+
+    const cellHeight = windowObject.innerHeight / 3;
+    const cellWidth = windowObject.innerWidth / 3;
+
     expect(gm.grid.cells.length).toBe(9);
     expect(gm.grid.cells).toContainEqual(
       {
@@ -55,8 +66,8 @@ describe('GridManager', () => {
         apps: [],
         position: {
           top: 0,
-          right: 0,
-          bottom: 0,
+          right: cellWidth,
+          bottom: cellHeight,
           left: 0,
         },
         size: {
@@ -72,8 +83,8 @@ describe('GridManager', () => {
         apps: [],
         position: {
           top: 0,
-          right: 0,
-          bottom: 0,
+          right: 3 * cellWidth,
+          bottom: cellHeight,
           left: 2 * (windowObject.innerWidth / 3),
         },
         size: {
@@ -92,6 +103,9 @@ describe('GridManager', () => {
 
     gm._setGridDimensions(1, mobileWidth, mobileHeight);
 
+    const cellHeight = mobileHeight / 9;
+    const cellWidth = mobileWidth;
+
     expect(gm.grid.cells.length).toBe(9);
     expect(gm.grid.cells).toContainEqual(
       {
@@ -99,8 +113,8 @@ describe('GridManager', () => {
         apps: [],
         position: {
           top: 0,
-          right: 0,
-          bottom: 0,
+          right: cellWidth,
+          bottom: cellHeight,
           left: 0,
         },
         size: {
@@ -115,9 +129,9 @@ describe('GridManager', () => {
         id: 'top-center',
         apps: [],
         position: {
-          top: mobileHeight / 9,
-          right: 0,
-          bottom: 0,
+          top: cellHeight,
+          right: cellWidth,
+          bottom: 2 * cellHeight,
           left: 0,
         },
         size: {
@@ -148,20 +162,23 @@ describe('GridManager', () => {
     }
 
     gm.addAppToCell('mid-center', mockApp1);
-    const cell = gm.getGridCell('mid-center')
+    const cell = gm.getGridCell('mid-center');
+
+    const cellHeight = windowObject.innerHeight / 3;
+    const cellWidth = windowObject.innerWidth / 3;
     
     expect(cell).toMatchObject({
       id: 'mid-center',
       apps: [mockApp1],
       position: {
-        left: windowObject.innerWidth / 3,
-        right: 0,
-        bottom: 0,
-        top: windowObject.innerHeight / 3,
+        left: cellWidth,
+        right: 2 * cellWidth,
+        bottom: 2 * cellHeight,
+        top: cellHeight,
       },
       size: {
-        width: windowObject.innerWidth / 3,
-        height: windowObject.innerHeight / 3,
+        width: cellWidth,
+        height: cellHeight,
       }
     });
   });
@@ -317,19 +334,22 @@ describe('GridManager', () => {
     gm.addAppToCell('mid-center', mockApp1);
     gm.removeApp(1);
     const cell = gm.getGridCell('mid-center');
+
+    const cellHeight = windowObject.innerHeight / 3;
+    const cellWidth = windowObject.innerWidth / 3;
     
     expect(cell).toMatchObject({
       id: 'mid-center',
       apps: [],
       position: {
-        top: 1 * (windowObject.innerHeight / 3),
-        right: 0,
-        bottom: 0,
-        left: 1 * (windowObject.innerWidth / 3),
+        top: 1 * (cellHeight),
+        right: 2 * cellWidth,
+        bottom: 2 * cellHeight,
+        left: 1 * cellWidth,
       },
       size: {
-        width: windowObject.innerWidth / 3,
-        height: windowObject.innerHeight / 3,
+        width: cellWidth,
+        height: cellHeight,
       }
     });
   });
