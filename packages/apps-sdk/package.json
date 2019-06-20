@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "post-robot": "8.0.14",
-    "query-string": "6.3.0"
+    "query-string": "6.8.0"
   },
   "devDependencies": {
     "@types/query-string": "^6.1.1",
