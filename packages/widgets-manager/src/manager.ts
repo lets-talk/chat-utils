@@ -226,7 +226,7 @@ export class AppManager {
     const app = this.getApp(appId);
     const cell = this.gridManager.getAppCell(appId);
     
-    if (app) {
+    if (app && cell) {
       const positionStrategy = makePostionStrategy(app.settings.position.type);
       const positionProps = positionStrategy.getPositionProps(app, cell);
 
