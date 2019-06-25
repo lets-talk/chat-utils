@@ -7,12 +7,12 @@ export class Env {
         this.data = {};
 
         for (let i = 0; i < binds.length; i++) {
-            const bind = binds[i];
-            if (bind.v === "&") {
-                this.set(binds[i + 1], new MalList(exprts.slice(i)));
+            if (binds[i].v === "&") {
+                this.data[binds[i + 1].v] = new MalList(exprts.slice(i));
                 break;
+            } else {
+              this.data[binds[i].v] = exprts[i];
             }
-            this.set(bind, exprts[i]);
         }
     }
 
