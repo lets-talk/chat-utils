@@ -1,3 +1,5 @@
+import 'es6-map/implement';
+
 export {
     Node,
     MalType,
