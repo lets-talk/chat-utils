@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Hotfix [0.5.2] - 2019-06-25
+### Fixed
+- Insted of changing the Map use a polyfill to make it work on IE
+
 ## Hotfix [0.5.1] - 2019-06-25
 ### Fixed
 - Missed fix when using the constructor for Env
