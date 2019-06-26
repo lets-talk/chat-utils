@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/embedded-lisp",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Minimal lisp implementation based on http://kanaka.github.io/miniMAL/",
   "scripts": {
     "prepublishOnly": "tsc",
@@ -14,5 +14,8 @@
   "private": false,
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "es6-map": "^0.1.5"
   }
 }
