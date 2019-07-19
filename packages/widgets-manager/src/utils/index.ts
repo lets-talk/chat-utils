@@ -60,10 +60,10 @@ export const getElementPosition = (elementId: string, elementFloatType: HTMLFloa
   }
 }
 
-export const getRelativePosition = (elementPositon: Position, relativeInfo: RelativeCoords): ObjectIndex => {
+export const getRelativePosition = (elementPositon: Position, relativeInfo: RelativeCoords): ObjectIndex<any> => {
     const { top, right, bottom, left } = elementPositon;
     const { innerHeight, innerWidth } = window;
-    let offset: ObjectIndex = {};
+    let offset: ObjectIndex<any> = {};
     switch (relativeInfo.offsetX.relationType) {
       case RELATIVE_X_LEFT_LEFT:
         offset.left = `${left + relativeInfo.offsetX.value}px`

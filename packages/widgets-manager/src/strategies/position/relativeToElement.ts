@@ -7,7 +7,7 @@ import { AppendAppStrategy } from '../mounting/append';
 import { App, PositionStrategy, makeHTMLFloatType, ObjectIndex } from "../../types";
 
 export class RelativeToElementPositionStrategy implements PositionStrategy {
-  public getPositionProps(app: App): ObjectIndex {
+  public getPositionProps(app: App): ObjectIndex<any> {
     const { position } = app.settings;
     if (position.type !== POSITION_RELATIVE_TO_ELEMENT) {
       throw Error('Can not get position props from an element that does not implement relativeToElement strategy');

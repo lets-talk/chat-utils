@@ -34,6 +34,7 @@ const mockApp: App = {
     inlineCss: {},
     position: mockPositionRelativeToPosition,
     size: {} as any,
+    queryParams: {} as any
   },
   organization_id: 1,
   source: '',
@@ -51,6 +52,7 @@ const mockFailingApp: App = {
     inlineCss: {},
     position: {} as any,
     size: {} as any,
+    queryParams: {} as any,
   },
   organization_id: 1,
   source: '',

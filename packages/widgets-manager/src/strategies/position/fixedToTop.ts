@@ -4,7 +4,7 @@ import { App, ObjectIndex, PositionStrategy } from "../../types";
 import { ReplaceAppStrategy } from '../mounting/replace';
 
 export class FixedToTopPositionStrategy implements PositionStrategy {
-  public getPositionProps(app: App): ObjectIndex {
+  public getPositionProps(app: App): ObjectIndex<any> {
     const { position } = app.settings;
     if (position.type !== POSITION_FIXED_TO_TOP) {
       throw Error('Can not get position props from an element that does not implement fixedToTop strategy');

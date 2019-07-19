@@ -31,6 +31,7 @@ const mockApp: App = {
       height: '20px',
     },
     position: mockPositionRelativeToElement,
+    queryParams: {} as any,
   },
   organization_id: 1,
   source: '',
@@ -50,7 +51,8 @@ const mockFailingApp: App = {
     size: { 
       width: '0px',
       height: '0px'
-    }
+    },
+    queryParams: {} as any
   },
   organization_id: 1,
   source: '',
