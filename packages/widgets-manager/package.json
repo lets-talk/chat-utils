@@ -15,8 +15,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "dependencies": {
+    "qs": "^6.7.0"
+  },
   "devDependencies": {
     "@types/jest": "^24.0.0",
+    "@types/qs": "^6.5.3",
     "jest": "^23.5.0",
     "ts-jest": "^24.0.0"
   }
