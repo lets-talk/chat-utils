@@ -100,13 +100,6 @@ jobs:
       GIT_BRANCH: master
     <<: *build-and-test-defaults
 
-  release-pr:
-    <<: *docker-defaults
-    environment:
-      GIT_BRANCH: develop
-      NPM_PUBLISH_VERSION: patch
-    <<: *release-defaults
-
   release-master:
     <<: *docker-defaults
     environment:
@@ -127,12 +120,6 @@ workflows:
           filters:
             branches:
               only: master
-      - release-pr:
-          requires:
-            - build-and-test-pr
-          filters:
-            branches:
-              ignore: master
       - release-master:
           requires:
             - build-and-test-master
