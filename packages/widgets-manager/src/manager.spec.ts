@@ -1,4 +1,4 @@
-import { setupManager } from './manager';
+import { setupManager, AppManager } from './manager';
 import { App, AppPosition, HTMLFloatType } from './types';
 
 const mockPositionRelativeToElement: AppPosition = {
@@ -8,6 +8,22 @@ const mockPositionRelativeToElement: AppPosition = {
     relativeId: 'mockElement',
     offsetX: {
       relationType: 'LL',
+      value: 0,
+    },
+    offsetY: {
+      relationType: 'BT',
+      value: 0,
+    }
+  }
+};
+
+const mockPositionRelativeToElement2: AppPosition = {
+  type: 'relative-to-element',
+  payload: {
+    floatType: HTMLFloatType.fixed,
+    relativeId: 'mockElement',
+    offsetX: {
+      relationType: 'RR',
       value: 0,
     },
     offsetY: {
@@ -52,12 +68,13 @@ const mockApp1: App = {
   name: 'HTML Notification',
   slug: 'html-notification',
   payload_type: 'html',
-  payload: '',
+  payload: '{}',
   settings: {
     css: '',
     inlineCss: {},
     position: mockPositionRelativeToElement,
     size: {} as any,
+    queryParams: {} as any,
   },
   organization_id: 1,
   source: '',
@@ -69,12 +86,13 @@ const mockApp2: App = {
   name: 'Markdown Bci',
   slug: 'markdown-bci',
   payload_type: 'markdown',
-  payload: '',
+  payload: '{}',
   settings: {
     css: '',
     inlineCss: {},
     position: mockPositionRelativeToPosition,
     size: {} as any,
+    queryParams: {} as any,
   },
   organization_id: 1,
   source: '',
@@ -86,12 +104,36 @@ const mockApp3: App = {
   name: 'Markdown BCI 2',
   slug: 'markdown-bci-2',
   payload_type: 'markdown',
-  payload: '',
+  payload: '{}',
   settings: {
     css: '',
     inlineCss: {},
     position: mockPositionRelativeToPosition2,
     size: {} as any,
+    queryParams: {} as any,
+  },
+  organization_id: 1,
+  source: '',
+  initialData: {} as any,
+}
+
+const mockPopupApp: App = {
+  id: 4,
+  name: 'Webrtc screenshare',
+  slug: 'bci-screenshare',
+  payload_type: 'lt-webrtc',
+  payload: '{}',
+  settings: {
+    css: '',
+    inlineCss: {},
+    position: mockPositionRelativeToElement2,
+    size: {
+      width: '300px',
+      height: '100px',
+    },
+    queryParams: {
+      mode: 'popup'
+    },
   },
   organization_id: 1,
   source: '',
@@ -113,6 +155,9 @@ describe('setupManager', () => {
             break;
           case 3:
             resolve(mockApp3);
+            break;
+          case 4:
+            resolve(mockPopupApp);
             break;
         
           default:
@@ -148,7 +193,49 @@ describe('setupManager', () => {
       expect(mountedApp).toBeDefined();
 
       expect(mountedApp!.initialData).toMatchObject(mockInitialData);
-    })
+    });
+
+    describe('When mounting apps with mode popup', () => {
+      let manager: AppManager;
+      const mockWindowOpen = jest.fn();
+      const mockInitialData = {
+        roomId: 'ABC-123',
+      };
+      beforeEach(() => {
+        manager = setupManager([mockPopupApp], mockFetchAppData);
+        window.open = mockWindowOpen;
+      });
+
+      it('Mounts the app', async () => {
+        await manager.mountApp(4, mockInitialData);
+
+        const mountedApp = manager.getAppByName(mockPopupApp.slug);
+        expect(mountedApp).toBeDefined();
+      });
+
+      it('The app receives the initialData', async () => {
+        await manager.mountApp(4, mockInitialData);
+
+        const mountedApp = manager.getAppByName(mockPopupApp.slug);
+        expect(mountedApp!.initialData).toMatchObject(mockInitialData);
+      });
+
+      it('The app calls window.open', async () => {
+        await manager.mountApp(4, mockInitialData);
+
+        expect(mockWindowOpen).toBeCalled();
+      });
+
+      it('The app calls window.open with the correct params', async () => {
+        await manager.mountApp(4, mockInitialData);
+
+        expect(mockWindowOpen).toBeCalledWith(
+          '?appName=bci-screenshare&queryParams[mode]=popup&',
+          'bci-screenshare-popup',
+          'width=300,height=100,scrollbars=no,resizable=no'
+        );
+      });
+    });
   });
 
   describe('getAllAppsForNamespace', () => {
