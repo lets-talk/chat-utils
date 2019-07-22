@@ -12,6 +12,7 @@ const mockApp2: App = {
     inlineCss: {},
     position: {} as any,
     size: {} as any,
+    queryParams: {} as any,
   },
   organization_id: 1,
   source: '',

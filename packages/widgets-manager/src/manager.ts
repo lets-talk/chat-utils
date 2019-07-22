@@ -1,7 +1,8 @@
+import * as qs from 'qs';
 import { Observer } from './stream/observer';
 import { makePostionStrategy } from './strategies/position/creator';
 import { diffBy } from './utils/index';
-import { POSITION_RELATIVE_TO_ELEMENT, POSITION_RELATIVE_TO_PLACE, POSITION_FIXED_TO_TOP } from './constants';
+import { POSITION_RELATIVE_TO_ELEMENT, POSITION_RELATIVE_TO_PLACE, POSITION_FIXED_TO_TOP, APP_MODE_POPUP, APP_MODE_IFRAME } from './constants';
 import { GridManager } from './grid';
 import { App, GridCell, ObjectIndex, PromisedFunction } from "./types";
 import { ReplaceAppStrategy } from './strategies/mounting/replace';
@@ -30,6 +31,14 @@ export class AppManager {
     const positionStrategy = makePostionStrategy(app.settings.position.type);
     const positionName = positionStrategy.getNameId(app);
     return positionName;
+  }
+
+  private getAppMode = (app: App): string => {
+    if (app.settings.queryParams && app.settings.queryParams['mode']) {
+      return app.settings.queryParams['mode'];
+    }
+
+    return APP_MODE_IFRAME;
   }
 
   private addStyleString = (app: App) => {
@@ -66,6 +75,17 @@ export class AppManager {
     this.observables = this.observables.filter((elem) => elem.id !== appId);
   }
 
+  private createPopupForApp = (app: App) : Window | null => {
+    const stringifiedUrlParams = qs.stringify({ queryParams: app.settings.queryParams }, { encode: false });
+    const stringifiedInitialData = qs.stringify({ initialData: JSON.parse(app.payload) }, { encode: false });
+
+    return window.open(
+      `${app.source}?appName=${app.slug}&${stringifiedUrlParams}&${stringifiedInitialData}`,
+      `${app.slug}-popup`,
+      `width=${parseInt(app.settings.size.width, 10)},height=${parseInt(app.settings.size.height, 10)},scrollbars=no,resizable=no`
+    )
+  }
+
   private createIframeForApp = (app: App, cell: GridCell): Node | null => {
     try {
       const positionStrategy = makePostionStrategy(app.settings.position.type);
@@ -83,8 +103,11 @@ export class AppManager {
           (iframe as any).allow = "microphone *; camera *";
         }
       }
-        
-      iframe.src = `${app.source}?appName=${app.slug}`;
+
+      const stringifiedUrlParams = qs.stringify({ queryParams: app.settings.queryParams }, { encode: false });
+      const stringifiedInitialData = qs.stringify({ initialData: JSON.parse(app.payload) }, { encode: false });
+
+      iframe.src = `${app.source}?appName=${app.slug}&${stringifiedUrlParams}&${stringifiedInitialData}`;
       iframe.style.setProperty('width', app.settings.size.width);
       iframe.style.setProperty('height', app.settings.size.height);
 
@@ -138,8 +161,12 @@ export class AppManager {
 
   private mountApps = (cell: GridCell, apps: App[]) => {
     apps.forEach((app) => {
-      this.createIframeForApp(app, cell);
-      this.subscribeToDomEvents(app);
+      if (this.getAppMode(app) === APP_MODE_POPUP) {
+        this.createPopupForApp(app);
+      } else {
+        this.createIframeForApp(app, cell);
+        this.subscribeToDomEvents(app);
+      }
     });
   }
 
@@ -210,7 +237,7 @@ export class AppManager {
   public setAppInitialData = (appId: number, initialData: any): void => {
     const appIndex = this.registeredApps.findIndex((app) => app.id === appId);
     if (appIndex !== -1) {
-      this.registeredApps[appIndex].initialData = initialData;
+      this.registeredApps[appIndex].initialData = {...this.registeredApps[appIndex].initialData, ...initialData };
     }
   }
 
@@ -222,7 +249,7 @@ export class AppManager {
     });
   }
 
-  public updateAppSettings = (appId: number, settings: ObjectIndex) => {
+  public updateAppSettings = (appId: number, settings: ObjectIndex<string>) => {
     const app = this.getApp(appId);
     const cell = this.gridManager.getAppCell(appId);
     

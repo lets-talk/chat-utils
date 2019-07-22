@@ -12,3 +12,6 @@ export const RELATIVE_Y_TOP_TOP = 'TT';
 export const RELATIVE_Y_TOP_BOTTOM = 'TB';
 export const RELATIVE_Y_BOTTOM_TOP = 'BT';
 export const RELATIVE_Y_BOTTOM_BOTTOM = 'BB';
+
+export const APP_MODE_IFRAME = 'iframe';
+export const APP_MODE_POPUP = 'popup';
