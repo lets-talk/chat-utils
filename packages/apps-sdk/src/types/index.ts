@@ -3,7 +3,7 @@ export interface ObjectIndex<T> {
 }
 
 export type AppSettingsResult = {
-  data: App;
+  data: ExtendedAppData;
 }
 
 export type PayloadType = 'html' | 'json' | 'markdown' | 'lt-basic-container';
@@ -82,4 +82,8 @@ export type App = {
   settings: Settings;
   organization_id: Number;
   source: string;
+}
+
+export type ExtendedAppData = App & {
+  initialData: ObjectIndex<any>;
 }

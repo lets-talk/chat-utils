@@ -1,3 +1,5 @@
+declare var global: any;
+
 import { SDK } from '../sdk';
 
 import {
@@ -22,11 +24,98 @@ const mockChannel = {
 describe('SDK', () => {
   beforeEach(() => {
     mockedSend.mockClear();
+
+    global.jsdom.reconfigure({
+      url: "http://localhost/someapphosted?appName=my-mock-app"
+    });
   });
+
   it('Should create an SDK instance without crashing', () => {
     const sdk = new SDK();
     
     expect(sdk).not.toBeFalsy();
+  });
+
+  describe('When there are url params', () => {
+    let mockCommunicationChannel: any;
+    const mockSettingsData = {
+      data: {
+        initialData: {
+          payload: {
+            roomId: 'ABC-123'
+          }
+        }
+      }
+    };
+
+    describe('When mode is popup', () => {
+      const mockWindowOpener = jest.fn();
+      beforeEach(() => {
+        const url = "https://www.example.com?appName=myApp&queryParams[mode]=popup&initialData[controls][close]=true";
+
+        // Mock window.opener
+        Object.defineProperty(window, "opener", {
+          value: mockWindowOpener,
+          writable: true
+        });
+        // Mock url
+        global.jsdom.reconfigure({
+          url,
+        });
+
+        mockCommunicationChannel = {
+          client: jest.fn(() => ({
+            send: jest.fn(() => new Promise((resolve) => resolve(mockSettingsData))),
+          })),
+          listener: jest.fn(() => ({
+            on: mockedOn,
+          })),
+        };
+      });
+
+      it('Should grab the params and setup window using window.opener', () => {
+        new SDK(() => mockCommunicationChannel);
+        expect(mockCommunicationChannel.client).toBeCalledWith({ window: mockWindowOpener, domain: '*' });
+      });
+
+      it('getAppSettings should return the result plus url params', async () => {
+        const sdk = new SDK(() => mockCommunicationChannel);
+    
+        const result = await sdk.getAppSettings();
+        expect(result).toEqual({
+          data: {
+            initialData: {
+              payload: {
+                controls: { close: true }, 
+                roomId: "ABC-123"
+              }
+            }
+          }
+        });
+      });
+    });
+   
+    describe('When mode is not present', () => {
+      const mockWindowParent = jest.fn();
+      beforeEach(() => {
+        const url = "http://myappurl.com?appName=myApp&initialData[controls][close]=true";
+
+        // Mock window.parent
+        Object.defineProperty(window, "parent", {
+          value: mockWindowParent,
+          writable: true
+        });
+        // Mock url
+        global.jsdom.reconfigure({
+          url,
+        });
+        
+        it('Should grab the params and setup window using window.parent', () => {
+          new SDK(() => mockCommunicationChannel);
+          expect(mockCommunicationChannel.client).toBeCalledWith({ window: mockWindowParent, domain: '*' });
+        });
+      });
+    });
   });
 
   it('openApp should call mockChannel.send with correct params', () => {
@@ -47,7 +136,7 @@ describe('SDK', () => {
     expect(mockedSend).toHaveBeenCalledWith(EVENT_TYPE_REMOVE_APP, expectedSentPayload);
   });
 
-  it('getAppSetttings should call mockChannel.send with correct params', () => {
+  it('getAppSettings should call mockChannel.send with correct params', () => {
     const sdk = new SDK(() => mockChannel);
     const expectedSentPayload = { appName: 'my-mock-app' };
 
