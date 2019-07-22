@@ -3,8 +3,8 @@ export type PayloadType = 'html' | 'json' | 'markdown' | 'lt-webrtc' | 'lt-basic
 export type relationTypeX = 'LL' | 'LR' | 'RL' | 'RR';
 export type relationTypeY = 'TT' | 'TB' | 'BT' | 'BB';
 
-export type ObjectIndex = {
-  [key:string]: string;
+export type ObjectIndex<T> = {
+  [key:string]: T;
 }
 
 export type AppSize = {
@@ -14,9 +14,10 @@ export type AppSize = {
 
 export type Settings = {
   css: string;
-  inlineCss: ObjectIndex;
+  inlineCss: ObjectIndex<string>;
   position: AppPosition;
   size: AppSize;
+  queryParams: ObjectIndex<any>;
 }
 
 export type Position = {
@@ -126,7 +127,7 @@ export interface AddAppsStrategy {
 }
 
 export interface PositionStrategy {
-  getPositionProps(app: App, cell?: GridCell): ObjectIndex;
+  getPositionProps(app: App, cell?: GridCell): ObjectIndex<any>;
   shouldAddNewPosition(): boolean;
   getNameId(app: App): string;
   mountStrategy(): AddAppsStrategy;

@@ -1,7 +1,8 @@
 import postRobot from 'post-robot';
-import * as queryString from 'query-string';
+import * as qs from 'qs';
 
-import { AppSettingsResult } from './types';
+import { AppSettingsResult, ObjectIndex } from './types';
+import { decoder } from './utils/url';
 import {
   deserialize,
 } from './utils/serialization';
@@ -11,18 +12,20 @@ import {
   EVENT_TYPE_LOAD_APP,
   EVENT_TYPE_REMOVE_APP,
   EVENT_TYPE_NOTIFY_APP_EVENT,
+  APP_MODE_IFRAME,
+  APP_MODE_POPUP,
 } from './constants';
 
 export class SDK {
   private appName: string = '';
+  private queryParams: ObjectIndex<any> = {};
+  private initialData: ObjectIndex<any> = {};
+  private channelFactory: () => any;
   private channelManager: any;
   private sendChannel: any;
 
   constructor(channelFactory = () => postRobot) {
-    // Define Communication Channels
-    this.channelManager = channelFactory();
-    this.sendChannel = this.channelManager.client({ window: window.parent, domain: '*' });
-
+    this.channelFactory = channelFactory;
     this.configureApp();
   }
 
@@ -31,9 +34,19 @@ export class SDK {
    */
   private configureApp(): void {
     // First we obtaing the id of this app from the url
-    const parsed = queryString.parse(window.location.search);
+    const parsed = qs.parse(window.location.search.substring(1), { decoder });
     const parsedAppName = Array.isArray(parsed.appName) ? parsed.appName[0] : parsed.appName;
+
+    this.queryParams = Array.isArray(parsed.queryParams) ? parsed.queryParams[0] : parsed.queryParams;
+    this.initialData = Array.isArray(parsed.initialData) ? parsed.initialData[0] : parsed.initialData;
     this.appName = parsedAppName ? parsedAppName : 'messenger-iframe';
+
+    const mode = this.queryParams && this.queryParams.mode ? this.queryParams.mode : APP_MODE_IFRAME;
+    const channelConfig = mode === APP_MODE_POPUP ? { window: window.opener } : { window: window.parent };
+
+    // Define Communication Channels
+    this.channelManager = this.channelFactory();
+    this.sendChannel = this.channelManager.client({ ...channelConfig, domain: '*' });
   }
   /**
    * openApp
@@ -49,11 +62,37 @@ export class SDK {
   public closeApp(): Promise<any> {
     return this.sendChannel.send(EVENT_TYPE_REMOVE_APP, { appName: `lt.${this.appName}.*` });
   }
+
   /**
    * getAppSettings: Returns a promise that resolves to the App Settings
    */
   public getAppSettings(): Promise<AppSettingsResult> {
-    return this.sendChannel.send(EVENT_TYPE_GET_APP_SETTINGS, { appName: this.appName });
+    return new Promise((resolve, reject) => {
+      return this.sendChannel.send(EVENT_TYPE_GET_APP_SETTINGS, { appName: this.appName }).then((result: AppSettingsResult) => {
+        // Here we extend the app initialData with what we have in this.initialData
+        const extendedResult = { 
+          ...result,
+          data: { 
+            ...result.data,
+            initialData: {
+              ...result.data.initialData,
+              payload: {
+                ...result.data.initialData.payload,
+                ...this.initialData,
+              }
+            }
+          }
+        }
+        resolve(extendedResult);
+      }).catch((err: Error) => reject(err));
+    });
+  }
+
+  /**
+   * getAppInitialData: Returns a promise that resolves to the App InitialData
+   */
+  public getAppInitialData(): ObjectIndex<any> {
+    return this.initialData;
   }
 
   /**
