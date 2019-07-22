@@ -36,19 +36,17 @@ export class SDK {
     // First we obtaing the id of this app from the url
     const parsed = qs.parse(window.location.search.substring(1), { decoder });
     const parsedAppName = Array.isArray(parsed.appName) ? parsed.appName[0] : parsed.appName;
-    const parsedQueryParams = Array.isArray(parsed.queryParams) ? parsed.queryParams[0] : parsed.queryParams;
-    const parsedInitialData = Array.isArray(parsed.initialData) ? parsed.initialData[0] : parsed.initialData;
 
+    this.queryParams = Array.isArray(parsed.queryParams) ? parsed.queryParams[0] : parsed.queryParams;
+    this.initialData = Array.isArray(parsed.initialData) ? parsed.initialData[0] : parsed.initialData;
     this.appName = parsedAppName ? parsedAppName : 'messenger-iframe';
-    this.queryParams = parsedQueryParams;
-    this.initialData = parsedInitialData;
 
     const mode = this.queryParams && this.queryParams.mode ? this.queryParams.mode : APP_MODE_IFRAME;
-    const channgelConfig = mode === APP_MODE_POPUP ? { window: window.opener } : { window: window.parent };
+    const channelConfig = mode === APP_MODE_POPUP ? { window: window.opener } : { window: window.parent };
 
     // Define Communication Channels
     this.channelManager = this.channelFactory();
-    this.sendChannel = this.channelManager.client({ ...channgelConfig, domain: '*' });
+    this.sendChannel = this.channelManager.client({ ...channelConfig, domain: '*' });
   }
   /**
    * openApp
@@ -70,7 +68,7 @@ export class SDK {
    */
   public getAppSettings(): Promise<AppSettingsResult> {
     return new Promise((resolve, reject) => {
-      return this.sendChannel.send(EVENT_TYPE_GET_APP_SETTINGS, { appName: this.appName }).then((result: any) => {
+      return this.sendChannel.send(EVENT_TYPE_GET_APP_SETTINGS, { appName: this.appName }).then((result: AppSettingsResult) => {
         // Here we extend the app initialData with what we have in this.initialData
         const extendedResult = { 
           ...result,
