@@ -78,7 +78,7 @@ describe('SDK', () => {
         expect(mockCommunicationChannel.client).toBeCalledWith({ window: mockWindowOpener, domain: '*' });
       });
 
-      it('getAppSetttings should return the result plus url params', async () => {
+      it('getAppSettings should return the result plus url params', async () => {
         const sdk = new SDK(() => mockCommunicationChannel);
     
         const result = await sdk.getAppSettings();
@@ -136,7 +136,7 @@ describe('SDK', () => {
     expect(mockedSend).toHaveBeenCalledWith(EVENT_TYPE_REMOVE_APP, expectedSentPayload);
   });
 
-  it('getAppSetttings should call mockChannel.send with correct params', () => {
+  it('getAppSettings should call mockChannel.send with correct params', () => {
     const sdk = new SDK(() => mockChannel);
     const expectedSentPayload = { appName: 'my-mock-app' };
 
