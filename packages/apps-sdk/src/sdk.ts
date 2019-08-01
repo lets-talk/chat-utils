@@ -1,6 +1,10 @@
 import postRobot from 'post-robot';
 import * as qs from 'qs';
 
+type EventData = {
+  data: ObjectIndex<any>,
+}
+
 import { AppSettingsResult, ObjectIndex } from './types';
 import { decoder } from './utils/url';
 import {
@@ -14,6 +18,7 @@ import {
   EVENT_TYPE_NOTIFY_APP_EVENT,
   APP_MODE_IFRAME,
   APP_MODE_POPUP,
+  EVENT_TYPE_EXECUTE_APP_METHOD,
 } from './constants';
 
 export class SDK {
@@ -23,10 +28,15 @@ export class SDK {
   private channelFactory: () => any;
   private channelManager: any;
   private sendChannel: any;
+  private recieveChannel: any;
+  private handlers: any;
 
   constructor(channelFactory = () => postRobot) {
+    this.handleExecuteAppMethod = this.handleExecuteAppMethod.bind(this);
+
     this.channelFactory = channelFactory;
     this.configureApp();
+    this.setUpListeners();
   }
 
   /**
@@ -47,6 +57,30 @@ export class SDK {
     // Define Communication Channels
     this.channelManager = this.channelFactory();
     this.sendChannel = this.channelManager.client({ ...channelConfig, domain: '*' });
+    this.recieveChannel = this.channelManager.listener({ ...channelConfig, domain: '*' });
+  }
+
+  /**
+   * setUpListeners Set the handlers for different events we want to listen for
+   */
+  private setUpListeners(): void {
+    this.recieveChannel.on(EVENT_TYPE_EXECUTE_APP_METHOD, this.handleExecuteAppMethod);
+  }
+
+  /**
+   * setUpListeners Set the handlers for different events we want to listen for
+   */
+  public addEventHandlers(handlers: any): void {
+    this.handlers = handlers;
+  }
+
+  private handleExecuteAppMethod(event: EventData) {
+    const { payload } = event.data;
+    const { method, args } = payload;
+    console.log('AppsSDK handleExecuteAppMethod event, this.handlers: ', event, this.handlers);
+    if (this.handlers && typeof this.handlers[method] === 'function') {
+      this.handlers[method](...args);
+    }
   }
   /**
    * openApp
