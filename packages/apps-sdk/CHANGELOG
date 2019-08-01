@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Release [0.6.0] - 2019-08-01
+### Added
+- Support for executeAppMethod
+
 ## Release [0.5.2] - 2019-07-22
 ### Added
 - Support passing initialData as url params to the apps 
