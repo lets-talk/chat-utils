@@ -77,7 +77,6 @@ export class SDK {
   private handleExecuteAppMethod(event: EventData) {
     const { payload } = event.data;
     const { method, args } = payload;
-    console.log('AppsSDK handleExecuteAppMethod event, this.handlers: ', event, this.handlers);
     if (this.handlers && typeof this.handlers[method] === 'function') {
       this.handlers[method](...args);
     }
