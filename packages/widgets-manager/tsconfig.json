@@ -6,7 +6,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "inlineSourceMap": true,
-    "module": "CommonJS",
+    "module": "es6",
     "moduleResolution": "Node",
     "newLine": "lf",
     "noFallthroughCasesInSwitch": true,
