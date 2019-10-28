@@ -134,6 +134,7 @@ export interface PositionStrategy {
 }
 
 export type PromisedFunction = (appId: number) => Promise<any>;
+export type AppMethod = (appName: string, method: string, args: any[]) => void;
 
 export const makeHTMLFloatType = (rawString: string): HTMLFloatType => {
   switch (rawString) {
