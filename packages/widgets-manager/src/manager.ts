@@ -27,13 +27,13 @@ export class AppManager {
     this.observables = [];
   }
 
-  private getAppPositionName = (app: App) => {
+  private _getAppPositionName = (app: App) => {
     const positionStrategy = makePostionStrategy(app.settings.position.type);
     const positionName = positionStrategy.getNameId(app);
     return positionName;
   }
 
-  private getAppMode = (app: App): string => {
+  private _getAppMode = (app: App): string => {
     if (app.settings.queryParams && app.settings.queryParams['mode']) {
       return app.settings.queryParams['mode'];
     }
@@ -41,7 +41,7 @@ export class AppManager {
     return APP_MODE_IFRAME;
   }
 
-  private addStyleString = (app: App) => {
+  private _addStyleString = (app: App) => {
     const { css } = app.settings;
     
     const node = document.createElement('style');
@@ -50,7 +50,7 @@ export class AppManager {
     document.body.appendChild(node);
   }
 
-  private subscribeToDomEvents(app: App) {
+  private _subscribeToDomEvents(app: App) {
     if (app.settings.position.type === POSITION_RELATIVE_TO_ELEMENT) {
       const relativeElementId = app.settings.position.payload.relativeId;
       const relativeElement = document.getElementById(relativeElementId);
@@ -67,7 +67,7 @@ export class AppManager {
     }
   }
 
-  private unSubscribeToDomEvents(appId: number) {
+  private _unSubscribeToDomEvents(appId: number) {
     const removeObservable = this.observables.find((elem) => elem.id === appId);
     if (removeObservable) {
       removeObservable.observer.disconnect();
@@ -75,7 +75,7 @@ export class AppManager {
     this.observables = this.observables.filter((elem) => elem.id !== appId);
   }
 
-  private createPopupForApp = (app: App) : Window | null => {
+  private _createPopupForApp = (app: App) : Window | null => {
     const stringifiedUrlParams = qs.stringify({ queryParams: app.settings.queryParams }, { encode: false });
     const stringifiedInitialData = qs.stringify({ initialData: JSON.parse(app.payload) }, { encode: false });
 
@@ -86,10 +86,10 @@ export class AppManager {
     )
   }
 
-  private createIframeForApp = (app: App, cell: GridCell): Node | null => {
+  private _createIframeForApp = (app: App, cell: GridCell): Node | null => {
     try {
       const positionStrategy = makePostionStrategy(app.settings.position.type);
-      let iframe = this.getAppIframe(app) as HTMLIFrameElement;
+      let iframe = this._getAppIframe(app) as HTMLIFrameElement;
 
       if (!iframe) {
         // We only create a new iframe if it does not exist
@@ -125,7 +125,7 @@ export class AppManager {
       document.body.appendChild(iframe);
 
       // Add css style tag with style rules
-      this.addStyleString(app);
+      this._addStyleString(app);
       return iframe;
     } catch (error) {
       console.error('Could not position app on the screen. Check your configuration', error)
@@ -134,17 +134,17 @@ export class AppManager {
     return null;
   }
 
-  private getAppIframe = (app: App): HTMLElement | null => {
+  private _getAppIframe = (app: App): HTMLElement | null => {
     return document.getElementById(`lt-${app.slug}`);
   }
 
-  private getAppStyles = (app: App): HTMLElement | null => {
+  private _getAppStyles = (app: App): HTMLElement | null => {
     return document.getElementById(`lt-${app.slug}-styles`);
   }
 
-  private removeIframeForApp = (app: App) => {
-    const appIframe = this.getAppIframe(app);
-    const appStyles = this.getAppStyles(app);
+  private _removeIframeForApp = (app: App) => {
+    const appIframe = this._getAppIframe(app);
+    const appStyles = this._getAppStyles(app);
     if (appIframe) {
       document.body.removeChild(appIframe);
     }
@@ -161,11 +161,11 @@ export class AppManager {
 
   private mountApps = (cell: GridCell, apps: App[]) => {
     apps.forEach((app) => {
-      if (this.getAppMode(app) === APP_MODE_POPUP) {
-        this.createPopupForApp(app);
+      if (this._getAppMode(app) === APP_MODE_POPUP) {
+        this._createPopupForApp(app);
       } else {
-        this.createIframeForApp(app, cell);
-        this.subscribeToDomEvents(app);
+        this._createIframeForApp(app, cell);
+        this._subscribeToDomEvents(app);
       }
     });
   }
@@ -216,9 +216,9 @@ export class AppManager {
   public unMountApp = (appId: number) => {
     const app = this.getApp(appId);
     if (app) {
-      this.removeIframeForApp(app);
+      this._removeIframeForApp(app);
       this.gridManager.removeApp(appId);
-      this.unSubscribeToDomEvents(appId);
+      this._unSubscribeToDomEvents(appId);
     }
   };
 
@@ -257,7 +257,7 @@ export class AppManager {
       const positionStrategy = makePostionStrategy(app.settings.position.type);
       const positionProps = positionStrategy.getPositionProps(app, cell);
 
-      const appIframe = this.getAppIframe(app);
+      const appIframe = this._getAppIframe(app);
 
       Object.keys(settings).forEach((key: string) => {
         appIframe && appIframe.style.setProperty(key, settings[key]);
@@ -274,7 +274,7 @@ export class AppManager {
       return new RegExp("^" + rule.split(".").join("\\.").split("*").join(".*") + "$").test(str);
     }
     const matchedApps = this.registeredApps.filter((app) => {
-      const positionName = this.getAppPositionName(app);
+      const positionName = this._getAppPositionName(app);
       
       return matchRule(positionName, appNamespace);
     });
