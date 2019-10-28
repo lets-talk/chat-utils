@@ -4,8 +4,7 @@ import { makePostionStrategy } from './strategies/position/creator';
 import { diffBy } from './utils/index';
 import { POSITION_RELATIVE_TO_ELEMENT, POSITION_RELATIVE_TO_PLACE, POSITION_FIXED_TO_TOP, APP_MODE_POPUP, APP_MODE_IFRAME } from './constants';
 import { GridManager } from './grid';
-import { App, GridCell, ObjectIndex, PromisedFunction } from "./types";
-import { ReplaceAppStrategy } from './strategies/mounting/replace';
+import { App, GridCell, ObjectIndex } from "./types";
 
 const diffByAppId = diffBy((x: App, y: App ) => x.id === y.id);
 
@@ -15,13 +14,11 @@ type Observable = {
 }
 
 export class AppManager {
-  gridManager: GridManager;
-  fetchAppData: PromisedFunction;
-  registeredApps: App[];
-  observables: Observable[];
+  gridManager!: GridManager;
+  registeredApps!: App[];
+  observables!: Observable[];
   
-  constructor(registeredApps: App[], fetchAppData: PromisedFunction, gridManager: GridManager) {
-    this.fetchAppData = fetchAppData;
+  constructor(registeredApps: App[], gridManager: GridManager) {
     this.gridManager = gridManager;
     this.registeredApps = registeredApps || [];
     this.observables = [];
@@ -171,48 +168,48 @@ export class AppManager {
   }
 
   public mountApp = (appId: number, initialData: any) => {
-    this.fetchAppData(appId)
-      .then((app: App) => {
-        // Set app initial data if any
-        this.setAppInitialData(appId, initialData);
+    // Set app initial data if any
+    this.setAppInitialData(appId, initialData);
+    const app = this.getApp(appId);
 
-        // Determine app position
-        const { position } = app.settings;
-        let positionId;
-        switch (position.type) {
-          case POSITION_RELATIVE_TO_ELEMENT:
-            positionId = position.payload.relativeId;
-            break;
-          case POSITION_RELATIVE_TO_PLACE:
-            positionId = position.payload.positionId;
-            break;
-          case POSITION_FIXED_TO_TOP:
-            positionId = position.type;
-            break;
-          default:
-            positionId = '';
-            break;
-        }
-        
-        // Get current loaded apps for the position
-        const currentApps = this.gridManager.getAppsInCell(positionId);
-        // Add this app to the positionId cell.id
-        // This will call the proper strategy for adding
-        this.gridManager.addAppToCell(positionId, app);
-        const newApps = this.gridManager.getAppsInCell(positionId);
+    if (!app) return;
 
-        // Obtain apps we need to add / remove
-        const removeapps = diffByAppId(currentApps, newApps);
-        const addapps = diffByAppId(newApps, currentApps);
+    // Determine app position
+    const { position } = app.settings;
+    let positionId;
+    switch (position.type) {
+      case POSITION_RELATIVE_TO_ELEMENT:
+        positionId = position.payload.relativeId;
+        break;
+      case POSITION_RELATIVE_TO_PLACE:
+        positionId = position.payload.positionId;
+        break;
+      case POSITION_FIXED_TO_TOP:
+        positionId = position.type;
+        break;
+      default:
+        positionId = '';
+        break;
+    }
+    
+    // Get current loaded apps for the position
+    const currentApps = this.gridManager.getAppsInCell(positionId);
+    // Add this app to the positionId cell.id
+    // This will call the proper strategy for adding
+    this.gridManager.addAppToCell(positionId, app);
+    const newApps = this.gridManager.getAppsInCell(positionId);
 
-        const cell = this.gridManager.getGridCell(positionId);
-        if (cell) {
-          this.unMountApps(removeapps);
-          this.mountApps(cell, addapps);
-        }
-      });
+    // Obtain apps we need to add / remove
+    const removeapps = diffByAppId(currentApps, newApps);
+    const addapps = diffByAppId(newApps, currentApps);
+
+    const cell = this.gridManager.getGridCell(positionId);
+    if (cell) {
+      this.unMountApps(removeapps);
+      this.mountApps(cell, addapps);
+    }
   };
-  
+
   public unMountApp = (appId: number) => {
     const app = this.getApp(appId);
     if (app) {
@@ -281,7 +278,6 @@ export class AppManager {
 
     return matchedApps;
   }
-  
 }
 
 
