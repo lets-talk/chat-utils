@@ -280,30 +280,3 @@ export class AppManager {
   }
 }
 
-
-export const setupManager = (
-  registeredApps: App[],
-  fetchAppData: PromisedFunction,
-) => {
-  const settings = {
-    columns: 3,
-    gutter: 10,
-    padding: 10,
-    positions: [
-      'top-left',
-      'top-center',
-      'top-right',
-      'mid-left',
-      'mid-center',
-      'mid-right',
-      'bottom-left',
-      'bottom-center',
-      'bottom-right',
-    ]
-  };
-  const replaceAppStrategy = new ReplaceAppStrategy();
-  const gridManager = new GridManager(settings, window, replaceAppStrategy);
-  const appManager = new AppManager(registeredApps, fetchAppData, gridManager);
-  return appManager;
-};
-
