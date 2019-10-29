@@ -5,13 +5,13 @@
 docker-defaults: &docker-defaults
   docker:
     # specify the version you desire here
-    - image: circleci/node:latest-browsers
+    - image: circleci/node:12
   working_directory: ~/chat-utils
 
 build-and-test-defaults: &build-and-test-defaults
   docker:
     # specify the version you desire here
-    - image: circleci/node:latest-browsers
+    - image: circleci/node:12
   working_directory: ~/chat-utils
   steps:
       - run:
