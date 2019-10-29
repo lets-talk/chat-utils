@@ -85,7 +85,7 @@ export const disposableSetAppsEpic = (
 }
 
 export const mountAppEpic: Epic = (
-  action$: Observable<Action<void>>,
+  action$: Observable<Action<any>>,
   state$: any,
   dependencies: EpicDependencies,
 ) =>
@@ -95,7 +95,7 @@ export const mountAppEpic: Epic = (
   );
 
 export const unMountAppEpic: Epic = (
-  action$: Observable<Action<void>>,
+  action$: Observable<Action<any>>,
   state$: any,
   dependencies: EpicDependencies,
 ) =>
@@ -105,7 +105,7 @@ export const unMountAppEpic: Epic = (
   );
 
 export const mountAppSuccessEpic: Epic = (
-  action$: Observable<Action<void>>,
+  action$: Observable<Action<any>>,
   state$: any,
   dependencies: EpicDependencies,
 ) =>
@@ -115,7 +115,7 @@ export const mountAppSuccessEpic: Epic = (
   );
 
 export const unMountAppSuccessEpic: Epic = (
-  action$: Observable<Action<void>>,
+  action$: Observable<Action<any>>,
   state$: any,
   dependencies: EpicDependencies,
 ) =>
@@ -125,7 +125,7 @@ export const unMountAppSuccessEpic: Epic = (
   );
 
 export const setAppsEpic: Epic = (
-  action$: Observable<Action<void>>,
+  action$: Observable<Action<any>>,
   state$: any,
   dependencies: EpicDependencies,
 ) =>

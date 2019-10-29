@@ -81,7 +81,7 @@ const disposableSyncDataEpic = (state$: any, action: any, dependencies: EpicDepe
 }
 
 export const syncDataEpic: Epic = (
-  action$: Observable<Action<void>>,
+  action$: Observable<Action<any>>,
   state$: any,
   dependencies: EpicDependencies,
 ) =>
@@ -91,7 +91,7 @@ export const syncDataEpic: Epic = (
   );
 
 export const syncDataSuccessEpic: Epic = (
-  action$: Observable<Action<void>>,
+  action$: Observable<Action<any>>,
   state$: any,
   dependencies: EpicDependencies,
 ) =>

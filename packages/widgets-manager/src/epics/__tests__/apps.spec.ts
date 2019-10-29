@@ -10,8 +10,8 @@ import {
 } from "../../store/actions";
 
 import { createEpicMiddleware } from 'redux-observable';
-import configureMockStore from 'redux-mock-store';
-
+// import configureMockStore from 'redux-mock-store';
+import configureMockStore from '@jedmao/redux-mock-store';
 const mockApps = [
   { id: 1, slug: 'App1'},
   { id: 2, slug: 'App2'},
@@ -33,7 +33,7 @@ const makeMockStore = () => {
       }
     }
   });
-  const mockStore = configureMockStore<any, any>([epicMiddleware])();
+  const mockStore: any = configureMockStore([epicMiddleware])();
   epicMiddleware.run(rootEpic);
   return mockStore;
 };
