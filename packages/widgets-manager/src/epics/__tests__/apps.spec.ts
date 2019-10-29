@@ -84,8 +84,7 @@ describe('mountAppSuccessEpic', () => {
   it('Dispatches the action correctly', () => {
       const store = makeMockStore();
 
-      const mockApp = { id: 1, name: 'App1' };
-      const mountAppSuccessAction = mountAppSuccess(mockApp);
+      const mountAppSuccessAction = mountAppSuccess(1);
       store.dispatch(mountAppSuccessAction);
       const [dispatchedMountAppSuccessAction] = store.getActions();
 
@@ -95,8 +94,7 @@ describe('mountAppSuccessEpic', () => {
   it('Does not dispatch extra actions', () => {
     const store = makeMockStore();
 
-    const mockApp = { id: 1, name: 'App1' };
-    const setAppsAction = mountAppSuccess(mockApp);
+    const setAppsAction = mountAppSuccess(1);
     store.dispatch(setAppsAction);
     const [, , ...rest] = store.getActions();
 
@@ -106,8 +104,7 @@ describe('mountAppSuccessEpic', () => {
   it('Calls updateDocument sideEffect', () => {
     const store = makeMockStore();
 
-    const mockApp = { id: 1, name: 'App1' };
-    const setAppsAction = mountAppSuccess(mockApp);
+    const setAppsAction = mountAppSuccess(1);
     store.dispatch(setAppsAction);
 
     expect(mockUpdateDocument).toBeCalledWith(
@@ -183,7 +180,7 @@ describe('mountAppEpic', () => {
     const [ , dispatchesMountAppSuccessAction] = store.getActions();
 
     expect(dispatchesMountAppSuccessAction).toMatchObject(
-      mountAppSuccess({ appId: 1, initialData: undefined })
+      mountAppSuccess(1)
     );
 });
 
@@ -201,8 +198,7 @@ describe('mountAppEpic', () => {
   it('Calls updateDocument sideEffect', () => {
     const store = makeMockStore();
 
-    const mockApp = { id: 1, name: 'App1' };
-    const setAppsAction = mountAppSuccess(mockApp);
+    const setAppsAction = mountAppSuccess(1);
     store.dispatch(setAppsAction);
 
     expect(mockUpdateDocument).toBeCalledWith(

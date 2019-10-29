@@ -57,7 +57,7 @@ export const setupManager = async (
   store.dispatch(setApps(registeredApps));
 
   return {
-    mountApp: (app: App, initialData: any) => store.dispatch(mountApp(app, initialData)),
+    mountApp: (appId: number, initialData: any) => store.dispatch(mountApp(appId, initialData)),
     unMountApp: (appId: number) => store.dispatch(unMountApp(appId)),
     getAppByName: appManager.getAppByName,
     getAllAppsForNamespace: appManager.getAllAppsForNamespace,

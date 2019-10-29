@@ -12,7 +12,7 @@ export const disposableMountAppEpic = (
   _dependencies: EpicDependencies
 ) : Observable<any> => {
   // In the future we can do some side effect before just dispatching success
-  return from([mountAppSuccess(action.payload)]);
+  return from([mountAppSuccess(action.payload.appId)]);
 }
 
 export const disposableUnMountAppEpic = (
@@ -38,9 +38,8 @@ export const disposableMountAppSuccessEpic = (
 
   debug('disposableMountApp: ', uid, action, apps);
   // Call side effect
-  // updateDocument('users', uid, { apps: apps });
   const updatedMountedApps: any = {}
-  updatedMountedApps[`${action.payload.id}`] = true;
+  updatedMountedApps[`${action.payload.appId}`] = true;
 
   updateDocument('users', uid, { 'mounted_apps': updatedMountedApps });
 

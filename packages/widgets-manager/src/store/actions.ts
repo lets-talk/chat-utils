@@ -24,8 +24,8 @@ export enum ActionType {
 export const mountApp: ActionCreator<string> = (appId: number, initialData: any) =>
   action<string>(ActionType.MOUNT_APP, { appId, initialData });
 
-export const mountAppSuccess: ActionCreator<string> = (app: App) =>
-  action<string>(ActionType.MOUNT_APP_SUCCESS, app);
+export const mountAppSuccess: ActionCreator<string> = (appId: number) =>
+  action<string>(ActionType.MOUNT_APP_SUCCESS, { appId });
 
 export const unMountApp: ActionCreator<string> = (appId: number) =>
   action<string>(ActionType.UNMOUNT_APP, appId);
