@@ -40,19 +40,19 @@ const disposableSyncDataSuccessEpic = (state$: any, action: any, dependencies: a
     // Call side effect
     updateDocument('users', uid, { mounted_apps: currentMountedApps });
 
-    const addappsIds = Object.keys(currentMountedApps)
+    const addAppsIds = Object.keys(currentMountedApps)
         .filter((k) => currentMountedApps[k])
         .map(Number);
 
-    const removeappsIds = Object.keys(currentMountedApps)
+    const removAappsIds = Object.keys(currentMountedApps)
         .filter((k) => !currentMountedApps[k])
         .map(Number);
 
 
-    debug('disposableSyncDataEpic addapps, removeapps: ', addappsIds, removeappsIds);
+    debug('disposableSyncDataEpic addapps, removeapps: ', addAppsIds, removAappsIds);
 
-    removeappsIds.map((appId: number) => unMountApp(appId));
-    addappsIds.map((appId: number) => mountApp(appId));
+    removAappsIds.map((appId: number) => unMountApp(appId));
+    addAppsIds.map((appId: number) => mountApp(appId));
   }
 
 
