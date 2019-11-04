@@ -3,7 +3,7 @@ import { Observable, from, empty } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { ActionType, syncDataSuccess } from "../store/actions";
 import { Epic, ofType } from "redux-observable";
-import * as _ from "lodash";
+import { differenceBy } from "lodash";
 
 const debug = require('debug')('widgets-manager:epics:data');
 
@@ -70,7 +70,7 @@ const disposableSyncDataEpic = (state$: any, action: any, dependencies: EpicDepe
   debug('disposableSyncAppsEpic. action, currentApps', action, currentApps);
 
   if (receivedApps) {
-    const difference = _.differenceBy(receivedApps, currentApps, 'payload')
+    const difference = differenceBy(receivedApps, currentApps, 'payload')
     debug('Difference is:', receivedApps, currentApps, difference);
     difference.forEach((updatedApp: any) => {
       executeAppMethod(updatedApp.slug, 'updateSettings', updatedApp);
