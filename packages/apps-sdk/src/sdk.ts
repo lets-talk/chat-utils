@@ -7,6 +7,7 @@ type EventData = {
 
 import { AppSettingsResult, ObjectIndex } from './types';
 import { decoder } from './utils/url';
+import { launchRuleMachine } from './utils/lisp-rule-machine';
 import {
   deserialize,
 } from './utils/serialization';
@@ -49,7 +50,7 @@ export class SDK {
 
     this.queryParams = Array.isArray(parsed.queryParams) ? parsed.queryParams[0] : parsed.queryParams;
     this.initialData = Array.isArray(parsed.initialData) ? parsed.initialData[0] : parsed.initialData;
-    this.appName = parsedAppName ? parsedAppName : 'messenger-iframe';
+    this.appName = parsedAppName ? parsedAppName : window.location.href;
 
     const mode = this.queryParams && this.queryParams.mode ? this.queryParams.mode : APP_MODE_IFRAME;
     const channelConfig = mode === APP_MODE_POPUP ? { window: window.opener } : { window: window.parent };
@@ -72,6 +73,16 @@ export class SDK {
    */
   public addEventHandlers(handlers: any): void {
     this.handlers = handlers;
+  }
+
+  public listenForEvents(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.getAppSettings().then((result: any) => {
+        const launcher_rules = JSON.parse(result.data.payload);
+        launchRuleMachine(launcher_rules, this.sendChannel, {});
+        resolve();
+      }).catch((error) => reject(error));
+    });
   }
 
   private handleExecuteAppMethod(event: EventData) {
@@ -103,15 +114,18 @@ export class SDK {
     return new Promise((resolve, reject) => {
       return this.sendChannel.send(EVENT_TYPE_GET_APP_SETTINGS, { appName: this.appName }).then((result: AppSettingsResult) => {
         // Here we extend the app initialData with what we have in this.initialData
-        const extendedResult = { 
-          ...result,
-          data: { 
-            ...result.data,
-            initialData: {
-              ...result.data.initialData,
-              payload: {
-                ...result.data.initialData.payload,
-                ...this.initialData,
+        let extendedResult = result;
+        if (result.data.initialData) {
+          extendedResult = { 
+            ...result,
+            data: { 
+              ...result.data,
+              initialData: {
+                ...result.data.initialData,
+                payload: {
+                  ...result.data.initialData.payload,
+                  ...this.initialData,
+                }
               }
             }
           }
