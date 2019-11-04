@@ -24,7 +24,7 @@ export const disposableUnMountAppEpic = (
   return from([unMountAppSuccess(action.payload)]);
 }
 
-export const disposableMountAppSuccessEpic = (
+export const disposableMountAppUpdateEpic = (updateMountedAppsFn: (action: any) => any) => (
   state$: any,
   action: any,
   dependencies: EpicDependencies
@@ -36,31 +36,9 @@ export const disposableMountAppSuccessEpic = (
   const uid = selectCurrentUserUid(state$.value);
   const apps = selectApps(state$.value);
 
-  debug('disposableMountApp: ', uid, action, apps);
+  debug('disposableMountAppUpdateEpic: ', uid, action, apps);
   // Call side effect
-  const updatedMountedApps: any = {}
-  updatedMountedApps[`${action.payload.appId}`] = true;
-
-  updateDocument('users', uid, { 'mounted_apps': updatedMountedApps });
-
-  return empty();
-}
-
-export const disposableUnMountAppSuccessEpic = (
-  state$: any,
-  action: any,
-  dependencies: EpicDependencies
-) : Observable<any> => {
-  const { selectors, sideEffects } = dependencies;
-  const { selectCurrentUserUid, selectApps } = selectors;
-  const { updateDocument } = sideEffects;
-
-  const uid = selectCurrentUserUid(state$.value);
-  const apps = selectApps(state$.value);
-
-  debug('disposableUnMountApp: ', uid, action, apps);
-  const updatedMountedApps: any = {}
-  updatedMountedApps[`${action.payload}`] = false;
+  const updatedMountedApps: any = updateMountedAppsFn(action);
 
   updateDocument('users', uid, { 'mounted_apps': updatedMountedApps });
 
@@ -107,21 +85,35 @@ export const mountAppSuccessEpic: Epic = (
   action$: Observable<Action<any>>,
   state$: any,
   dependencies: EpicDependencies,
-) =>
-  action$.pipe(
+) => {
+  const updateFunction = (action: any) => {
+    const updatedMountedApps: any = {};
+    updatedMountedApps[`${action.payload.appId}`] = true;
+    return updatedMountedApps;
+  }
+  
+  return action$.pipe(
     ofType(ActionType.MOUNT_APP_SUCCESS),
-    switchMap((action) => disposableMountAppSuccessEpic(state$, action, dependencies))
+    switchMap((action) => disposableMountAppUpdateEpic(updateFunction)(state$, action, dependencies))
   );
+}
 
 export const unMountAppSuccessEpic: Epic = (
   action$: Observable<Action<any>>,
   state$: any,
   dependencies: EpicDependencies,
-) =>
-  action$.pipe(
+) => {
+  const updateFunction = (action: any) => {
+    const updatedMountedApps: any = {};
+    updatedMountedApps[`${action.payload}`] = false;
+    return updatedMountedApps;
+  }
+
+  return action$.pipe(
     ofType(ActionType.UNMOUNT_APP_SUCCESS),
-    switchMap((action) => disposableUnMountAppSuccessEpic(state$, action, dependencies))
+    switchMap((action) => disposableMountAppUpdateEpic(updateFunction)(state$, action, dependencies))
   );
+}
 
 export const setAppsEpic: Epic = (
   action$: Observable<Action<any>>,
