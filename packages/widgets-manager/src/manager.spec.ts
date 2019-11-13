@@ -230,7 +230,7 @@ describe('setupManager', () => {
         await manager.mountApp(4, mockInitialData);
 
         expect(mockWindowOpen).toBeCalledWith(
-          '?appName=bci-screenshare&queryParams[mode]=popup&',
+          '?appName=bci-screenshare&queryParams[mode]=popup',
           'bci-screenshare-popup',
           'width=300,height=100,scrollbars=no,resizable=no'
         );
