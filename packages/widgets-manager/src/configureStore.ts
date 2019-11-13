@@ -6,8 +6,12 @@ import { rootReducer } from './reducers';
 import { rootEpic } from './epics';
 
 export const configureStore = (initialState: any, dependencies: any) => {
+  const epicMiddleware = createEpicMiddleware({ dependencies });
 
+  // Create the store with three middlewares (the order here is important)
+  // 1. epicMiddleware: Makes redux-observables work
   const middlewares = [
+    epicMiddleware,
   ];
 
   const enhancers: any[] = [];
@@ -45,6 +49,8 @@ export const configureStore = (initialState: any, dependencies: any) => {
     composeEnhancers(...enhancers)
   );
 
+  /* Finally attach epics to store */
+  epicMiddleware.run(rootEpic);
 
   return store;
 }
