@@ -33,7 +33,30 @@ const pluginLTLinkTarget = (tokens: ObjectIndex<Token>, idx: number, defaultLink
 
   return resultTokens;
 }
+const pluginLTPublicMethod = (tokens: ObjectIndex<Token>, idx: number) => {
+  const href = tokens[idx].attrGet('href');
+  // Add LT-link-target custom value
+  const linkregx = /[&?]LT-public-method=([a-zA-Z0-9=\/\+]*)/;
+
+  const matches = linkregx.exec(href);
+  if (matches && matches.length > 0) {
+    // We only we set the href if there is a match
+    const methodCallAndArgsEncoded = matches[1] ? matches[1] : false;
+    // We do 2 things on click: Open the app and register the analytics event
+    const eventHandlerFunction = `javascript:window.$LTSDK.callPublicMethod64('${methodCallAndArgsEncoded}');window.LTAnalytics.event('${EVENT_CATEGORY_MESSAGE_INTERACTION}', 'click', '${href}')`;
+    
+    tokens[idx].attrSet('href', '#');
+    tokens[idx].attrSet('onclick', eventHandlerFunction);
+    
+    // Remove the target attribute (Firefox would always open a tab if it is present)
+    const targetIndex = tokens[idx].attrIndex('target');
+    tokens[idx].attrs.splice(targetIndex, 1);
+  }
+  
+  return tokens;
+}
 export {
   // Public methods
   pluginLTLinkTarget,
+  pluginLTPublicMethod,
 };

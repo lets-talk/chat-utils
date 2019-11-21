@@ -1,5 +1,6 @@
 import {
   pluginLTLinkTarget,
+  pluginLTPublicMethod,
 } from '../plugins';
 
 describe('Plugins tests', () => {
@@ -128,5 +129,85 @@ describe('Plugins tests', () => {
       });
     });
 
+  });
+
+  describe('pluginLTPublicMethod', () => {
+    describe('When LT-public-method attribute is not present', () => {
+      beforeEach(() => {
+        mockAttrSet.mockClear();
+        mockAttrPush.mockClear();
+      });
+
+      const mockHref = `http://something.com?a=1&b=2`;
+      const mockAttrSet = jest.fn();
+      const mockAttrPush = jest.fn();
+  
+      const mockToken = {
+        attrGet: jest.fn((attr: string) => attr === 'href' ? mockHref : ''),
+        attrSet: mockAttrSet,
+        attrIndex: jest.fn((attr: string) => 1),
+        attrPush: mockAttrPush,
+      
+        attrs: ['href', 'src'],
+        content: 'Something',
+        type: 'link',
+      }
+
+      it('should do nothing', () => {
+        const tokens: ObjectIndex<Token> = {
+          1: mockToken
+        };
+    
+        pluginLTPublicMethod(tokens, 1);
+    
+        expect(mockAttrSet).not.toHaveBeenCalled();
+        expect(mockAttrPush).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('When LT-public-method attribute is present', () => {
+      beforeEach(() => {
+        mockAttrSet.mockClear();
+        mockAttrPush.mockClear();
+      });
+      
+      const mockMethodCallAndArgsEncoded = 'eyJtZXRob2QiOiJzdGFydENvbnZlcnNhdGlvbiIsImFyZ3MiOlt7ImlucXVpcnlJZCI6MjM2OX1dfQ==';
+      const mockHref = `http://something.com?a=1&LT-public-method=${mockMethodCallAndArgsEncoded}&b=2`;
+      const mockAttrSet = jest.fn();
+      const mockAttrPush = jest.fn();
+  
+      const mockToken = {
+        attrGet: jest.fn((attr: string) => attr === 'href' ? mockHref : ''),
+        attrSet: mockAttrSet,
+        attrIndex: jest.fn((attr: string) => 1),
+        attrPush: mockAttrPush,
+      
+        attrs: ['href', 'src'],
+        content: 'Something',
+        type: 'link',
+      }
+  
+      it('should set the href attribute to #', () => {
+        const tokens: ObjectIndex<Token> = {
+          1: mockToken
+        };
+    
+        pluginLTPublicMethod(tokens, 1);
+    
+        expect(mockAttrSet).toHaveBeenNthCalledWith(1, 'href', '#');
+      });
+      
+      it('should set the onclick attribute', () => {
+        const tokens: ObjectIndex<Token> = {
+          1: mockToken
+        };
+    
+        pluginLTPublicMethod(tokens, 1);
+  
+        const expectedOnclick = `javascript:window.$LTSDK.callPublicMethod64('${mockMethodCallAndArgsEncoded}');window.LTAnalytics.event('MessageInteraction', 'click', '${mockHref}')`;
+    
+        expect(mockAttrSet).toHaveBeenNthCalledWith(2, 'onclick', expectedOnclick);
+      });
+    });
   });
 
