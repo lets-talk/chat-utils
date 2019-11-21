@@ -1,0 +1,42 @@
+{
+  "name": "@lets-talk/markdownit-plugins",
+  "version": "1.0.0",
+  "main": "dist/lt-markdownit-plugins.cjs.js",
+  "module": "dist/lt-markdownit-plugins.esm.js",
+  "browser": "dist/lt-markdownit-plugins.umd.js",
+  "dependencies": {},
+  "devDependencies": {
+    "istanbul-cobertura-badger": "^1.3.1",
+    "jest": "^24.9.0",
+    "rollup": "^1.27.2",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.5.2",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.2"
+  },
+  "scripts": {
+    "badge:coverage": "istanbul-cobertura-badger -r coverage/cobertura-coverage.xml -b ../../../docs/_media/markdownit-plugins-code-coverage-badge",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "pretest": "npm run build",
+    "prepublishOnly": "rollup -c",
+    "test": "jest --no-cache --coverage",
+    "test:ci": "jest --no-cache --coverage --runInBand",
+    "release": "./publish.sh",
+    "release:patch": "./publish.sh patch",
+    "release:minor": "./publish.sh minor",
+    "release:major": "./publish.sh major"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "Lets Talk",
+  "license": "ISC",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}
