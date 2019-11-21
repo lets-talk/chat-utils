@@ -33,6 +33,26 @@ const pluginLTLinkTarget = (tokens: ObjectIndex<Token>, idx: number, defaultLink
 
   return resultTokens;
 }
+
+const pluginLTAnalytics = (tokens: ObjectIndex<Token>, idx: number) => {
+  let resultTokens = Object.assign({}, tokens);
+  const href = tokens[idx].attrGet('href');
+
+  const openAppLinkRegx = /[&?]LT-apps-sdk-method=(.*)/;
+  const publicMethodLinkRegx = /[&?]LT-public-method=(.*)/;
+
+  const isOpenAppLink = openAppLinkRegx.exec(href);
+  const isPublicMethodLink = publicMethodLinkRegx.exec(href);
+
+  if (!isOpenAppLink && !isPublicMethodLink) {
+    // Only if it is not a link to open an app or a public method
+    // We set the click to be trackable
+    resultTokens[idx].attrPush([ 'onclick', `javascript:window.LTAnalytics.event('${EVENT_CATEGORY_MESSAGE_INTERACTION}', 'click', '${href}')` ]);
+  }
+
+  return resultTokens;
+}
+
 const pluginLTPublicMethod = (tokens: ObjectIndex<Token>, idx: number) => {
   const href = tokens[idx].attrGet('href');
   // Add LT-link-target custom value
@@ -86,4 +106,5 @@ export {
   pluginLTLinkTarget,
   pluginLTPublicMethod,
   pluginLTAppsSDKMethod,
+  pluginLTAnalytics,
 };

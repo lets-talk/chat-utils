@@ -2,6 +2,7 @@ import {
   pluginLTLinkTarget,
   pluginLTPublicMethod,
   pluginLTAppsSDKMethod,
+  pluginLTAnalytics,
 } from '../plugins';
 
 describe('Plugins tests', () => {
@@ -288,3 +289,90 @@ describe('Plugins tests', () => {
 
   });
 
+  describe('pluginLTAnalytics', () => {
+    describe('When there is an LT-apps-skd-method attribute', () => {
+      const mockMethodCallAndArgsEncoded = 'eyJhcHBOYW1lIjoibHQud2VicnRjLXZpZGVvLWNvbmZlcmVuY2UuKiIsIm1ldGhvZCI6Im9wZW5BcHAiLCJhcmdzIjpbXX0=';
+      const mockHref = `http://something.com?a=1&LT-apps-sdk-method=${mockMethodCallAndArgsEncoded}&b=2`;
+      const mockAttrSet = jest.fn();
+      const mockAttrPush = jest.fn();
+
+      const mockToken = {
+        attrGet: jest.fn((attr: string) => attr === 'href' ? mockHref : ''),
+        attrSet: mockAttrSet,
+        attrIndex: jest.fn((attr: string) => 1),
+        attrPush: mockAttrPush,
+      
+        attrs: ['href', 'src'],
+        content: 'Something',
+        type: 'link',
+      }
+
+      it('should do nothing', () => {
+        const tokens: ObjectIndex<Token> = {
+          1: mockToken
+        };
+    
+        pluginLTAnalytics(tokens, 1);
+    
+        expect(mockAttrPush).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('When there is an LT-public-method attribute', () => {
+      const mockMethodCallAndArgsEncoded = 'eyJhcHBOYW1lIjoibHQud2VicnRjLXZpZGVvLWNvbmZlcmVuY2UuKiIsIm1ldGhvZCI6Im9wZW5BcHAiLCJhcmdzIjpbXX0=';
+      const mockHref = `http://something.com?a=1&LT-public-method=${mockMethodCallAndArgsEncoded}&b=2`;
+      const mockAttrSet = jest.fn();
+      const mockAttrPush = jest.fn();
+
+      const mockToken = {
+        attrGet: jest.fn((attr: string) => attr === 'href' ? mockHref : ''),
+        attrSet: mockAttrSet,
+        attrIndex: jest.fn((attr: string) => 1),
+        attrPush: mockAttrPush,
+      
+        attrs: ['href', 'src'],
+        content: 'Something',
+        type: 'link',
+      }
+
+      it('should do nothing', () => {
+        const tokens: ObjectIndex<Token> = {
+          1: mockToken
+        };
+    
+        pluginLTAnalytics(tokens, 1);
+    
+        expect(mockAttrPush).not.toHaveBeenCalled();
+      });
+    });
+    
+    describe('When there is a normal link', () => {
+      const mockHref = `http://something.com?a=1&b=2`;
+      const mockAttrSet = jest.fn();
+      const mockAttrPush = jest.fn();
+
+      const mockToken = {
+        attrGet: jest.fn((attr: string) => attr === 'href' ? mockHref : ''),
+        attrSet: mockAttrSet,
+        attrIndex: jest.fn((attr: string) => 1),
+        attrPush: mockAttrPush,
+      
+        attrs: ['href', 'src'],
+        content: 'Something',
+        type: 'link',
+      }
+
+      it('should add onclick event to track analytics', () => {
+        const tokens: ObjectIndex<Token> = {
+          1: mockToken
+        };
+    
+        pluginLTAnalytics(tokens, 1);
+        
+        const expectedOnclick = `javascript:window.LTAnalytics.event('MessageInteraction', 'click', '${mockHref}')`;
+  
+        expect(mockAttrPush).toHaveBeenCalledWith(['onclick', expectedOnclick]);
+      });
+    });
+  });
+});
