@@ -55,8 +55,35 @@ const pluginLTPublicMethod = (tokens: ObjectIndex<Token>, idx: number) => {
   
   return tokens;
 }
+
+const pluginLTAppsSDKMethod = (tokens: ObjectIndex<Token>, idx: number) => {
+  const href = tokens[idx].attrGet('href');
+  // Add LT-link-target custom value
+  const linkregx = /[&?]LT-apps-sdk-method=([a-zA-Z0-9=\/\+]*)/;
+  
+  const matches = linkregx.exec(href);
+  if (matches && matches.length > 0) {
+    // We only we set the href if there is a match
+    const methodCallAndArgsEncoded = matches[1] ? matches[1] : false;
+    var linkClassName = tokens[idx].attrGet('class') ? `${tokens[idx].attrGet('class')} actionable-link` : 'actionable-link';
+    // We do 2 things on click: Open the app and register the analytics event
+    const eventHandlerFunction = `javascript:window.$AppsSDK.executeSDKEvent64('${methodCallAndArgsEncoded}');window.LTAnalytics.event('${EVENT_CATEGORY_MESSAGE_INTERACTION}', 'click', '${href}')`;
+    tokens[idx].attrSet('href', '#');
+    tokens[idx].attrSet('onclick', eventHandlerFunction);
+    
+    // Remove the target attribute (Firefox would always open a tab if it is present)
+    const targetIndex = tokens[idx].attrIndex('target');
+    tokens[idx].attrs.splice(targetIndex, 1);
+    // Always add the class to style this as a button
+    tokens[idx].attrPush([ 'class', linkClassName]);
+  }
+
+  return tokens;
+}
+
 export {
   // Public methods
   pluginLTLinkTarget,
   pluginLTPublicMethod,
+  pluginLTAppsSDKMethod,
 };

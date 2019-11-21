@@ -1,6 +1,7 @@
 import {
   pluginLTLinkTarget,
   pluginLTPublicMethod,
+  pluginLTAppsSDKMethod,
 } from '../plugins';
 
 describe('Plugins tests', () => {
@@ -209,5 +210,81 @@ describe('Plugins tests', () => {
         expect(mockAttrSet).toHaveBeenNthCalledWith(2, 'onclick', expectedOnclick);
       });
     });
+  });
+
+  describe('pluginLTAppsSDKMethod', () => {
+    describe('When LT-apps-sdk-method is not present', () => {
+      const mockHref = `http://something.com?a=1&b=2`;
+      const mockAttrSet = jest.fn();
+      const mockAttrPush = jest.fn();
+  
+      const mockToken = {
+        attrGet: jest.fn((attr: string) => attr === 'href' ? mockHref : ''),
+        attrSet: mockAttrSet,
+        attrIndex: jest.fn((attr: string) => 1),
+        attrPush: mockAttrPush,
+      
+        attrs: ['href', 'src'],
+        content: 'Something',
+        type: 'link',
+      }
+
+      it('should do nothing', () => {
+        const tokens: ObjectIndex<Token> = {
+          1: mockToken
+        };
+    
+        pluginLTAppsSDKMethod(tokens, 1);
+    
+        expect(mockAttrSet).not.toHaveBeenCalled();
+        expect(mockAttrPush).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('When LT-apps-sdk-method is present', () => {
+      beforeEach(() => {
+        mockAttrSet.mockClear();
+        mockAttrPush.mockClear();
+      });
+      
+      const mockMethodCallAndArgsEncoded = 'eyJhcHBOYW1lIjoibHQud2VicnRjLXZpZGVvLWNvbmZlcmVuY2UuKiIsIm1ldGhvZCI6Im9wZW5BcHAiLCJhcmdzIjpbXX0=';
+      const mockHref = `http://something.com?a=1&LT-apps-sdk-method=${mockMethodCallAndArgsEncoded}&b=2`;
+      const mockAttrSet = jest.fn();
+      const mockAttrPush = jest.fn();
+  
+      const mockToken = {
+        attrGet: jest.fn((attr: string) => attr === 'href' ? mockHref : ''),
+        attrSet: mockAttrSet,
+        attrIndex: jest.fn((attr: string) => 1),
+        attrPush: mockAttrPush,
+      
+        attrs: ['href', 'src'],
+        content: 'Something',
+        type: 'link',
+      }
+  
+      it('should set the href attribute to #', () => {
+        const tokens: ObjectIndex<Token> = {
+          1: mockToken
+        };
+    
+        pluginLTAppsSDKMethod(tokens, 1);
+    
+        expect(mockAttrSet).toHaveBeenNthCalledWith(1, 'href', '#');
+      });
+      
+      it('should set the onclick attribute', () => {
+        const tokens: ObjectIndex<Token> = {
+          1: mockToken
+        };
+    
+        pluginLTAppsSDKMethod(tokens, 1);
+  
+        const expectedOnclick = `javascript:window.$AppsSDK.executeSDKEvent64('${mockMethodCallAndArgsEncoded}');window.LTAnalytics.event('MessageInteraction', 'click', '${mockHref}')`;
+    
+        expect(mockAttrSet).toHaveBeenNthCalledWith(2, 'onclick', expectedOnclick);
+      });
+    });
+
   });
 
