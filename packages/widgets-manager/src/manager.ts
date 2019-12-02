@@ -4,7 +4,7 @@ import { makePostionStrategy } from './strategies/position/creator';
 import { diffBy } from './utils/index';
 import { POSITION_RELATIVE_TO_ELEMENT, POSITION_RELATIVE_TO_PLACE, POSITION_FIXED_TO_TOP, APP_MODE_POPUP, APP_MODE_IFRAME } from './constants';
 import { GridManager } from './grid';
-import { App, GridCell, ObjectIndex } from "./types";
+import { App, GridCell, AppInlineStyle } from "./types";
 
 const diffByAppId = diffBy((x: App, y: App ) => x.id === y.id);
 
@@ -82,16 +82,51 @@ export class AppManager {
     )
   }
 
+  private _createContainerForApp = (app: App, cell: GridCell): Node => {
+      const positionStrategy = makePostionStrategy(app.settings.position.type);
+
+      const div = document.createElement('div');
+      div.id = `lt-app-container-${app.slug}`;
+      div.style.display = 'block';
+      div.style.padding = '0';
+      div.style.margin = '0';
+      div.style.border = 'none';
+      div.style.display = 'block';
+
+      const innerDiv = document.createElement('div');
+      innerDiv.id = `lt-app-frame-${app.slug}`
+      innerDiv.style.height = app.settings.size.height;
+      innerDiv.style.width = app.settings.size.width;
+      innerDiv.style.position = 'fixed';
+      innerDiv.style.overflow = 'hidden!important';
+      innerDiv.style.opacity = '1!important';
+
+      // Apply settings to the iframe style property
+      Object.keys(app.settings.inlineCss.default).forEach((key: string) => {
+        innerDiv.style.setProperty(key, app.settings.inlineCss.default[key]);
+      });
+
+      const positionProps = positionStrategy.getPositionProps(app, cell);
+
+      Object.keys(positionProps).forEach((key: string) => {
+        innerDiv.style.setProperty(key, positionProps[key]);
+      });
+
+
+      div.appendChild(innerDiv);
+      document.body.appendChild(div);
+      return div;
+  }
+
   private _createIframeForApp = (app: App, cell: GridCell): Node | null => {
     try {
-      const positionStrategy = makePostionStrategy(app.settings.position.type);
       let iframe = this._getAppIframe(app) as HTMLIFrameElement;
 
       if (!iframe) {
         // We only create a new iframe if it does not exist
         // If not we just reuse the one we have it created
         iframe = document.createElement('iframe');
-        iframe.id = `lt-${app.slug}`;
+        iframe.id = `lt-app-iframe-${app.slug}`;
         
         if (app.payload_type === 'lt-basic-container-multimedia' ||
             app.payload_type === 'lt-webrtc'
@@ -103,21 +138,14 @@ export class AppManager {
       const stringifiedUrlParams = qs.stringify({ queryParams: app.settings.queryParams }, { encode: false });
 
       iframe.src = `${app.source}?appName=${app.slug}&${stringifiedUrlParams}`;
-      iframe.style.setProperty('width', app.settings.size.width);
-      iframe.style.setProperty('height', app.settings.size.height);
+      iframe.style.setProperty('width', '100%');
+      iframe.style.setProperty('height', '100%');
+      iframe.style.setProperty('border', 'none');
 
-      // Apply settings to the iframe style property
-      Object.keys(app.settings.inlineCss).forEach((key: string) => {
-        iframe.style.setProperty(key, app.settings.inlineCss[key]);
-      });
-
-      const positionProps = positionStrategy.getPositionProps(app, cell);
-
-      Object.keys(positionProps).forEach((key: string) => {
-        iframe.style.setProperty(key, positionProps[key]);
-      });
-
-      document.body.appendChild(iframe);
+      const containerDiv = this._createContainerForApp(app, cell);
+      const iframeContainer = document.getElementById(`lt-app-frame-${app.slug}`) || document.body;
+      iframeContainer.appendChild(iframe);
+      containerDiv.appendChild(iframeContainer);
 
       // Add css style tag with style rules
       this._addStyleString(app);
@@ -130,7 +158,7 @@ export class AppManager {
   }
 
   private _getAppIframe = (app: App): HTMLElement | null => {
-    return document.getElementById(`lt-${app.slug}`);
+    return document.getElementById(`lt-app-iframe-${app.slug}`);
   }
 
   private _getAppStyles = (app: App): HTMLElement | null => {
@@ -244,7 +272,7 @@ export class AppManager {
     });
   }
 
-  public updateAppSettings = (appId: number, settings: ObjectIndex<string>) => {
+  public updateAppSettings = (appId: number, appInlineStyle: AppInlineStyle) => {
     const app = this.getApp(appId);
     const cell = this.gridManager.getAppCell(appId);
     
@@ -254,8 +282,8 @@ export class AppManager {
 
       const appIframe = this._getAppIframe(app);
 
-      Object.keys(settings).forEach((key: string) => {
-        appIframe && appIframe.style.setProperty(key, settings[key]);
+      Object.keys(appInlineStyle.default).forEach((key: string) => {
+        appIframe && appIframe.style.setProperty(key, appInlineStyle.default[key]);
       });
 
       Object.keys(positionProps).forEach((key: string) => {
