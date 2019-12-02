@@ -7,6 +7,7 @@ import { saveDocument, updateDocument, initializeFirebaseApp } from '../firebase
 // const mockInitializeApp = jest.fn();
 const mockOnAuthStateChanged = jest.fn();
 const mockSignInAnonymously = jest.fn();
+const mockSetPersistance = jest.fn();
 const mockSet = jest.fn();
 
 mockSet.mockReturnValue(true);
@@ -16,6 +17,7 @@ jest.mock('firebase/app', () => ({
   auth: jest.fn(() => ({
     onAuthStateChanged: mockOnAuthStateChanged,
     signInAnonymously: mockSignInAnonymously,
+    setPersistence: mockSetPersistance,
   })),
   firestore: () => ({
     collection: () => ({
@@ -38,6 +40,10 @@ describe('firebase', () => {
     
     it('Call the firebase.auth.signInAnonymously', () => {
       expect(mockSignInAnonymously).toBeCalled();
+    });
+    
+    it('Call the firebase.auth.setPersistence', () => {
+      expect(mockSetPersistance).toBeCalled();
     });
   });
 
