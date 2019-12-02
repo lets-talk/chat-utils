@@ -1,3 +1,3 @@
 export {
   setupManager,
-} from './src/manager';
+} from './src/configureManager';
