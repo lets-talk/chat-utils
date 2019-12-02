@@ -120,7 +120,7 @@ export class AppManager {
 
   private _createIframeForApp = (app: App, cell: GridCell): Node | null => {
     try {
-      let iframe = this._getAppIframe(app) as HTMLIFrameElement;
+      let iframe = this._getAppContainer(app) as HTMLIFrameElement;
 
       if (!iframe) {
         // We only create a new iframe if it does not exist
@@ -157,19 +157,19 @@ export class AppManager {
     return null;
   }
 
-  private _getAppIframe = (app: App): HTMLElement | null => {
-    return document.getElementById(`lt-app-iframe-${app.slug}`);
+  private _getAppContainer = (app: App): HTMLElement | null => {
+    return document.getElementById(`lt-app-container-${app.slug}`);
   }
 
   private _getAppStyles = (app: App): HTMLElement | null => {
     return document.getElementById(`lt-${app.slug}-styles`);
   }
 
-  private _removeIframeForApp = (app: App) => {
-    const appIframe = this._getAppIframe(app);
+  private _removeContainerForApp = (app: App) => {
+    const appContainer = this._getAppContainer(app);
     const appStyles = this._getAppStyles(app);
-    if (appIframe) {
-      document.body.removeChild(appIframe);
+    if (appContainer) {
+      document.body.removeChild(appContainer);
     }
     if (appStyles) {
       document.body.removeChild(appStyles);
@@ -239,7 +239,7 @@ export class AppManager {
   public unMountApp = (appId: number) => {
     const app = this.getApp(appId);
     if (app) {
-      this._removeIframeForApp(app);
+      this._removeContainerForApp(app);
       this.gridManager.removeApp(appId);
       this._unSubscribeToDomEvents(appId);
     }
@@ -280,14 +280,14 @@ export class AppManager {
       const positionStrategy = makePostionStrategy(app.settings.position.type);
       const positionProps = positionStrategy.getPositionProps(app, cell);
 
-      const appIframe = this._getAppIframe(app);
+      const appContainer = this._getAppContainer(app);
 
       Object.keys(appInlineStyle.default).forEach((key: string) => {
-        appIframe && appIframe.style.setProperty(key, appInlineStyle.default[key]);
+        appContainer && appContainer.style.setProperty(key, appInlineStyle.default[key]);
       });
 
       Object.keys(positionProps).forEach((key: string) => {
-        appIframe && appIframe.style.setProperty(key, positionProps[key]);
+        appContainer && appContainer.style.setProperty(key, positionProps[key]);
       });
     }
   };
