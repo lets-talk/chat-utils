@@ -13,7 +13,7 @@ const stateSelector = (state: any) => state;
 const initializeFirebaseApp = (store: any): Promise<any> => {
   debug('Going to instantiate firebase with config:', config);
   firebase.initializeApp(config);
-  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
+  firebase.auth().setPersistence('session');
   return new Promise((resolve, reject) => {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
