@@ -74,10 +74,9 @@ export class AppManager {
 
   private _createPopupForApp = (app: App) : Window | null => {
     const stringifiedUrlParams = qs.stringify({ queryParams: app.settings.queryParams }, { encode: false });
-    const stringifiedInitialData = qs.stringify({ initialData: JSON.parse(app.payload) }, { encode: false });
 
     return window.open(
-      `${app.source}?appName=${app.slug}&${stringifiedUrlParams}&${stringifiedInitialData}`,
+      `${app.source}?appName=${app.slug}&${stringifiedUrlParams}`,
       `${app.slug}-popup`,
       `width=${parseInt(app.settings.size.width, 10)},height=${parseInt(app.settings.size.height, 10)},scrollbars=no,resizable=no`
     )
@@ -102,9 +101,8 @@ export class AppManager {
       }
 
       const stringifiedUrlParams = qs.stringify({ queryParams: app.settings.queryParams }, { encode: false });
-      const stringifiedInitialData = qs.stringify({ initialData: JSON.parse(app.payload) }, { encode: false });
 
-      iframe.src = `${app.source}?appName=${app.slug}&${stringifiedUrlParams}&${stringifiedInitialData}`;
+      iframe.src = `${app.source}?appName=${app.slug}&${stringifiedUrlParams}`;
       iframe.style.setProperty('width', app.settings.size.width);
       iframe.style.setProperty('height', app.settings.size.height);
 
