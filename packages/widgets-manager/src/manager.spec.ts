@@ -1,5 +1,12 @@
-import { setupManager, AppManager } from './manager';
+import { AppManager } from './manager';
 import { App, AppPosition, HTMLFloatType } from './types';
+import { GridManager } from './grid';
+import { ReplaceAppStrategy } from './strategies/mounting/replace';
+
+jest.mock('./utils/firebase', () => ({
+  ...jest.requireActual('./utils/firebase'),
+  initializeFirebaseApp: jest.fn(() => Promise.resolve(1)),
+}));
 
 const mockPositionRelativeToElement: AppPosition = {
   type: 'relative-to-element',
@@ -140,54 +147,50 @@ const mockPopupApp: App = {
   initialData: {} as any,
 }
 
-describe('setupManager', () => {
-  let mockFetchAppData: any;
+describe('AppManager', () => {
+  let mockGridManager: GridManager;
 
   beforeEach(() => {
-    mockFetchAppData = jest.fn((appId) => {
-      return new Promise((resolve) => {
-        switch (appId) {
-          case 1:
-            resolve(mockApp1);
-            break;
-          case 2:
-            resolve(mockApp2);
-            break;
-          case 3:
-            resolve(mockApp3);
-            break;
-          case 4:
-            resolve(mockPopupApp);
-            break;
-        
-          default:
-            resolve(mockApp1);
-            break;
-        }
-      });
-    });
+    const settings = {
+      columns: 3,
+      gutter: 10,
+      padding: 10,
+      positions: [
+        'top-left',
+        'top-center',
+        'top-right',
+        'mid-left',
+        'mid-center',
+        'mid-right',
+        'bottom-left',
+        'bottom-center',
+        'bottom-right',
+      ]
+    };
+    const replaceAppStrategy = new ReplaceAppStrategy();
+    mockGridManager = new GridManager(settings, window, replaceAppStrategy);
   });
-  
+
   describe('I can create a Manager', () => {
-    it('creates and configures a Manager', () => {
-      const manager = setupManager([], mockFetchAppData);
+    it('creates and configures a Manager', async () => {
+      const manager = await new AppManager([mockApp1, mockApp2, mockApp3, mockPopupApp], mockGridManager);
       expect(manager).toBeDefined();
     });
   });
 
   describe('Mounting apps', () => {
     it('I can mount apps', async () => {
-      const manager = setupManager([mockApp1, mockApp2, mockApp3], mockFetchAppData);
-
+      const manager = await new AppManager([mockApp1, mockApp2, mockApp3], mockGridManager);
+      
       expect(manager.getApp(3)).toMatchObject(mockApp3);
     })
 
-    it('I can mount app with initial data', async () => {
-      const manager = setupManager([mockApp1, mockApp2, mockApp3], mockFetchAppData);
+    it('I can mount app with initial data', () => {
+      const manager = new AppManager([mockApp1, mockApp2, mockApp3], mockGridManager);
       const mockInitialData = {
         conversationId: 22,
       };
-      await manager.mountApp(1, mockInitialData);
+      manager.mountApp(1, mockInitialData);
 
       const mountedApp = manager.getAppByName(mockApp1.slug);
       expect(mountedApp).toBeDefined();
@@ -202,32 +205,32 @@ describe('setupManager', () => {
         roomId: 'ABC-123',
       };
       beforeEach(() => {
-        manager = setupManager([mockPopupApp], mockFetchAppData);
+        manager = new AppManager([mockPopupApp], mockGridManager);
         window.open = mockWindowOpen;
       });
 
-      it('Mounts the app', async () => {
-        await manager.mountApp(4, mockInitialData);
+      it('Mounts the app', () => {
+        manager.mountApp(4, mockInitialData);
 
         const mountedApp = manager.getAppByName(mockPopupApp.slug);
         expect(mountedApp).toBeDefined();
       });
 
-      it('The app receives the initialData', async () => {
-        await manager.mountApp(4, mockInitialData);
+      it('The app receives the initialData', () => {
+        manager.mountApp(4, mockInitialData);
 
         const mountedApp = manager.getAppByName(mockPopupApp.slug);
         expect(mountedApp!.initialData).toMatchObject(mockInitialData);
       });
 
-      it('The app calls window.open', async () => {
-        await manager.mountApp(4, mockInitialData);
+      it('The app calls window.open', () => {
+        manager.mountApp(4, mockInitialData);
 
         expect(mockWindowOpen).toBeCalled();
       });
 
-      it('The app calls window.open with the correct params', async () => {
-        await manager.mountApp(4, mockInitialData);
+      it('The app calls window.open with the correct params', () => {
+        manager.mountApp(4, mockInitialData);
 
         expect(mockWindowOpen).toBeCalledWith(
           '?appName=bci-screenshare&queryParams[mode]=popup',
@@ -239,11 +242,11 @@ describe('setupManager', () => {
   });
 
   describe('getAllAppsForNamespace', () => {
-    it('Can get all apps for a namespace', async () => {
-      const manager = setupManager([mockApp1, mockApp2, mockApp3], mockFetchAppData);
-      await manager.mountApp(1, {});
-      await manager.mountApp(2, {});
-      await manager.mountApp(3, {});
+    it('Can get all apps for a namespace', () => {
+      const manager = new AppManager([mockApp1, mockApp2, mockApp3], mockGridManager);
+      manager.mountApp(1, {});
+      manager.mountApp(2, {});
+      manager.mountApp(3, {});
       
       // Exact match -> We find one and just one app
       const selectedApp1 = manager.getAllAppsForNamespace('lt.html-notification.relative-mockElement-LL-BT');
