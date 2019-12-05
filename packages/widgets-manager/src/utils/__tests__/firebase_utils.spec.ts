@@ -2,7 +2,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/firestore';
 
-import { saveDocument, updateDocument, initializeFirebaseApp } from '../firebase';
+import { saveDocument, updateDocument, initializeFirebaseApp } from '../firebase_utils';
 
 // const mockInitializeApp = jest.fn();
 const mockOnAuthStateChanged = jest.fn();
