@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Release [2.0.1] - 2019-12-02
+## Hotfix [2.0.2] - 2019-12-04
+- Fix error warning FirebaseError: Firebase: Firebase App named already exists
+
+## Hotfix [2.0.1] - 2019-12-02
 - Removing app should remove the whole container not just the iframe
 
 ## Release [2.0.0] - 2019-12-02
