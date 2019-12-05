@@ -6,10 +6,10 @@ import { ReplaceAppStrategy } from './strategies/mounting/replace';
 import { selectCurrentUserUid } from './selectors/user';
 import { selectApps } from './selectors/apps';
 import { selectMountedApps } from './selectors/mounted_apps';
-import { initializeFirebaseApp } from './utils/firebase';
+import { initializeFirebaseApp } from './utils/firebase_utils';
 import { configureStore } from './configureStore';
 import { initialState } from './store/initialState';
-import { updateDocument } from "./utils/firebase";
+import { updateDocument } from "./utils/firebase_utils";
 import { setApps, mountApp, unMountApp } from './store/actions';
 
 export const setupManager = async (
