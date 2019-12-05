@@ -4,6 +4,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import { updateUserData, syncData } from '../store/actions';
 import { config } from '../config/firebase';
+import firebaseApp from './firebase';
 
 const debug = require('debug')('widgets-manager:utils:firebase');
 
@@ -12,15 +13,15 @@ const stateSelector = (state: any) => state;
 
 const initializeFirebaseApp = (store: any): Promise<any> => {
   debug('Going to instantiate firebase with config:', config);
-  firebase.auth().setPersistence('session');
+  firebase.auth(firebaseApp).setPersistence('session');
   return new Promise((resolve, reject) => {
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth(firebaseApp).onAuthStateChanged(function(user) {
       if (user) {
         // User is signed in.
         debug('Got firebase user:', user);
         store.dispatch(updateUserData(user));
         linkStoreWithPath(`${user.uid}`, syncData, stateSelector)(
-          firebase.firestore(),
+          firebase.firestore(firebaseApp),
           store
         );
         resolve();
@@ -30,7 +31,7 @@ const initializeFirebaseApp = (store: any): Promise<any> => {
       }
     });
 
-    firebase.auth().signInAnonymously().catch(function(error) {
+    firebase.auth(firebaseApp).signInAnonymously().catch(function(error) {
       // Handle Errors here.
       console.error('Firebase auth error:', error);
       reject(error);
