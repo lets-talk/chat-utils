@@ -53,7 +53,7 @@ export class AppManager {
       const relativeElement = document.getElementById(relativeElementId);
       if (relativeElement) {
         const observer = new Observer([relativeElement], () => {
-          this.updateAppSettings(app.id, app.settings.inlineCss);
+          this.updateAppSettings(app.id, app.settings.inlineCss.default);
         });
         const observable = {
           id: app.id,
@@ -159,6 +159,10 @@ export class AppManager {
 
   private _getAppContainer = (app: App): HTMLElement | null => {
     return document.getElementById(`lt-app-container-${app.slug}`);
+  }
+
+  private _getAppFrame = (app: App): HTMLElement | null => {
+    return document.getElementById(`lt-app-frame-${app.slug}`);
   }
 
   private _getAppStyles = (app: App): HTMLElement | null => {
@@ -280,7 +284,7 @@ export class AppManager {
       const positionStrategy = makePostionStrategy(app.settings.position.type);
       const positionProps = positionStrategy.getPositionProps(app, cell);
 
-      const appContainer = this._getAppContainer(app);
+      const appContainer = this._getAppFrame(app);
 
       Object.keys(appInlineStyle.default).forEach((key: string) => {
         appContainer && appContainer.style.setProperty(key, appInlineStyle.default[key]);
