@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Hotfix [2.1.0] - 2019-12-06
+- When updating Apps setting due to changes on related container (MutationObserver)
+change the correct app container (app-frame).
+- Breaking change: Apps appStyle should have default key.
+
 ## Hotfix [2.0.3] - 2019-12-04
 - Use created app in the services firestore and auth 
 

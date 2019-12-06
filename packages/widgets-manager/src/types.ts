@@ -18,7 +18,7 @@ export type AppSize = {
 
 export type Settings = {
   css: string;
-  inlineCss: AppInlineStyle;
+  inlineCss: ObjectIndex<AppInlineStyle>;
   position: AppPosition;
   size: AppSize;
   queryParams: ObjectIndex<any>;
