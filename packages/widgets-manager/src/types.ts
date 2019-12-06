@@ -7,8 +7,12 @@ export type ObjectIndex<T> = {
   [key:string]: T;
 }
 
+export type CSSStyles = {
+  [ruleName: string]: string;
+}
+
 export type AppInlineStyle = {
-  [key: string]: ObjectIndex<string>;
+  [state: string]: CSSStyles;
 }
 
 export type AppSize = {
@@ -18,7 +22,7 @@ export type AppSize = {
 
 export type Settings = {
   css: string;
-  inlineCss: ObjectIndex<AppInlineStyle>;
+  inlineCss: AppInlineStyle;
   position: AppPosition;
   size: AppSize;
   queryParams: ObjectIndex<any>;

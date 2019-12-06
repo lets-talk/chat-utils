@@ -53,7 +53,7 @@ export class AppManager {
       const relativeElement = document.getElementById(relativeElementId);
       if (relativeElement) {
         const observer = new Observer([relativeElement], () => {
-          this.updateAppSettings(app.id, app.settings.inlineCss.default);
+          this.updateAppSettings(app.id, app.settings.inlineCss);
         });
         const observable = {
           id: app.id,
