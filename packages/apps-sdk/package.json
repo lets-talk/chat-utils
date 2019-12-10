@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/apps-sdk",
-  "version": "0.6.1",
+  "version": "1.0.0-beta-1",
   "description": "SDK for apps running on letstalk plataform",
   "scripts": {
     "prepublishOnly": "tsc",
