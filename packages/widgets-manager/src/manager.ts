@@ -5,23 +5,29 @@ import { diffBy } from './utils/index';
 import { POSITION_RELATIVE_TO_ELEMENT, POSITION_RELATIVE_TO_PLACE, POSITION_FIXED_TO_TOP, APP_MODE_POPUP, APP_MODE_IFRAME } from './constants';
 import { GridManager } from './grid';
 import { App, GridCell, AppInlineStyle } from "./types";
+import { Store } from 'redux';
+import { selectApps } from './selectors/apps';
+import { initialState } from './store/initialState';
+import { ApplicationState } from './store/types';
 
+const debug = require('debug')('widgets-manager:manager');
 const diffByAppId = diffBy((x: App, y: App ) => x.id === y.id);
 
 type Observable = {
-  id: number,
+  id: string,
   observer: Observer,
 }
 
 export class AppManager {
+  store?: Store;
+  state: ApplicationState;
   gridManager!: GridManager;
-  registeredApps!: App[];
   observables!: Observable[];
   
-  constructor(registeredApps: App[], gridManager: GridManager) {
+  constructor(gridManager: GridManager) {
     this.gridManager = gridManager;
-    this.registeredApps = registeredApps || [];
     this.observables = [];
+    this.state = initialState;
   }
 
   private _getAppPositionName = (app: App) => {
@@ -53,10 +59,10 @@ export class AppManager {
       const relativeElement = document.getElementById(relativeElementId);
       if (relativeElement) {
         const observer = new Observer([relativeElement], () => {
-          this.updateAppSettings(app.id, app.settings.inlineCss);
+          this.updateAppSettings(app.slug, app.settings.inlineCss);
         });
         const observable = {
-          id: app.id,
+          id: app.slug,
           observer: observer,
         }
         this.observables.push(observable);
@@ -64,12 +70,12 @@ export class AppManager {
     }
   }
 
-  private _unSubscribeToDomEvents(appId: number) {
-    const removeObservable = this.observables.find((elem) => elem.id === appId);
+  private _unSubscribeToDomEvents(appName: string) {
+    const removeObservable = this.observables.find((elem) => elem.id === appName);
     if (removeObservable) {
       removeObservable.observer.disconnect();
     }
-    this.observables = this.observables.filter((elem) => elem.id !== appId);
+    this.observables = this.observables.filter((elem) => elem.id !== appName);
   }
 
   private _createPopupForApp = (app: App) : Window | null => {
@@ -82,73 +88,79 @@ export class AppManager {
     )
   }
 
-  private _createContainerForApp = (app: App, cell: GridCell): Node => {
-      const positionStrategy = makePostionStrategy(app.settings.position.type);
+  private _createContainerForApp = (app: App, cell: GridCell, iframe: HTMLElement): Node => {
+    const positionStrategy = makePostionStrategy(app.settings.position.type);
 
-      const div = document.createElement('div');
-      div.id = `lt-app-container-${app.slug}`;
-      div.style.display = 'block';
-      div.style.padding = '0';
-      div.style.margin = '0';
-      div.style.border = 'none';
-      div.style.display = 'block';
+    const div = document.createElement('div');
+    div.id = `lt-app-container-${app.slug}`;
+    div.style.display = 'block';
+    div.style.padding = '0';
+    div.style.margin = '0';
+    div.style.border = 'none';
+    div.style.display = 'block';
 
-      const innerDiv = document.createElement('div');
-      innerDiv.id = `lt-app-frame-${app.slug}`
-      innerDiv.style.height = app.settings.size.height;
-      innerDiv.style.width = app.settings.size.width;
-      innerDiv.style.position = 'fixed';
-      innerDiv.style.overflow = 'hidden!important';
-      innerDiv.style.opacity = '1!important';
+    const innerDiv = document.createElement('div');
+    innerDiv.id = `lt-app-frame-${app.slug}`
+    innerDiv.style.height = app.settings.size.height;
+    innerDiv.style.width = app.settings.size.width;
+    innerDiv.style.position = 'fixed';
+    innerDiv.style.overflow = 'hidden!important';
+    innerDiv.style.opacity = '1!important';
 
-      // Apply settings to the iframe style property
-      Object.keys(app.settings.inlineCss.default).forEach((key: string) => {
-        innerDiv.style.setProperty(key, app.settings.inlineCss.default[key]);
-      });
+    // Apply settings to the iframe style property
+    Object.keys(app.settings.inlineCss.default).forEach((key: string) => {
+      innerDiv.style.setProperty(key, app.settings.inlineCss.default[key]);
+    });
 
-      const positionProps = positionStrategy.getPositionProps(app, cell);
+    const positionProps = positionStrategy.getPositionProps(app, cell);
 
-      Object.keys(positionProps).forEach((key: string) => {
-        innerDiv.style.setProperty(key, positionProps[key]);
-      });
+    Object.keys(positionProps).forEach((key: string) => {
+      innerDiv.style.setProperty(key, positionProps[key]);
+    });
 
+    innerDiv.appendChild(iframe);
 
-      div.appendChild(innerDiv);
-      document.body.appendChild(div);
-      return div;
+    div.appendChild(innerDiv);
+    document.body.appendChild(div);
+    return div;
   }
 
-  private _createIframeForApp = (app: App, cell: GridCell): Node | null => {
+  private _createAppIframe = (app: App): HTMLIFrameElement => {
+    // We only create a new iframe if it does not exist
+    // If not we just reuse the one we have it created
+    const iframe = document.createElement('iframe');
+    iframe.id = `lt-app-iframe-${app.slug}`;
+    
+    if (app.payload_type === 'lt-basic-container-multimedia' ||
+        app.payload_type === 'lt-webrtc'
+    ) {
+      (iframe as any).allow = "microphone *; camera *";
+    }
+
+    const stringifiedUrlParams = qs.stringify({ queryParams: app.settings.queryParams }, { encode: false });
+
+    iframe.src = `${app.source}?appName=${app.slug}&${stringifiedUrlParams}`;
+    iframe.style.setProperty('width', '100%');
+    iframe.style.setProperty('height', '100%');
+    iframe.style.setProperty('border', 'none');
+
+    return iframe;
+  }
+
+  private _createDivContainerForApp = (app: App, cell: GridCell): Node | null => {
     try {
-      let iframe = this._getAppContainer(app) as HTMLIFrameElement;
+      let iframe = this._getAppIframe(app) as HTMLIFrameElement;
 
       if (!iframe) {
         // We only create a new iframe if it does not exist
         // If not we just reuse the one we have it created
-        iframe = document.createElement('iframe');
-        iframe.id = `lt-app-iframe-${app.slug}`;
-        
-        if (app.payload_type === 'lt-basic-container-multimedia' ||
-            app.payload_type === 'lt-webrtc'
-        ) {
-          (iframe as any).allow = "microphone *; camera *";
-        }
+        iframe = this._createAppIframe(app);
+        // Create app-container and frame-container divs
+        this._createContainerForApp(app, cell, iframe);
+        // Add css style tag with style rules
+        this._addStyleString(app);
       }
 
-      const stringifiedUrlParams = qs.stringify({ queryParams: app.settings.queryParams }, { encode: false });
-
-      iframe.src = `${app.source}?appName=${app.slug}&${stringifiedUrlParams}`;
-      iframe.style.setProperty('width', '100%');
-      iframe.style.setProperty('height', '100%');
-      iframe.style.setProperty('border', 'none');
-
-      const containerDiv = this._createContainerForApp(app, cell);
-      const iframeContainer = document.getElementById(`lt-app-frame-${app.slug}`) || document.body;
-      iframeContainer.appendChild(iframe);
-      containerDiv.appendChild(iframeContainer);
-
-      // Add css style tag with style rules
-      this._addStyleString(app);
       return iframe;
     } catch (error) {
       console.error('Could not position app on the screen. Check your configuration', error)
@@ -163,6 +175,10 @@ export class AppManager {
 
   private _getAppFrame = (app: App): HTMLElement | null => {
     return document.getElementById(`lt-app-frame-${app.slug}`);
+  }
+
+  private _getAppIframe = (app: App): HTMLElement | null => {
+    return document.getElementById(`lt-app-iframe-${app.slug}`);
   }
 
   private _getAppStyles = (app: App): HTMLElement | null => {
@@ -182,7 +198,7 @@ export class AppManager {
 
   private unMountApps = (apps: App[]): void => {
     apps.forEach((app) => {
-      this.unMountApp(app.id);
+      this.unMountApp(app.slug);
     });
   }
 
@@ -191,16 +207,27 @@ export class AppManager {
       if (this._getAppMode(app) === APP_MODE_POPUP) {
         this._createPopupForApp(app);
       } else {
-        this._createIframeForApp(app, cell);
+        this._createDivContainerForApp(app, cell);
         this._subscribeToDomEvents(app);
       }
     });
   }
 
-  public mountApp = (appId: number, initialData: any) => {
+  private updateState() {
+    const state = this.store && this.store.getState() || initialState;
+    this.state = state;
+    debug('updateState this.state', this.state);
+  }
+
+  public initialize(store: Store<any>) {
+    this.store = store;
+    this.store.subscribe(this.updateState.bind(this));
+  }
+
+  public mountApp = (appName: string) => {
+    debug('mountApp with (appName)', appName);
     // Set app initial data if any
-    this.setAppInitialData(appId, initialData);
-    const app = this.getApp(appId);
+    const app = this.getAppByName(appName);
 
     if (!app) return;
 
@@ -240,45 +267,40 @@ export class AppManager {
     }
   };
 
-  public unMountApp = (appId: number) => {
-    const app = this.getApp(appId);
+  public unMountApp = (appName: string) => {
+    debug('unMountApp(appName)', appName);
+    const app = this.getAppByName(appName);
     if (app) {
       this._removeContainerForApp(app);
-      this.gridManager.removeApp(appId);
-      this._unSubscribeToDomEvents(appId);
+      this.gridManager.removeApp(appName);
+      this._unSubscribeToDomEvents(appName);
     }
-  };
-
-  public getApp = (appId: number) => {
-    return this.registeredApps.find((app) => app.id === appId);
   };
   
   public getAppByName = (appName: string) => {
-    return this.registeredApps.find((app) => app.slug === appName);
+    const apps = this.getApps();
+    const app = apps.find((app: App) => app.slug === appName);
+    debug('getAppByName(appName), app', appName, app);
+    return app;
   };
 
   public getApps = (): App[] => {
-    return this.registeredApps;
-  }
-
-  public setAppInitialData = (appId: number, initialData: any): void => {
-    const appIndex = this.registeredApps.findIndex((app) => app.id === appId);
-    if (appIndex !== -1) {
-      this.registeredApps[appIndex].initialData = {...this.registeredApps[appIndex].initialData, ...initialData };
-    }
+    return selectApps(this.state);
   }
 
   public updateAllAppSettings = () => {
+    debug('updateAppAppSettings');
     this.gridManager.refreshGridDimension();
     const apps: App[] = this.getApps();
     apps.forEach((app) => {
-      this.updateAppSettings(app.id, app.settings.inlineCss);
+      this.updateAppSettings(app.slug, app.settings.inlineCss);
     });
   }
 
-  public updateAppSettings = (appId: number, appInlineStyle: AppInlineStyle) => {
-    const app = this.getApp(appId);
-    const cell = this.gridManager.getAppCell(appId);
+  public updateAppSettings = (appName: string, appInlineStyle: AppInlineStyle) => {
+    debug('updateAppSettings appName, appInlineStyle', appName, appInlineStyle);
+    const app = this.getAppByName(appName);
+    const cell = this.gridManager.getAppCell(appName);
     
     if (app && cell) {
       const positionStrategy = makePostionStrategy(app.settings.position.type);
@@ -297,10 +319,11 @@ export class AppManager {
   };
 
   public getAllAppsForNamespace = (appNamespace: string): App[] => {
+    debug('getAllAppsForNamespace(appNamespace)', appNamespace);
     const matchRule = (str: string, rule: string): boolean => {
       return new RegExp("^" + rule.split(".").join("\\.").split("*").join(".*") + "$").test(str);
     }
-    const matchedApps = this.registeredApps.filter((app) => {
+    const matchedApps = this.getApps().filter((app) => {
       const positionName = this._getAppPositionName(app);
       
       return matchRule(positionName, appNamespace);

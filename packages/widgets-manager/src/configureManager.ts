@@ -6,14 +6,16 @@ import { ReplaceAppStrategy } from './strategies/mounting/replace';
 import { selectCurrentUserUid } from './selectors/user';
 import { selectApps } from './selectors/apps';
 import { selectMountedApps } from './selectors/mounted_apps';
+import { selectAppsInitialData } from './selectors/initial_data';
 import { initializeFirebaseApp } from './utils/firebase_utils';
 import { configureStore } from './configureStore';
 import { initialState } from './store/initialState';
 import { updateDocument } from "./utils/firebase_utils";
-import { setApps, mountApp, unMountApp } from './store/actions';
+import { mountApp, unMountApp, setApps, setAppsInitialData } from './store/actions';
 
 export const setupManager = async (
   registeredApps: App[],
+  appsInitialData: ObjectIndex<any>,
   sideEffects: ObjectIndex<any>,
 ) => {
   const settings = {
@@ -34,14 +36,15 @@ export const setupManager = async (
   };
   const replaceAppStrategy = new ReplaceAppStrategy();
   const gridManager = new GridManager(settings, window, replaceAppStrategy);
-  const appManager = new AppManager(registeredApps, gridManager);
+  const appManager = new AppManager(gridManager);
 
   // @ts-ignore
-  const store = configureStore(initialState, {
+  const store = configureStore({ ...initialState, apps: registeredApps }, {
     selectors: {
       selectApps,
       selectMountedApps,
       selectCurrentUserUid,
+      selectAppsInitialData,
     },
     sideEffects: {
       // Apps
@@ -53,12 +56,15 @@ export const setupManager = async (
     }
   });
 
+  appManager.initialize(store);
+
   await initializeFirebaseApp(store);
   store.dispatch(setApps(registeredApps));
+  store.dispatch(setAppsInitialData(appsInitialData));
 
   return {
-    mountApp: (appId: number, initialData: any) => store.dispatch(mountApp(appId, initialData)),
-    unMountApp: (appId: number) => store.dispatch(unMountApp(appId)),
+    mountApp: (appName: string, initialData: any) => store.dispatch(mountApp(appName, initialData)),
+    unMountApp: (appName: string) => store.dispatch(unMountApp(appName)),
     getAppByName: appManager.getAppByName,
     getAllAppsForNamespace: appManager.getAllAppsForNamespace,
     updateAllAppSettings: appManager.updateAllAppSettings,

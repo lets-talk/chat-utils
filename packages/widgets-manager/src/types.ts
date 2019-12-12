@@ -103,7 +103,7 @@ export type App = {
   settings: Settings;
   organization_id: Number;
   source: string;
-  initialData: any;
+  initialData?: any;
 }
 
 export type Size = {
@@ -141,7 +141,7 @@ export interface PositionStrategy {
   mountStrategy(): AddAppsStrategy;
 }
 
-export type PromisedFunction = (appId: number) => Promise<any>;
+export type PromisedFunction = (appName: string) => Promise<any>;
 export type AppMethod = (appName: string, method: string, args: any[]) => void;
 
 export const makeHTMLFloatType = (rawString: string): HTMLFloatType => {

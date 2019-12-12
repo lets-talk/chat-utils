@@ -10,6 +10,7 @@ export interface ApplicationState {
   readonly apps: App[];
   readonly mounted_apps: ObjectIndex<number>;
   readonly user: any;
+  readonly initial_data: ObjectIndex<any>;
 }
 
 
@@ -28,8 +29,8 @@ export type EpicDependencies = {
     selectApps: (state: ApplicationState) => any,
   },
   sideEffects: {
-    mountApp: (appId: number) => void,
-    unMountApp: (appId: number) => void,
+    mountApp: (appName: string) => void,
+    unMountApp: (appName: string) => void,
     updateDocument: (collectionName: string, documentId: string, data: any) => void,
     executeAppMethod: (appSlug: string, method: string, data: any) => void
   }
@@ -63,4 +64,15 @@ export interface Action<T = any> {
   type: ActionType;
   payload?: T;
 }
+
+export interface ActionWithPayload<T = any> {
+  type: ActionType;
+  payload: T;
+}
+
+export interface MountAppAction {
+  appName: string;
+  initialData: ObjectIndex<any>;
+}
+
 
