@@ -14,10 +14,11 @@ const mockApps = [
   { id: 2, slug: 'App2'},
   { id: 3, slug: 'App3'},
 ];
-const mockMountedApps = { 1: false, 2: true, 3: false };
+const mockMountedApps = { 'App1': false, 'App2': true, 'App3': false };
 const mockSelectCurrentUserId = () => 'uid-12345';
 const mockSelectApps = () => (mockApps);
 const mockSelectMountedApps = () => (mockMountedApps);
+const mockSelectAppsInitialData = () => ({ 'App1': { metadata: { vip: true }}});
 const mockUpdateDocument = jest.fn();
 const mockMountApp = jest.fn();
 const mockUnMountApp = jest.fn();
@@ -29,6 +30,7 @@ const makeMockStore = () => {
         selectCurrentUserUid: mockSelectCurrentUserId,
         selectApps: mockSelectApps,
         selectMountedApps: mockSelectMountedApps,
+        selectAppsInitialData: mockSelectAppsInitialData,
       },
       sideEffects: {
         updateDocument: mockUpdateDocument,
@@ -53,11 +55,11 @@ describe('syncDataSuccessEpic', () => {
       const store = makeMockStore();
 
       const mockSyncApps = [
-        { id: 1, name: 'App1' },
-        { id: 4, name: 'App4' }
+        { id: 1, slug: 'App1' },
+        { id: 4, slug: 'App4' }
       ];
       
-      const mockSyncMountedApps = { 1: false, 4: true };
+      const mockSyncMountedApps = { 'App1': false, 'App4': true };
 
       const syncDataSuccessAction = syncDataSuccess({
         apps: mockSyncApps,
@@ -73,11 +75,11 @@ describe('syncDataSuccessEpic', () => {
     const store = makeMockStore();
 
     const mockSyncApps = [
-      { id: 1, name: 'App1' },
-      { id: 4, name: 'App4' }
+      { id: 1, slug: 'App1' },
+      { id: 4, slug: 'App4' }
     ];
     
-    const mockSyncMountedApps = { 1: false, 4: true };
+    const mockSyncMountedApps = { 'App1': false, 'App4': true };
 
     const syncDataSuccessAction = syncDataSuccess({
       apps: mockSyncApps,
@@ -93,11 +95,11 @@ describe('syncDataSuccessEpic', () => {
     const store = makeMockStore();
 
     const mockSyncApps = [
-      { id: 1, name: 'App1' },
-      { id: 4, name: 'App4' }
+      { id: 1, slug: 'App1' },
+      { id: 4, slug: 'App4' }
     ];
     
-    const mockSyncMountedApps = { 1: false, 4: true };
+    const mockSyncMountedApps = { 'App1': false, 'App4': true };
 
     const syncDataSuccessAction = syncDataSuccess({
       apps: mockSyncApps,
@@ -114,11 +116,11 @@ describe('syncDataSuccessEpic', () => {
     const store = makeMockStore();
 
     const mockSyncApps = [
-      { id: 1, name: 'App1' },
-      { id: 4, name: 'App4' }
+      { id: 1, slug: 'App1' },
+      { id: 4, slug: 'App4' }
     ];
     
-    const mockSyncMountedApps = { 1: false, 4: true };
+    const mockSyncMountedApps = { 'App1': false, 'App4': true };
 
     const syncDataSuccessAction = syncDataSuccess({
       apps: mockSyncApps,
@@ -147,7 +149,7 @@ describe('syncDataSuccessEpic', () => {
     });
 
     it('Calls mountApp sideEffect for mounting necessary apps', () => {
-      expect(mockMountApp).toBeCalledWith(2);
+      expect(mockMountApp).toBeCalledWith('App2', {});
     });
   });
 
@@ -166,11 +168,11 @@ describe('syncDataSuccessEpic', () => {
     });
 
     it('Calls unMount sideEffect for mounting necessary apps', () => {
-      expect(mockUnMountApp).toBeCalledWith(1);
+      expect(mockUnMountApp).toBeCalledWith('App1');
     });
     
     it('Calls unMount sideEffect for mounting necessary apps', () => {
-      expect(mockUnMountApp).toBeCalledWith(3);
+      expect(mockUnMountApp).toBeCalledWith('App3');
     });
   });
 });

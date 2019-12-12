@@ -5,10 +5,10 @@ import { App } from "../types";
 export const initialState = [];
 
 const syncAppsReducer: any = (
-  _previousState: App[] = initialState,
+  previousState: App[] = initialState,
   action: Action<any>// action.payload = app object
 ): App[] => {
-  return action.payload.apps;
+  return action.payload.apps ? action.payload.apps : previousState;
 };
 
 const setAppsReducer: any = (

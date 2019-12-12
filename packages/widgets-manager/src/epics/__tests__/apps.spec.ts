@@ -20,6 +20,7 @@ const mockApps = [
 const mockSelectCurrentUserId = () => 'uid-12345';
 const mockSelectApps = () => (mockApps);
 const mockUpdateDocument = jest.fn();
+const mockMountApp = jest.fn();
 
 const makeMockStore = () => {
   const epicMiddleware = createEpicMiddleware({
@@ -30,6 +31,7 @@ const makeMockStore = () => {
       },
       sideEffects: {
         updateDocument: mockUpdateDocument,
+        mountApp: mockMountApp,
       }
     }
   });
@@ -84,7 +86,7 @@ describe('mountAppSuccessEpic', () => {
   it('Dispatches the action correctly', () => {
       const store = makeMockStore();
 
-      const mountAppSuccessAction = mountAppSuccess(1);
+      const mountAppSuccessAction = mountAppSuccess('App1');
       store.dispatch(mountAppSuccessAction);
       const [dispatchedMountAppSuccessAction] = store.getActions();
 
@@ -94,7 +96,7 @@ describe('mountAppSuccessEpic', () => {
   it('Does not dispatch extra actions', () => {
     const store = makeMockStore();
 
-    const setAppsAction = mountAppSuccess(1);
+    const setAppsAction = mountAppSuccess('App1');
     store.dispatch(setAppsAction);
     const [, , ...rest] = store.getActions();
 
@@ -104,11 +106,11 @@ describe('mountAppSuccessEpic', () => {
   it('Calls updateDocument sideEffect', () => {
     const store = makeMockStore();
 
-    const setAppsAction = mountAppSuccess(1);
+    const setAppsAction = mountAppSuccess('App1');
     store.dispatch(setAppsAction);
 
     expect(mockUpdateDocument).toBeCalledWith(
-      'users', 'uid-12345', { 'mounted_apps': { 1: true } }
+      'users', 'uid-12345', { 'mounted_apps': { 'App1': true } }
     );
   });
 });
@@ -122,8 +124,7 @@ describe('unMountAppSuccessEpic', () => {
   it('Dispatches the action correctly', () => {
       const store = makeMockStore();
 
-      const mockAppId = 2;
-      const unMountAppSuccessAction = unMountAppSuccess(mockAppId);
+      const unMountAppSuccessAction = unMountAppSuccess('App2');
       store.dispatch(unMountAppSuccessAction);
       const [dispatchedUnMountAppSuccessAction] = store.getActions();
 
@@ -144,12 +145,11 @@ describe('unMountAppSuccessEpic', () => {
   it('Calls updateDocument sideEffect', () => {
     const store = makeMockStore();
 
-    const mockAppId = 2;
-    const unMountAppSuccessAction = unMountAppSuccess(mockAppId);
+    const unMountAppSuccessAction = unMountAppSuccess('App2');
     store.dispatch(unMountAppSuccessAction);
 
     expect(mockUpdateDocument).toBeCalledWith(
-      'users', 'uid-12345', { 'mounted_apps': { 2: false } }
+      'users', 'uid-12345', { 'mounted_apps': { 'App2': false } }
     );
   });
 });
@@ -163,8 +163,7 @@ describe('mountAppEpic', () => {
   it('Dispatches the action correctly', () => {
       const store = makeMockStore();
 
-      const mockAppId = 1;
-      const mountAppAction = mountApp(mockAppId);
+      const mountAppAction = mountApp('App1');
       store.dispatch(mountAppAction);
       const [dispatchedmountAppAction] = store.getActions();
 
@@ -174,35 +173,42 @@ describe('mountAppEpic', () => {
   it('Dispatches the extra action indicating success', () => {
     const store = makeMockStore();
 
-    const mockAppId = 1;
-    const mountAppAction = mountApp(mockAppId);
+    const mountAppAction = mountApp('App1');
     store.dispatch(mountAppAction);
     const [ , dispatchesMountAppSuccessAction] = store.getActions();
 
     expect(dispatchesMountAppSuccessAction).toMatchObject(
-      mountAppSuccess(1)
+      mountAppSuccess('App1')
     );
 });
 
   it('Does not dispatch extra actions', () => {
     const store = makeMockStore();
 
-    const mockAppId = 1;
-    const mountAppAction = mountApp(mockAppId);
+    const mountAppAction = mountApp('App1');
     store.dispatch(mountAppAction);
     const [, , , ...rest] = store.getActions();
 
     expect(rest.length).toBe(0);
   });
 
-  it('Calls updateDocument sideEffect', () => {
+  it('Calls mountApp sideEffect', () => {
     const store = makeMockStore();
 
-    const setAppsAction = mountAppSuccess(1);
+    const setAppsAction = mountApp('App1');
+    store.dispatch(setAppsAction);
+
+    expect(mockMountApp).toBeCalledWith('App1');
+  });
+  
+    it('Calls updateDocument sideEffect', () => {
+    const store = makeMockStore();
+
+    const setAppsAction = mountApp('App1');
     store.dispatch(setAppsAction);
 
     expect(mockUpdateDocument).toBeCalledWith(
-      'users', 'uid-12345', { 'mounted_apps': { 1: true } }
+      'users', 'uid-12345', { 'mounted_apps': { 'App1': true } }
     );
   });
 });

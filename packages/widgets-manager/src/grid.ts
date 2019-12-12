@@ -91,30 +91,30 @@ export class GridManager {
     }
   }
 
-  removeApp(appId: number) {
-    const cell = this.getAppCell(appId);
+  removeApp(appName: string) {
+    const cell = this.getAppCell(appName);
     if (cell) {
-      this.removeAppFromCell(cell.id, appId);
+      this.removeAppFromCell(cell.id, appName);
     }
   }
 
-  getApp(appId: number): App | undefined {
-    const cell = this.getAppCell(appId);
+  getApp(appName: string): App | undefined {
+    const cell = this.getAppCell(appName);
     if (!cell) return;
 
-    const app = cell.apps.find((app) => app.id === appId);
+    const app = cell.apps.find((app) => app.slug === appName);
     return app;
   }
 
-  getAppCell(appId: number): GridCell | undefined {
-    const cell = this.grid.cells.find((cell) => !!cell.apps.find((app) => app.id === appId));
+  getAppCell(appName: string): GridCell | undefined {
+    const cell = this.grid.cells.find((cell) => !!cell.apps.find((app) => app.slug === appName));
     return cell;
   }
 
-  removeAppFromCell(id: string, appId: number) {
+  removeAppFromCell(id: string, appName: string) {
     const foundIndex = this.grid.cells.findIndex((cell) => cell.id === id);
     if (foundIndex !== -1) {
-      this.grid.cells[foundIndex].apps = this.grid.cells[foundIndex].apps.filter((currentApp) => currentApp.id !== appId);
+      this.grid.cells[foundIndex].apps = this.grid.cells[foundIndex].apps.filter((currentApp) => currentApp.slug !== appName);
     }
   }
 

@@ -1,6 +1,6 @@
 import { ActionCreator } from "./types";
 import { action } from "./utils";
-import { App } from "../types";
+import { App, ObjectIndex } from "../types";
 
 /**
  * Here we declare the application action names
@@ -16,22 +16,23 @@ export enum ActionType {
   GET_APPS = "@@actions/GET_APPS",
   GET_APPS_SUCCESS = "@@actions/GET_APPS_SUCCESS",
   SET_APPS = "@@actions/SET_APPS",
+  SET_APPS_INITIAL_DATA = "@@actions/SET_APPS_INITIAL_DATA",
 }
 
 /**
  * Action creators
  */
-export const mountApp: ActionCreator<string> = (appId: number, initialData: any) =>
-  action<string>(ActionType.MOUNT_APP, { appId, initialData });
+export const mountApp: ActionCreator<string> = (appName: string, initialData: any) =>
+  action<string>(ActionType.MOUNT_APP, { appName, initialData });
 
-export const mountAppSuccess: ActionCreator<string> = (appId: number) =>
-  action<string>(ActionType.MOUNT_APP_SUCCESS, { appId });
+export const mountAppSuccess: ActionCreator<string> = (appName: string, initialData: any) =>
+  action<string>(ActionType.MOUNT_APP_SUCCESS, { appName, initialData });
 
-export const unMountApp: ActionCreator<string> = (appId: number) =>
-  action<string>(ActionType.UNMOUNT_APP, appId);
+export const unMountApp: ActionCreator<string> = (appName: string) =>
+  action<string>(ActionType.UNMOUNT_APP, appName);
 
-export const unMountAppSuccess: ActionCreator<string> = (appId: number) =>
-  action<string>(ActionType.UNMOUNT_APP_SUCCESS, appId);
+export const unMountAppSuccess: ActionCreator<string> = (appName: string) =>
+  action<string>(ActionType.UNMOUNT_APP_SUCCESS, appName);
 
 export const syncData: ActionCreator<string> = (data: any) =>
   action<string>(ActionType.SYNC_DATA, data);
@@ -47,6 +48,9 @@ export const getAppsSuccess: ActionCreator<App[]> = (apps: App[]) =>
 
 export const setApps: ActionCreator<string> = (apps: App[]) =>
   action<string>(ActionType.SET_APPS, apps);
+
+export const setAppsInitialData: ActionCreator<string> = (appsInitialData: ObjectIndex<any>) =>
+  action<string>(ActionType.SET_APPS_INITIAL_DATA, appsInitialData);
 
 export const updateUserData: ActionCreator<string> = (firebaseUser: any) => {
   return action<string>(ActionType.UPDATE_USER_DATA, {

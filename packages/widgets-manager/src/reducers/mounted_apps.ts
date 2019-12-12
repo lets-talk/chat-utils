@@ -13,11 +13,11 @@ const syncMountedAppsReducer: any = (
 
 const mountAppSuccessReducer: any = (
   previousState: ObjectIndex<App> = initialState,
-  action: Action<{ appId: number }>// action.payload = app id
+  action: Action<{ appName: string }>// action.payload = app id
 ): App[] => {
   const updatedData: any = {}
   if (action.payload) {
-    updatedData[`${action.payload.appId}`] = true;
+    updatedData[`${action.payload.appName}`] = true;
   }
 
   const newMountedApps = { ...previousState, ...updatedData };
@@ -27,7 +27,7 @@ const mountAppSuccessReducer: any = (
 
 const unmountAppSuccessReducer: any = (
   previousState: ObjectIndex<App> = initialState,
-  action: Action<number>// action.payload = appId
+  action: Action<number>// action.payload = appName
 ): App[] => {
   const updatedData: any = {}
   if (action.payload) {
