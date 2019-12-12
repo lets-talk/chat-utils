@@ -19,12 +19,13 @@ const debug = require('debug')('widgets-manager:epics:data');
  */
 const disposableSyncDataSuccessEpic = (state$: any, action: any, dependencies: any): Observable<any> => {
   const { sideEffects, selectors } = dependencies;
-  const { selectApps, selectCurrentUserUid, selectMountedApps } = selectors;
+  const { selectApps, selectCurrentUserUid, selectMountedApps, selectAppsInitialData } = selectors;
   const { updateDocument, unMountApp, mountApp } = sideEffects;
 
   const uid = selectCurrentUserUid(state$.value);
   const currentApps = selectApps(state$.value);
   const currentMountedApps = selectMountedApps(state$.value);
+  const appsInitialData = selectAppsInitialData(state$.value);
 
   const receivedApps = action.payload && action.payload.apps ? action.payload.apps : false;
   const receivedMountedApps = action.payload && action.payload.mounted_apps ? action.payload.mounted_apps : false;
@@ -40,19 +41,20 @@ const disposableSyncDataSuccessEpic = (state$: any, action: any, dependencies: a
     // Call side effect
     updateDocument('users', uid, { mounted_apps: currentMountedApps });
 
-    const addAppsIds = Object.keys(currentMountedApps)
-        .filter((k) => currentMountedApps[k])
-        .map(Number);
+    const addAppsNames = Object.keys(currentMountedApps)
+        .filter((k) => currentMountedApps[k]);
 
-    const removAappsIds = Object.keys(currentMountedApps)
-        .filter((k) => !currentMountedApps[k])
-        .map(Number);
+    const removeAppsNames = Object.keys(currentMountedApps)
+        .filter((k) => !currentMountedApps[k]);
 
 
-    debug('disposableSyncDataEpic addapps, removeapps: ', addAppsIds, removAappsIds);
+    debug('disposableSyncDataEpic addAppsNames, removeAppsNames: ', addAppsNames, removeAppsNames);
 
-    removAappsIds.map((appId: number) => unMountApp(appId));
-    addAppsIds.map((appId: number) => mountApp(appId));
+    removeAppsNames.map((appName: string) => unMountApp(appName));
+    addAppsNames.map((appName: string) => {
+      const appInitialData = appsInitialData[appName] || {};
+      mountApp(appName, appInitialData)
+    });
   }
 
 

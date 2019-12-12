@@ -18,7 +18,7 @@ export const configureStore = (initialState: any, dependencies: any) => {
 
   // Ignore next for collection coverage as is something only for DEV environment
   /* istanbul ignore next */
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV !== 'production') {
     // Define redux logger
     const logger: any = createLogger({
       // ...options
@@ -35,7 +35,7 @@ export const configureStore = (initialState: any, dependencies: any) => {
     && typeof window === 'object'
     && (<any>window).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? (<any>window).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      actionsBlacklist: ['app/Conversation/OUTGOING_TYPING', 'app/Conversation/INCOMING_TYPING'], // Do not send this actions
+      actionsBlacklist: [], // Do not send this actions
     })
     : composeWithDevTools({ // Use logOnly minimalist version of Redux DevTools Extension is installed use it, otherwise use Redux compose
       // options like actionSanitizer, stateSanitizer

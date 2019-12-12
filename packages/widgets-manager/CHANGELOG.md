@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Hotfix [2.2.0] - 2019-12-12
+### Fixed
+- Save the initial_data { appSlug: {} } for each app in the store
+- All functions that deals with apps receives string appName as parameter instead of id
+
 ## Hotfix [2.1.1] - 2019-12-06
 ### Fixed
 - Fix typescript definitions

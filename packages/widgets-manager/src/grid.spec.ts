@@ -312,7 +312,7 @@ describe('GridManager', () => {
     }
 
     gm.addAppToCell('mid-center', mockApp1);
-    const app = gm.getApp(1);
+    const app = gm.getApp('app1-relative-to-position-mid-center');
     
     expect(app).toMatchObject(mockApp1);
   });
@@ -339,7 +339,7 @@ describe('GridManager', () => {
     }
 
     gm.addAppToCell('mid-center', mockApp1);
-    gm.removeApp(1);
+    gm.removeApp('app1-relative-to-position-mid-center');
     const cell = gm.getGridCell('mid-center');
 
     const cellHeight = windowObject.innerHeight / 3;

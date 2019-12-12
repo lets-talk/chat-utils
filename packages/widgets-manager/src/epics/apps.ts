@@ -1,4 +1,4 @@
-import { Action, EpicDependencies } from "../store/types";
+import { Action, EpicDependencies, MountAppAction, ActionWithPayload } from "../store/types";
 import { Observable, empty, from } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { ActionType, mountAppSuccess, unMountAppSuccess } from "../store/actions";
@@ -12,14 +12,17 @@ export const disposableMountAppEpic = (
   _dependencies: EpicDependencies
 ) : Observable<any> => {
   // In the future we can do some side effect before just dispatching success
-  return from([mountAppSuccess(action.payload.appId)]);
+  return from([mountAppSuccess(action.payload.appName)]);
 }
 
 export const disposableUnMountAppEpic = (
   _state$: any,
   action: any,
-  _dependencies: any
+  dependencies: any
 ) : Observable<any> => {
+  const { sideEffects } = dependencies;
+  const { unMountApp } = sideEffects;
+  unMountApp(action.payload);
   // In the future we can do some side effect before just dispatching success
   return from([unMountAppSuccess(action.payload)]);
 }
@@ -31,15 +34,16 @@ export const disposableMountAppUpdateEpic = (updateMountedAppsFn: (action: any) 
 ) : Observable<any> => {
   const { selectors, sideEffects } = dependencies;
   const { selectCurrentUserUid, selectApps } = selectors;
-  const { updateDocument } = sideEffects;
+  const { updateDocument, mountApp } = sideEffects;
 
   const uid = selectCurrentUserUid(state$.value);
   const apps = selectApps(state$.value);
 
+  // Call side effect
+  mountApp(action.payload.appName);
   debug('disposableMountAppUpdateEpic: ', uid, action, apps);
   // Call side effect
   const updatedMountedApps: any = updateMountedAppsFn(action);
-
   updateDocument('users', uid, { 'mounted_apps': updatedMountedApps });
 
   return empty();
@@ -86,9 +90,9 @@ export const mountAppSuccessEpic: Epic = (
   state$: any,
   dependencies: EpicDependencies,
 ) => {
-  const updateFunction = (action: any) => {
+  const updateFunction = (action: ActionWithPayload<MountAppAction>) => {
     const updatedMountedApps: any = {};
-    updatedMountedApps[`${action.payload.appId}`] = true;
+    updatedMountedApps[`${action.payload.appName}`] = true;
     return updatedMountedApps;
   }
   
@@ -103,7 +107,7 @@ export const unMountAppSuccessEpic: Epic = (
   state$: any,
   dependencies: EpicDependencies,
 ) => {
-  const updateFunction = (action: any) => {
+  const updateFunction = (action: ActionWithPayload<string>) => {
     const updatedMountedApps: any = {};
     updatedMountedApps[`${action.payload}`] = false;
     return updatedMountedApps;
