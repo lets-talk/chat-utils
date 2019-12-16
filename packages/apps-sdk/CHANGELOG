@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Hoxfix [0.6.2] - 2019-12-16
+### Added
+- Support for getContextObject public sdk function
+
 ## Release [0.6.1] - 2019-08-01
 ### Added
 - Remove console.log() call function

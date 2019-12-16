@@ -16,6 +16,7 @@ import {
   EVENT_TYPE_LOAD_APP,
   EVENT_TYPE_REMOVE_APP,
   EVENT_TYPE_NOTIFY_APP_EVENT,
+  EVENT_TYPE_GET_CONTEXT,
   APP_MODE_IFRAME,
   APP_MODE_POPUP,
   EVENT_TYPE_EXECUTE_APP_METHOD,
@@ -94,6 +95,13 @@ export class SDK {
    */
   public closeApp(): Promise<any> {
     return this.sendChannel.send(EVENT_TYPE_REMOVE_APP, { appName: `lt.${this.appName}.*` });
+  }
+
+  /**
+   * getContextObject: Returns a promise that resolves to the Context object
+   */
+  public getContextObject(): Promise<any> {
+    return this.sendChannel.send(EVENT_TYPE_GET_CONTEXT, { appName: this.appName });
   }
 
   /**
