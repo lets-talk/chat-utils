@@ -2,14 +2,15 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { updateUserData, syncData } from '../store/actions';
+import { updateUserData } from '../store/actions';
 import { config } from '../config/firebase';
 import firebaseApp from './firebase';
 
 const debug = require('debug')('widgets-manager:utils:firebase');
 
 const collectionName = 'users';
-const stateSelector = (state: any) => state;
+// TODO -> Figure out corner cases where sync gets into loop
+// const stateSelector = (state: any) => state;
 
 const initializeFirebaseApp = (store: any): Promise<any> => {
   debug('Going to instantiate firebase with config:', config);
@@ -20,10 +21,12 @@ const initializeFirebaseApp = (store: any): Promise<any> => {
         // User is signed in.
         debug('Got firebase user:', user);
         store.dispatch(updateUserData(user));
-        linkStoreWithPath(`${user.uid}`, syncData, stateSelector)(
-          firebase.firestore(firebaseApp),
-          store
-        );
+        // TODO -> Figure out corner cases where sync gets into loop
+        // After that we can have the sync working
+        // linkStoreWithPath(`${user.uid}`, syncData, stateSelector)(
+        //   firebase.firestore(firebaseApp),
+        //   store
+        // );
         resolve();
       } else {
         // User is signed out.
