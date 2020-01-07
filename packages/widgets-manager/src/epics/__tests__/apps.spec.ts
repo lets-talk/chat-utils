@@ -64,17 +64,6 @@ describe('setAppsEpic', () => {
 
     expect(rest.length).toBe(0);
   });
-
-  it('Calls updateDocument sideEffect', () => {
-    const store = makeMockStore();
-
-    const setAppsAction = setApps(mockApps);
-    store.dispatch(setAppsAction);
-
-    expect(mockUpdateDocument).toBeCalledWith(
-      'users', 'uid-12345', { 'apps': mockApps }
-    );
-  });
 });
 
 describe('mountAppSuccessEpic', () => {
@@ -103,16 +92,6 @@ describe('mountAppSuccessEpic', () => {
     expect(rest.length).toBe(0);
   });
 
-  it('Calls updateDocument sideEffect', () => {
-    const store = makeMockStore();
-
-    const setAppsAction = mountAppSuccess('App1');
-    store.dispatch(setAppsAction);
-
-    expect(mockUpdateDocument).toBeCalledWith(
-      'users', 'uid-12345', { 'mounted_apps': { 'App1': true } }
-    );
-  });
 });
 
 describe('unMountAppSuccessEpic', () => {
@@ -140,17 +119,6 @@ describe('unMountAppSuccessEpic', () => {
     const [, , ...rest] = store.getActions();
 
     expect(rest.length).toBe(0);
-  });
-
-  it('Calls updateDocument sideEffect', () => {
-    const store = makeMockStore();
-
-    const unMountAppSuccessAction = unMountAppSuccess('App2');
-    store.dispatch(unMountAppSuccessAction);
-
-    expect(mockUpdateDocument).toBeCalledWith(
-      'users', 'uid-12345', { 'mounted_apps': { 'App2': false } }
-    );
   });
 });
 
@@ -199,16 +167,5 @@ describe('mountAppEpic', () => {
     store.dispatch(setAppsAction);
 
     expect(mockMountApp).toBeCalledWith('App1');
-  });
-  
-    it('Calls updateDocument sideEffect', () => {
-    const store = makeMockStore();
-
-    const setAppsAction = mountApp('App1');
-    store.dispatch(setAppsAction);
-
-    expect(mockUpdateDocument).toBeCalledWith(
-      'users', 'uid-12345', { 'mounted_apps': { 'App1': true } }
-    );
   });
 });
