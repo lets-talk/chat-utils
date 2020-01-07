@@ -7,7 +7,6 @@ import { selectCurrentUserUid } from './selectors/user';
 import { selectApps } from './selectors/apps';
 import { selectMountedApps } from './selectors/mounted_apps';
 import { selectAppsInitialData } from './selectors/initial_data';
-import { initializeFirebaseApp } from './utils/firebase_utils';
 import { configureStore } from './configureStore';
 import { initialState } from './store/initialState';
 import { updateDocument } from "./utils/firebase_utils";
@@ -39,26 +38,10 @@ export const setupManager = async (
   const appManager = new AppManager(gridManager);
 
   // @ts-ignore
-  const store = configureStore({ ...initialState, apps: registeredApps }, {
-    selectors: {
-      selectApps,
-      selectMountedApps,
-      selectCurrentUserUid,
-      selectAppsInitialData,
-    },
-    sideEffects: {
-      // Apps
-      mountApp: appManager.mountApp,
-      unMountApp: appManager.unMountApp,
-      executeAppMethod: sideEffects.executeAppMethod,
-      // Firebase
-      updateDocument,
-    }
-  });
+  const store = configureStore({ ...initialState, apps: registeredApps });
 
   appManager.initialize(store);
 
-  await initializeFirebaseApp(store);
   store.dispatch(setApps(registeredApps));
   store.dispatch(setAppsInitialData(appsInitialData));
 
