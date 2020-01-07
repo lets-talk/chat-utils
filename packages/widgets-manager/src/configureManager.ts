@@ -9,8 +9,7 @@ import { selectMountedApps } from './selectors/mounted_apps';
 import { selectAppsInitialData } from './selectors/initial_data';
 import { configureStore } from './configureStore';
 import { initialState } from './store/initialState';
-import { updateDocument } from "./utils/firebase_utils";
-import { mountApp, unMountApp, setApps, setAppsInitialData } from './store/actions';
+import { mountApp, unMountApp, setAppsInitialData } from './store/actions';
 
 export const setupManager = async (
   registeredApps: App[],
@@ -38,11 +37,23 @@ export const setupManager = async (
   const appManager = new AppManager(gridManager);
 
   // @ts-ignore
-  const store = configureStore({ ...initialState, apps: registeredApps });
+  const store = configureStore({ ...initialState, apps: registeredApps }, {
+    selectors: {
+      selectApps,
+      selectMountedApps,
+      selectCurrentUserUid,
+      selectAppsInitialData,
+    },
+    sideEffects: {
+      // Apps
+      mountApp: appManager.mountApp,
+      unMountApp: appManager.unMountApp,
+      executeAppMethod: sideEffects.executeAppMethod,
+    }
+  });
 
   appManager.initialize(store);
 
-  store.dispatch(setApps(registeredApps));
   store.dispatch(setAppsInitialData(appsInitialData));
 
   return {

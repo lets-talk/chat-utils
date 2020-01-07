@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Hotfix [2.2.1, 2.2.2] - 2020-01-05
+## Hotfix [2.2.1, 2.2.2, 2.2.3] - 2020-01-05
 ### Fixed
 - Disable the Sync of firebase with redux -> Make a TODO to figure out corner
 cases and enable in the future
