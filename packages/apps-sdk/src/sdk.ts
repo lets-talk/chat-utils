@@ -20,6 +20,7 @@ import {
   APP_MODE_IFRAME,
   APP_MODE_POPUP,
   EVENT_TYPE_EXECUTE_APP_METHOD,
+  EVENT_TYPE_GET_CONTAINER_INFO,
 } from './constants';
 
 export class SDK {
@@ -102,6 +103,13 @@ export class SDK {
    */
   public getContextObject(): Promise<any> {
     return this.sendChannel.send(EVENT_TYPE_GET_CONTEXT, { appName: this.appName });
+  }
+  
+  /**
+   * getContainerInfo: Returns a promise that resolves to the Container information
+   */
+  public getContainerInfo(): Promise<any> {
+    return this.sendChannel.send(EVENT_TYPE_GET_CONTAINER_INFO, { appName: this.appName });
   }
 
   /**
