@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Hoxfix [0.7.0] - 2020-01-18
+### Added
+- Add method getContainerInfo allowing apps now about container props
+
 ## Hoxfix [0.6.2] - 2019-12-16
 ### Added
 - Support for getContextObject public sdk function
