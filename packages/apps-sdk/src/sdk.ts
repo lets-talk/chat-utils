@@ -76,6 +76,13 @@ export class SDK {
     this.handlers = handlers;
   }
 
+  /**
+   * on Define handler for indidividual events types
+   */
+  public on(eventName: string, handler: (event: EventData) => void) {
+    this.recieveChannel.on(eventName, handler);
+  }
+
   private handleExecuteAppMethod(event: EventData) {
     const { payload } = event.data;
     const { method, args } = payload;

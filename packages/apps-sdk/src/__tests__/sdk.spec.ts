@@ -170,4 +170,26 @@ describe('SDK', () => {
 
     expect(mockedSend).toHaveBeenCalledWith(EVENT_TYPE_NOTIFY_APP_EVENT, expectedSentPayload);
   });
+
+  describe('on method', () => {
+    const mockedOn = jest.fn();
+    const mockClientChannel = jest.fn(() => ({
+      send: jest.fn(() => new Promise((resolve) => resolve(1))),
+    }));
+    const mockListenerChannel = jest.fn(() => ({
+      on: mockedOn,
+    }));
+    const mockCommunicationChannel = {
+      client: mockClientChannel,
+      listener: mockListenerChannel,
+    };
+    const sdk = new SDK(() => mockCommunicationChannel);
+    const mockHandler = jest.fn();
+
+    it('Calls the listener.on method with the correct params', () => {
+      sdk.on('myCustomEvent', mockHandler);
+
+      expect(mockedOn).toHaveBeenCalledWith('myCustomEvent', mockHandler);
+    });
+  });
 });
