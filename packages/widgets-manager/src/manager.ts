@@ -6,7 +6,7 @@ import { POSITION_RELATIVE_TO_ELEMENT, POSITION_RELATIVE_TO_PLACE, POSITION_FIXE
 import { GridManager } from './grid';
 import { App, GridCell, AppInlineStyle } from "./types";
 import { Store } from 'redux';
-import { selectApps } from './selectors/apps';
+import { selectApps, selectCurrentlyMountedApps } from './selectors/apps';
 import { initialState } from './store/initialState';
 import { ApplicationState } from './store/types';
 
@@ -286,6 +286,10 @@ export class AppManager {
 
   public getApps = (): App[] => {
     return selectApps(this.state);
+  }
+  
+  public getMountedApps = (): App[] => {
+    return selectCurrentlyMountedApps(this.state);
   }
 
   public updateAllAppSettings = () => {
