@@ -4,13 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Release [0.8.0] - 2020-01-23
+### Added
+- Add method `on` allowing apps to subscribe to window events
+
 ## Hoxfix [0.7.0] - 2020-01-18
 ### Added
-- Add method getContainerInfo allowing apps now about container props
+- Add method `getContainerInfo` allowing apps now about container props
 
 ## Hoxfix [0.6.2] - 2019-12-16
 ### Added
-- Support for getContextObject public sdk function
+- Support for `getContextObject` public sdk function
 
 ## Release [0.6.1] - 2019-08-01
 ### Added
@@ -18,7 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Release [0.6.0] - 2019-08-01
 ### Added
-- Support for executeAppMethod
+- Support for `executeAppMethod()`
 
 ## Release [0.5.2] - 2019-07-22
 ### Added
