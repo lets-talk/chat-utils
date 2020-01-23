@@ -30,7 +30,7 @@ export class SDK {
   private channelFactory: () => any;
   private channelManager: any;
   private sendChannel: any;
-  private recieveChannel: any;
+  private receiveChannel: any;
   private handlers: any;
 
   constructor(channelFactory = () => postRobot) {
@@ -59,14 +59,14 @@ export class SDK {
     // Define Communication Channels
     this.channelManager = this.channelFactory();
     this.sendChannel = this.channelManager.client({ ...channelConfig, domain: '*' });
-    this.recieveChannel = this.channelManager.listener({ ...channelConfig, domain: '*' });
+    this.receiveChannel = this.channelManager.listener({ ...channelConfig, domain: '*' });
   }
 
   /**
    * setUpListeners Set the handlers for different events we want to listen for
    */
   private setUpListeners(): void {
-    this.recieveChannel.on(EVENT_TYPE_EXECUTE_APP_METHOD, this.handleExecuteAppMethod);
+    this.receiveChannel.on(EVENT_TYPE_EXECUTE_APP_METHOD, this.handleExecuteAppMethod);
   }
 
   /**
@@ -74,6 +74,13 @@ export class SDK {
    */
   public addEventHandlers(handlers: any): void {
     this.handlers = handlers;
+  }
+
+  /**
+   * on Define handler for indidividual events types
+   */
+  public on(eventName: string, handler: (event: EventData) => void) {
+    this.receiveChannel.on(eventName, handler);
   }
 
   private handleExecuteAppMethod(event: EventData) {

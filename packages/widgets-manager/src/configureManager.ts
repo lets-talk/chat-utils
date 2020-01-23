@@ -61,6 +61,7 @@ export const setupManager = async (
     unMountApp: (appName: string) => store.dispatch(unMountApp(appName)),
     getAppByName: appManager.getAppByName,
     getAllAppsForNamespace: appManager.getAllAppsForNamespace,
+    getMountedApps: appManager.getMountedApps,
     updateAllAppSettings: appManager.updateAllAppSettings,
   };
 };

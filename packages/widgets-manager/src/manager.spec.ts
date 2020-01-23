@@ -8,6 +8,12 @@ jest.mock('./utils/firebase', () => ({
   initializeFirebaseApp: jest.fn(() => Promise.resolve(1)),
 }));
 
+const mockSelectCurrentlyMountedApps = jest.fn();
+jest.mock('./selectors/apps', () => ({
+  ...jest.requireActual('./utils/firebase'),
+  selectCurrentlyMountedApps: mockSelectCurrentlyMountedApps,
+}));
+
 const mockPositionRelativeToElement: AppPosition = {
   type: 'relative-to-element',
   payload: {
@@ -156,10 +162,12 @@ const mockPopupApp: App = {
 }
 
 const mockApps = [mockApp1, mockApp2, mockApp3, mockPopupApp];
+const mockMountedApps = [mockApp1, mockApp3];
 
 jest.mock('./selectors/apps', () => ({
   ...jest.requireActual('./selectors/apps'),
   selectApps: jest.fn(() => mockApps),
+  selectCurrentlyMountedApps: jest.fn(() => mockMountedApps),
 }));
 
 describe('AppManager', () => {
@@ -315,4 +323,22 @@ describe('AppManager', () => {
     });
   });
 
+  describe('getMountedApps', () => {
+    it('Correctly get the number of apps', () => {
+      const manager = new AppManager(mockGridManager);
+
+      const mountedApps = manager.getMountedApps();
+      expect(mountedApps.length).toBe(2);
+    });
+    
+    it('Correctly get all apps', () => {
+      const manager = new AppManager(mockGridManager);
+
+      const mountedApps = manager.getMountedApps();
+      expect(mountedApps).toContainEqual(mockApp1);
+      expect(mountedApps).not.toContainEqual(mockApp2);
+      expect(mountedApps).toContainEqual(mockApp3);
+      expect(mountedApps).not.toContainEqual(mockPopupApp);
+    });
+  });
 });
