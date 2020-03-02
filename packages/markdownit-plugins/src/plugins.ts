@@ -87,7 +87,7 @@ const pluginLTAppsSDKMethod = (tokens: ObjectIndex<Token>, idx: number) => {
     const methodCallAndArgsEncoded = matches[1] ? matches[1] : false;
     var linkClassName = tokens[idx].attrGet('class') ? `${tokens[idx].attrGet('class')} actionable-link` : 'actionable-link';
     // We do 2 things on click: Open the app and register the analytics event
-    const eventHandlerFunction = `javascript:window.$AppsSDK.executeSDKEvent64('${methodCallAndArgsEncoded}');window.LTAnalytics.event('${EVENT_CATEGORY_MESSAGE_INTERACTION}', 'click', '${href}')`;
+    const eventHandlerFunction = `javascript:window.$AppsSDK.executeSDKEvent64('${methodCallAndArgsEncoded}');window.LTAnalytics.event('${EVENT_CATEGORY_MESSAGE_INTERACTION}', 'click', '${href}'); return false;`;
     tokens[idx].attrSet('href', '#');
     tokens[idx].attrSet('onclick', eventHandlerFunction);
     
