@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Release [0.9.0] - 2020-03-12
+### Added
+- Add public method executeAppMethod
+
 ## Release [0.8.0] - 2020-01-23
 ### Added
 - Add method `on` allowing apps to subscribe to window events

@@ -160,6 +160,16 @@ export class SDK {
   public notify(eventName: string, data: any): Promise<any> {
     return this.sendChannel.send(EVENT_TYPE_NOTIFY_APP_EVENT, { appName: this.appName, payload: { eventName, data } });
   }
+  
+  /**
+   * executeAppMethod
+   * @param appNamespace The app namespace to execute the executeAppMethod
+   * @param method The method to call
+   * @param args The data we want to pass to the function as arguments
+   */
+  public executeAppMethod(appName: string, method: string, args: any): Promise<any> {
+    return this.sendChannel.send(EVENT_TYPE_EXECUTE_APP_METHOD,  { appName, payload: { method, args } });
+  }
 
   /**
    * Calls a public method from an encoded data
