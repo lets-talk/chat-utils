@@ -7,6 +7,7 @@ import {
   EVENT_TYPE_LOAD_APP,
   EVENT_TYPE_REMOVE_APP,
   EVENT_TYPE_NOTIFY_APP_EVENT,
+  EVENT_TYPE_EXECUTE_APP_METHOD,
 } from '../constants';
 
 const mockedSend = jest.fn(() => new Promise((resolve) => resolve('OK')));
@@ -191,5 +192,22 @@ describe('SDK', () => {
 
       expect(mockedOn).toHaveBeenCalledWith('myCustomEvent', mockHandler);
     });
+  });
+
+  describe('executeAppMethod', () => {
+    const sdk = new SDK(() => mockChannel);
+    const mockArgs = { message: { 'content': 'Hola', content_type: 'text/plain' }};
+
+    sdk.executeAppMethod('my-mock-app', 'startConversation', mockArgs);
+    
+    const expectedSentPayload = {
+      appName: "my-mock-app",
+      payload: {
+        method: 'startConversation',
+        args: mockArgs
+      }
+    };
+
+    expect(mockedSend).toHaveBeenCalledWith(EVENT_TYPE_EXECUTE_APP_METHOD, expectedSentPayload);
   });
 });
