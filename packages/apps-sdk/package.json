@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "post-robot": "8.0.14",
-    "qs": "^6.7.0"
+    "qs": "^6.9.2"
   },
   "devDependencies": {
     "@types/qs": "^6.5.3",
