@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@types/jest": "^24.0.0",
+    "@types/jest": "^25.1.5",
     "jest": "^23.4.2",
     "lerna": "^3.0.0-rc.0",
     "tslint": "^5.11.0",
