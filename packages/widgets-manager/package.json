@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@jedmao/redux-mock-store": "^2.0.3",
-    "@types/jest": "^24.0.0",
+    "@types/jest": "^25.2.2",
     "@types/lodash": "^4.14.144",
     "@types/qs": "^6.5.3",
     "@types/redux-logger": "^3.0.7",
