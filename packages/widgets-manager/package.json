@@ -33,6 +33,6 @@
     "@types/qs": "^6.5.3",
     "@types/redux-logger": "^3.0.7",
     "jest": "^23.5.0",
-    "ts-jest": "^24.0.0"
+    "ts-jest": "^26.1.0"
   }
 }
