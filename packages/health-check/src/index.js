@@ -35,6 +35,12 @@ const servers = [
     checkType: 'image',
     imageURL: 'https://cdn.jsdelivr.net/favicon.ico'
   },
+  { 
+    id: 7,
+    url: 'https://lt-apps-api.firebaseapp.com',
+    checkType: 'image',
+    imageURL: 'https://lt-apps-api.firebaseapp.com/favicon.ico'
+  },
 ];
 
 const pubnubChecks = [
