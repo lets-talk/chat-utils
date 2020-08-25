@@ -1,4 +1,4 @@
-import { GridManager } from './grid';
+import { GridManager, getGridSettings } from './grid';
 import { AppendAppStrategy } from './strategies/mounting/append';
 import { App, AppPosition, HTMLFloatType } from './types';
 const windowObject: Window = window;
@@ -33,6 +33,71 @@ const mockPositionRelativeToElement: AppPosition = {
     }
   }
 };
+
+describe('getGridSettings', () => {
+  const gridRules = {
+    small: {
+      columns: 1,
+      gutter: 10,
+      padding: 10,
+      positions: [
+        'top-left',
+        'top-center',
+        'top-right',
+        'mid-left',
+        'mid-center',
+        'mid-right',
+        'bottom-left',
+        'bottom-center',
+        'bottom-right',
+      ]
+    },
+    medium: {
+      columns: 2,
+      gutter: 10,
+      padding: 10,
+      positions: [
+        'top-left',
+        'top-right',
+        'mid-left',
+        'mid-right',
+        'bottom-left',
+        'bottom-right',
+      ]
+    },
+    large: {
+      columns: 3,
+      gutter: 10,
+      padding: 10,
+      positions: [
+        'top-left',
+        'top-center',
+        'top-right',
+        'mid-left',
+        'mid-center',
+        'mid-right',
+        'bottom-left',
+        'bottom-center',
+        'bottom-right',
+      ]
+    }
+  }
+
+  it('getGridSettings should return 1 column for mobile', () => {
+    const rules = getGridSettings(gridRules, 320);
+    expect(rules).toBe(gridRules.small);
+  });
+
+  it('getGridSettings should return 2 column for tablet', () => {
+    const rules = getGridSettings(gridRules, 640);
+    expect(rules).toBe(gridRules.medium);
+  });
+
+  it('getGridSettings should return 3 column for web', () => {
+    const rules = getGridSettings(gridRules, 1200);
+    expect(rules).toBe(gridRules.large);
+  });
+})
 
 describe('GridManager', () => {
   const settings = {
@@ -167,7 +232,7 @@ describe('GridManager', () => {
 
     const cellHeight = windowObject.innerHeight / 3;
     const cellWidth = windowObject.innerWidth / 3;
-    
+
     expect(cell).toMatchObject({
       id: 'mid-center',
       apps: [mockApp1],
@@ -203,7 +268,7 @@ describe('GridManager', () => {
       source: '',
       initialData: {} as any,
     }
-    
+
     const mockApp2: App = {
       id: 2,
       name: 'App2 Relative To Position mid-center',
@@ -225,7 +290,7 @@ describe('GridManager', () => {
     gm.addAppToCell('mid-center', mockApp1);
     gm.addAppToCell('mid-center', mockApp2);
     const apps = gm.getAppsInCell('mid-center');
-    
+
     // Putting 2 apps with position relative to same POSITION
     // Should use replace stratey. So we expect 1 app only
     expect(apps.length).toBe(1);
@@ -252,7 +317,7 @@ describe('GridManager', () => {
       source: '',
       initialData: {} as any,
     }
-    
+
     const mockApp2: App = {
       id: 2,
       name: 'Relative to the same element different offsetX',
@@ -263,7 +328,7 @@ describe('GridManager', () => {
         css: '',
         inlineCss: {},
         queryParams: {} as any,
-        position: { 
+        position: {
           ...mockPositionRelativeToElement,
           payload: {
             ...mockPositionRelativeToElement.payload,
@@ -283,7 +348,7 @@ describe('GridManager', () => {
     gm.addAppToCell('mockElement', mockApp1);
     gm.addAppToCell('mockElement', mockApp2);
     const apps = gm.getAppsInCell('mockElement');
-    
+
     // Putting 2 apps with position relative to same ELEMENT
     // Should use add stratey. So we expect 2 apps
     expect(apps.length).toBe(2);
@@ -313,7 +378,7 @@ describe('GridManager', () => {
 
     gm.addAppToCell('mid-center', mockApp1);
     const app = gm.getApp('app1-relative-to-position-mid-center');
-    
+
     expect(app).toMatchObject(mockApp1);
   });
 
@@ -344,7 +409,7 @@ describe('GridManager', () => {
 
     const cellHeight = windowObject.innerHeight / 3;
     const cellWidth = windowObject.innerWidth / 3;
-    
+
     expect(cell).toMatchObject({
       id: 'mid-center',
       apps: [],
@@ -371,17 +436,17 @@ describe('GridManager', () => {
       value: 400,
       writable: true
     });
-    
+
     const gm = new GridManager(settings, windowObject, addStrategy);
     gm._setGridDimensions = jest.fn();
-    
-    // This will refresh the grid dimensions with 1 column only 
+
+    // This will refresh the grid dimensions with 1 column only
     gm.refreshGridDimension();
-    
+
     expect(gm._setGridDimensions).toBeCalledWith(1, 319, 400);
   });
-  
-  it('refreshGridDimension. Refresh Grid dimension when in mobile. 2 columns case', () => {
+
+  it('refreshGridDimension. Refresh Grid dimension when in mobile. 1 columns case', () => {
     // Set small window to emulate mobile
     Object.defineProperty(windowObject, "innerWidth", {
       value: 321,
@@ -391,14 +456,14 @@ describe('GridManager', () => {
       value: 400,
       writable: true
     });
-    
+
     const gm = new GridManager(settings, windowObject, addStrategy);
     gm._setGridDimensions = jest.fn();
-    
-    // This will refresh the grid dimensions with 1 column only 
+
+    // This will refresh the grid dimensions with 1 column only
     gm.refreshGridDimension();
-    
-    expect(gm._setGridDimensions).toBeCalledWith(2, 321, 400);
+
+    expect(gm._setGridDimensions).toBeCalledWith(1, 321, 400);
   });
 
 });
