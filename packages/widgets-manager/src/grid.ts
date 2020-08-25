@@ -1,6 +1,68 @@
 import { makePostionStrategy } from './strategies/position/creator';
 import { App, Grid, GridCell, GridSettings, AddAppsStrategy, PositionStrategy } from "./types";
 
+export const gridRules = {
+  small: {
+    columns: 1,
+    gutter: 10,
+    padding: 10,
+    positions: [
+      'top-left',
+      'top-center',
+      'top-right',
+      'mid-left',
+      'mid-center',
+      'mid-right',
+      'bottom-left',
+      'bottom-center',
+      'bottom-right',
+    ]
+  },
+  medium: {
+    columns: 2,
+    gutter: 10,
+    padding: 10,
+    positions: [
+      'top-left',
+      'top-right',
+      'mid-left',
+      'mid-right',
+      'bottom-left',
+      'bottom-right',
+    ]
+  },
+  large: {
+    columns: 3,
+    gutter: 10,
+    padding: 10,
+    positions: [
+      'top-left',
+      'top-center',
+      'top-right',
+      'mid-left',
+      'mid-center',
+      'mid-right',
+      'bottom-left',
+      'bottom-center',
+      'bottom-right',
+    ]
+  }
+}
+
+export const getGridSettings = (
+  rules: {[key in 'small' | 'medium'| 'large']: GridSettings},
+  viewportWidth: number
+): GridSettings => {
+  // I change the breakpoint to most modern canonical values
+  if (viewportWidth <= 480) {
+    return rules.small
+  } else if (viewportWidth > 481 && viewportWidth <= 1024) {
+    return rules.medium
+  } else {
+    return rules.large
+  }
+}
+
 export class GridManager {
   grid: Grid<GridCell>;
   addAppsStrategy: AddAppsStrategy;
@@ -15,19 +77,8 @@ export class GridManager {
     this._configureGrid(window.innerWidth, window.innerHeight);
   }
 
-  // TODO: Refactor this to use real media query break point values
-  /* istanbul ignore next */
-  _getNumberOfColsForWidth(width: number): number {
-    if (width <= 320) {
-      return 1;
-    } else if (width > 320 && width <= 768) {
-      return 2;
-    }
-    return this.grid.settings.columns;
-  }
-
   _configureGrid(maxWidth: number, maxHeight: number) {
-    let numberOfCols = this._getNumberOfColsForWidth(maxWidth);
+    let numberOfCols = this.grid.settings.columns;
     const numberOfPositions = this.grid.settings.positions.length;
     for (let i = 0; i < numberOfPositions; i++) {
       this.grid.cells.push({
@@ -45,10 +96,10 @@ export class GridManager {
     this.grid.cells.map((cell: GridCell, i: number) => {
       const row: number = Math.trunc(i / numberOfCols);
       const column:number = (i % numberOfCols);
-      
+
       cell.size.width = width / numberOfCols;
       cell.size.height = height / numberOfRows;
-      
+
       cell.position.left = column * cell.size.width;
       cell.position.right = (column * cell.size.width) + cell.size.width;
       cell.position.top = row * cell.size.height;
@@ -67,10 +118,29 @@ export class GridManager {
 
   addAppToCell(id: string, app: App) {
     const existingCell = this._findCell(id);
+
+    // if cell map to a 3x3 grid push to the cell
     if (existingCell) {
-      this._addToExistingCell(app, existingCell, makePostionStrategy(app.settings.position.type));
-    } else {
-      this._addToNewCell(app, id, makePostionStrategy(app.settings.position.type));
+      this._addToExistingCell(
+        app,
+        existingCell,
+        makePostionStrategy(app.settings.position.type)
+      );
+    // if not map to the closet cell
+    } else if(id.split('-')[1] === 'center') {
+      this._addToClosetCell(
+        app,
+        id,
+      );
+    }
+    // worst case scenario we push a new cell to the grid
+    // this could **break the interface**
+    else {
+      this._addToNewCell(
+        app,
+        id,
+        makePostionStrategy(app.settings.position.type)
+      );
     }
   }
 
@@ -85,9 +155,27 @@ export class GridManager {
     cell.apps = positionStrategy.mountStrategy().add(app, cell.apps);
   }
 
+  // instead of create a new cell with need to map the closet cell that match on at least one axis x or y
+  // the complete refactor it's going to be added in the next widget manager release
   _addToNewCell(app: App, id: string, positionStrategy: PositionStrategy) {
     if (positionStrategy.shouldAddNewPosition()) {
       this.grid.cells.push(this._createNewCell(id, app, positionStrategy.mountStrategy()));
+    }
+  }
+
+  _addToClosetCell(app: App, id: string) {
+    const splitPosition = id.split('-')
+    // if cell is for kind center and layout is medium we push
+    // to most closest left cell or if of unknown we fallback to top-left
+    const cell = splitPosition[1] === 'center' ?
+      this._findCell(`${splitPosition[0]}-left`) : this.grid.cells[0] ;
+    // we know cell always exit but type say that could be undefined
+    if(cell) {
+      this._addToExistingCell(
+        app,
+        cell,
+        makePostionStrategy(app.settings.position.type)
+      );
     }
   }
 
@@ -138,7 +226,7 @@ export class GridManager {
   }
 
   refreshGridDimension() {
-    let numberOfCols = this._getNumberOfColsForWidth(window.innerWidth);
-    this._setGridDimensions(numberOfCols, window.innerWidth, window.innerHeight);
+    let settings = getGridSettings(gridRules, window.innerWidth,);
+    this._setGridDimensions(settings.columns, window.innerWidth, window.innerHeight);
   }
 }
