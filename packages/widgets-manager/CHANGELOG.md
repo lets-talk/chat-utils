@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased [2.3.0] - 2020-01-23
+## Release [2.4.0] - 2020-08-26
 ### Added
 - Added method `getMountedApps` to the manager
+- Added method `getGridSettings` to support more that one grid layout
 
 ## Hotfix [2.2.1, 2.2.2, 2.2.3, 2.2.4] - 2020-01-05
 ### Fixed
@@ -30,7 +31,7 @@ change the correct app container (app-frame).
 
 ## Hotfix [2.0.3] - 2019-12-04
 ### Fixed
-- Use created app in the services firestore and auth 
+- Use created app in the services firestore and auth
 
 ## Hotfix [2.0.2] - 2019-12-04
 - Fix error warning FirebaseError: Firebase: Firebase App named already exists
