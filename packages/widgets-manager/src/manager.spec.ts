@@ -1,18 +1,26 @@
+/* tslint:disable */
 import { AppManager } from './manager';
 import { App, AppPosition, HTMLFloatType } from './types';
 import { GridManager } from './grid';
 import { ReplaceAppStrategy } from './strategies/mounting/replace';
 
-jest.mock('./utils/firebase', () => ({
-  ...jest.requireActual('./utils/firebase'),
+jest.mock('./utils/firebase', () => {
+  const realPackage = jest.requireActual('./utils/firebase')
+  return ({
+  ...realPackage,
   initializeFirebaseApp: jest.fn(() => Promise.resolve(1)),
-}));
+  })
+});
 
 const mockSelectCurrentlyMountedApps = jest.fn();
-jest.mock('./selectors/apps', () => ({
-  ...jest.requireActual('./utils/firebase'),
+
+jest.mock('./selectors/apps', () => {
+  const realPackage = jest.requireActual('./utils/firebase')
+   return ({
+  ...realPackage,
   selectCurrentlyMountedApps: mockSelectCurrentlyMountedApps,
-}));
+  })
+});
 
 const mockPositionRelativeToElement: AppPosition = {
   type: 'relative-to-element',
@@ -164,11 +172,14 @@ const mockPopupApp: App = {
 const mockApps = [mockApp1, mockApp2, mockApp3, mockPopupApp];
 const mockMountedApps = [mockApp1, mockApp3];
 
-jest.mock('./selectors/apps', () => ({
-  ...jest.requireActual('./selectors/apps'),
+jest.mock('./selectors/apps', () => {
+  const realPackage = jest.requireActual('./selectors/apps')
+  return ({
+  ...realPackage,
   selectApps: jest.fn(() => mockApps),
   selectCurrentlyMountedApps: jest.fn(() => mockMountedApps),
-}));
+  })
+});
 
 describe('AppManager', () => {
   let mockGridManager: GridManager;
@@ -204,7 +215,7 @@ describe('AppManager', () => {
   describe('Mounting apps', () => {
     it('I can mount apps', async () => {
       const manager = await new AppManager(mockGridManager);
-      
+
       expect(manager.getAppByName('App3')).toMatchObject(mockApp3);
     })
 
@@ -264,60 +275,60 @@ describe('AppManager', () => {
       manager.mountApp('App1');
       manager.mountApp('App2');
       manager.mountApp('App3');
-      
+
       // Exact match -> We find one and just one app
       const selectedApp1 = manager.getAllAppsForNamespace('lt.App1.relative-mockElement-LL-BT');
       expect(selectedApp1.length).toBe(1);
       expect(selectedApp1).toContainEqual(mockApp1);
-  
+
       // Fuzzy match -> We find one and just one app -> Same as previous test
       const selectedApp = manager.getAllAppsForNamespace('lt.App1.relative-mockElement-*');
       expect(selectedApp.length).toBe(1);
       expect(selectedApp).toContainEqual(mockApp1);
-  
+
       // Find all html apps not matter position -> We find 1 app
       const allHtmlApps = manager.getAllAppsForNamespace('lt.App1.*');
       expect(allHtmlApps.length).toBe(1);
       expect(allHtmlApps).toContainEqual(mockApp1);
-      
+
       // Find all markdown apps not matter position -> We find 3 apps
       const allMarkdownApps = manager.getAllAppsForNamespace('lt.App*.*');
       expect(allMarkdownApps.length).toBe(3);
       expect(allMarkdownApps).toContainEqual(mockApp1);
       expect(allMarkdownApps).toContainEqual(mockApp2);
       expect(allMarkdownApps).toContainEqual(mockApp3);
-  
+
       // Find all apps in position -> We find 1 app -> The correct app
       const markdownAppOnMidCenter = manager.getAllAppsForNamespace('lt.*.absolute-mid-center');
       expect(markdownAppOnMidCenter.length).toBe(1);
       expect(markdownAppOnMidCenter).toContainEqual(mockApp2);
-      
+
       // Find all apps in position -> We find 1 app -> The correct app
       const markdownAppOnBottomRight = manager.getAllAppsForNamespace('lt.*.absolute-bottom-left');
       expect(markdownAppOnBottomRight.length).toBe(1);
       expect(markdownAppOnBottomRight).toContainEqual(mockApp3);
-  
+
       // Find all apps of letstalk -> We find 4 apps
       const allApps = manager.getAllAppsForNamespace('lt.*.*');
       expect(allApps.length).toBe(4);
       expect(allApps).toContainEqual(mockApp1);
       expect(allApps).toContainEqual(mockApp2);
       expect(allApps).toContainEqual(mockApp3);
-      
-  
+
+
       // We exepct no to find any app in these cases:
       const none = manager.getAllAppsForNamespace('lt.*.bottom-right');
       expect(none.length).toBe(0);
-  
+
       const none2 = manager.getAllAppsForNamespace('lt.App1.bottom-right');
       expect(none2.length).toBe(0);
-  
+
       const none3 = manager.getAllAppsForNamespace('lt.m.*');
       expect(none3.length).toBe(0);
-  
+
       const none4 = manager.getAllAppsForNamespace('lt.*.absolute-WRONG-center');
       expect(none4.length).toBe(0);
-  
+
       const none5 = manager.getAllAppsForNamespace('l.*.absolute-mid-center');
       expect(none5.length).toBe(0);
     });
@@ -330,7 +341,7 @@ describe('AppManager', () => {
       const mountedApps = manager.getMountedApps();
       expect(mountedApps.length).toBe(2);
     });
-    
+
     it('Correctly get all apps', () => {
       const manager = new AppManager(mockGridManager);
 
