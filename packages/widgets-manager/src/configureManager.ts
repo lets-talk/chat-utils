@@ -1,4 +1,4 @@
-import { GridManager } from './grid';
+import { GridManager, getGridSettings, gridRules } from './grid';
 import { AppManager } from './manager';
 import { App, ObjectIndex } from "./types";
 import { ReplaceAppStrategy } from './strategies/mounting/replace';
@@ -16,22 +16,9 @@ export const setupManager = async (
   appsInitialData: ObjectIndex<any>,
   sideEffects: ObjectIndex<any>,
 ) => {
-  const settings = {
-    columns: 3,
-    gutter: 10,
-    padding: 10,
-    positions: [
-      'top-left',
-      'top-center',
-      'top-right',
-      'mid-left',
-      'mid-center',
-      'mid-right',
-      'bottom-left',
-      'bottom-center',
-      'bottom-right',
-    ]
-  };
+  // in the future we need to add a event over the window.innerWidth
+  // and pass a grid setting on change
+  const settings =  getGridSettings(gridRules, window.innerWidth)
   const replaceAppStrategy = new ReplaceAppStrategy();
   const gridManager = new GridManager(settings, window, replaceAppStrategy);
   const appManager = new AppManager(gridManager);
@@ -53,11 +40,11 @@ export const setupManager = async (
   });
 
   appManager.initialize(store);
-
   store.dispatch(setAppsInitialData(appsInitialData));
 
   return {
-    mountApp: (appName: string, initialData: any) => store.dispatch(mountApp(appName, initialData)),
+    mountApp: (appName: string, initialData: any) =>
+      store.dispatch(mountApp(appName, initialData)),
     unMountApp: (appName: string) => store.dispatch(unMountApp(appName)),
     getAppByName: appManager.getAppByName,
     getAllAppsForNamespace: appManager.getAllAppsForNamespace,
