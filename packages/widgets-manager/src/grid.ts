@@ -128,7 +128,7 @@ export class GridManager {
       );
     // if not map to the closet cell
     } else if(id.split('-')[1] === 'center') {
-      this._addToClosetCell(
+      this._addToClosestCell(
         app,
         id,
       );
@@ -163,7 +163,7 @@ export class GridManager {
     }
   }
 
-  _addToClosetCell(app: App, id: string) {
+  _addToClosestCell(app: App, id: string) {
     const splitPosition = id.split('-')
     // if cell is for kind center and layout is medium we push
     // to most closest left cell or if of unknown we fallback to top-left
