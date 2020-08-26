@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased [2.3.0] - 2020-01-23
+## Release [2.4.0] - 2020-08-26
 ### Added
 - Added method `getMountedApps` to the manager
 - Added method `getGridSettings` to support more that one grid layout
