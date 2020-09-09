@@ -1,0 +1,14 @@
+{
+  "name": "grid-manager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "lodash": "^4.17.20",
+    "microbundle": "^0.12.3"
+  },
+  "dependencies": {
+    "xstate": "^4.13.0"
+  }
+}
