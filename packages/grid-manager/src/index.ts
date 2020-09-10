@@ -1,7 +1,7 @@
 declare global {
-  interface Window { asdf: any; }
+  interface Window { grid: any; }
 }
 
-window.asdf = true
+window.grid = true
 
 export class MyMainClass {}
