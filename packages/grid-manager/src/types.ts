@@ -29,6 +29,13 @@ export type GridPositionsInViewport = {
   renderedWidgetsIds: string[];
 }
 
+export type rectPosition = {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number
+}
+
 export enum HTMLFloatType {
   fixed = "fixed",
   default = "default"
@@ -90,7 +97,7 @@ export type WidgetSize = {
 
 export type WidgetSizeOffset = {
   x: offsetX
-  y: offsetX
+  y: offsetY
 }
 
 export type ReferencePosition = {
