@@ -41,10 +41,13 @@ export enum HTMLFloatType {
   default = "default"
 };
 
-export type AppRelativePosition =
+export type WidgetRelativePosition =
 'relative-to-viewport' |
 'relative-to-dom-element' |
-'relative-to-app'
+'relative-to-app' |
+'relative-to-center'
+
+export type WidgetType = 'iframe' | 'div'
 
 export enum relationTypeX {
   LL = 'LL',
@@ -101,7 +104,7 @@ export type WidgetSizeOffset = {
 }
 
 export type ReferencePosition = {
-  relation: AppRelativePosition
+  relation: WidgetRelativePosition
   reference: ReferenceToGridPosition | ReferenceToFloat
   element?: string; // ex #action-button | chat-widget
 }
@@ -114,9 +117,16 @@ export type WidgetPosition = {
     styles: WidgetStyles;
     size: WidgetSize | null;
     offset: WidgetSizeOffset | null;
-    position: ReferencePosition;
   } | null;
 };
+
+export type WidgetRules = {
+  id: string;
+  src: string | null;
+  kind: WidgetType;
+  position: ReferencePosition;
+  dimensions: WidgetPosition
+}
 
 // generic css styles types
 // See CSS 3 CSS-wide keywords https://www.w3.org/TR/css3-values/#common-keywords

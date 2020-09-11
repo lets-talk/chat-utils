@@ -1,7 +1,21 @@
+import { WidgetPosition, WidgetRules } from "./types"
+
 declare global {
-  interface Window { grid: any; }
+  interface Window {
+    grid: any;
+    manager: any
+  }
 }
 
 window.grid = true
+window.manager = {}
 
-export class MyMainClass {}
+interface GridManager {
+  renderWidget: (widget: WidgetRules) => void;
+  updateWidgetPosition: (widget: WidgetRules) => void;
+  resizeWidget: (id: string, dimensions: WidgetPosition) => void;
+}
+
+export class GridManager implements GridManager {
+  render() {}
+}

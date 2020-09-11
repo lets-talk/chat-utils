@@ -1,6 +1,13 @@
 import { GridSettings, GridBreakpoints, ReferenceToGridPosition, GridPositionsInViewport, TilePosition } from "../types"
 import { reduce } from "lodash"
 
+export const RELATIVE_RENDER_POSITION = {
+  toViewport: 'relative-to-viewport',
+  toDomEl: 'relative-to-dom-element',
+  toApp: 'relative-to-app',
+  toCenter: 'relative-to-center'
+}
+
 export const breakpoints: GridBreakpoints = {
   small: [0, 480],
   medium: [481, 1024],
