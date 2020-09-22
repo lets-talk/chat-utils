@@ -45,9 +45,21 @@ export type WidgetRelativePosition =
 'relative-to-viewport' |
 'relative-to-dom-element' |
 'relative-to-app' |
-'relative-to-center'
+'relative-to-center';
 
-export type WidgetType = 'iframe' | 'div'
+export type WidgetType = 'iframe' | 'div' | 'blank';
+
+export type IframeType =
+  'lt-basic-container-multimedia' |
+  'lt-webrtc';
+
+export type UrlSourceParams = {
+  src: string | null;
+  extra: {
+    slung: string;
+    params?: {[key: string]: string};
+  };
+}
 
 export enum relationTypeX {
   LL = 'LL',
@@ -94,22 +106,22 @@ export type offsetY = {
 }
 
 export type WidgetSize = {
-  width: number
-  height: number
+  width: number;
+  height: number;
 }
 
 export type WidgetSizeOffset = {
-  x: offsetX
-  y: offsetY
+  x: offsetX;
+  y: offsetY;
 }
 
 export type ReferencePosition = {
-  relation: WidgetRelativePosition
-  reference: ReferenceToGridPosition | ReferenceToFloat
+  relation: WidgetRelativePosition;
+  reference: ReferenceToGridPosition | ReferenceToFloat;
   element?: string; // ex #action-button | chat-widget
 }
 
-export type WidgetPosition = {
+export type WidgetDimensions = {
   [key in 'mobile' | 'tablet' | 'web']: {
     fullSize?: boolean;
     animate?: boolean;
@@ -122,10 +134,14 @@ export type WidgetPosition = {
 
 export type WidgetRules = {
   id: string;
+  extra: {
+    slung: string;
+    params?: {[key: string]: string};
+  };
   src: string | null;
   kind: WidgetType;
   position: ReferencePosition;
-  dimensions: WidgetPosition
+  dimensions: WidgetDimensions;
 }
 
 // generic css styles types

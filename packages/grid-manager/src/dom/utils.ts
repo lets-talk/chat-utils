@@ -3,43 +3,30 @@ import {
   rectPosition,
   WidgetSizeOffset,
   relationTypeX,
-  relationTypeY
+  relationTypeY,
+  UrlSourceParams,
+  IframeType,
 } from "../types";
+import { forEach } from "lodash";
 
-/**
- * Return an element by its id or throws an error if it can not find one
- * @param id The dom element id
- */
-const elementById = (id: string): HTMLElement => {
+export const elementById = (id: string): HTMLElement => {
   const element = document.getElementById(id);
   if (element === null) throw Error('Can not find the dom element with id: ' + id);
   return element;
 }
 
-/**
- * Gets an element bounding position
- * @param elementId The id of the dom element (it must exist)
- */
-const getElementDomPosition = (elementId: string): DOMRect => {
+export const getElementDomPosition = (elementId: string): DOMRect => {
   const element = elementById(elementId);
   const positionInfo = element.getBoundingClientRect();
 
   return positionInfo;
 }
 
-/**
- * Gets position of a fixed floating element
- * @param elementId The id of the dom element
- */
 export const getElementPositionFixed = (elementId: string): rectPosition => {
   const domPosition = getElementDomPosition(elementId);
   return domPosition;
 }
 
-/**
- * Gets position of a default floating element
- * @param elementId The id of the dom element
- */
 export const getElementPositionDefault = (elementId: string): rectPosition => {
   const domPosition = getElementDomPosition(elementId);
 
@@ -51,11 +38,6 @@ export const getElementPositionDefault = (elementId: string): rectPosition => {
   };
 }
 
-/**
- * Get the element position of an element knowing how it is floating
- * @param elementId The id of the dom element
- * @param elementFloatType The float type element (supports: fixed, default)
- */
 export const getElementPosition = (elementId: string, elementFloatType: HTMLFloatType): rectPosition => {
   switch (elementFloatType) {
     case HTMLFloatType.default:
@@ -112,3 +94,55 @@ export const getRelativePosition = (
 
   return offset;
 }
+
+export const generateUrlFromParams = (
+  urlParams: UrlSourceParams,
+  slugKey = 'appName'
+): URL => {
+  const { src, extra } = urlParams;
+  const url = new URL(src);
+  const params = new URLSearchParams(url.search);
+
+  params.append(slugKey, extra.slung);
+  if(extra.params) {
+    forEach(extra.params, (v, k) => params.append(v, k));
+  }
+
+  url.search = params.toString();
+  return url;
+}
+
+export const generateDomElement = (
+  id: string,
+  element: 'div' | 'iframe',
+  styles: {[key:string]: string} | null,
+  iframeSettings: {
+    src: string
+    type?: IframeType,
+  } | null,
+  className?: string,
+): HTMLDivElement | HTMLIFrameElement => {
+  const {src, type} = iframeSettings;
+  const el = document.createElement(element);
+
+  el.id = id;
+  el.className = className ? className : '';
+
+  if(element === 'iframe') {
+    (el as HTMLIFrameElement).src = src;
+  }
+
+  if(type && ["lt-basic-container-multimedia",  "lt-webrtc"].indexOf(type) !== -1) {
+    (el as HTMLIFrameElement).allow = "microphone *; camera *";
+  }
+
+  if(styles) {
+    forEach(styles, (v,k) => el.style.setProperty(v, k))
+  }
+
+  return el
+}
+
+export const appendNodeToParent = (parent: Node, children: Node): Node => (
+  parent.appendChild(children)
+)

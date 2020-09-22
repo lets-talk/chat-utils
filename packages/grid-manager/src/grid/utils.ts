@@ -1,4 +1,10 @@
-import { GridSettings, GridBreakpoints, ReferenceToGridPosition, GridPositionsInViewport, TilePosition } from "../types"
+import {
+  GridSettings,
+  GridBreakpoints,
+  ReferenceToGridPosition,
+  GridPositionsInViewport,
+  TilePosition
+ } from "../types"
 import { reduce } from "lodash"
 
 export const RELATIVE_RENDER_POSITION = {
