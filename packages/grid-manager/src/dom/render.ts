@@ -3,7 +3,9 @@ import {
   WidgetType,
   UrlSourceParams,
   WidgetSize,
-  IframeType
+  IframeType,
+  WidgetDimensions,
+  ReferencePosition
 } from "../types";
 import { RELATIVE_RENDER_POSITION } from "../grid/utils";
 import {
@@ -68,10 +70,12 @@ export const makePostionStrategy = (type: WidgetRelativePosition): Promise<any> 
 export const createIframeWidget = async (
   id: string,
   urlParams: UrlSourceParams,
-  size: WidgetSize,
+  position: ReferencePosition,
+  dimensions: WidgetDimensions,
   iframeType: IframeType | undefined,
-  styles?: {[key: string]: string}
 ): Promise<HTMLDivElement> => {
+  const {relation, reference, element} = position;
+  const {size, styles, fullSize, animate, elevation, offset} = dimensions;
   // generate iframe src url
   const url = generateUrlFromParams(urlParams);
   // create empty wrapper div
@@ -84,8 +88,8 @@ export const createIframeWidget = async (
   // generate container iframe div and pass css rules
   const baseContainerStyles = {
     ...CONTAINER_FRAME_STYLES,
-    width: `${size.width}`,
-    height: `${size.height}`,
+    width: `${fullSize ? window.innerWidth : size.width}px`,
+    height: `${fullSize ? window.innerHeight : size.height}px`,
   };
   const containerEl = generateDomElement(
     `lt-app-frame-${id}`,
@@ -111,19 +115,20 @@ export const createIframeWidget = async (
   }
 }
 
-export const renderWidgetElement = (
+export const renderWidgetElement = ({...args}: {
   id: string,
-  type: WidgetType,
+  kind: WidgetType,
   url: UrlSourceParams,
-  size: WidgetSize,
-  iframeType: IframeType | undefined,
-  styles?: {[key: string]: string}
-): Promise<HTMLDivElement> | Window | Error => {
-  switch(type) {
+  dimensions: WidgetDimensions,
+  iframeType?: IframeType,
+  position: ReferencePosition;
+}): Promise<HTMLDivElement> | Window | Error => {
+  const {id, kind, url, dimensions, iframeType, position} = args;
+  switch(kind) {
     case 'iframe':
-      return createIframeWidget(id, url, size, iframeType, styles);
+      return createIframeWidget(id, url, position, dimensions, iframeType);
     case 'blank':
-      return createWindowBlankWidget(id, url, size);
+      return createWindowBlankWidget(id, url, dimensions.size);
     // The div case will be supported in the near future
     case 'div':
     default:

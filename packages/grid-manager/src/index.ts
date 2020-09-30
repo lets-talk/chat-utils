@@ -1,4 +1,5 @@
-import { WidgetRules, WidgetDimensions } from "./types"
+import { WidgetRules, WidgetDimensions, WidgetDimensionsList } from "./types"
+import { debounce } from "lodash"
 
 declare global {
   interface Window {
@@ -10,10 +11,16 @@ declare global {
 window.grid = true
 window.manager = {}
 
+console.log('adsf')
+
+window.addEventListener('resize', debounce(() => {
+  console.log('resize :)')
+}, 200))
+
 interface GridManagerClass {
   renderWidget: (widget: WidgetRules) => void;
   updateWidgetRules: (widget: WidgetRules) => void;
-  updateWidgetDimensions: (id: string, dimensions: WidgetDimensions) => void;
+  updateWidgetDimensions: (id: string, dimensions: WidgetDimensionsList) => void;
   removeWidget: (id: string) => void;
 }
 

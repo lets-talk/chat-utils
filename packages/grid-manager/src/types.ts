@@ -122,14 +122,16 @@ export type ReferencePosition = {
 }
 
 export type WidgetDimensions = {
-  [key in 'mobile' | 'tablet' | 'web']: {
-    fullSize?: boolean;
-    animate?: boolean;
-    elevation?: number;
-    styles: WidgetStyles;
-    size: WidgetSize | null;
-    offset: WidgetSizeOffset | null;
-  } | null;
+  fullSize?: boolean;
+  animate?: boolean;
+  elevation?: number;
+  styles: WidgetStyles;
+  size: WidgetSize | null;
+  offset: WidgetSizeOffset | null;
+};
+
+export type WidgetDimensionsList = {
+  [key in 'mobile' | 'tablet' | 'web']: WidgetDimensions | null;
 };
 
 export type WidgetRules = {
@@ -138,10 +140,11 @@ export type WidgetRules = {
     slung: string;
     params?: {[key: string]: string};
   };
+  iframeType: IframeType | null;
   src: string | null;
   kind: WidgetType;
   position: ReferencePosition;
-  dimensions: WidgetDimensions;
+  dimensions: WidgetDimensionsList;
 }
 
 // generic css styles types

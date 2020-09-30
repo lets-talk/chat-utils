@@ -146,3 +146,4 @@ export const generateDomElement = (
 export const appendNodeToParent = (parent: Node, children: Node): Node => (
   parent.appendChild(children)
 )
+
