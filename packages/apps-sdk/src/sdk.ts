@@ -21,6 +21,7 @@ import {
   APP_MODE_POPUP,
   EVENT_TYPE_EXECUTE_APP_METHOD,
   EVENT_TYPE_GET_CONTAINER_INFO,
+  APP_MODE_SELF,
 } from './constants';
 
 export class SDK {
@@ -54,7 +55,23 @@ export class SDK {
     this.appName = parsedAppName ? parsedAppName : 'messenger-iframe';
 
     const mode = this.queryParams && this.queryParams.mode ? this.queryParams.mode : APP_MODE_IFRAME;
-    const channelConfig = mode === APP_MODE_POPUP ? { window: window.opener } : { window: window.parent };
+
+    let channelConfig = {};
+    switch (mode) {
+      case APP_MODE_POPUP:
+        channelConfig = { window: window.opener };
+        break;
+      case APP_MODE_IFRAME:
+        channelConfig = { window: window.parent };
+        break;
+      case APP_MODE_SELF:
+        channelConfig = { window: window };
+        break;
+    
+      default:
+        channelConfig = { window: window.parent };
+        break;
+    }
 
     // Define Communication Channels
     this.channelManager = this.channelFactory();

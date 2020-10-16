@@ -12,3 +12,4 @@ export const EVENT_TYPE_EXECUTE_APP_METHOD = 'launcher-execute-app-method';
 // Apps Modes
 export const APP_MODE_IFRAME = 'iframe';
 export const APP_MODE_POPUP = 'popup';
+export const APP_MODE_SELF = 'self';
