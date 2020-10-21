@@ -1,17 +1,17 @@
-import { Machine} from "xstate";
-import { GridPositionsInViewport, GridSettings } from "../types";
-import { calculateGridDimensions, reconcileWidgets, SET_VIEWPORT_SIZE, updateGridContext } from "./actions";
+import { assign, Machine} from "xstate";
+import { GridPositionsInViewport, GridSettings, WidgetRules } from "../types";
+import { calculateGridDimensions, reconcileWidgets, setWidgetsRules, SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE } from "./actions";
 
 export enum MachineStates {
   calculateGridDimensions = 'calculateGridDimensions',
-  setWidgetRules = 'setWidgetRules',
+  setWidgetsRules = 'setWidgetsRules',
   reconcileWidgets = 'reconcileWidgets',
   setWidgetsInDom = 'setWidgetsInDom',
 }
 
 export type WidgetsMachineCtx = {
   widgetsIds: string[];
-  widgets: any,
+  widgets: {[key:string]: WidgetRules},
   positions: GridPositionsInViewport,
   rules: GridSettings,
 }
@@ -32,12 +32,29 @@ const widgetsMachine = Machine({
         src: calculateGridDimensions,
         onDone: {
           target: MachineStates.reconcileWidgets,
-          actions: updateGridContext
+          actions: assign({
+            rules: (_, event) => event.data as GridSettings
+          })
         }
       }
     },
     // Entry point if the trigger is an update in the rules of one or more rendered widgets
-    [MachineStates.setWidgetRules]: {},
+    [MachineStates.setWidgetsRules]: {
+      invoke: {
+        src: setWidgetsRules,
+        onDone: {
+          target: MachineStates.reconcileWidgets,
+          actions: assign({
+            widgetsIds: (context: WidgetsMachineCtx, event) =>
+              [context.widgetsIds, ...event.data.ids],
+            widgets: (context: WidgetsMachineCtx, event) => ({
+              ...context.widgets,
+              ...event.data.widgets
+            })
+          })
+        }
+      }
+    },
     //
     [MachineStates.reconcileWidgets]: {
       invoke: {
@@ -55,6 +72,9 @@ const widgetsMachine = Machine({
   on: {
     [SET_VIEWPORT_SIZE]: {
       target: `.${MachineStates.calculateGridDimensions}`
+    },
+    [SET_WIDGETS_IN_STATE]: {
+      target: `.${MachineStates.setWidgetsRules}`
     }
   }
 })

@@ -2,7 +2,7 @@ import { WidgetRules, WidgetDimensionsList, GridPositionsInViewport, GridSetting
 import { debounce } from "lodash"
 import { interpret, Interpreter, StateMachine } from "xstate"
 import widgetsMachine, { MachineStates } from './widgetsMachine/machine';
-import { sendViewportDimensions } from "./widgetsMachine/actions";
+import { sendViewportDimensions, sendWidgetsToMachine } from "./widgetsMachine/actions";
 
 declare global {
   interface Window {
@@ -22,10 +22,10 @@ type StateData = {
 }
 
 interface GridManagerClass {
-  machineStart: () => Interpreter<any> | Error;
-  machineStop: () => TData;
+  start: () => Interpreter<any> | Error;
+  stop: () => TData;
   getState: () => StateData | Error;
-  renderWidget: (widget: WidgetRules) => Promise<TData>;
+  renderWidgets: (widgets: WidgetRules[]) => Promise<TData>;
   updateWidgetRules: (widget: WidgetRules) => Promise<TData>;
   updateWidgetDimensions: (id: string, dimensions: WidgetDimensionsList) => Promise<TData>;
   removeWidget: (id: string) => Promise<TData>;
@@ -56,7 +56,7 @@ export class GridManager implements GridManagerClass {
     )
   }
 
-  machineStart() {
+  start() {
     const interpreter = this._generateMachineInterpreter()
     // if the interpreter is generated, we start the machine listener
     if(interpreter.initialized) {
@@ -76,7 +76,7 @@ export class GridManager implements GridManagerClass {
     }
   }
 
-  machineStop() {
+  stop() {
     this.interpreter.stop()
     if(!this.interpreter.initialized) {
       window.removeEventListener('resize',
@@ -96,8 +96,15 @@ export class GridManager implements GridManagerClass {
     }
   }
 
-  renderWidget(widget) {
-    return Promise.resolve(true)
+  renderWidgets(widgets) {
+    try {
+      this.interpreter.send(sendWidgetsToMachine(widgets))
+      // we can improve this because we can wait to
+      // interpreter transform onDone
+      return Promise.resolve(true)
+    } catch(e) {
+      return Promise.reject(new Error(e))
+    }
   }
 
   updateWidgetRules(widget) {
@@ -113,9 +120,9 @@ export class GridManager implements GridManagerClass {
   }
 }
 
-const instance = new GridManager(widgetsMachine)
-const widgetService = instance.machineStart()
+const machine = new GridManager(widgetsMachine)
+const widgetService = machine.start()
 
 console.log({widgetService})
 
-window.manager = instance
+window.manager = machine
