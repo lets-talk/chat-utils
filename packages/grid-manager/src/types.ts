@@ -5,6 +5,7 @@ export type GridBreakpoints = {
 }
 
 export type GridSettings = {
+  label: string;
   columns: number;
   rows: number;
   positions: ReferenceToGridPosition[];

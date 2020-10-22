@@ -6,6 +6,7 @@ import { GridSettings, WidgetRules } from "../types"
 // Actions names
 export const SET_VIEWPORT_SIZE = 'SET_VIEWPORT_SIZE'
 export const SET_WIDGETS_IN_STATE = 'SET_WIDGETS_IN_STATE'
+export const UPDATE_WIDGETS_IN_STATE = 'UPDATE_WIDGETS_IN_STATE'
 
 // Actions fns
 type SetViewportAction = {
@@ -20,14 +21,20 @@ export const sendViewportDimensions = (width:number, height:number) => ({
   height
 })
 
-export const sendWidgetsToMachine = (widgets: WidgetRules) => ({
+export const sendWidgetsIntoMachine = (widgets: WidgetRules) => ({
   type: SET_WIDGETS_IN_STATE,
   widgets
+})
+
+export const sendUpdateToWidget = (widget: WidgetRules) => ({
+  type: UPDATE_WIDGETS_IN_STATE,
+  widget
 })
 
 // calculateGridDimensions state invoker
 export const calculateGridDimensions = (_, event: SetViewportAction) => {
   const rules: GridSettings = getRulesFromViewport(gridRules, event.width, breakpoints)
+
   console.log('invoke calculateGridDimensions', {rules})
 
   if(rules) {
@@ -37,14 +44,20 @@ export const calculateGridDimensions = (_, event: SetViewportAction) => {
   }
 }
 
-// reconcileWidgets state invoker
-export const reconcileWidgets = (context) => {
-  console.log('reconcileWidgets', {context})
+// setWidgetRules state invoker
+export const setWidgetsRules = (context, event) => {
+  console.log('setWidgetsRules', {context, event})
   return Promise.resolve(true)
 }
 
 // setWidgetRules state invoker
-export const setWidgetsRules = (context, event) => {
-  console.log('reconcileWidgets', {context, event})
+export const updateWidgetRules = (context, event) => {
+  console.log('updateWidgetRules', {context, event})
+  return Promise.resolve(true)
+}
+
+// reconcileWidgets state invoker
+export const reconcileWidgets = (context) => {
+  console.log('reconcileWidgets', {context})
   return Promise.resolve(true)
 }

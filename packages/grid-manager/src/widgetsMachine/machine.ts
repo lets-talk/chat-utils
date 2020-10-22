@@ -1,25 +1,28 @@
 import { assign, Machine} from "xstate";
 import { GridPositionsInViewport, GridSettings, WidgetRules } from "../types";
-import { calculateGridDimensions, reconcileWidgets, setWidgetsRules, SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE } from "./actions";
+import { calculateGridDimensions, reconcileWidgets, setWidgetsRules, SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE, updateWidgetRules, UPDATE_WIDGETS_IN_STATE } from "./actions";
 
 export enum MachineStates {
   calculateGridDimensions = 'calculateGridDimensions',
   setWidgetsRules = 'setWidgetsRules',
+  updateWidgetRules = 'updateWidgetRules',
   reconcileWidgets = 'reconcileWidgets',
-  setWidgetsInDom = 'setWidgetsInDom',
+  renderWidgetsInDom = 'renderWidgetsInDom',
 }
 
 export type WidgetsMachineCtx = {
+  activeRuleName: string;
   widgetsIds: string[];
-  widgets: {[key:string]: WidgetRules},
-  positions: GridPositionsInViewport,
-  rules: GridSettings,
+  widgets: {[key:string]: WidgetRules};
+  positions: GridPositionsInViewport;
+  rules: GridSettings;
 }
 
 const widgetsMachine = Machine({
   id: 'widgetsMachine',
   initial: MachineStates.calculateGridDimensions,
   context: {
+    activeRuleName: null,
     widgetsIds: null,
     widgets: null,
     positions: null,
@@ -33,7 +36,8 @@ const widgetsMachine = Machine({
         onDone: {
           target: MachineStates.reconcileWidgets,
           actions: assign({
-            rules: (_, event) => event.data as GridSettings
+            activeRuleName: (_, event) => event.data.label,
+            rules: (_, event) => event.data
           })
         }
       }
@@ -55,17 +59,30 @@ const widgetsMachine = Machine({
         }
       }
     },
+    // Entry point in case of a widget asking to update her position or size in model
+    [MachineStates.updateWidgetRules]: {
+      invoke: {
+        src: updateWidgetRules,
+        onDone: {
+          target: MachineStates.reconcileWidgets,
+          actions: assign({
+            widgetsIds: (context: WidgetsMachineCtx, event) => event.data.widgetsIds,
+            widgets: (context: WidgetsMachineCtx, event) => event.data.widgets
+          })
+        }
+      }
+    },
     //
     [MachineStates.reconcileWidgets]: {
       invoke: {
         src: reconcileWidgets,
         onDone: {
-          target: MachineStates.setWidgetsInDom,
+          target: MachineStates.renderWidgetsInDom,
           // actions: () => {}
         }
       }
     },
-    [MachineStates.setWidgetsInDom]: {
+    [MachineStates.renderWidgetsInDom]: {
       type: 'final'
     }
   },
@@ -75,6 +92,9 @@ const widgetsMachine = Machine({
     },
     [SET_WIDGETS_IN_STATE]: {
       target: `.${MachineStates.setWidgetsRules}`
+    },
+    [UPDATE_WIDGETS_IN_STATE]: {
+      target: `.${MachineStates.updateWidgetRules}`
     }
   }
 })
