@@ -1,8 +1,8 @@
 import { WidgetRules, WidgetDimensionsList, GridPositionsInViewport, GridSettings } from "./types"
 import { debounce } from "lodash"
 import { interpret, Interpreter, StateMachine } from "xstate"
-import widgetsMachine, { MachineStates } from './widgetsMachine/machine';
-import { sendViewportDimensions, sendWidgetsToMachine } from "./widgetsMachine/actions";
+import widgetsMachine, { MachineStates, WidgetsMachineCtx } from './widgetsMachine/machine';
+import { sendViewportDimensions, sendWidgetsIntoMachine, sendUpdateToWidget } from "./widgetsMachine/actions";
 
 declare global {
   interface Window {
@@ -15,11 +15,7 @@ window.grid = true
 window.manager = {}
 
 type TData = Boolean | Error
-type StateData = {
-  widgets: [],
-  positions: GridPositionsInViewport,
-  rules: GridSettings,
-}
+type StateData = WidgetsMachineCtx
 
 interface GridManagerClass {
   start: () => Interpreter<any> | Error;
@@ -46,7 +42,7 @@ export class GridManager implements GridManagerClass {
         console.log(`in transition => event type: ${event.type}`, {state, event})
       }).onDone(state => {
         console.log(`reach final state`, {state})
-      }).start();
+      }).start()
     return this.interpreter
   }
 
@@ -98,9 +94,11 @@ export class GridManager implements GridManagerClass {
 
   renderWidgets(widgets) {
     try {
-      this.interpreter.send(sendWidgetsToMachine(widgets))
-      // we can improve this because we can wait to
-      // interpreter transform onDone
+      this.interpreter.send(sendWidgetsIntoMachine(widgets))
+      // we can improve this because tracking the onDone interpreter
+      // this.interpreter.onDone(state => {
+        // return Promise.resolve(true)
+      // })
       return Promise.resolve(true)
     } catch(e) {
       return Promise.reject(new Error(e))
@@ -108,7 +106,16 @@ export class GridManager implements GridManagerClass {
   }
 
   updateWidgetRules(widget) {
-    return Promise.resolve(true)
+    try {
+      this.interpreter.send(sendUpdateToWidget(widget))
+      // we can improve this because tracking the onDone interpreter
+      // this.interpreter.onDone(state => {
+        // return Promise.resolve(true)
+      // })
+      return Promise.resolve(true)
+    } catch(e) {
+      return Promise.reject(new Error(e))
+    }
   }
 
   updateWidgetDimensions(id, dimensions) {
