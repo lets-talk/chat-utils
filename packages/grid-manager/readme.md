@@ -2,6 +2,10 @@
 
 Microbundle includes two commands - `build` (the default) and `watch`. Neither require any options, but you can tailor things to suit your needs a bit if you like.
 
+### `xstate`
+Something amazing about `xState` is that you can visualize the machine definition and behavior whiteout need to understand the real code implementation 🎉
+[xState Visualizer](https://xstate.js.org/viz/?gist=4e165a26d86dab44acfb95f1c2f78481)
+
 ### `microbundle` / `microbundle build`
 
 Unless overridden via the command line, microbundle uses the `source` property in your `package.json` to locate the input file, and the `main` property for the output:

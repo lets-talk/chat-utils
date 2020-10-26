@@ -35,7 +35,7 @@ export const sendUpdateToWidget = (widget: WidgetRules) => ({
 export const calculateGridDimensions = (_, event: SetViewportAction) => {
   const rules: GridSettings = getRulesFromViewport(gridRules, event.width, breakpoints)
 
-  console.log('invoke calculateGridDimensions', {rules})
+  console.log('calculateGridDimensions', {rules})
 
   if(rules) {
     return Promise.resolve(rules)
@@ -47,7 +47,21 @@ export const calculateGridDimensions = (_, event: SetViewportAction) => {
 // setWidgetRules state invoker
 export const setWidgetsRules = (context, event) => {
   console.log('setWidgetsRules', {context, event})
-  return Promise.resolve(true)
+  if(!event.widgets.length) {
+    throw new Error('widgets value can`t be empty')
+  }
+
+  const widgetsParsed =  event.widgets.reduce((acc, widget: WidgetRules) => ({
+    widgetsIds: [...acc.widgetsIds, widget.id],
+    widgets: {
+      ...acc.widgets,
+      [widget.id]: widget
+    }
+  }), {
+    widgetsIds:[], widgets: {}
+  })
+
+  return Promise.resolve(widgetsParsed)
 }
 
 // setWidgetRules state invoker

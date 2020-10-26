@@ -83,7 +83,12 @@ const widgetsMachine = Machine({
       }
     },
     [MachineStates.renderWidgetsInDom]: {
-      type: 'final'
+      invoke: {
+        src: () => Promise.resolve(true),
+        onDone: {
+          // target: MachineStates.watchMachineChange
+        }
+      }
     }
   },
   on: {
@@ -100,3 +105,86 @@ const widgetsMachine = Machine({
 })
 
 export default widgetsMachine
+
+
+  // // Available variables:
+  // // - Machine
+  // // - interpret
+  // // - assign
+  // // - send
+  // // - sendParent
+  // // - spawn
+  // // - raise
+  // // - actions
+  // // - XState (all XState exports)
+
+  // const fetchMachine = Machine({
+  //   id: 'widgetsMachine',
+  //   initial: 'calculateGridDimensions',
+  //   context: {
+  //     activeRuleName: null,
+  //     widgetsIds: null,
+  //     widgets: null,
+  //     positions: null,
+  //     rules: null,
+  //   },
+  //   states: {
+  //     setWidgetsRules: {
+  //       on: {
+  //         'SET_WIDGETS_IN_STATE': {},
+  //       },
+  //       invoke: {
+  //         src: () => setTimeout(() => Promise.resolve(true), 500),
+  //         onDone: {
+  //           target: 'calculateGridDimensions'
+  //         }
+  //       }
+  //     },
+  //     updateWidgetRules: {
+  //       on: {
+  //         'UPDATE_WIDGETS_IN_STATE': {}
+  //       },
+  //       invoke: {
+  //         src: () => setTimeout(() => Promise.resolve(true), 500),
+  //         onDone: {
+  //           target: 'calculateGridDimensions'
+  //         }
+  //       }
+  //     },
+  //     calculateGridDimensions: {
+  //       on: {
+  //         'SET_VIEWPORT_SIZE': {},
+  //       },
+  //       invoke: {
+  //         src: () => setTimeout(() => Promise.resolve(true), 2000),
+  //         onDone: {
+  //           target: 'reconcileWidgets'
+  //         }
+  //       }
+  //     },
+  //     reconcileWidgets: {
+  //       invoke: {
+  //         src: () => setTimeout(() => Promise.resolve(true), 500),
+  //         onDone: {
+  //           target: 'renderWidgetsInDom'
+  //         }
+  //       }
+  //     },
+  //     renderWidgetsInDom: {
+  //       invoke: {
+  //         src: () => setTimeout(() => Promise.resolve(true), 500),
+  //       },
+  //       on: {
+  //         'SET_VIEWPORT_SIZE': {
+  //           target: 'calculateGridDimensions'
+  //         },
+  //         'SET_WIDGETS_IN_STATE': {
+  //           target: 'setWidgetsRules'
+  //         },
+  //         'UPDATE_WIDGETS_IN_STATE': {
+  //           target: 'updateWidgetRules'
+  //         }
+  //       }
+  //     }
+  //   },
+  // });

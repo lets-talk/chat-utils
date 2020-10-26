@@ -126,7 +126,7 @@ export type WidgetDimensions = {
   fullSize?: boolean;
   animate?: boolean;
   elevation?: number;
-  styles: WidgetStyles;
+  styles: WidgetStyles | null;
   size: WidgetSize | null;
   offset: WidgetSizeOffset | null;
 };

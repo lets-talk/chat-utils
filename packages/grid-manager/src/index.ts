@@ -1,8 +1,9 @@
-import { WidgetRules, WidgetDimensionsList, GridPositionsInViewport, GridSettings } from "./types"
+import { WidgetRules, WidgetDimensionsList, GridPositionsInViewport, GridSettings, ReferenceToGridPosition, relationTypeY, relationTypeX } from "./types"
 import { debounce } from "lodash"
 import { interpret, Interpreter, StateMachine } from "xstate"
 import widgetsMachine, { MachineStates, WidgetsMachineCtx } from './widgetsMachine/machine';
 import { sendViewportDimensions, sendWidgetsIntoMachine, sendUpdateToWidget } from "./widgetsMachine/actions";
+import { widgetsToRenderMock } from "./mocks/widgetRules";
 
 declare global {
   interface Window {
@@ -23,7 +24,6 @@ interface GridManagerClass {
   getState: () => StateData | Error;
   renderWidgets: (widgets: WidgetRules[]) => Promise<TData>;
   updateWidgetRules: (widget: WidgetRules) => Promise<TData>;
-  updateWidgetDimensions: (id: string, dimensions: WidgetDimensionsList) => Promise<TData>;
   removeWidget: (id: string) => Promise<TData>;
 }
 
@@ -43,30 +43,40 @@ export class GridManager implements GridManagerClass {
       }).onDone(state => {
         console.log(`reach final state`, {state})
       }).start()
-    return this.interpreter
+
+    return this.interpreter.initialized ? this.interpreter.initialized : false
   }
 
   private _resizeEventCb() {
-    this.interpreter.send(
-      sendViewportDimensions(window.innerWidth, window.innerHeight)
-    )
+    return debounce(() => {
+      console.log('viewport resize', {interpreter: this.interpreter})
+      return this.interpreter.send(
+        sendViewportDimensions(window.innerWidth, window.innerHeight)
+      )
+    }, 400)
   }
 
   start() {
     const interpreter = this._generateMachineInterpreter()
     // if the interpreter is generated, we start the machine listener
-    if(interpreter.initialized) {
+    if(interpreter) {
       console.log('machine start :)')
       // Send machine to calculate grid dimensions from last viewport
-      interpreter.send(
+      this.interpreter.send(
         sendViewportDimensions(window.innerWidth, window.innerHeight)
       )
       // Add event listener for the resize event
-      window.addEventListener('resize',
-        debounce(this._resizeEventCb.bind(this), 400)
+      window.addEventListener('resize', debounce(() =>  {
+        console.log('viewport resize', {
+          interpreter: this.interpreter,
+          width: window.innerWidth
+        })
+        this.interpreter.send(
+          sendViewportDimensions(window.innerWidth, window.innerHeight)
+        )}, 200)
       )
       // return the interpreter instance for consumer utility
-      return interpreter
+      return this.interpreter
     } else {
       return new Error('machine doesn`t want to start :(')
     }
@@ -128,8 +138,10 @@ export class GridManager implements GridManagerClass {
 }
 
 const machine = new GridManager(widgetsMachine)
-const widgetService = machine.start()
+const widgetService: any = machine.start()
+
+machine.renderWidgets(widgetsToRenderMock)
+machine.renderWidgets(widgetsToRenderMock)
 
 console.log({widgetService})
-
-window.manager = machine
+window.manager = widgetService
