@@ -28,10 +28,9 @@ export class SDK {
   private appName: string = '';
   private queryParams: ObjectIndex<any> = {};
   private initialData: ObjectIndex<any> = {};
+  private channelConfig: { window: Window, domain: string } = { window: window.parent, domain: '*' };
   private channelFactory: () => any;
   private channelManager: any;
-  private sendChannel: any;
-  private receiveChannel: any;
   private handlers: any;
 
   constructor(channelFactory = () => postRobot) {
@@ -56,34 +55,33 @@ export class SDK {
 
     const mode = this.queryParams && this.queryParams.mode ? this.queryParams.mode : APP_MODE_IFRAME;
 
-    let channelConfig = {};
+    let targetWindow: Window;
     switch (mode) {
       case APP_MODE_POPUP:
-        channelConfig = { window: window.opener };
+        targetWindow = window.opener;
         break;
       case APP_MODE_IFRAME:
-        channelConfig = { window: window.parent };
+        targetWindow = window.parent;
         break;
       case APP_MODE_SELF:
-        channelConfig = { window: window };
+        targetWindow = window;
         break;
     
       default:
-        channelConfig = { window: window.parent };
+        targetWindow = window.parent;
         break;
     }
 
     // Define Communication Channels
     this.channelManager = this.channelFactory();
-    this.sendChannel = this.channelManager.client({ ...channelConfig, domain: '*' });
-    this.receiveChannel = this.channelManager.listener({ ...channelConfig, domain: '*' });
+    this.channelConfig = { window: targetWindow, domain: '*' };
   }
 
   /**
    * setUpListeners Set the handlers for different events we want to listen for
    */
   private setUpListeners(): void {
-    this.receiveChannel.on(EVENT_TYPE_EXECUTE_APP_METHOD, this.handleExecuteAppMethod);
+    this.channelManager.on(EVENT_TYPE_EXECUTE_APP_METHOD, this.channelConfig, this.handleExecuteAppMethod);
   }
 
   /**
@@ -97,7 +95,7 @@ export class SDK {
    * on Define handler for indidividual events types
    */
   public on(eventName: string, handler: (event: EventData) => void) {
-    this.receiveChannel.on(eventName, handler);
+    this.channelManager.on(eventName, this.channelConfig, handler);
   }
 
   private handleExecuteAppMethod(event: EventData) {
@@ -112,28 +110,28 @@ export class SDK {
    * @param appNamespace The app namespace to execute the open
    */
   public openApp(appNamespace: string, initialData: any): Promise<any> {
-    return this.sendChannel.send(EVENT_TYPE_LOAD_APP, { appName: appNamespace, initialData });
+    return this.channelManager.send(this.channelConfig.window, EVENT_TYPE_LOAD_APP, { appName: appNamespace, initialData });
   }
 
   /**
    * closeApp
    */
   public closeApp(): Promise<any> {
-    return this.sendChannel.send(EVENT_TYPE_REMOVE_APP, { appName: `lt.${this.appName}.*` });
+    return this.channelManager.send(this.channelConfig.window, EVENT_TYPE_REMOVE_APP, { appName: `lt.${this.appName}.*` });
   }
 
   /**
    * getContextObject: Returns a promise that resolves to the Context object
    */
   public getContextObject(): Promise<any> {
-    return this.sendChannel.send(EVENT_TYPE_GET_CONTEXT, { appName: this.appName });
+    return this.channelManager.send(this.channelConfig.window, EVENT_TYPE_GET_CONTEXT, { appName: this.appName });
   }
   
   /**
    * getContainerInfo: Returns a promise that resolves to the Container information
    */
   public getContainerInfo(): Promise<any> {
-    return this.sendChannel.send(EVENT_TYPE_GET_CONTAINER_INFO, { appName: this.appName });
+    return this.channelManager.send(this.channelConfig.window, EVENT_TYPE_GET_CONTAINER_INFO, { appName: this.appName });
   }
 
   /**
@@ -141,7 +139,7 @@ export class SDK {
    */
   public getAppSettings(): Promise<AppSettingsResult> {
     return new Promise((resolve, reject) => {
-      return this.sendChannel.send(EVENT_TYPE_GET_APP_SETTINGS, { appName: this.appName }).then((result: AppSettingsResult) => {
+      return this.channelManager.send(this.channelConfig.window, EVENT_TYPE_GET_APP_SETTINGS, { appName: this.appName }).then((result: AppSettingsResult) => {
         // Here we extend the app initialData with what we have in this.initialData
         const extendedResult = { 
           ...result,
@@ -175,7 +173,7 @@ export class SDK {
    * @param args The data we want to pass to the function as arguments
    */
   public notify(eventName: string, data: any): Promise<any> {
-    return this.sendChannel.send(EVENT_TYPE_NOTIFY_APP_EVENT, { appName: this.appName, payload: { eventName, data } });
+    return this.channelManager.send(this.channelConfig.window, EVENT_TYPE_NOTIFY_APP_EVENT, { appName: this.appName, payload: { eventName, data } });
   }
   
   /**
@@ -185,7 +183,7 @@ export class SDK {
    * @param args The data we want to pass to the function as arguments
    */
   public executeAppMethod(appName: string, method: string, args: any): Promise<any> {
-    return this.sendChannel.send(EVENT_TYPE_EXECUTE_APP_METHOD,  { appName, payload: { method, args } });
+    return this.channelManager.send(this.channelConfig.window, EVENT_TYPE_EXECUTE_APP_METHOD,  { appName, payload: { method, args } });
   }
 
   /**
@@ -212,7 +210,7 @@ export class SDK {
       default:
         break;
     }
-    return this.sendChannel.send('execute-app-sdk-method', eventData).then((event: any) => {
+    return this.channelManager.send(this.channelConfig.window, 'execute-app-sdk-method', eventData).then((event: any) => {
       console.log(`Called method ${method}:`, event);
     }).catch((error: any) => {
       console.error('postRobot client error:', error);
