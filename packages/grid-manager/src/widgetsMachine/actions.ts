@@ -1,12 +1,12 @@
-import { assign } from "xstate"
-import { resolveActions } from "xstate/lib/actions"
+import { uniq } from "lodash"
 import { breakpoints, getRulesFromViewport, gridRules } from "../grid/utils"
 import { GridSettings, WidgetRules } from "../types"
+import { WidgetsMachineCtx } from "./machine"
 
 // Actions names
 export const SET_VIEWPORT_SIZE = 'SET_VIEWPORT_SIZE'
 export const SET_WIDGETS_IN_STATE = 'SET_WIDGETS_IN_STATE'
-export const UPDATE_WIDGETS_IN_STATE = 'UPDATE_WIDGETS_IN_STATE'
+export const UPDATE_WIDGET_IN_STATE = 'UPDATE_WIDGET_IN_STATE'
 
 // Actions fns
 type SetViewportAction = {
@@ -27,7 +27,7 @@ export const sendWidgetsIntoMachine = (widgets: WidgetRules) => ({
 })
 
 export const sendUpdateToWidget = (widget: WidgetRules) => ({
-  type: UPDATE_WIDGETS_IN_STATE,
+  type: UPDATE_WIDGET_IN_STATE,
   widget
 })
 
@@ -45,23 +45,41 @@ export const calculateGridDimensions = (_, event: SetViewportAction) => {
 }
 
 // setWidgetRules state invoker
-export const setWidgetsRules = (context, event) => {
+export const setWidgetsRules = (context: WidgetsMachineCtx, event: {
+  type: string,
+  widgets: WidgetRules[]
+}) => {
   console.log('setWidgetsRules', {context, event})
   if(!event.widgets.length) {
     throw new Error('widgets value can`t be empty')
   }
 
   const widgetsParsed =  event.widgets.reduce((acc, widget: WidgetRules) => ({
-    widgetsIds: [...acc.widgetsIds, widget.id],
+    ids: [...acc.ids, widget.id],
     widgets: {
       ...acc.widgets,
       [widget.id]: widget
     }
   }), {
-    widgetsIds:[], widgets: {}
+    ids:[], widgets: {}
   })
 
-  return Promise.resolve(widgetsParsed)
+  const ids = [...context.widgetsIds, ...widgetsParsed.ids]
+  const mergeIds = uniq(ids)
+
+  // if the length differ we try to write the same widget to time
+  // By design I don't want to trow an error and only log (always last set wins)
+  if(mergeIds.length !== ids.length) {
+    console.log(`Trying opf write the same ids ${[...ids]}`)
+  }
+
+  return Promise.resolve({
+    ids,
+    widgets: {
+      ...widgetsParsed.widgets,
+      ...context.widgets
+    }
+  })
 }
 
 // setWidgetRules state invoker
