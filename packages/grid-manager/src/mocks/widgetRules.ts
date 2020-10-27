@@ -1,3 +1,4 @@
+import { flow } from "lodash"
 import { ReferenceToGridPosition, relationTypeX, relationTypeY, WidgetRules } from "../types"
 
 export const widgetsDimensionsMock = {
@@ -36,7 +37,26 @@ export const widgetsToRenderMock: WidgetRules[]  = [{
     element: null
   },
   dimensions: {
-    web: widgetsDimensionsMock,
+    web: {
+      fullSize: false,
+      animate: true,
+      elevation: 2,
+      styles: null,
+      size: {
+        width: 360,
+        height: 460
+      },
+      offset: {
+        x: {
+          relationType:'RR' as relationTypeX,
+          value: 15
+        },
+        y: {
+          relationType:'BB' as relationTypeY,
+          value: 15
+        }
+      }
+    },
     tablet: null,
     mobile: null
   }

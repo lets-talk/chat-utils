@@ -29,15 +29,15 @@ interface GridManagerClass {
 
 export class GridManager implements GridManagerClass {
   interpreter: null | Interpreter<any>;
-  machine: null | StateMachine<any,any, any>
+  widgetMachine: null | StateMachine<any,any, any>
 
   constructor(machine: StateMachine<any,any, any>){
     this.interpreter = null
-    this.machine = machine
+    this.widgetMachine = machine
   }
 
   private _generateMachineInterpreter() {
-    this.interpreter = interpret(this.machine)
+    this.interpreter = interpret(this.widgetMachine, {devTools: true})
       .onTransition((state, event) => {
         console.log(`in transition => event type: ${event.type}`, {state, event})
       }).onDone(state => {
@@ -48,12 +48,13 @@ export class GridManager implements GridManagerClass {
   }
 
   private _resizeEventCb() {
-    return debounce(() => {
-      console.log('viewport resize', {interpreter: this.interpreter})
-      return this.interpreter.send(
-        sendViewportDimensions(window.innerWidth, window.innerHeight)
-      )
-    }, 400)
+    console.log('viewport resize', {
+      interpreter: this.interpreter,
+      width: window.innerWidth
+    })
+    return this.interpreter.send(
+      sendViewportDimensions(window.innerWidth, window.innerHeight)
+    )
   }
 
   start() {
@@ -66,14 +67,8 @@ export class GridManager implements GridManagerClass {
         sendViewportDimensions(window.innerWidth, window.innerHeight)
       )
       // Add event listener for the resize event
-      window.addEventListener('resize', debounce(() =>  {
-        console.log('viewport resize', {
-          interpreter: this.interpreter,
-          width: window.innerWidth
-        })
-        this.interpreter.send(
-          sendViewportDimensions(window.innerWidth, window.innerHeight)
-        )}, 200)
+      window.addEventListener('resize',
+        debounce(this._resizeEventCb.bind(this), 400)
       )
       // return the interpreter instance for consumer utility
       return this.interpreter
@@ -96,7 +91,7 @@ export class GridManager implements GridManagerClass {
 
   getState() {
     try {
-      return this.machine.context as StateData
+      return this.widgetMachine.context as StateData
     } catch(e) {
       return new Error(e)
     }
@@ -137,11 +132,11 @@ export class GridManager implements GridManagerClass {
   }
 }
 
-const machine = new GridManager(widgetsMachine)
+// GridManager:class constructor
+// widgetsMachine: machine factory […states]
+const machine = new GridManager(widgetsMachine())
+
 const widgetService: any = machine.start()
-
-machine.renderWidgets(widgetsToRenderMock)
 machine.renderWidgets(widgetsToRenderMock)
 
-console.log({widgetService})
 window.manager = widgetService
