@@ -135,8 +135,8 @@ export class GridManager implements GridManagerClass {
 // GridManager:class constructor
 // widgetsMachine: machine factory […states]
 const machine = new GridManager(widgetsMachine())
-const widgetService: any = machine.start()
 
-// machine.renderWidgets(widgetsToRenderMock)
+const widgetService: any = machine.start()
+machine.renderWidgets(widgetsToRenderMock)
 
 window.manager = widgetService

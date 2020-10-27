@@ -28,13 +28,18 @@ const widgetsMachine = () => Machine({
     positions: {},
     rules: {},
   } as WidgetsMachineCtx,
+  on: {
+    [SET_WIDGETS_IN_STATE]: {
+      target: MachineStates.setWidgetsRules
+    },
+    [UPDATE_WIDGET_IN_STATE]: {
+      target: MachineStates.updateWidgetRules
+    }
+  },
   states: {
     // Event generate to update the rules of a valid and rendered widget,
     // ex => chat minimized (icon state) to maximize (conversation:id view)
     [MachineStates.setWidgetsRules]: {
-      on: {
-        [UPDATE_WIDGET_IN_STATE]: {}
-      },
       invoke: {
         src: setWidgetsRules,
         onDone: {
@@ -53,9 +58,6 @@ const widgetsMachine = () => Machine({
     // Event generate to update the rules of a valid and rendered widget,
     // ex => chat minimized (icon state) to maximize (conversation:id view)
     [MachineStates.updateWidgetRules]: {
-      on: {
-        [SET_WIDGETS_IN_STATE]: {}
-      },
       invoke: {
         src: updateWidgetRules,
         onDone: {
@@ -100,12 +102,6 @@ const widgetsMachine = () => Machine({
         [SET_VIEWPORT_SIZE]: {
           target: MachineStates.calculateGridDimensions
         },
-        [SET_WIDGETS_IN_STATE]: {
-          target: MachineStates.setWidgetsRules
-        },
-        [UPDATE_WIDGET_IN_STATE]: {
-          target: MachineStates.updateWidgetRules
-        }
       },
       invoke: {
         src: () => Promise.resolve(true),
