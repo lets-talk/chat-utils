@@ -1,0 +1,9 @@
+{
+  "chromeWebSecurity": false,
+  "baseUrl": "http://localhost:9000",
+  "frontLoadingDelay": 3000,
+  "animDelay": 1000,
+  "serverRestartDelay": 11000,
+  "viewportHeight": 900,
+  "viewportWidth": 1440
+}
