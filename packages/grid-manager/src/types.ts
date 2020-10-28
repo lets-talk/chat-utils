@@ -27,7 +27,6 @@ export type GridPositionsInViewport = {
   }
   positions: TilePosition,
   availablePosition: number;
-  renderedWidgetsIds: string[];
 }
 
 export type rectPosition = {
@@ -146,6 +145,15 @@ export type WidgetRules = {
   kind: WidgetType;
   position: ReferencePosition;
   dimensions: WidgetDimensionsList;
+}
+
+export type WidgetToRender = {
+  id: string,
+  kind: WidgetType,
+  url: UrlSourceParams,
+  dimensions: WidgetDimensions,
+  iframeType?: IframeType,
+  position: ReferencePosition;
 }
 
 // generic css styles types

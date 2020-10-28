@@ -92,7 +92,6 @@ export const getGridPositions = (
     tileSize,
     positions,
     availablePosition: keys.length,
-    renderedWidgetsIds: []
   }
 }
 

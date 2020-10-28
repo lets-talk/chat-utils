@@ -1,5 +1,5 @@
 import { assign, Machine, send} from "xstate";
-import { GridPositionsInViewport, GridSettings, WidgetRules } from "../types";
+import { GridPositionsInViewport, GridSettings, WidgetRules, WidgetToRender } from "../types";
 import { calculateGridDimensions, reconcileWidgets, sendViewportDimensions, setWidgetsRules, SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE, updateWidgetRules, UPDATE_WIDGET_IN_STATE } from "./actions";
 
 export enum MachineStates {
@@ -11,12 +11,27 @@ export enum MachineStates {
   catchInvokeError = 'catchInvokeError'
 }
 
+type WidgetToRenderInCtx = {
+  widgetsInDom: string[];
+  slotsInUse: string[];
+  widget: WidgetToRender[];
+}
+
+type extendedWidgetsRules = {
+  requireUpdate: boolean;
+} & WidgetRules
+
 export type WidgetsMachineCtx = {
+  viewport: {
+    width: number;
+    height: number;
+  };
   activeBreakpoint: string;
   widgetsIds: string[];
-  widgets: {[key:string]: WidgetRules};
+  widgets: {[key:string]: extendedWidgetsRules};
   positions: GridPositionsInViewport;
   rules: GridSettings;
+  toRender: WidgetToRenderInCtx | null
 }
 
 const handleInvokeError = {
@@ -26,10 +41,10 @@ const handleInvokeError = {
   actions: (context, event) => console.log(event.data)
 }
 
-const widgetsMachine = (initialState: WidgetsMachineCtx) => Machine({
+const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
   id: 'widgetsMachine',
   initial: MachineStates.calculateGridDimensions,
-  context: initialState,
+  context,
   on: {
     [SET_WIDGETS_IN_STATE]: {
       target: MachineStates.setWidgetsRules
@@ -84,6 +99,7 @@ const widgetsMachine = (initialState: WidgetsMachineCtx) => Machine({
         onDone: {
           target: MachineStates.reconcileWidgets,
           actions: assign({
+            viewport: (_, event) => event.data.viewport,
             activeBreakpoint: (_, event) => event.data.label,
             rules: (_, event) => event.data.rules,
             positions: (_, event) => event.data.positions

@@ -5,7 +5,8 @@ import {
   WidgetSize,
   IframeType,
   WidgetDimensions,
-  ReferencePosition
+  ReferencePosition,
+  WidgetToRender
 } from "../types";
 import { RELATIVE_RENDER_POSITION } from "../grid/utils";
 import {
@@ -115,14 +116,7 @@ export const createIframeWidget = async (
   }
 }
 
-export const renderWidgetElement = ({...args}: {
-  id: string,
-  kind: WidgetType,
-  url: UrlSourceParams,
-  dimensions: WidgetDimensions,
-  iframeType?: IframeType,
-  position: ReferencePosition;
-}): Promise<HTMLDivElement> | Window | Error => {
+export const renderWidgetElement = ({...args}: WidgetToRender): Promise<HTMLDivElement> | Window | Error => {
   const {id, kind, url, dimensions, iframeType, position} = args;
   switch(kind) {
     case 'iframe':
