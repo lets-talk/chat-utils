@@ -16,7 +16,8 @@
     "publish": "lerna publish --c --yes",
     "docs": "docsify serve docs --port 3333"
   },
-  "workspaces": [
-    "packages/*"
-  ]
+  "workspaces": {
+    "packages": ["packages/*"],
+    "nohoist": ["**/typescript", "**/eslint", "**/prettier", "**/microbundle", "**/xstate", "**/webpack", "**/lodash"]
+  }
 }
