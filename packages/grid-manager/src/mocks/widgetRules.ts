@@ -1,4 +1,3 @@
-import { flow } from "lodash"
 import { ReferenceToGridPosition, relationTypeX, relationTypeY, WidgetRules } from "../types"
 
 export const widgetsDimensionsMock = {

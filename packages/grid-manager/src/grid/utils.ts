@@ -5,7 +5,7 @@ import {
   GridPositionsInViewport,
   TilePosition
  } from "../types"
-import { reduce } from "lodash"
+import reduce from "lodash/reduce"
 
 export const RELATIVE_RENDER_POSITION = {
   toViewport: 'relative-to-viewport',
