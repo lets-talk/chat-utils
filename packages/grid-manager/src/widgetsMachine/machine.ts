@@ -17,7 +17,7 @@ type WidgetToRenderInCtx = {
   widget: WidgetToRender[];
 }
 
-type extendedWidgetsRules = {
+export type ExtendedWidgetsRules = {
   requireUpdate: boolean;
 } & WidgetRules
 
@@ -28,7 +28,7 @@ export type WidgetsMachineCtx = {
   };
   activeBreakpoint: string;
   widgetsIds: string[];
-  widgets: {[key:string]: extendedWidgetsRules};
+  widgets: {[key:string]: ExtendedWidgetsRules};
   positions: GridPositionsInViewport;
   rules: GridSettings;
   toRender: WidgetToRenderInCtx | null

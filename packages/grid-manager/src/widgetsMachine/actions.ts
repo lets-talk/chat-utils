@@ -1,7 +1,8 @@
 import uniq from "lodash/uniq"
+import reduce from "lodash/reduce"
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "../grid/utils"
-import { GridPositionsInViewport, GridSettings, WidgetRules } from "../types"
-import { WidgetsMachineCtx } from "./machine"
+import { GridPositionsInViewport, GridSettings, WidgetRules, WidgetToRender } from "../types"
+import { ExtendedWidgetsRules, WidgetsMachineCtx } from "./machine"
 
 // Actions names
 export const SET_VIEWPORT_SIZE = 'SET_VIEWPORT_SIZE'
@@ -31,13 +32,26 @@ export const sendUpdateToWidget = (widget: WidgetRules) => ({
   widget
 })
 
+export const removeWidget = (id: number) => ({
+  type: UPDATE_WIDGET_IN_STATE,
+  id
+})
+
 // calculateGridDimensions state invoker
-export const calculateGridDimensions = (_, event: SetViewportAction) => {
-  const rules: GridSettings = getRulesFromViewport(gridRules, event.width, breakpoints)
+export const calculateGridDimensions = (context, event: SetViewportAction) => {
+  console.log({calculateGridDimensions: event})
+
+  // if the event is was not triggered by a window resize
+  // we use the last valid viewport value
+  const isFromResize = event.type === SET_VIEWPORT_SIZE
+  const width = isFromResize ? event.width : context.viewport.width
+  const height = isFromResize ? event.height : context.viewport.height
+
+  const rules: GridSettings = getRulesFromViewport(gridRules, width, breakpoints)
 
   const positions: GridPositionsInViewport = getGridPositions({
-    width: event.width,
-    height: event.height
+    width,
+    height
     }, {
       cols: rules.columns,
       rows: rules.rows
@@ -46,6 +60,10 @@ export const calculateGridDimensions = (_, event: SetViewportAction) => {
 
   if(rules && positions) {
     return Promise.resolve({
+      viewport: {
+        width,
+        height
+      },
       label: rules.label,
       rules,
       positions
@@ -69,7 +87,7 @@ export const setWidgetsRules = (context: WidgetsMachineCtx, event: {
     ids: [...acc.ids, widget.id],
     widgets: {
       ...acc.widgets,
-      [widget.id]: widget
+      [widget.id]: {...widget, requireUpdate: true}
     }
   }), {
     ids:[], widgets: {}
@@ -102,5 +120,56 @@ export const updateWidgetRules = (context, event) => {
 // reconcileWidgets state invoker
 export const reconcileWidgets = (context) => {
   console.log('reconcileWidgets', {context})
+
+  const sortedWidgetsByType = reduce(context.widgets, (acc, widget: ExtendedWidgetsRules) => {
+    switch(widget.kind) {
+      case 'iframe':
+        return {
+          ...acc,
+          iframe: mapWidgetToRender(
+            acc.iframe,
+            widget,
+            context.rules.positions,
+            context.activeBreakpoint
+          )
+        }
+      // I find a case here the blank case apply to any breakpoint?
+      case 'blank':
+        return {...acc, blank: [...acc.blank, widget]}
+      // div case is unsupported and default doesn't exit
+      case 'div':
+      default:
+        return acc
+    }
+  }, {
+    blank: [],
+    iframe: []
+  })
+
+  function mapWidgetToRender(
+    list: WidgetToRender[],
+    widget: ExtendedWidgetsRules,
+    positions: string[],
+    breakpoint: string
+  ) {
+    const dimensions = widget.dimensions[breakpoint]
+    // if the widget don't meed to be render return the prev list
+    if(dimensions === null) return list;
+    // if the position doesn't exit for the active breakpoint return list
+    if(
+      widget.position.relation === 'relative-to-viewport' &&
+      positions.indexOf(widget.position.reference) === -1
+    ) {
+      return list;
+    }
+
+    return {
+      isFullSize: dimensions.fullSize,
+      dimensions: widget.dimensions[breakpoint],
+    }
+  }
+
+  console.log({sortedWidgetsByType})
+
   return Promise.resolve(true)
 }

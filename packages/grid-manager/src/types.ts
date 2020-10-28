@@ -117,7 +117,8 @@ export type WidgetSizeOffset = {
 
 export type ReferencePosition = {
   relation: WidgetRelativePosition;
-  reference: ReferenceToGridPosition | ReferenceToFloat;
+  display: ReferenceToFloat;
+  reference: ReferenceToGridPosition;
   element?: string; // ex #action-button | chat-widget
 }
 
