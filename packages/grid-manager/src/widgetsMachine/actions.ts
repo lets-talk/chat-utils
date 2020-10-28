@@ -1,6 +1,6 @@
-import { uniq } from "lodash"
-import { breakpoints, getRulesFromViewport, gridRules } from "../grid/utils"
-import { GridSettings, WidgetRules } from "../types"
+import uniq from "lodash/uniq"
+import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "../grid/utils"
+import { GridPositionsInViewport, GridSettings, WidgetRules } from "../types"
 import { WidgetsMachineCtx } from "./machine"
 
 // Actions names
@@ -35,10 +35,21 @@ export const sendUpdateToWidget = (widget: WidgetRules) => ({
 export const calculateGridDimensions = (_, event: SetViewportAction) => {
   const rules: GridSettings = getRulesFromViewport(gridRules, event.width, breakpoints)
 
-  console.log('calculateGridDimensions', {rules})
+  const positions: GridPositionsInViewport = getGridPositions({
+    width: event.width,
+    height: event.height
+    }, {
+      cols: rules.columns,
+      rows: rules.rows
+    }, rules.positions
+  )
 
-  if(rules) {
-    return Promise.resolve(rules)
+  if(rules && positions) {
+    return Promise.resolve({
+      label: rules.label,
+      rules,
+      positions
+    })
   } else {
     throw new Error('invalid grid rules')
   }
