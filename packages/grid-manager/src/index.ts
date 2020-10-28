@@ -32,9 +32,40 @@ export class GridManager implements GridManagerClass {
   interpreter: null | Interpreter<any>;
   widgetMachine: null | StateMachine<any,any, any>
 
-  constructor(machine: StateMachine<any,any, any>){
+  constructor(
+    machine: (state: WidgetsMachineCtx) => StateMachine<any,any, any>,
+    state?: WidgetsMachineCtx
+  ){
     this.interpreter = null
-    this.widgetMachine = machine
+    this.widgetMachine = machine(state ? state : this._generateFirstState())
+  }
+
+  private _generateFirstState() {
+    // generate initial viewport rules
+    const initialGridRules: GridSettings = getRulesFromViewport(gridRules, window.innerWidth, breakpoints)
+    // generate initial grid positions values
+
+    const initialGridPositions: GridPositionsInViewport = getGridPositions({
+      width: window.innerWidth,
+      height: window.innerHeight
+      }, {
+        cols: initialGridRules.columns,
+        rows: initialGridRules.rows
+      }, initialGridRules.positions
+    )
+
+    return {
+      viewport: {
+        width: window.innerWidth,
+        height: window.innerHeight
+      },
+      activeBreakpoint: initialGridRules.label,
+      widgetsIds: [],
+      widgets: {},
+      positions: initialGridPositions,
+      rules: initialGridRules,
+      toRender: null
+    }
   }
 
   private _generateMachineInterpreter() {
@@ -129,27 +160,8 @@ export class GridManager implements GridManagerClass {
   }
 }
 
-// generate initial viewport rules
-const initialGridRules: GridSettings = getRulesFromViewport(gridRules, window.innerWidth, breakpoints)
-// generate initial grid positions values
-
-const initialGridPositions: GridPositionsInViewport = getGridPositions({
-  width: window.innerWidth,
-  height: window.innerHeight
-  }, {
-    cols: initialGridRules.columns,
-    rows: initialGridRules.rows
-  }, initialGridRules.positions
-)
-
 // create machine with initial state
-const machine = new GridManager(widgetsMachine({
-  activeBreakpoint: initialGridRules.label,
-  widgetsIds: [],
-  widgets: {},
-  positions: initialGridPositions,
-  rules: initialGridRules,
-}))
+const machine = new GridManager(widgetsMachine)
 
 const widgetService = machine.start()
 machine.renderWidgets(widgetsToRenderMock)
