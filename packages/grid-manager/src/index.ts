@@ -1,9 +1,10 @@
 import { WidgetRules, WidgetDimensionsList, GridPositionsInViewport, GridSettings, ReferenceToGridPosition, relationTypeY, relationTypeX } from "./types"
-import { debounce } from "lodash"
+import debounce from "lodash/debounce"
 import { interpret, Interpreter, StateMachine } from "xstate"
 import widgetsMachine, { MachineStates, WidgetsMachineCtx } from './widgetsMachine/machine';
 import { sendViewportDimensions, sendWidgetsIntoMachine, sendUpdateToWidget } from "./widgetsMachine/actions";
 import { widgetsToRenderMock } from "./mocks/widgetRules";
+import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "./grid/utils";
 
 declare global {
   interface Window {
@@ -62,10 +63,6 @@ export class GridManager implements GridManagerClass {
     // if the interpreter is generated, we start the machine listener
     if(interpreter) {
       console.log('machine start :)')
-      // Send machine to calculate grid dimensions from last viewport
-      this.interpreter.send(
-        sendViewportDimensions(window.innerWidth, window.innerHeight)
-      )
       // Add event listener for the resize event
       window.addEventListener('resize',
         debounce(this._resizeEventCb.bind(this), 400)
@@ -132,11 +129,29 @@ export class GridManager implements GridManagerClass {
   }
 }
 
-// GridManager:class constructor
-// widgetsMachine: machine factory […states]
-const machine = new GridManager(widgetsMachine())
+// generate initial viewport rules
+const initialGridRules: GridSettings = getRulesFromViewport(gridRules, window.innerWidth, breakpoints)
+// generate initial grid positions values
 
-const widgetService: any = machine.start()
+const initialGridPositions: GridPositionsInViewport = getGridPositions({
+  width: window.innerWidth,
+  height: window.innerHeight
+  }, {
+    cols: initialGridRules.columns,
+    rows: initialGridRules.rows
+  }, initialGridRules.positions
+)
+
+// create machine with initial state
+const machine = new GridManager(widgetsMachine({
+  activeBreakpoint: initialGridRules.label,
+  widgetsIds: [],
+  widgets: {},
+  positions: initialGridPositions,
+  rules: initialGridRules,
+}))
+
+const widgetService = machine.start()
 machine.renderWidgets(widgetsToRenderMock)
 
 window.manager = widgetService
