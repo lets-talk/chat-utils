@@ -7,7 +7,7 @@ import {
   UrlSourceParams,
   IframeType,
 } from "../types";
-import { forEach } from "lodash";
+import forEach from "lodash/forEach";
 
 export const elementById = (id: string): HTMLElement => {
   const element = document.getElementById(id);

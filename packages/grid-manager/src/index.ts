@@ -1,5 +1,5 @@
 import { WidgetRules, WidgetDimensionsList, GridPositionsInViewport, GridSettings, ReferenceToGridPosition, relationTypeY, relationTypeX } from "./types"
-import { debounce } from "lodash"
+import debounce from "lodash/debounce";
 import { interpret, Interpreter, StateMachine } from "xstate"
 import widgetsMachine, { MachineStates, WidgetsMachineCtx } from './widgetsMachine/machine';
 import { sendViewportDimensions, sendWidgetsIntoMachine, sendUpdateToWidget } from "./widgetsMachine/actions";
@@ -134,9 +134,9 @@ export class GridManager implements GridManagerClass {
 
 // GridManager:class constructor
 // widgetsMachine: machine factory […states]
-const machine = new GridManager(widgetsMachine())
+// const machine = new GridManager(widgetsMachine())
 
-const widgetService: any = machine.start()
-machine.renderWidgets(widgetsToRenderMock)
+// const widgetService: any = machine.start()
+// machine.renderWidgets(widgetsToRenderMock)
 
-window.manager = widgetService
+// window.manager = widgetService

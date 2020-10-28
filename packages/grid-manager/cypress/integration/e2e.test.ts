@@ -1,32 +1,38 @@
 const { createModel } = require('@xstate/test');
+import { screen } from '@testing-library/dom';
 
-import widgetsMachine from '../../src/widgetsMachine/machine';
-import { screen } from '@testing-library/dom'
-import { findByTestId, findByText } from '@testing-library/dom';
+import { SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE, UPDATE_WIDGET_IN_STATE } from "../../src/widgetsMachine/actions";
+import widgetsMachine, { MachineStates } from '../../src/widgetsMachine/machine';
 
-const testModel = createModel(widgetsMachine).withEvents({
-  CLICK_GOOD: () => {
-    screen.findByTestId('good-button').then((element) => element.click());
+const testModel = createModel(widgetsMachine()).withEvents({
+  UPDATE_WIDGET_IN_STATE: {
+    exec: async (page) => {
+      await page.click('input');
+    },
+    cases: [
+      {
+        width: 200,
+        height: 400,
+      },
+    ]
   },
-  CLICK_BAD: () => {
-    screen.findByTestId('bad-button').then((element) => element.click());
+  SET_WIDGETS_IN_STATE: {
+    exec: async (page) => {
+      await page.click('input');
+    },
+    cases: [
+      {
+        widgets: [ { id: 1 }],
+      },
+    ]
   },
-  CLOSE: () => {
+  SET_VIEWPORT_SIZE: () => {
+    debugger;
     screen.findByTestId('close-button').then((element) => element.click());
   },
-  ESC: () => {
-    cy.get('body').type('{esc}');
-  },
-  SUBMIT: {
-    exec: (event) => {
-      screen.findByTestId('submit-button').then((element) => element.click());
-    },
-    cases: [{ value: 'something' }]
-  }
 });
 
 const testPlans = testModel.getSimplePathPlans();
-
 testPlans.forEach((plan, i) => {
   describe(plan.description, () => {
     console.log('Plan description:', plan.description);
