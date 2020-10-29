@@ -1,8 +1,10 @@
-import uniq from "lodash/uniq"
-import reduce from "lodash/reduce"
+import uniq from "lodash/uniq";
+import reduce from "lodash/reduce";
+import find from "lodash/find";
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "../grid/utils"
 import { GridPositionsInViewport, GridSettings, WidgetRules, WidgetToRender } from "../types"
-import { ExtendedWidgetsRules, WidgetsMachineCtx } from "./machine"
+import { WidgetsMachineCtx } from "./machine"
+import { mapWidgetToRenderProps } from "../dom/utils"
 
 // Actions names
 export const SET_VIEWPORT_SIZE = 'SET_VIEWPORT_SIZE'
@@ -78,7 +80,6 @@ export const setWidgetsRules = (context: WidgetsMachineCtx, event: {
   type: string,
   widgets: WidgetRules[]
 }) => {
-  console.log('setWidgetsRules', {context, event})
   if(!event.widgets.length) {
     throw new Error('widgets value can`t be empty')
   }
@@ -119,57 +120,60 @@ export const updateWidgetRules = (context, event) => {
 
 // reconcileWidgets state invoker
 export const reconcileWidgets = (context) => {
-  console.log('reconcileWidgets', {context})
-
-  const sortedWidgetsByType = reduce(context.widgets, (acc, widget: ExtendedWidgetsRules) => {
+  // Take all the widgets that request to be rendered and consolidate
+  // in a finite list of valid widgets for renderWidgetElement dom method
+  const sortWidgetsByType = reduce(context.widgets, (acc, widget: any) => {
     switch(widget.kind) {
       case 'iframe':
+        const widgetToRender = mapWidgetToRenderProps(
+          acc.iframe,
+          widget,
+          context.rules.positions,
+          context.activeBreakpoint,
+          acc.usedPositions
+        );
         return {
           ...acc,
-          iframe: mapWidgetToRender(
-            acc.iframe,
-            widget,
-            context.rules.positions,
-            context.activeBreakpoint
-          )
-        }
+          iframe: widgetToRender.list,
+          usedPositions: widgetToRender.position ?
+            [...acc.usedPositions, widgetToRender.position] : acc.usedPositions,
+          requireFullSize: widgetToRender.requireFullSize ?
+            widgetToRender.requireFullSize : acc.requireFullSize
+        };
       // I find a case here the blank case apply to any breakpoint?
       case 'blank':
-        return {...acc, blank: [...acc.blank, widget]}
+        return {...acc, blank: [...acc.blank, widget]};
       // div case is unsupported and default doesn't exit
       case 'div':
       default:
-        return acc
+        return acc;
     }
   }, {
     blank: [],
-    iframe: []
+    iframe: [],
+    usedPositions: [],
+    requireFullSize: false
   })
 
-  function mapWidgetToRender(
-    list: WidgetToRender[],
-    widget: ExtendedWidgetsRules,
-    positions: string[],
-    breakpoint: string
-  ) {
-    const dimensions = widget.dimensions[breakpoint]
-    // if the widget don't meed to be render return the prev list
-    if(dimensions === null) return list;
-    // if the position doesn't exit for the active breakpoint return list
-    if(
-      widget.position.relation === 'relative-to-viewport' &&
-      positions.indexOf(widget.position.reference) === -1
-    ) {
-      return list;
-    }
-
-    return {
-      isFullSize: dimensions.fullSize,
-      dimensions: widget.dimensions[breakpoint],
-    }
+  // if any widget require to be rendered at full size take the first one
+  // that match the criteria and remove all the rest from the iframe queue
+  if(sortWidgetsByType.requireFullSize) {
+    const firstFullSizeWidget = find(sortWidgetsByType.iframe,
+      (widget) => widget.dimensions.fullSize
+    )
+    return Promise.resolve([
+      ...sortWidgetsByType.blank, firstFullSizeWidget
+    ])
   }
 
-  console.log({sortedWidgetsByType})
+  return Promise.resolve([
+    ...sortWidgetsByType.blank, ...sortWidgetsByType.iframe
+  ])
+}
+
+// reconcileWidgets state invoker
+export const renderWidgetsInDom = (context) => {
+
 
   return Promise.resolve(true)
 }

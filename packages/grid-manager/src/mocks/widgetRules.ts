@@ -1,4 +1,4 @@
-import { ReferenceToGridPosition, relationTypeX, relationTypeY, WidgetRules } from "../types"
+import { ReferenceToFloat, ReferenceToGridPosition, relationTypeX, relationTypeY, WidgetRules } from "../types"
 
 export const widgetsDimensionsMock = {
   fullSize: false,
@@ -33,7 +33,8 @@ export const widgetsToRenderMock: WidgetRules[]  = [{
   position: {
     relation:'relative-to-viewport',
     reference: 'bottom-right' as ReferenceToGridPosition,
-    element: null
+    element: null,
+    display: 'default' as ReferenceToFloat
   },
   dimensions: {
     web: {
@@ -71,7 +72,8 @@ export const widgetsToRenderMock: WidgetRules[]  = [{
   position: {
     relation:'relative-to-viewport',
     reference: 'top-left' as ReferenceToGridPosition,
-    element: null
+    element: null,
+    display: 'fixed' as ReferenceToFloat
   },
   dimensions: {
     web: {

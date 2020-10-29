@@ -62,10 +62,10 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         onDone: {
           target: MachineStates.calculateGridDimensions,
           actions: assign({
-            widgetsIds: (context: WidgetsMachineCtx, event) => [
+            widgetsIds: (_: WidgetsMachineCtx, event) => [
               ...event.data.ids
             ],
-            widgets: (context: WidgetsMachineCtx, event) => ({
+            widgets: (_: WidgetsMachineCtx, event) => ({
               ...event.data.widgets
             })
           })
@@ -81,8 +81,8 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         onDone: {
           target: MachineStates.calculateGridDimensions,
           actions: assign({
-            widgetsIds: (context: WidgetsMachineCtx, event) => event.data.widgetsIds,
-            widgets: (context: WidgetsMachineCtx, event) => event.data.widgets
+            widgetsIds: (_: WidgetsMachineCtx, event) => event.data.widgetsIds,
+            widgets: (_: WidgetsMachineCtx, event) => event.data.widgets
           })
         },
         onError: handleInvokeError
@@ -115,7 +115,9 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         src: reconcileWidgets,
         onDone: {
           target: MachineStates.renderWidgetsInDom,
-          // actions: () => {}
+          actions: assign({
+            toRender: (_, event) => event.data
+          })
         }
       }
     },

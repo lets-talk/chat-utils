@@ -6,8 +6,11 @@ import {
   relationTypeY,
   UrlSourceParams,
   IframeType,
+  WidgetToRender,
+  ReferenceToGridPosition,
 } from "../types";
 import forEach from "lodash/forEach";
+import { ExtendedWidgetsRules } from "../widgetsMachine/machine";
 
 export const elementById = (id: string): HTMLElement => {
   const element = document.getElementById(id);
@@ -147,3 +150,54 @@ export const appendNodeToParent = (parent: Node, children: Node): Node => (
   parent.appendChild(children)
 )
 
+export const mapWidgetToRenderProps = (
+  list: WidgetToRender[],
+  widget: ExtendedWidgetsRules,
+  positions: ReferenceToGridPosition[],
+  breakpoint: string,
+  usedPositions: ReferenceToGridPosition[]
+) => {
+  const returnWidgetsList = {
+    list,
+    position: null,
+    requireFullSize: false
+  }
+  const dimensions = widget.dimensions[breakpoint];
+  // if the widget don't need to be render return the prev list
+  if(dimensions === null) return returnWidgetsList;
+  // if the position doesn't exit for the active breakpoint return list
+  if(
+    widget.position.relation === 'relative-to-viewport' &&
+    positions.indexOf(widget.position.reference) === -1
+  ) {
+    return returnWidgetsList
+  }
+  // if the position is duplicated return list
+  if(usedPositions.indexOf(widget.position.reference) !== -1) {
+    return returnWidgetsList
+  }
+
+  const isFullSize = dimensions.fullSize ? dimensions.fullSize : false;
+  const widgetToRender: WidgetToRender=  {
+    id: widget.id,
+    isFullSize: dimensions.fullSize ? dimensions.fullSize : false,
+    kind: widget.kind,
+    url: {
+      src: widget.src,
+      extra: widget.extra
+    },
+    dimensions,
+    iframeType: widget.iframeType,
+    position: widget.position
+  }
+
+  return {
+    list: [...list, widgetToRender],
+    position: widget.position.reference,
+    fullSize: isFullSize
+  } as unknown as {
+    list: WidgetToRender[];
+    position: ReferenceToGridPosition | null;
+    requireFullSize: boolean;
+  }
+}

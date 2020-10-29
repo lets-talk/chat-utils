@@ -150,10 +150,11 @@ export type WidgetRules = {
 
 export type WidgetToRender = {
   id: string,
+  isFullSize: boolean,
   kind: WidgetType,
   url: UrlSourceParams,
   dimensions: WidgetDimensions,
-  iframeType?: IframeType,
+  iframeType: IframeType | null,
   position: ReferencePosition;
 }
 

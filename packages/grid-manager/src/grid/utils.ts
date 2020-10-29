@@ -22,7 +22,7 @@ export const breakpoints: GridBreakpoints = {
 
 export const gridRules: {[key in 'small' | 'medium'| 'large']: GridSettings} = {
   small: {
-    label: 'small',
+    label: 'mobile',
     columns: 1,
     rows: 1,
     positions: [
@@ -32,7 +32,7 @@ export const gridRules: {[key in 'small' | 'medium'| 'large']: GridSettings} = {
     ] as ReferenceToGridPosition[]
   },
   medium: {
-    label: 'medium',
+    label: 'tablet',
     columns: 2,
     rows: 2,
     positions: [
@@ -45,7 +45,7 @@ export const gridRules: {[key in 'small' | 'medium'| 'large']: GridSettings} = {
     ] as ReferenceToGridPosition[]
   },
   large: {
-    label: 'large',
+    label: 'web',
     columns: 3,
     rows: 3,
     positions: [
