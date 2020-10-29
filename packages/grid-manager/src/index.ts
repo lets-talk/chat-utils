@@ -64,7 +64,8 @@ export class GridManager implements GridManagerClass {
       widgets: {},
       positions: initialGridPositions,
       rules: initialGridRules,
-      toRender: null
+      toRender: null,
+      requireUpdate: false
     }
   }
 

@@ -161,14 +161,21 @@ export const reconcileWidgets = (context) => {
     const firstFullSizeWidget = find(sortWidgetsByType.iframe,
       (widget) => widget.dimensions.fullSize
     )
-    return Promise.resolve([
-      ...sortWidgetsByType.blank, firstFullSizeWidget
-    ])
+    return Promise.resolve({
+      widgets: [...sortWidgetsByType.blank, firstFullSizeWidget],
+      requireUpdate: true
+    })
   }
 
-  return Promise.resolve([
-    ...sortWidgetsByType.blank, ...sortWidgetsByType.iframe
-  ])
+  // else merge the two list and see if are no empty
+  const toRenderList = [
+...sortWidgetsByType.blank, ...sortWidgetsByType.iframe
+  ]
+
+  return Promise.resolve({
+    widgets:toRenderList,
+    requireUpdate: !!toRenderList.length
+  })
 }
 
 // reconcileWidgets state invoker

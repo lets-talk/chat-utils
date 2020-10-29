@@ -1,6 +1,6 @@
 import { assign, Machine, send} from "xstate";
 import { GridPositionsInViewport, GridSettings, WidgetRules, WidgetToRender } from "../types";
-import { calculateGridDimensions, reconcileWidgets, sendViewportDimensions, setWidgetsRules, SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE, updateWidgetRules, UPDATE_WIDGET_IN_STATE } from "./actions";
+import { calculateGridDimensions, reconcileWidgets, renderWidgetsInDom, sendViewportDimensions, setWidgetsRules, SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE, updateWidgetRules, UPDATE_WIDGET_IN_STATE } from "./actions";
 
 export enum MachineStates {
   calculateGridDimensions = 'calculateGridDimensions',
@@ -31,7 +31,8 @@ export type WidgetsMachineCtx = {
   widgets: {[key:string]: ExtendedWidgetsRules};
   positions: GridPositionsInViewport;
   rules: GridSettings;
-  toRender: WidgetToRenderInCtx | null
+  requireUpdate: boolean;
+  toRender: WidgetToRenderInCtx | null;
 }
 
 const handleInvokeError = {
@@ -116,7 +117,8 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         onDone: {
           target: MachineStates.renderWidgetsInDom,
           actions: assign({
-            toRender: (_, event) => event.data
+            toRender: (_, event) => event.data.widgets,
+            requireUpdate: (_, event) => event.data.requireUpdate
           })
         }
       }
@@ -129,7 +131,13 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         },
       },
       invoke: {
-        src: () => Promise.resolve(true),
+        src: renderWidgetsInDom,
+        onDone: {
+          actions: assign({
+            toRender: () => [],
+            requireUpdate: () => false
+          })
+        }
       }
     },
     // handle error state
