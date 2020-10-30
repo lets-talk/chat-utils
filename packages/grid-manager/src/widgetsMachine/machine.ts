@@ -14,7 +14,7 @@ export enum MachineStates {
 type WidgetToRenderInCtx = {
   widgetsInDom: string[];
   slotsInUse: string[];
-  widget: WidgetToRender[];
+  widgets: WidgetToRender[];
 }
 
 export type ExtendedWidgetsRules = {
@@ -63,10 +63,10 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         onDone: {
           target: MachineStates.calculateGridDimensions,
           actions: assign({
-            widgetsIds: (_: WidgetsMachineCtx, event) => [
+            widgetsIds: (_, event) => [
               ...event.data.ids
             ],
-            widgets: (_: WidgetsMachineCtx, event) => ({
+            widgets: (_, event) => ({
               ...event.data.widgets
             })
           })
@@ -82,8 +82,8 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         onDone: {
           target: MachineStates.calculateGridDimensions,
           actions: assign({
-            widgetsIds: (_: WidgetsMachineCtx, event) => event.data.widgetsIds,
-            widgets: (_: WidgetsMachineCtx, event) => event.data.widgets
+            widgetsIds: (_, event) => event.data.widgetsIds,
+            widgets: (_, event) => event.data.widgets
           })
         },
         onError: handleInvokeError
@@ -117,13 +117,19 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         onDone: {
           target: MachineStates.renderWidgetsInDom,
           actions: assign({
-            toRender: (_, event) => event.data.widgets,
+            toRender: (context: WidgetsMachineCtx, event) => ({
+              widgetsInDom: [],
+              slotsInUse: event.data.slotsInUse,
+              widgets: event.data.widgets
+
+            }),
             requireUpdate: (_, event) => event.data.requireUpdate
           })
         }
       }
     },
-    // Third step
+    // Third step take the queue of widgets that required be
+    // rendered or updated
     [MachineStates.renderWidgetsInDom]: {
       on: {
         [SET_VIEWPORT_SIZE]: {
@@ -134,7 +140,11 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         src: renderWidgetsInDom,
         onDone: {
           actions: assign({
-            toRender: () => [],
+            toRender: (context: WidgetsMachineCtx, event) => ({
+              widgetsInDom: event.data.widgetsInDom,
+              slotsInUse: context.toRender.slotsInUse,
+              widgets: []
+          }),
             requireUpdate: () => false
           })
         }

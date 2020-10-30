@@ -8,6 +8,7 @@ import {
   IframeType,
   WidgetToRender,
   ReferenceToGridPosition,
+  WidgetDimensions,
 } from "../types";
 import forEach from "lodash/forEach";
 import { ExtendedWidgetsRules } from "../widgetsMachine/machine";
@@ -150,7 +151,7 @@ export const appendNodeToParent = (parent: Node, children: Node): Node => (
   parent.appendChild(children)
 )
 
-export const mapWidgetToRenderProps = (
+export const validateIframeWidgetWithProps = (
   list: WidgetToRender[],
   widget: ExtendedWidgetsRules,
   positions: ReferenceToGridPosition[],
@@ -178,18 +179,9 @@ export const mapWidgetToRenderProps = (
   }
 
   const isFullSize = dimensions.fullSize ? dimensions.fullSize : false;
-  const widgetToRender: WidgetToRender=  {
-    id: widget.id,
-    isFullSize: dimensions.fullSize ? dimensions.fullSize : false,
-    kind: widget.kind,
-    url: {
-      src: widget.src,
-      extra: widget.extra
-    },
-    dimensions,
-    iframeType: widget.iframeType,
-    position: widget.position
-  }
+  const widgetToRender = mapWidgetToRenderProps(
+    widget, dimensions, dimensions.fullSize
+  );
 
   return {
     list: [...list, widgetToRender],
@@ -201,3 +193,20 @@ export const mapWidgetToRenderProps = (
     requireFullSize: boolean;
   }
 }
+
+export const mapWidgetToRenderProps = (
+  widget: ExtendedWidgetsRules,
+  dimensions: WidgetDimensions,
+  fullSize = false,
+  ): WidgetToRender => ({
+    id: widget.id,
+    isFullSize: fullSize,
+    kind: widget.kind,
+    url: {
+      src: widget.src,
+      extra: widget.extra
+    },
+    dimensions,
+    iframeType: widget.iframeType,
+    position: widget.position
+})

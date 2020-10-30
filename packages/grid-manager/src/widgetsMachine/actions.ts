@@ -4,7 +4,8 @@ import find from "lodash/find";
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "../grid/utils"
 import { GridPositionsInViewport, GridSettings, WidgetRules, WidgetToRender } from "../types"
 import { WidgetsMachineCtx } from "./machine"
-import { mapWidgetToRenderProps } from "../dom/utils"
+import { mapWidgetToRenderProps, validateIframeWidgetWithProps } from "../dom/utils"
+import { renderWidgetElement } from "../dom/render";
 
 // Actions names
 export const SET_VIEWPORT_SIZE = 'SET_VIEWPORT_SIZE'
@@ -120,18 +121,20 @@ export const updateWidgetRules = (context, event) => {
 
 // reconcileWidgets state invoker
 export const reconcileWidgets = (context) => {
+  const { widgets, rules, activeBreakpoint } = context;
   // Take all the widgets that request to be rendered and consolidate
   // in a finite list of valid widgets for renderWidgetElement dom method
-  const sortWidgetsByType = reduce(context.widgets, (acc, widget: any) => {
+  const sortWidgetsByType = reduce(widgets, (acc, widget: any) => {
     switch(widget.kind) {
       case 'iframe':
-        const widgetToRender = mapWidgetToRenderProps(
+        const widgetToRender = validateIframeWidgetWithProps(
           acc.iframe,
           widget,
-          context.rules.positions,
-          context.activeBreakpoint,
+          rules.positions,
+          activeBreakpoint,
           acc.usedPositions
         );
+
         return {
           ...acc,
           iframe: widgetToRender.list,
@@ -142,7 +145,12 @@ export const reconcileWidgets = (context) => {
         };
       // I find a case here the blank case apply to any breakpoint?
       case 'blank':
-        return {...acc, blank: [...acc.blank, widget]};
+        return {
+          ...acc,
+          blank: [
+            ...acc.blank,
+            mapWidgetToRenderProps(widget, widget.dimensions['web'])]
+        };
       // div case is unsupported and default doesn't exit
       case 'div':
       default:
@@ -162,25 +170,37 @@ export const reconcileWidgets = (context) => {
       (widget) => widget.dimensions.fullSize
     )
     return Promise.resolve({
+      slotsInUse: sortWidgetsByType.usedPositions,
       widgets: [...sortWidgetsByType.blank, firstFullSizeWidget],
       requireUpdate: true
     })
   }
 
-  // else merge the two list and see if are no empty
+  // else merge the two list and check if it's no empty
   const toRenderList = [
-...sortWidgetsByType.blank, ...sortWidgetsByType.iframe
+    ...sortWidgetsByType.blank, ...sortWidgetsByType.iframe
   ]
-
   return Promise.resolve({
     widgets:toRenderList,
+    slotsInUse: sortWidgetsByType.usedPositions,
     requireUpdate: !!toRenderList.length
   })
 }
 
-// reconcileWidgets state invoker
+// Get a list of widgets to render or update and call renderWidgetElement
 export const renderWidgetsInDom = (context) => {
+  console.log({renderWidgetsInDom: context.toRender})
+  const { widgetsInDom, slotsInUse, widgets} = context.toRender;
 
+  widgets.forEach((widget: WidgetToRender) => {
+    if(widget.kind === 'blank') {
+      try{
+        renderWidgetElement(widget)
+      } catch(e) {
+
+      }
+    }
+  });
 
   return Promise.resolve(true)
 }
