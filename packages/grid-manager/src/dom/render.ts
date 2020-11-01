@@ -16,7 +16,6 @@ import {
   generateUrlFromParams,
   generateDomElement,
   appendNodeToParent,
-  getRelativePosition,
   getPositionRelativeToViewport
 } from "./utils";
 
@@ -36,13 +35,6 @@ const WRAPPER_DIV_STYLES = {
 const CONTAINER_FRAME_STYLES = {
   overflow: 'hidden!important',
   opacity: '1!important'
-}
-
-const WIDGET_ELEVATIONS = {
-  [1]: '0 -5px 10px rgba(0,0,0,.2)',
-  [2]: '0 -6px 12px rgba(0,0,0,.3)',
-  [3]: '0 -8px 15px rgba(0,0,0,.4)',
-  box: '10px 10px 15px rgba(0,0,0,.2)'
 }
 
 const WIDGET_ANIMATIONS = {
@@ -69,16 +61,19 @@ export const createWindowBlankWidget = (
   }
 }
 
-export const makePositionStrategy = (type: WidgetRelativePosition): Promise<any> => {
+export const makePositionStrategy = (
+  type: WidgetRelativePosition,
+  data: any
+): any => {
   switch (type) {
     case RELATIVE_RENDER_POSITION.toDomEl:
-      return new Promise(res => {})
+      return false
     case RELATIVE_RENDER_POSITION.toViewport:
-      return new Promise(res => {})
+      return getPositionRelativeToViewport(data)
     case RELATIVE_RENDER_POSITION.toApp:
-      return new Promise(res => {})
+      return false
     case RELATIVE_RENDER_POSITION.toCenter:
-      return new Promise(res => {})
+      return false
     default:
       throw Error('Invalid position type configuration review app settings');
   }
@@ -109,30 +104,24 @@ export const createIframeWidget = (
     null,
   );
 
-  // get relative position
-  const getGridRect = positions[reference] as rectPosition
-  const relativePosition = getPositionRelativeToViewport(
-    getGridRect,
+  const framePosition = makePositionStrategy(relation, {
+    rect: positions[reference] as rectPosition,
     size,
-    offset
-  )
+    offset,
+    display,
+    styles,
+    elevation,
+    fullSize
+  })
 
-  console.log({relativePosition})
-
-  // generate container iframe div and pass css rules
-  const baseContainerStyles = {
-    ...CONTAINER_FRAME_STYLES,
-    position: display === `${ReferenceToFloat.default}` ? 'relative' : display,
-    width: `${fullSize ? window.innerWidth : size.width}px`,
-    height: `${fullSize ? window.innerHeight : size.height}px`,
-    ['box-shadow']: elevation && WIDGET_ELEVATIONS[elevation] ?
-      WIDGET_ELEVATIONS[elevation]: 'none'
-  };
+  if(!framePosition) {
+    throw new Error('invalid position')
+  }
 
   const containerEl = generateDomElement(
     `lt-app-frame-${id}`,
     'div',
-    styles ? baseContainerStyles : {...baseContainerStyles, ...styles},
+    styles ? framePosition : {...framePosition, ...styles},
     null,
   );
 
@@ -149,14 +138,12 @@ export const createIframeWidget = (
     appendNodeToParent(containerEl, iframeEl)
     appendNodeToParent(wrapperEl, containerEl)
     appendNodeToParent(document.body, wrapperEl)
-
     return {
       id,
       ref: wrapperEl,
       iframe: `lt-app-iframe-${id}`,
       container: `lt-app-frame-${id}`,
     }
-
   } catch(e) {
     throw Error(e)
   }
@@ -167,7 +154,6 @@ export const renderWidgetElement = (
   viewportPositions: GridPositionsInViewport
 ): Promise<HTMLDivElement> | Window | Error => {
   const {id, kind, url, dimensions, iframeType, position} = widget;
-  console.log({widget})
   switch(kind) {
     case 'iframe':
       return createIframeWidget(

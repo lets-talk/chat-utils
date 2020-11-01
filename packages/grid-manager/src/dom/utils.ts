@@ -1,3 +1,4 @@
+import reduce from 'lodash/reduce';
 import {
   HTMLFloatType,
   rectPosition,
@@ -16,6 +17,13 @@ import {
 } from "../types";
 import forEach from "lodash/forEach";
 import { ExtendedWidgetsRules } from "../widgetsMachine/machine";
+
+const WIDGET_ELEVATIONS = {
+  [1]: '0 -5px 10px rgba(0,0,0,.2)',
+  [2]: '0 -6px 12px rgba(0,0,0,.3)',
+  [3]: '0 -8px 15px rgba(0,0,0,.4)',
+  box: '10px 10px 15px rgba(0,0,0,.2)'
+}
 
 export const elementById = (id: string): HTMLElement => {
   const element = document.getElementById(id);
@@ -55,14 +63,40 @@ export const getElementPosition = (elementId: string, elementFloatType: Referenc
   }
 }
 
-const getIframeContainerCssRules = () => {}
+export type RelativePositionProps = {
+  rect: rectPosition;
+  size: WidgetSize;
+  offset: WidgetSizeOffset;
+  display: ReferenceToFloat;
+  styles: {[key:string]: string}
+  elevation: number;
+  fullSize: boolean;
+}
+export const getPositionRelativeToViewport = (payload): RelativePositionProps => {
+  const {
+    rect,
+    size,
+    offset,
+    display,
+    styles,
+    elevation,
+    fullSize
+  } = payload
 
-export const getPositionRelativeToViewport = (
-  rect: rectPosition,
-  size: WidgetSize,
-  offset: WidgetSizeOffset
-) => {
-  return getRelativePosition(rect, offset)
+  const relativePosition = getRelativePosition(rect, offset)
+  const transformToCssKey = reduce(relativePosition,
+    (acc, val, key) => !!val ? {...acc, [key]:`${val}px`} : acc
+  , {})
+
+  return {
+    ...styles,
+    ...transformToCssKey,
+    position: display === `${ReferenceToFloat.default}` ? 'relative' : display,
+    width: `${fullSize ? window.innerWidth : size.width}px`,
+    height: `${fullSize ? window.innerHeight : size.height}px`,
+    ['box-shadow']: elevation && WIDGET_ELEVATIONS[elevation] ?
+      WIDGET_ELEVATIONS[elevation]: 'none',
+  }
 }
 
 export const getRelativePosition = (

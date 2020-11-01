@@ -83,16 +83,16 @@ export const widgetsToRenderMock: WidgetRules[]  = [{
       elevation: 2,
       styles: null,
       size: {
-        width: 50,
-        height: 50
+        width: 100,
+        height: 100
       },
       offset: {
         x: {
-          relationType:'RR' as relationTypeX,
+          relationType:'LL' as relationTypeX,
           value: 15
         },
         y: {
-          relationType:'BB' as relationTypeY,
+          relationType:'TT' as relationTypeY,
           value: 15
         }
       }
