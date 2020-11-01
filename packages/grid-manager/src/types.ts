@@ -158,6 +158,21 @@ export type WidgetToRender = {
   position: ReferencePosition;
 }
 
+export type WidgetToUpdate = {
+  id: string,
+  isFullSize: boolean,
+  ref: WidgetReference,
+  dimensions: WidgetDimensions,
+  position: ReferencePosition;
+}
+
+export type WidgetReference = {
+  id: string;
+  iframeId: string;
+  containerId: string;
+  ref: HTMLDivElement | HTMLIFrameElement
+}
+
 // generic css styles types
 // See CSS 3 CSS-wide keywords https://www.w3.org/TR/css3-values/#common-keywords
 // See CSS 3 Explicit Defaulting https://www.w3.org/TR/css-cascade-3/#defaulting-keywords

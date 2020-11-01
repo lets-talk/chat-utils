@@ -8,8 +8,8 @@ import {
   ReferencePosition,
   WidgetToRender,
   GridPositionsInViewport,
-  ReferenceToFloat,
-  rectPosition
+  rectPosition,
+  WidgetReference
 } from "../types";
 import { RELATIVE_RENDER_POSITION } from "../grid/utils";
 import {
@@ -118,16 +118,18 @@ export const createIframeWidget = (
     throw new Error('invalid position')
   }
 
+  const containerElClass = `lt-app-frame-${id}`
   const containerEl = generateDomElement(
-    `lt-app-frame-${id}`,
+    containerElClass,
     'div',
     styles ? framePosition : {...framePosition, ...styles},
     null,
   );
 
   // generate widget iframe and insert src url path
+  const iframeElClass = `lt-app-iframe-${id}`
   const iframeEl = generateDomElement(
-    `lt-app-iframe-${id}`,
+    iframeElClass,
     'iframe',
     IFRAME_BASIC_STYLES,
     {src: url.href, type: iframeType}
@@ -138,12 +140,13 @@ export const createIframeWidget = (
     appendNodeToParent(containerEl, iframeEl)
     appendNodeToParent(wrapperEl, containerEl)
     appendNodeToParent(document.body, wrapperEl)
+
     return {
       id,
       ref: wrapperEl,
-      iframe: `lt-app-iframe-${id}`,
-      container: `lt-app-frame-${id}`,
-    }
+      iframe: iframeElClass,
+      container: containerElClass,
+    } as unknown as WidgetReference
   } catch(e) {
     throw Error(e)
   }

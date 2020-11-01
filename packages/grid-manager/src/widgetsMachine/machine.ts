@@ -1,5 +1,5 @@
 import { assign, Machine, send} from "xstate";
-import { GridPositionsInViewport, GridSettings, WidgetRules, WidgetToRender } from "../types";
+import { GridPositionsInViewport, GridSettings, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types";
 import { calculateGridDimensions, reconcileWidgets, renderWidgetsInDom, sendViewportDimensions, setWidgetsRules, SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE, updateWidgetRules, UPDATE_WIDGET_IN_STATE } from "./actions";
 
 export enum MachineStates {
@@ -11,15 +11,19 @@ export enum MachineStates {
   catchInvokeError = 'catchInvokeError'
 }
 
-type WidgetToRenderInCtx = {
+export type WidgetsToRenderInCtx = {
+  // widgetsInDom: WidgetReference[]
+  // updateCycle: {
+  //   render: WidgetToRender[] | false;
+  //   update: WidgetToUpdate[] | false
+  //   remove: WidgetReference[] | false
+  // }
+  // positionsInUse: string[];
+  // this need to die
   widgetsIdsInDom: string[];
   slotsInUse: string[];
   widgets: WidgetToRender[];
 }
-
-export type ExtendedWidgetsRules = {
-  requireUpdate: boolean;
-} & WidgetRules
 
 export type WidgetsMachineCtx = {
   viewport: {
@@ -28,11 +32,12 @@ export type WidgetsMachineCtx = {
   };
   activeBreakpoint: string;
   widgetsIds: string[];
-  widgets: {[key:string]: ExtendedWidgetsRules};
+  widgets: {[key:string]: WidgetRules};
   positions: GridPositionsInViewport;
   rules: GridSettings;
   requireUpdate: boolean;
-  toRender: WidgetToRenderInCtx | null;
+  // renderCycle: WidgetsToRenderInCtx | null;
+  toRender: WidgetsToRenderInCtx | null;
 }
 
 const handleInvokeError = {
@@ -80,7 +85,7 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
       invoke: {
         src: updateWidgetRules,
         onDone: {
-          target: MachineStates.calculateGridDimensions,
+          target: MachineStates.renderWidgetsInDom,
           actions: assign({
             widgetsIds: (_, event) => event.data.widgetsIds,
             widgets: (_, event) => event.data.widgets
@@ -121,7 +126,6 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
               widgetsIdsInDom: [],
               slotsInUse: event.data.slotsInUse,
               widgets: event.data.widgets
-
             }),
             requireUpdate: (_, event) => event.data.requireUpdate
           })

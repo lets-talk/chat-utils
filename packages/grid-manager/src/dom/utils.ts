@@ -14,9 +14,9 @@ import {
   ReferenceToFloat,
   TilePosition,
   WidgetSize,
+  WidgetRules
 } from "../types";
 import forEach from "lodash/forEach";
-import { ExtendedWidgetsRules } from "../widgetsMachine/machine";
 
 const WIDGET_ELEVATIONS = {
   [1]: '0 -5px 10px rgba(0,0,0,.2)',
@@ -202,7 +202,7 @@ export const appendNodeToParent = (parent: Node, children: Node): Node => (
 
 export const validateIframeWidgetWithProps = (
   list: WidgetToRender[],
-  widget: ExtendedWidgetsRules,
+  widget: WidgetRules,
   positions: ReferenceToGridPosition[],
   breakpoint: string,
   usedPositions: ReferenceToGridPosition[]
@@ -244,7 +244,7 @@ export const validateIframeWidgetWithProps = (
 }
 
 export const mapWidgetToRenderProps = (
-  widget: ExtendedWidgetsRules,
+  widget: WidgetRules,
   dimensions: WidgetDimensions,
   fullSize = false,
   ): WidgetToRender => ({
