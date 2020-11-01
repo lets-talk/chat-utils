@@ -6,7 +6,8 @@ import {
   IframeType,
   WidgetDimensions,
   ReferencePosition,
-  WidgetToRender
+  WidgetToRender,
+  GridPositionsInViewport
 } from "../types";
 import { RELATIVE_RENDER_POSITION } from "../grid/utils";
 import {
@@ -34,6 +35,18 @@ const CONTAINER_FRAME_STYLES = {
   opacity: '1!important'
 }
 
+const WIDGET_ELEVATIONS = {
+  [1]: '0 -5px 10px rgba(0,0,0,.2)',
+  [2]: '0 -6px 12px rgba(0,0,0,.3)',
+  [3]: '0 -8px 15px rgba(0,0,0,.4)',
+  box: '10px 10px 15px rgba(0,0,0,.2)'
+}
+
+const WIDGET_ANIMATIONS = {
+  linear: 'all .2s linear',
+  ease: 'all 0.2s ease'
+}
+
 export const createWindowBlankWidget = (
   id: string,
   urlParams: UrlSourceParams,
@@ -53,7 +66,7 @@ export const createWindowBlankWidget = (
   }
 }
 
-export const makePostionStrategy = (type: WidgetRelativePosition): Promise<any> => {
+export const makePositionStrategy = (type: WidgetRelativePosition): Promise<any> => {
   switch (type) {
     case RELATIVE_RENDER_POSITION.toDomEl:
       return new Promise(res => {})
@@ -68,13 +81,18 @@ export const makePostionStrategy = (type: WidgetRelativePosition): Promise<any> 
   }
 }
 
-export const createIframeWidget = async (
+export const createIframeWidget = (
   id: string,
   urlParams: UrlSourceParams,
   position: ReferencePosition,
   dimensions: WidgetDimensions,
   iframeType: IframeType | undefined,
-): Promise<HTMLDivElement> => {
+  kind: WidgetType
+): any => {
+  if(kind !== 'iframe') {
+    throw new Error('invalid kind')
+  }
+
   const {relation, reference, element} = position;
   const {size, styles, fullSize, animate, elevation, offset} = dimensions;
   // generate iframe src url
@@ -83,7 +101,10 @@ export const createIframeWidget = async (
   const wrapperEl = generateDomElement(
     `lt-app-container-${id}`,
     'div',
-    WRAPPER_DIV_STYLES,
+    {
+      ...WRAPPER_DIV_STYLES,
+      transition: animate ? WIDGET_ANIMATIONS.ease : 'none'
+    },
     null,
   );
   // generate container iframe div and pass css rules
@@ -91,14 +112,19 @@ export const createIframeWidget = async (
     ...CONTAINER_FRAME_STYLES,
     width: `${fullSize ? window.innerWidth : size.width}px`,
     height: `${fullSize ? window.innerHeight : size.height}px`,
+    transition: animate ? WIDGET_ANIMATIONS.ease : 'none',
+    ['box-shadow']: elevation && WIDGET_ELEVATIONS[elevation] ?
+      WIDGET_ELEVATIONS[elevation]: 'none'
   };
+
   const containerEl = generateDomElement(
     `lt-app-frame-${id}`,
     'div',
     styles ? baseContainerStyles : {...baseContainerStyles, ...styles},
     null,
   );
-  // generate iframe and insert src url
+
+  // generate widget iframe and insert src url path
   const iframeEl = generateDomElement(
     `lt-app-iframe-${id}`,
     'iframe',
@@ -108,19 +134,31 @@ export const createIframeWidget = async (
 
   // map dom elements and return widget in body node
   try {
-    const wrappedIframe =  appendNodeToParent(containerEl, iframeEl)
-    const widgetWrapper =  appendNodeToParent(wrapperEl, wrappedIframe)
-    return appendNodeToParent(document.body, widgetWrapper) as HTMLDivElement
+    appendNodeToParent(containerEl, iframeEl)
+    appendNodeToParent(wrapperEl, containerEl)
+    appendNodeToParent(document.body, wrapperEl)
+    return {
+      id,
+      ref: wrapperEl,
+      iframe: `lt-app-iframe-${id}`,
+      container: `lt-app-frame-${id}`,
+    }
   } catch(e) {
     throw Error(e)
   }
 }
 
-export const renderWidgetElement = ({...args}: WidgetToRender): Promise<HTMLDivElement> | Window | Error => {
-  const {id, kind, url, dimensions, iframeType, position} = args;
+export const renderWidgetElement = (
+  widget: WidgetToRender,
+  positions: GridPositionsInViewport
+): Promise<HTMLDivElement> | Window | Error => {
+  const {id, kind, url, dimensions, iframeType, position} = widget;
+  console.log({widget})
   switch(kind) {
     case 'iframe':
-      return createIframeWidget(id, url, position, dimensions, iframeType);
+      return createIframeWidget(
+        id, url, position, dimensions, iframeType, kind
+      );
     case 'blank':
       return createWindowBlankWidget(id, url, dimensions.size);
     // The div case will be supported in the near future

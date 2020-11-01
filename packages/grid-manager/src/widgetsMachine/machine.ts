@@ -12,7 +12,7 @@ export enum MachineStates {
 }
 
 type WidgetToRenderInCtx = {
-  widgetsInDom: string[];
+  widgetsIdsInDom: string[];
   slotsInUse: string[];
   widgets: WidgetToRender[];
 }
@@ -118,7 +118,7 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
           target: MachineStates.renderWidgetsInDom,
           actions: assign({
             toRender: (context: WidgetsMachineCtx, event) => ({
-              widgetsInDom: [],
+              widgetsIdsInDom: [],
               slotsInUse: event.data.slotsInUse,
               widgets: event.data.widgets
 
@@ -141,7 +141,7 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         onDone: {
           actions: assign({
             toRender: (context: WidgetsMachineCtx, event) => ({
-              widgetsInDom: event.data.widgetsInDom,
+              widgetsIdsInDom: event.data.widgetsIdsInDom,
               slotsInUse: context.toRender.slotsInUse,
               widgets: []
           }),

@@ -41,7 +41,7 @@ export const removeWidget = (id: number) => ({
 })
 
 // calculateGridDimensions state invoker
-export const calculateGridDimensions = (context, event: SetViewportAction) => {
+export const calculateGridDimensions = (context: WidgetsMachineCtx, event: SetViewportAction) => {
   console.log({calculateGridDimensions: event})
 
   // if the event is was not triggered by a window resize
@@ -120,7 +120,7 @@ export const updateWidgetRules = (context, event) => {
 }
 
 // reconcileWidgets state invoker
-export const reconcileWidgets = (context) => {
+export const reconcileWidgets = (context: WidgetsMachineCtx) => {
   const { widgets, rules, activeBreakpoint } = context;
   // Take all the widgets that request to be rendered and consolidate
   // in a finite list of valid widgets for renderWidgetElement dom method
@@ -188,17 +188,18 @@ export const reconcileWidgets = (context) => {
 }
 
 // Get a list of widgets to render or update and call renderWidgetElement
-export const renderWidgetsInDom = (context) => {
+export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
   console.log({renderWidgetsInDom: context.toRender})
-  const { widgetsInDom, slotsInUse, widgets} = context.toRender;
+  const { widgetsIdsInDom, slotsInUse, widgets} = context.toRender;
 
+  let renderedWidgets = [];
   widgets.forEach((widget: WidgetToRender) => {
-    if(widget.kind === 'blank') {
-      try{
-        renderWidgetElement(widget)
-      } catch(e) {
-
-      }
+    try{
+      const refNode  = renderWidgetElement(widget, context.positions);
+      console.log({ refNode })
+      renderedWidgets = [...renderedWidgets, widget.id]
+    } catch(e) {
+      // log the error to service
     }
   });
 

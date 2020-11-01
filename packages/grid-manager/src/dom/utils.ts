@@ -9,6 +9,8 @@ import {
   WidgetToRender,
   ReferenceToGridPosition,
   WidgetDimensions,
+  WidgetType,
+  ReferenceToFloat,
 } from "../types";
 import forEach from "lodash/forEach";
 import { ExtendedWidgetsRules } from "../widgetsMachine/machine";
@@ -42,11 +44,11 @@ export const getElementPositionDefault = (elementId: string): rectPosition => {
   };
 }
 
-export const getElementPosition = (elementId: string, elementFloatType: HTMLFloatType): rectPosition => {
+export const getElementPosition = (elementId: string, elementFloatType: ReferenceToFloat): rectPosition => {
   switch (elementFloatType) {
-    case HTMLFloatType.default:
+    case ReferenceToFloat.default:
       return getElementPositionDefault(elementId);
-    case HTMLFloatType.fixed:
+    case ReferenceToFloat.fixed:
       return getElementPositionFixed(elementId);
   }
 }
@@ -118,7 +120,7 @@ export const generateUrlFromParams = (
 
 export const generateDomElement = (
   id: string,
-  element: 'div' | 'iframe',
+  element: WidgetType,
   styles: {[key:string]: string} | null,
   iframeSettings: {
     src: string
@@ -126,7 +128,8 @@ export const generateDomElement = (
   } | null,
   className?: string,
 ): HTMLDivElement | HTMLIFrameElement => {
-  const {src, type} = iframeSettings;
+  const src = iframeSettings ? iframeSettings.src : undefined;
+  const type = iframeSettings ? iframeSettings.type : undefined;
   const el = document.createElement(element);
 
   el.id = id;
@@ -136,15 +139,15 @@ export const generateDomElement = (
     (el as HTMLIFrameElement).src = src;
   }
 
-  if(type && ["lt-basic-container-multimedia",  "lt-webrtc"].indexOf(type) !== -1) {
+  if(element === 'iframe' && type && ["lt-basic-container-multimedia",  "lt-webrtc"].indexOf(type) !== -1) {
     (el as HTMLIFrameElement).allow = "microphone *; camera *";
   }
 
   if(styles) {
-    forEach(styles, (v,k) => el.style.setProperty(v, k))
+    forEach(styles, (value,key) => el.style.setProperty(key, value))
   }
 
-  return el
+  return el as any
 }
 
 export const appendNodeToParent = (parent: Node, children: Node): Node => (
