@@ -11,6 +11,8 @@ import {
   WidgetDimensions,
   WidgetType,
   ReferenceToFloat,
+  TilePosition,
+  WidgetSize,
 } from "../types";
 import forEach from "lodash/forEach";
 import { ExtendedWidgetsRules } from "../widgetsMachine/machine";
@@ -51,6 +53,16 @@ export const getElementPosition = (elementId: string, elementFloatType: Referenc
     case ReferenceToFloat.fixed:
       return getElementPositionFixed(elementId);
   }
+}
+
+const getIframeContainerCssRules = () => {}
+
+export const getPositionRelativeToViewport = (
+  rect: rectPosition,
+  size: WidgetSize,
+  offset: WidgetSizeOffset
+) => {
+  return getRelativePosition(rect, offset)
 }
 
 export const getRelativePosition = (

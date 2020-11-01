@@ -42,8 +42,6 @@ export const removeWidget = (id: number) => ({
 
 // calculateGridDimensions state invoker
 export const calculateGridDimensions = (context: WidgetsMachineCtx, event: SetViewportAction) => {
-  console.log({calculateGridDimensions: event})
-
   // if the event is was not triggered by a window resize
   // we use the last valid viewport value
   const isFromResize = event.type === SET_VIEWPORT_SIZE
@@ -189,13 +187,12 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
 
 // Get a list of widgets to render or update and call renderWidgetElement
 export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
-  console.log({renderWidgetsInDom: context.toRender})
   const { widgetsIdsInDom, slotsInUse, widgets} = context.toRender;
 
   let renderedWidgets = [];
   widgets.forEach((widget: WidgetToRender) => {
     try{
-      const refNode  = renderWidgetElement(widget, context.positions);
+      const refNode = renderWidgetElement(widget, context.positions);
       console.log({ refNode })
       renderedWidgets = [...renderedWidgets, widget.id]
     } catch(e) {

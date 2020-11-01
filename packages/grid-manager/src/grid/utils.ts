@@ -24,7 +24,7 @@ export const gridRules: {[key in 'small' | 'medium'| 'large']: GridSettings} = {
   small: {
     label: 'mobile',
     columns: 1,
-    rows: 1,
+    rows: 3,
     positions: [
       'top',
       'mid',
@@ -34,7 +34,7 @@ export const gridRules: {[key in 'small' | 'medium'| 'large']: GridSettings} = {
   medium: {
     label: 'tablet',
     columns: 2,
-    rows: 2,
+    rows: 3,
     positions: [
       'top-left',
       'top-right',

@@ -7,13 +7,17 @@ import {
   WidgetDimensions,
   ReferencePosition,
   WidgetToRender,
-  GridPositionsInViewport
+  GridPositionsInViewport,
+  ReferenceToFloat,
+  rectPosition
 } from "../types";
 import { RELATIVE_RENDER_POSITION } from "../grid/utils";
 import {
   generateUrlFromParams,
   generateDomElement,
-  appendNodeToParent
+  appendNodeToParent,
+  getRelativePosition,
+  getPositionRelativeToViewport
 } from "./utils";
 
 const IFRAME_BASIC_STYLES = {
@@ -30,7 +34,6 @@ const WRAPPER_DIV_STYLES = {
 }
 
 const CONTAINER_FRAME_STYLES = {
-  position: 'fixed',
   overflow: 'hidden!important',
   opacity: '1!important'
 }
@@ -87,13 +90,11 @@ export const createIframeWidget = (
   position: ReferencePosition,
   dimensions: WidgetDimensions,
   iframeType: IframeType | undefined,
-  kind: WidgetType
+  kind: WidgetType,
+  viewportPositions: GridPositionsInViewport
 ): any => {
-  if(kind !== 'iframe') {
-    throw new Error('invalid kind')
-  }
-
-  const {relation, reference, element} = position;
+  const {positions, availablePosition, tileSize} = viewportPositions;
+  const {relation, display, reference, element} = position;
   const {size, styles, fullSize, animate, elevation, offset} = dimensions;
   // generate iframe src url
   const url = generateUrlFromParams(urlParams);
@@ -107,12 +108,23 @@ export const createIframeWidget = (
     },
     null,
   );
+
+  // get relative position
+  const getGridRect = positions[reference] as rectPosition
+  const relativePosition = getPositionRelativeToViewport(
+    getGridRect,
+    size,
+    offset
+  )
+
+  console.log({relativePosition})
+
   // generate container iframe div and pass css rules
   const baseContainerStyles = {
     ...CONTAINER_FRAME_STYLES,
+    position: display === `${ReferenceToFloat.default}` ? 'relative' : display,
     width: `${fullSize ? window.innerWidth : size.width}px`,
     height: `${fullSize ? window.innerHeight : size.height}px`,
-    transition: animate ? WIDGET_ANIMATIONS.ease : 'none',
     ['box-shadow']: elevation && WIDGET_ELEVATIONS[elevation] ?
       WIDGET_ELEVATIONS[elevation]: 'none'
   };
@@ -137,12 +149,14 @@ export const createIframeWidget = (
     appendNodeToParent(containerEl, iframeEl)
     appendNodeToParent(wrapperEl, containerEl)
     appendNodeToParent(document.body, wrapperEl)
+
     return {
       id,
       ref: wrapperEl,
       iframe: `lt-app-iframe-${id}`,
       container: `lt-app-frame-${id}`,
     }
+
   } catch(e) {
     throw Error(e)
   }
@@ -150,14 +164,14 @@ export const createIframeWidget = (
 
 export const renderWidgetElement = (
   widget: WidgetToRender,
-  positions: GridPositionsInViewport
+  viewportPositions: GridPositionsInViewport
 ): Promise<HTMLDivElement> | Window | Error => {
   const {id, kind, url, dimensions, iframeType, position} = widget;
   console.log({widget})
   switch(kind) {
     case 'iframe':
       return createIframeWidget(
-        id, url, position, dimensions, iframeType, kind
+        id, url, position, dimensions, iframeType, kind, viewportPositions
       );
     case 'blank':
       return createWindowBlankWidget(id, url, dimensions.size);
