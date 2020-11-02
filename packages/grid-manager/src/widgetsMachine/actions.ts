@@ -128,7 +128,7 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     activeBreakpoint,
     requireGlobalUpdate,
     widgetsIdsToTrack: {forRender},
-    renderCycle: {widgetsIdsInDom}
+    renderCycle: {widgetsInDom}
   } = context;
 
   let widgetsListByType = {
@@ -140,7 +140,7 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
   };
 
   console.log({
-    widgets, requireGlobalUpdate, forRender, widgetsIdsInDom
+    widgets, requireGlobalUpdate, forRender, widgetsInDom
   })
 
   // flow
@@ -200,33 +200,26 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
 // Get a list of widgets to render or update and call renderWidgetElement
 export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
   const { requireGlobalUpdate, renderCycle } = context
-  const { widgetsIdsInDom, updateCycle, positionsInUse} = renderCycle;
+  const { widgetsInDom, updateCycle, positionsInUse} = renderCycle;
   let widgetsRef = [];
 
   if(requireGlobalUpdate) {
-    widgetsIdsInDom.forEach((widget: any) =>
+    widgetsInDom.forEach((widget: any) =>
       removeNodeRef(widget.ref)
     )
   }
 
-  console.log({updateCycle})
   updateCycle.remove.forEach((widget: any) =>
     removeNodeRef(widget.ref)
   )
 
   updateCycle.render.forEach((widget: WidgetToRender) => {
-    try{
-      const refNode = renderWidgetElement(widget, context.positions) as unknown as WidgetReference;
-      widgetsRef = [...widgetsRef, refNode]
-    } catch(e) {
-      // log the error to service
-    }
+    const refNode = renderWidgetElement(widget, context.positions) as any;
+    widgetsRef = [...widgetsRef, refNode];
   });
 
-  console.log({widgetsRef})
-
   return Promise.resolve({
-    widgetsRef,
+    widgetsRef: !!widgetsRef.length ? widgetsRef : widgetsInDom,
     positionsInUse
   })
 }

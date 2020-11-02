@@ -100,7 +100,7 @@ export const getRulesFromViewport = (
   viewportWidth: number,
   breakpoints: GridBreakpoints
 ): GridSettings => {
-  if (viewportWidth <= breakpoints.small[0]) {
+  if (viewportWidth <= breakpoints.small[1]) {
     return rules.small
   } else if (
     viewportWidth > breakpoints.medium[0] &&
