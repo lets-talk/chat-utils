@@ -111,7 +111,8 @@ export const createIframeWidget = (
     display,
     styles,
     elevation,
-    fullSize
+    fullSize,
+    animate: animate ? WIDGET_ANIMATIONS.ease : false
   })
 
   if(!framePosition) {

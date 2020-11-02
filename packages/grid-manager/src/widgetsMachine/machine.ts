@@ -12,17 +12,19 @@ export enum MachineStates {
 }
 
 export type WidgetsToRenderInCtx = {
-  // widgetsInDom: WidgetReference[]
-  // updateCycle: {
-  //   render: WidgetToRender[] | false;
-  //   update: WidgetToUpdate[] | false
-  //   remove: WidgetReference[] | false
-  // }
-  // positionsInUse: string[];
-  // this need to die
-  widgetsIdsInDom: string[];
-  slotsInUse: string[];
-  widgets: WidgetToRender[];
+  widgetsInDom: WidgetReference[]
+  updateCycle: {
+    render: WidgetToRender[] | null;
+    update: WidgetToUpdate[] | null;
+    remove: WidgetReference[] | null;
+  }
+  positionsInUse: string[];
+}
+
+export type widgetsIdsToTrackInCtx = {
+  forRender: string[] | null;
+  forUpdate: string[] | null;
+  forRemove: string[] | null;
 }
 
 export type WidgetsMachineCtx = {
@@ -32,12 +34,12 @@ export type WidgetsMachineCtx = {
   };
   activeBreakpoint: string;
   widgetsIds: string[];
+  widgetsIdsToTrack: widgetsIdsToTrackInCtx;
   widgets: {[key:string]: WidgetRules};
   positions: GridPositionsInViewport;
   rules: GridSettings;
-  requireUpdate: boolean;
-  // renderCycle: WidgetsToRenderInCtx | null;
-  toRender: WidgetsToRenderInCtx | null;
+  requireGlobalUpdate: boolean;
+  renderCycle: WidgetsToRenderInCtx;
 }
 
 const handleInvokeError = {
@@ -73,6 +75,11 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
             ],
             widgets: (_, event) => ({
               ...event.data.widgets
+            }),
+            widgetsIdsToTrack: (_, event) => ({
+              forRender: event.data.forRender,
+              forUpdate: [],
+              forRemove: []
             })
           })
         },
@@ -87,8 +94,18 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         onDone: {
           target: MachineStates.renderWidgetsInDom,
           actions: assign({
-            widgetsIds: (_, event) => event.data.widgetsIds,
-            widgets: (_, event) => event.data.widgets
+            widgets: (ctx: WidgetsMachineCtx, event) => ({
+              ...ctx.widgets,
+              ...event.data.widget
+            }),
+            renderCycle: (ctx: WidgetsMachineCtx, event) => ({
+              ...ctx.renderCycle,
+              updateCycle: {
+                render: [],
+                remove: event.data.requireRemove ? event.data.widget : [],
+                update: event.data.requireUpdate ? event.data.widget : [],
+              }
+            })
           })
         },
         onError: handleInvokeError
@@ -108,7 +125,8 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
             viewport: (_, event) => event.data.viewport,
             activeBreakpoint: (_, event) => event.data.label,
             rules: (_, event) => event.data.rules,
-            positions: (_, event) => event.data.positions
+            positions: (_, event) => event.data.positions,
+            requireGlobalUpdate: (_, event) => event.data.requiredUpdate,
           })
         },
         onError: handleInvokeError
@@ -122,12 +140,20 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         onDone: {
           target: MachineStates.renderWidgetsInDom,
           actions: assign({
-            toRender: (context: WidgetsMachineCtx, event) => ({
-              widgetsIdsInDom: [],
-              slotsInUse: event.data.slotsInUse,
-              widgets: event.data.widgets
+            // widgetsIdsToTrack: (_, event) => ({
+            //   forRender: event.data.forRender,
+            //   forRemove: event.data.forRemove,
+            //   forUpdate: null,
+            // }),
+            renderCycle: (context: WidgetsMachineCtx, event) => ({
+              ...context.renderCycle,
+              positionsInUse: event.data.slotsInUse,
+              updateCycle: {
+                ...context.renderCycle.updateCycle,
+                render: event.data.widgetsToRender,
+                // remove: event.data.widgetsToRemove,
+              },
             }),
-            requireUpdate: (_, event) => event.data.requireUpdate
           })
         }
       }
@@ -144,12 +170,21 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         src: renderWidgetsInDom,
         onDone: {
           actions: assign({
-            toRender: (context: WidgetsMachineCtx, event) => ({
-              widgetsIdsInDom: event.data.widgetsIdsInDom,
-              slotsInUse: context.toRender.slotsInUse,
-              widgets: []
-          }),
-            requireUpdate: () => false
+            widgetsIdsToTrack: () => ({
+              forRender: [],
+              forUpdate: [],
+              forRemove: []
+            }),
+            renderCycle: (context: WidgetsMachineCtx, event) => ({
+              ...context.renderCycle,
+              widgetsInDom: event.data.widgetsRef,
+              positionsInUse: context.renderCycle.positionsInUse,
+              updateCycle: {
+                render: [],
+                update: [],
+                remove: []
+              }
+            }),
           })
         }
       }

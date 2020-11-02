@@ -25,6 +25,14 @@ const WIDGET_ELEVATIONS = {
   box: '10px 10px 15px rgba(0,0,0,.2)'
 }
 
+export const removeNodeRef = (ref: HTMLElement): any => {
+  try {
+    ref.remove();
+  } catch(e) {
+    throw new Error(e)
+  }
+}
+
 export const elementById = (id: string): HTMLElement => {
   const element = document.getElementById(id);
   if (element === null) throw Error('Can not find the dom element with id: ' + id);
@@ -71,6 +79,7 @@ export type RelativePositionProps = {
   styles: {[key:string]: string}
   elevation: number;
   fullSize: boolean;
+  animate: string | false;
 }
 export const getPositionRelativeToViewport = (payload): RelativePositionProps => {
   const {
@@ -80,7 +89,8 @@ export const getPositionRelativeToViewport = (payload): RelativePositionProps =>
     display,
     styles,
     elevation,
-    fullSize
+    fullSize,
+    animate
   } = payload
 
   const relativePosition = getRelativePosition(rect, offset)
@@ -96,6 +106,7 @@ export const getPositionRelativeToViewport = (payload): RelativePositionProps =>
     height: `${fullSize ? window.innerHeight : size.height}px`,
     ['box-shadow']: elevation && WIDGET_ELEVATIONS[elevation] ?
       WIDGET_ELEVATIONS[elevation]: 'none',
+    transition: animate ? animate : 'none'
   }
 }
 
@@ -199,63 +210,3 @@ export const generateDomElement = (
 export const appendNodeToParent = (parent: Node, children: Node): Node => (
   parent.appendChild(children)
 )
-
-export const validateIframeWidgetWithProps = (
-  list: WidgetToRender[],
-  widget: WidgetRules,
-  positions: ReferenceToGridPosition[],
-  breakpoint: string,
-  usedPositions: ReferenceToGridPosition[]
-) => {
-  const returnWidgetsList = {
-    list,
-    position: null,
-    requireFullSize: false
-  }
-  const dimensions = widget.dimensions[breakpoint];
-  // if the widget don't need to be render return the prev list
-  if(dimensions === null) return returnWidgetsList;
-  // if the position doesn't exit for the active breakpoint return list
-  if(
-    widget.position.relation === 'relative-to-viewport' &&
-    positions.indexOf(widget.position.reference) === -1
-  ) {
-    return returnWidgetsList
-  }
-  // if the position is duplicated return list
-  if(usedPositions.indexOf(widget.position.reference) !== -1) {
-    return returnWidgetsList
-  }
-
-  const isFullSize = dimensions.fullSize ? dimensions.fullSize : false;
-  const widgetToRender = mapWidgetToRenderProps(
-    widget, dimensions, dimensions.fullSize
-  );
-
-  return {
-    list: [...list, widgetToRender],
-    position: widget.position.reference,
-    fullSize: isFullSize
-  } as unknown as {
-    list: WidgetToRender[];
-    position: ReferenceToGridPosition | null;
-    requireFullSize: boolean;
-  }
-}
-
-export const mapWidgetToRenderProps = (
-  widget: WidgetRules,
-  dimensions: WidgetDimensions,
-  fullSize = false,
-  ): WidgetToRender => ({
-    id: widget.id,
-    isFullSize: fullSize,
-    kind: widget.kind,
-    url: {
-      src: widget.src,
-      extra: widget.extra
-    },
-    dimensions,
-    iframeType: widget.iframeType,
-    position: widget.position
-})

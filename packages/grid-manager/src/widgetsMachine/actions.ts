@@ -1,11 +1,12 @@
 import uniq from "lodash/uniq";
-import reduce from "lodash/reduce";
 import find from "lodash/find";
+import map from "lodash/map";
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "../grid/utils"
-import { GridPositionsInViewport, GridSettings, WidgetRules, WidgetToRender } from "../types"
+import { GridPositionsInViewport, GridSettings, WidgetReference, WidgetRules, WidgetToRender } from "../types"
 import { WidgetsMachineCtx } from "./machine"
-import { mapWidgetToRenderProps, validateIframeWidgetWithProps } from "../dom/utils"
 import { renderWidgetElement } from "../dom/render";
+import { generateSortedListOfWidgets } from "./helpers";
+import { removeNodeRef } from "../dom/utils";
 
 // Actions names
 export const SET_VIEWPORT_SIZE = 'SET_VIEWPORT_SIZE'
@@ -47,7 +48,6 @@ export const calculateGridDimensions = (context: WidgetsMachineCtx, event: SetVi
   const isFromResize = event.type === SET_VIEWPORT_SIZE
   const width = isFromResize ? event.width : context.viewport.width
   const height = isFromResize ? event.height : context.viewport.height
-
   const rules: GridSettings = getRulesFromViewport(gridRules, width, breakpoints)
 
   const positions: GridPositionsInViewport = getGridPositions({
@@ -67,7 +67,8 @@ export const calculateGridDimensions = (context: WidgetsMachineCtx, event: SetVi
       },
       label: rules.label,
       rules,
-      positions
+      positions,
+      requiredUpdate: rules.label !== context.rules.label
     })
   } else {
     throw new Error('invalid grid rules')
@@ -87,10 +88,11 @@ export const setWidgetsRules = (context: WidgetsMachineCtx, event: {
     ids: [...acc.ids, widget.id],
     widgets: {
       ...acc.widgets,
-      [widget.id]: {...widget, requireUpdate: true}
+      [widget.id]: widget
     }
   }), {
-    ids:[], widgets: {}
+    ids:[],
+    widgets: {},
   })
 
   const ids = [...context.widgetsIds, ...widgetsParsed.ids]
@@ -99,7 +101,7 @@ export const setWidgetsRules = (context: WidgetsMachineCtx, event: {
   // if the length differ we try to write the same widget to time
   // By design I don't want to trow an error and only log (always last set wins)
   if(mergeIds.length !== ids.length) {
-    console.log(`Trying opf write the same ids ${[...ids]}`)
+    console.log(`Trying to duplicate widget in model ids: ${[...ids]}`)
   }
 
   return Promise.resolve({
@@ -107,7 +109,8 @@ export const setWidgetsRules = (context: WidgetsMachineCtx, event: {
     widgets: {
       ...widgetsParsed.widgets,
       ...context.widgets
-    }
+    },
+    forRender: widgetsParsed.ids
   })
 }
 
@@ -119,86 +122,111 @@ export const updateWidgetRules = (context, event) => {
 
 // reconcileWidgets state invoker
 export const reconcileWidgets = (context: WidgetsMachineCtx) => {
-  const { widgets, rules, activeBreakpoint } = context;
-  // Take all the widgets that request to be rendered and consolidate
-  // in a finite list of valid widgets for renderWidgetElement dom method
-  const sortWidgetsByType = reduce(widgets, (acc, widget: any) => {
-    switch(widget.kind) {
-      case 'iframe':
-        const widgetToRender = validateIframeWidgetWithProps(
-          acc.iframe,
-          widget,
-          rules.positions,
-          activeBreakpoint,
-          acc.usedPositions
-        );
+  const {
+    widgets,
+    rules,
+    activeBreakpoint,
+    requireGlobalUpdate,
+    widgetsIdsToTrack: {forRender},
+    renderCycle: {widgetsIdsInDom}
+  } = context;
 
-        return {
-          ...acc,
-          iframe: widgetToRender.list,
-          usedPositions: widgetToRender.position ?
-            [...acc.usedPositions, widgetToRender.position] : acc.usedPositions,
-          requireFullSize: widgetToRender.requireFullSize ?
-            widgetToRender.requireFullSize : acc.requireFullSize
-        };
-      // I find a case here the blank case apply to any breakpoint?
-      case 'blank':
-        return {
-          ...acc,
-          blank: [
-            ...acc.blank,
-            mapWidgetToRenderProps(widget, widget.dimensions['web'])]
-        };
-      // div case is unsupported and default doesn't exit
-      case 'div':
-      default:
-        return acc;
-    }
-  }, {
+  let widgetsListByType = {
     blank: [],
     iframe: [],
     usedPositions: [],
-    requireFullSize: false
+    requireFullSize: false,
+    isPristine: true
+  };
+
+  console.log({
+    widgets, requireGlobalUpdate, forRender, widgetsIdsInDom
   })
+
+  // flow
+  // Take all the widgets that request to be rendered and consolidate
+  // in a finite list of valid widgets for renderWidgetElement dom method
+
+  // if the breakpoint change the entire model required to be recalculated
+  if(requireGlobalUpdate) {
+    widgetsListByType = generateSortedListOfWidgets(
+      Object.keys(widgets).map(key => widgets[key]),
+      rules,
+      activeBreakpoint
+    )
+  }
+
+  // if only was a set of from class invoker map the new widgets
+  if(!!forRender.length) {
+    widgetsListByType = generateSortedListOfWidgets(
+      forRender.map(key => widgets[key]),
+      rules,
+      activeBreakpoint
+    )
+  }
+
+  // is model is the same ex. resize event but the breakpoint
+  // return empty model
+  if(widgetsListByType.isPristine) {
+    return Promise.resolve({
+      slotsInUse: [],
+      widgetsToRender: [],
+    })
+  }
 
   // if any widget require to be rendered at full size take the first one
   // that match the criteria and remove all the rest from the iframe queue
-  if(sortWidgetsByType.requireFullSize) {
-    const firstFullSizeWidget = find(sortWidgetsByType.iframe,
+  if(widgetsListByType.requireFullSize) {
+    const firstFullSizeWidget = find(widgetsListByType.iframe,
       (widget) => widget.dimensions.fullSize
     )
     return Promise.resolve({
-      slotsInUse: sortWidgetsByType.usedPositions,
-      widgets: [...sortWidgetsByType.blank, firstFullSizeWidget],
-      requireUpdate: true
+      slotsInUse: widgetsListByType.usedPositions,
+      widgetsToRender: [...widgetsListByType.blank, firstFullSizeWidget],
     })
   }
 
   // else merge the two list and check if it's no empty
   const toRenderList = [
-    ...sortWidgetsByType.blank, ...sortWidgetsByType.iframe
+    ...widgetsListByType.blank, ...widgetsListByType.iframe
   ]
+
   return Promise.resolve({
-    widgets:toRenderList,
-    slotsInUse: sortWidgetsByType.usedPositions,
-    requireUpdate: !!toRenderList.length
+    widgetsToRender:toRenderList,
+    slotsInUse: widgetsListByType.usedPositions,
   })
 }
 
 // Get a list of widgets to render or update and call renderWidgetElement
 export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
-  const { widgetsIdsInDom, slotsInUse, widgets} = context.toRender;
+  const { requireGlobalUpdate, renderCycle } = context
+  const { widgetsIdsInDom, updateCycle, positionsInUse} = renderCycle;
+  let widgetsRef = [];
 
-  let renderedWidgets = [];
-  widgets.forEach((widget: WidgetToRender) => {
+  if(requireGlobalUpdate) {
+    widgetsIdsInDom.forEach((widget: any) =>
+      removeNodeRef(widget.ref)
+    )
+  }
+
+  console.log({updateCycle})
+  updateCycle.remove.forEach((widget: any) =>
+    removeNodeRef(widget.ref)
+  )
+
+  updateCycle.render.forEach((widget: WidgetToRender) => {
     try{
-      const refNode = renderWidgetElement(widget, context.positions);
-      console.log({ refNode })
-      renderedWidgets = [...renderedWidgets, widget.id]
+      const refNode = renderWidgetElement(widget, context.positions) as unknown as WidgetReference;
+      widgetsRef = [...widgetsRef, refNode]
     } catch(e) {
       // log the error to service
     }
   });
 
-  return Promise.resolve(true)
+  console.log({widgetsRef})
+
+  return Promise.resolve({
+    widgetsRef,
+    positionsInUse
+  })
 }
