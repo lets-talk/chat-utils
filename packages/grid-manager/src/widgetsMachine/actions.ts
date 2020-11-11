@@ -3,8 +3,8 @@ import find from "lodash/find";
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "../grid/utils"
 import { GridPositionsInViewport, GridSettings, UpdateWidgetRules, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types"
 import { WidgetsMachineCtx } from "./machine"
-import { renderWidgetElement } from "../dom/render";
-import { generateSortedListOfWidgets, getWidgetMapProps, updateWidgetElement } from "./helpers";
+import { renderWidgetElement, updateWidgetElement } from "../dom/render";
+import { generateSortedListOfWidgets, getWidgetMapProps } from "./helpers";
 import { removeNodeRef } from "../dom/utils";
 
 // Actions names

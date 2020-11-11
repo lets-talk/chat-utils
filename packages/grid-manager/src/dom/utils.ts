@@ -1,20 +1,14 @@
 import reduce from 'lodash/reduce';
 import {
-  HTMLFloatType,
   rectPosition,
   WidgetSizeOffset,
   relationTypeX,
   relationTypeY,
   UrlSourceParams,
   IframeType,
-  WidgetToRender,
-  ReferenceToGridPosition,
-  WidgetDimensions,
   WidgetType,
   ReferenceToFloat,
-  TilePosition,
   WidgetSize,
-  WidgetRules
 } from "../types";
 import forEach from "lodash/forEach";
 
@@ -81,7 +75,15 @@ export type RelativePositionProps = {
   fullSize: boolean;
   animate: string | false;
 }
-export const getPositionRelativeToViewport = (payload): RelativePositionProps => {
+
+export const serializeBorderRadius = (
+  borderRadius: string | number, fallback: string | boolean
+): string | boolean => {
+  return borderRadius ? typeof(borderRadius) === 'number' ?
+    `${borderRadius}px` : borderRadius : fallback
+}
+
+export const getPositionRelativeToViewport = (props): RelativePositionProps => {
   const {
     rect,
     size,
@@ -90,8 +92,12 @@ export const getPositionRelativeToViewport = (payload): RelativePositionProps =>
     styles,
     elevation,
     fullSize,
-    animate
-  } = payload
+    animate,
+    zIndex,
+    borderRadius
+  } = props
+
+  console.log({props})
 
   const relativePosition = getRelativePosition(rect, offset)
   const transformToCssKey = reduce(relativePosition,
@@ -104,6 +110,8 @@ export const getPositionRelativeToViewport = (payload): RelativePositionProps =>
     position: display === `${ReferenceToFloat.default}` ? 'relative' : display,
     width: `${fullSize ? window.innerWidth : size.width}px`,
     height: `${fullSize ? window.innerHeight : size.height}px`,
+    ['z-index']: zIndex ? `${zIndex}` : 'inherit',
+    ['border-radius']: serializeBorderRadius(borderRadius, '0') as string,
     ['box-shadow']: elevation && WIDGET_ELEVATIONS[elevation] ?
       WIDGET_ELEVATIONS[elevation]: 'none',
     transition: animate ? animate : 'none'
@@ -210,3 +218,7 @@ export const generateDomElement = (
 export const appendNodeToParent = (parent: Node, children: Node): Node => (
   parent.appendChild(children)
 )
+
+export const updateWidgetNode = (ref: Node) => {
+
+}

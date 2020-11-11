@@ -1,4 +1,3 @@
-import { elementById } from "../dom/utils";
 import { RELATIVE_RENDER_POSITION } from "../grid/utils";
 import { GridSettings, ReferencePosition, ReferenceToGridPosition, WidgetDimensions, WidgetReference, WidgetRelativePosition, WidgetRules, WidgetToRender, WidgetToUpdate, WidgetType } from "../types";
 
@@ -160,15 +159,3 @@ export const getWidgetMapProps = (
     dimension
   }
 }
-
-export const updateWidgetElement = (props: WidgetToUpdate): any => {
-  console.log({props})
-  const {id, isFullSize, ref, dimension, position} = props
-  const {width, height} = dimension.size
-
-  const container = ref.ref.firstChild as any
-
-  container.style.setProperty('width', `${width}px`)
-  container.style.setProperty('height', `${height}px`)
-}
-

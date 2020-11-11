@@ -10,14 +10,16 @@ import {
   GridPositionsInViewport,
   rectPosition,
   WidgetReference,
-  ReferenceToGridPosition
+  ReferenceToGridPosition,
+  WidgetToUpdate
 } from "../types";
 import { RELATIVE_RENDER_POSITION } from "../grid/utils";
 import {
   generateUrlFromParams,
   generateDomElement,
   appendNodeToParent,
-  getPositionRelativeToViewport
+  getPositionRelativeToViewport,
+  serializeBorderRadius
 } from "./utils";
 
 const IFRAME_BASIC_STYLES = {
@@ -80,6 +82,7 @@ export const makePositionStrategy = (
   }
 }
 
+
 export const createIframeWidget = (
   id: string,
   urlParams: UrlSourceParams,
@@ -92,7 +95,7 @@ export const createIframeWidget = (
 ): any => {
   const {positions, availablePosition, tileSize} = viewportPositions;
   const {relation, display, reference, element} = position;
-  const {size, styles, fullSize, animate, elevation, offset} = dimensions;
+  const {size, styles, fullSize, animate, elevation, offset, zIndex, borderRadius} = dimensions;
   // generate iframe src url
   const url = generateUrlFromParams(urlParams);
   // create empty wrapper div
@@ -101,7 +104,8 @@ export const createIframeWidget = (
     'div',
     {
       ...WRAPPER_DIV_STYLES,
-      transition: animate ? WIDGET_ANIMATIONS.ease : 'none'
+      transition: animate ? WIDGET_ANIMATIONS.ease : 'none',
+      ['z-index']: zIndex ? `${zIndex}` : 'inherit',
     },
     null,
   );
@@ -114,7 +118,9 @@ export const createIframeWidget = (
     styles,
     elevation,
     fullSize,
-    animate: animate ? WIDGET_ANIMATIONS.ease : false
+    zIndex,
+    animate: animate ? WIDGET_ANIMATIONS.ease : false,
+    borderRadius: serializeBorderRadius(borderRadius, false) as boolean
   })
 
   if(!framePosition) {
@@ -134,7 +140,10 @@ export const createIframeWidget = (
   const iframeEl = generateDomElement(
     iframeElClass,
     'iframe',
-    IFRAME_BASIC_STYLES,
+    {
+      ...IFRAME_BASIC_STYLES,
+      ['border-radius']: serializeBorderRadius(borderRadius, '0') as string
+    },
     {src: url.href, type: iframeType}
   )
 
@@ -174,3 +183,15 @@ export const renderWidgetElement = (
       return new Error('Invalid WidgetType review app settings')
   }
 }
+
+export const updateWidgetElement = (props: WidgetToUpdate): any => {
+  console.log({props})
+  const {id, isFullSize, ref, dimension, position} = props
+  const {width, height} = dimension.size
+
+  const container = ref.ref.firstChild as any
+
+  container.style.setProperty('width', `${width}px`)
+  container.style.setProperty('height', `${height}px`)
+}
+
