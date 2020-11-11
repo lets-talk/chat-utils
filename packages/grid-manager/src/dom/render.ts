@@ -86,7 +86,8 @@ export const createIframeWidget = (
   dimensions: WidgetDimensions,
   iframeType: IframeType | undefined,
   kind: WidgetType,
-  viewportPositions: GridPositionsInViewport
+  viewportPositions: GridPositionsInViewport,
+  breakpoint: string
 ): any => {
   const {positions, availablePosition, tileSize} = viewportPositions;
   const {relation, display, reference, element} = position;
@@ -105,7 +106,7 @@ export const createIframeWidget = (
   );
 
   const framePosition = makePositionStrategy(relation, {
-    rect: positions[reference] as rectPosition,
+    rect: positions[breakpoint] as rectPosition,
     size,
     offset,
     display,
@@ -155,13 +156,14 @@ export const createIframeWidget = (
 
 export const renderWidgetElement = (
   widget: WidgetToRender,
-  viewportPositions: GridPositionsInViewport
+  viewportPositions: GridPositionsInViewport,
+  breakpoint: string,
 ): Promise<HTMLDivElement> | Window | Error => {
   const {id, kind, url, dimensions, iframeType, position} = widget;
   switch(kind) {
     case 'iframe':
       return createIframeWidget(
-        id, url, position, dimensions, iframeType, kind, viewportPositions
+        id, url, position, dimensions, iframeType, kind, viewportPositions, breakpoint
       );
     case 'blank':
       return createWindowBlankWidget(id, url, dimensions.size);

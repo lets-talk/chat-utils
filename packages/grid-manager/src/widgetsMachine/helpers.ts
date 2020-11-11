@@ -1,4 +1,6 @@
-import { GridSettings, ReferenceToGridPosition, WidgetDimensions, WidgetRules, WidgetToRender } from "../types";
+import { elementById } from "../dom/utils";
+import { RELATIVE_RENDER_POSITION } from "../grid/utils";
+import { GridSettings, ReferencePosition, ReferenceToGridPosition, WidgetDimensions, WidgetReference, WidgetRelativePosition, WidgetRules, WidgetToRender, WidgetToUpdate, WidgetType } from "../types";
 
 export const generateSortedListOfWidgets = (
   widgets: WidgetRules[],
@@ -47,6 +49,35 @@ export const generateSortedListOfWidgets = (
   })
 }
 
+export const isValidatePositionReference = (
+  relation: WidgetRelativePosition,
+  validPositions: ReferenceToGridPosition[],
+  positionsInUse: ReferenceToGridPosition[],
+  widgetReference: ReferenceToGridPosition
+): boolean => {
+  switch (relation) {
+    case RELATIVE_RENDER_POSITION.toViewport:
+      // if the position doesn't exit for the active breakpoint
+      // or if the position is duplicated
+      return (
+        validPositions.indexOf(widgetReference) !== -1 ||
+        positionsInUse.indexOf(widgetReference) !== -1
+      )
+    // un supported cases at this moment need to be implemented and mapped
+    case RELATIVE_RENDER_POSITION.toApp:
+      // for this case we need to extend this method to take the list
+      // of rendered references and search for the relation or
+      // maybe search in all the logic widgets for the relation need discussions
+    case RELATIVE_RENDER_POSITION.toDomEl:
+      // return try { elementById('ref-element-id') } catch() { false }
+    case RELATIVE_RENDER_POSITION.toCenter:
+      // most simple case, always return true because position is center-center
+      return false
+    default:
+      throw Error('Invalid position type configuration review app settings');
+  }
+}
+
 export const validateIframeWidgetWithProps = (
   list: WidgetToRender[],
   widget: WidgetRules,
@@ -61,30 +92,18 @@ export const validateIframeWidgetWithProps = (
   }
 
   const dimensions = widget.dimensions[breakpoint];
-  const widgetReference = breakpoint === 'mobile' ?
-    widget.position.reference.split('-')[0] : widget.position.reference as any
+  const widgetReference = widget.position.reference[breakpoint]
 
   // if the widget don't need to be render return the prev list
   if(dimensions === null) return returnWidgetsList;
-  // if the position doesn't exit for the active breakpoint return list
-  if(
-    widget.position.relation === 'relative-to-viewport' &&
-    positions.indexOf(widgetReference) === -1
-  ) {
-    return returnWidgetsList
-  }
-  // if the position is duplicated return list
-  if(usedPositions.indexOf(widgetReference) !== -1) {
-    return returnWidgetsList
-  }
+  if(!isValidatePositionReference(
+    widget.position.relation, positions, usedPositions, widgetReference
+  )) return returnWidgetsList;
 
   const isFullSize = dimensions.fullSize ? dimensions.fullSize : false;
   const widgetToRender = mapWidgetToRenderProps(
     widget, dimensions, dimensions.fullSize
   );
-
-  // console.log({dimensions, positions, reference: widget.position.reference, widgetReference, indexOf: positions.indexOf(widgetReference) })
-  // console.log({isFullSize, widgetToRender})
 
   return {
     list: [...list, {
@@ -119,3 +138,37 @@ export const mapWidgetToRenderProps = (
     iframeType: widget.iframeType,
     position: widget.position
 })
+
+export const getWidgetMapProps = (
+  isPositionValid: boolean,
+  widget: WidgetRules,
+  ref: WidgetReference,
+  update: {
+    kind: WidgetType;
+    dimension: WidgetDimensions
+    position: ReferencePosition
+  })
+: WidgetReference | WidgetToUpdate => {
+  if(!isPositionValid) { return ref };
+  const {position, dimension} = update;
+
+  return {
+    id: widget.id,
+    isFullSize: !!dimension.fullSize,
+    ref,
+    position,
+    dimension
+  }
+}
+
+export const updateWidgetElement = (props: WidgetToUpdate): any => {
+  console.log({props})
+  const {id, isFullSize, ref, dimension, position} = props
+  const {width, height} = dimension.size
+
+  const container = ref.ref.firstChild as any
+
+  container.style.setProperty('width', `${width}px`)
+  container.style.setProperty('height', `${height}px`)
+}
+

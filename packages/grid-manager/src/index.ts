@@ -1,15 +1,16 @@
-import { WidgetRules, WidgetDimensionsList, GridPositionsInViewport, GridSettings, ReferenceToGridPosition, relationTypeY, relationTypeX } from "./types"
+import { WidgetRules, WidgetDimensionsList, GridPositionsInViewport, GridSettings, ReferenceToGridPosition, relationTypeY, relationTypeX, UpdateWidgetRules } from "./types"
 import debounce from "lodash/debounce"
 import { interpret, Interpreter, StateMachine } from "xstate"
 import widgetsMachine, { MachineStates, WidgetsMachineCtx } from './widgetsMachine/machine';
 import { sendViewportDimensions, sendWidgetsIntoMachine, sendUpdateToWidget } from "./widgetsMachine/actions";
-import { widgetsToRenderMock } from "./mocks/widgetRules";
+import { updateRenderedWidgetMock, widgetsToRenderMock } from "./mocks/widgetRules";
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "./grid/utils";
 
 declare global {
   interface Window {
     grid: any;
     manager: any
+    updateMock: any
   }
 }
 
@@ -24,7 +25,7 @@ interface GridManagerClass {
   stop: () => TData;
   getState: () => StateData | Error;
   renderWidgets: (widgets: WidgetRules[]) => Promise<TData>;
-  updateWidgetRules: (widget: WidgetRules) => Promise<TData>;
+  updateWidgetRules: (widget: UpdateWidgetRules) => Promise<TData>;
   removeWidget: (id: string) => Promise<TData>;
 }
 
@@ -139,7 +140,7 @@ export class GridManager implements GridManagerClass {
     }
   }
 
-  renderWidgets(widgets) {
+  renderWidgets(widgets:  WidgetRules[]) {
     try {
       this.interpreter.send(sendWidgetsIntoMachine(widgets))
       // we can improve this because tracking the onDone interpreter
@@ -152,7 +153,7 @@ export class GridManager implements GridManagerClass {
     }
   }
 
-  updateWidgetRules(widget) {
+  updateWidgetRules(widget: UpdateWidgetRules) {
     try {
       this.interpreter.send(sendUpdateToWidget(widget))
       // we can improve this because tracking the onDone interpreter
@@ -165,10 +166,6 @@ export class GridManager implements GridManagerClass {
     }
   }
 
-  updateWidgetDimensions(id, dimensions) {
-    return Promise.resolve(true)
-  }
-
   removeWidget(id) {
     return Promise.resolve(true)
   }
@@ -176,8 +173,9 @@ export class GridManager implements GridManagerClass {
 
 // create machine with initial state
 const machine = new GridManager(widgetsMachine)
-
 const widgetService = machine.start()
-machine.renderWidgets(widgetsToRenderMock)
+machine.renderWidgets(widgetsToRenderMock as any)
+// machine.updateWidgetRules(updateRenderedWidgetMock as any)
 
-window.manager = widgetService
+window.manager = machine
+window.updateMock = updateRenderedWidgetMock

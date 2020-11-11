@@ -1,11 +1,10 @@
 import uniq from "lodash/uniq";
 import find from "lodash/find";
-import map from "lodash/map";
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "../grid/utils"
-import { GridPositionsInViewport, GridSettings, WidgetReference, WidgetRules, WidgetToRender } from "../types"
+import { GridPositionsInViewport, GridSettings, UpdateWidgetRules, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types"
 import { WidgetsMachineCtx } from "./machine"
 import { renderWidgetElement } from "../dom/render";
-import { generateSortedListOfWidgets } from "./helpers";
+import { generateSortedListOfWidgets, getWidgetMapProps, updateWidgetElement } from "./helpers";
 import { removeNodeRef } from "../dom/utils";
 
 // Actions names
@@ -26,12 +25,12 @@ export const sendViewportDimensions = (width:number, height:number) => ({
   height
 })
 
-export const sendWidgetsIntoMachine = (widgets: WidgetRules) => ({
+export const sendWidgetsIntoMachine = (widgets: WidgetRules[]) => ({
   type: SET_WIDGETS_IN_STATE,
   widgets
 })
 
-export const sendUpdateToWidget = (widget: WidgetRules) => ({
+export const sendUpdateToWidget = (widget: UpdateWidgetRules) => ({
   type: UPDATE_WIDGET_IN_STATE,
   widget
 })
@@ -115,9 +114,41 @@ export const setWidgetsRules = (context: WidgetsMachineCtx, event: {
 }
 
 // setWidgetRules state invoker
-export const updateWidgetRules = (context, event) => {
-  console.log('updateWidgetRules', {context, event})
-  return Promise.resolve(true)
+export const updateWidgetRules = (context: WidgetsMachineCtx, event: {
+  type: string,
+  widget: UpdateWidgetRules
+}) => {
+  const { activeBreakpoint, renderCycle: {widgetsInDom}, widgets } = context
+  const { id, dimensions, position, kind } = event.widget
+
+  const activeWidget = widgets[id]
+  const isPositionValid = !!dimensions[activeBreakpoint]
+  const getReference = find(widgetsInDom, (ref) => ref.id === id)
+
+  if(!activeWidget || !getReference) {
+    throw new Error('invalid widget id to update')
+  }
+
+  const updateWidget = {
+    widget: {
+      ...activeWidget,
+      dimensions,
+      position
+    },
+    widgetUpdate: getWidgetMapProps(
+      isPositionValid,
+      activeWidget,
+      getReference,
+      {dimension: dimensions[activeBreakpoint], position, kind}
+    ),
+    // if position is null => false, is update obj has the breakpoint => true
+    requireUpdate: isPositionValid,
+    requireRemove: !isPositionValid
+  }
+
+  console.log({updateWidget})
+
+  return Promise.resolve(updateWidget)
 }
 
 // reconcileWidgets state invoker
@@ -138,10 +169,6 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     requireFullSize: false,
     isPristine: true
   };
-
-  console.log({
-    widgets, requireGlobalUpdate, forRender, widgetsInDom
-  })
 
   // flow
   // Take all the widgets that request to be rendered and consolidate
@@ -199,9 +226,11 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
 
 // Get a list of widgets to render or update and call renderWidgetElement
 export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
-  const { requireGlobalUpdate, renderCycle } = context
+  const { requireGlobalUpdate, renderCycle, activeBreakpoint } = context
   const { widgetsInDom, updateCycle, positionsInUse} = renderCycle;
   let widgetsRef = [];
+
+  console.log({updateCycle})
 
   if(requireGlobalUpdate) {
     widgetsInDom.forEach((widget: any) =>
@@ -213,8 +242,14 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
     removeNodeRef(widget.ref)
   )
 
+  updateCycle.update.forEach((widget: any) => {
+    updateWidgetElement(widget)
+  })
+
+  // bug detected if the set aka render push a new ref that is
+  // no in the collection they need to merge with the prev widgetsRef list
   updateCycle.render.forEach((widget: WidgetToRender) => {
-    const refNode = renderWidgetElement(widget, context.positions) as any;
+    const refNode = renderWidgetElement(widget, context.positions, activeBreakpoint) as any;
     widgetsRef = [...widgetsRef, refNode];
   });
 

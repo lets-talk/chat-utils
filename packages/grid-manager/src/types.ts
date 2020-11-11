@@ -118,7 +118,11 @@ export type WidgetSizeOffset = {
 export type ReferencePosition = {
   relation: WidgetRelativePosition;
   display: ReferenceToFloat;
-  reference: ReferenceToGridPosition;
+  reference: ReferenceToGridPosition | {
+    // to remember that the reference point need to be
+    // part of the defined by breakpoint references too
+    [key in 'mobile' | 'tablet' | 'web'] : ReferenceToGridPosition | null
+  }
   element?: string; // ex #action-button | chat-widget
 }
 
@@ -126,6 +130,8 @@ export type WidgetDimensions = {
   fullSize?: boolean;
   animate?: boolean;
   elevation?: number;
+  zIndex?: number;
+  borderRadius: string | number;
   styles: WidgetStyles | null;
   size: WidgetSize | null;
   offset: WidgetSizeOffset | null;
@@ -134,6 +140,13 @@ export type WidgetDimensions = {
 export type WidgetDimensionsList = {
   [key in 'mobile' | 'tablet' | 'web']: WidgetDimensions | null;
 };
+
+export type UpdateWidgetRules = {
+  id: string;
+  position: ReferencePosition;
+  dimensions: WidgetDimensionsList;
+  kind: WidgetType;
+}
 
 export type WidgetRules = {
   id: string;
@@ -162,14 +175,14 @@ export type WidgetToUpdate = {
   id: string,
   isFullSize: boolean,
   ref: WidgetReference,
-  dimensions: WidgetDimensions,
+  dimension: WidgetDimensions,
   position: ReferencePosition;
 }
 
 export type WidgetReference = {
   id: string;
-  iframeId: string;
-  containerId: string;
+  iframe: string;
+  container: string;
   ref: HTMLDivElement | HTMLIFrameElement
 }
 

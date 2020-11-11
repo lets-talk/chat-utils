@@ -96,14 +96,16 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
           actions: assign({
             widgets: (ctx: WidgetsMachineCtx, event) => ({
               ...ctx.widgets,
-              ...event.data.widget
+              [event.data.widget.id]: event.data.widget
             }),
             renderCycle: (ctx: WidgetsMachineCtx, event) => ({
               ...ctx.renderCycle,
               updateCycle: {
                 render: [],
-                remove: event.data.requireRemove ? event.data.widget : [],
-                update: event.data.requireUpdate ? event.data.widget : [],
+                remove: event.data.requireRemove ?
+                  [event.data.widgetUpdate] : [],
+                update: event.data.requireUpdate ?
+                  [event.data.widgetUpdate] : [],
               }
             })
           })
@@ -140,18 +142,12 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         onDone: {
           target: MachineStates.renderWidgetsInDom,
           actions: assign({
-            // widgetsIdsToTrack: (_, event) => ({
-            //   forRender: event.data.forRender,
-            //   forRemove: event.data.forRemove,
-            //   forUpdate: null,
-            // }),
             renderCycle: (context: WidgetsMachineCtx, event) => ({
               ...context.renderCycle,
               positionsInUse: event.data.slotsInUse,
               updateCycle: {
                 ...context.renderCycle.updateCycle,
                 render: event.data.widgetsToRender,
-                // remove: event.data.widgetsToRemove,
               },
             }),
           })
