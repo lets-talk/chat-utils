@@ -9,7 +9,8 @@ import {
   WidgetToRender,
   GridPositionsInViewport,
   rectPosition,
-  WidgetReference
+  WidgetReference,
+  ReferenceToGridPosition
 } from "../types";
 import { RELATIVE_RENDER_POSITION } from "../grid/utils";
 import {
@@ -106,7 +107,7 @@ export const createIframeWidget = (
   );
 
   const framePosition = makePositionStrategy(relation, {
-    rect: positions[breakpoint] as rectPosition,
+    rect: positions[reference as ReferenceToGridPosition] as rectPosition,
     size,
     offset,
     display,
