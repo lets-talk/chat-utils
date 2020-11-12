@@ -97,10 +97,9 @@ export const getPositionRelativeToViewport = (props): RelativePositionProps => {
     borderRadius
   } = props
 
-  console.log({props})
-
   const relativePosition = getRelativePosition(rect, offset)
-  const transformToCssKey = reduce(relativePosition,
+  const transformToCssKey = fullSize ?
+    { top: 0, left: 0 } : reduce(relativePosition,
     (acc, val, key) => !!val ? {...acc, [key]:`${val}px`} : acc
   , {})
 
@@ -119,14 +118,14 @@ export const getPositionRelativeToViewport = (props): RelativePositionProps => {
 }
 
 export const getRelativePosition = (
-  domElement: rectPosition,
+  gridDimensions: rectPosition,
   relativeOffset: WidgetSizeOffset
 ): rectPosition => {
-  const { top, right, bottom, left } = domElement;
+  const { top, right, bottom, left } = gridDimensions;
   const { innerHeight, innerWidth } = window;
 
   let offset: rectPosition = {
-    top: 0, bottom: 0, left: 0, right: 0
+    top: null, bottom: null, left: null, right: null
   };
 
   switch (relativeOffset.x.relationType) {

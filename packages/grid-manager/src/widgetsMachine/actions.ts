@@ -146,8 +146,6 @@ export const updateWidgetRules = (context: WidgetsMachineCtx, event: {
     requireRemove: !isPositionValid
   }
 
-  console.log({updateWidget})
-
   return Promise.resolve(updateWidget)
 }
 
@@ -226,7 +224,7 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
 
 // Get a list of widgets to render or update and call renderWidgetElement
 export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
-  const { requireGlobalUpdate, renderCycle, activeBreakpoint } = context
+  const { requireGlobalUpdate, renderCycle } = context
   const { widgetsInDom, updateCycle, positionsInUse} = renderCycle;
 
   console.log({updateCycle})
@@ -242,13 +240,13 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
   )
 
   updateCycle.update.forEach((widget: any) => {
-    updateWidgetElement(widget)
+    updateWidgetElement(widget, context.positions)
   })
 
   // bug detected if the set aka render push a new ref that is
   // no in the collection they need to merge with the prev widgetsRef list
   const widgetsRef = updateCycle.render.map((widget: WidgetToRender) => {
-    return renderWidgetElement(widget, context.positions, activeBreakpoint) as any;
+    return renderWidgetElement(widget, context.positions) as any;
   });
 
   return Promise.resolve({
