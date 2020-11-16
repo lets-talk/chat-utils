@@ -1,3 +1,4 @@
+import forEach from 'lodash/forEach'
 import {
   WidgetRelativePosition,
   WidgetType,
@@ -19,7 +20,8 @@ import {
   generateDomElement,
   appendNodeToParent,
   getPositionRelativeToViewport,
-  serializeBorderRadius
+  serializeBorderRadius,
+  elementById
 } from "./utils";
 
 const IFRAME_BASIC_STYLES = {
@@ -91,7 +93,6 @@ export const createIframeWidget = (
   iframeType: IframeType | undefined,
   kind: WidgetType,
   viewportPositions: GridPositionsInViewport,
-  breakpoint: string
 ): any => {
   const {positions, availablePosition, tileSize} = viewportPositions;
   const {relation, display, reference, element} = position;
@@ -167,13 +168,12 @@ export const createIframeWidget = (
 export const renderWidgetElement = (
   widget: WidgetToRender,
   viewportPositions: GridPositionsInViewport,
-  breakpoint: string,
 ): Promise<HTMLDivElement> | Window | Error => {
   const {id, kind, url, dimensions, iframeType, position} = widget;
   switch(kind) {
     case 'iframe':
       return createIframeWidget(
-        id, url, position, dimensions, iframeType, kind, viewportPositions, breakpoint
+        id, url, position, dimensions, iframeType, kind, viewportPositions,
       );
     case 'blank':
       return createWindowBlankWidget(id, url, dimensions.size);
@@ -184,14 +184,49 @@ export const renderWidgetElement = (
   }
 }
 
-export const updateWidgetElement = (props: WidgetToUpdate): any => {
-  console.log({props})
-  const {id, isFullSize, ref, dimension, position} = props
-  const {width, height} = dimension.size
 
-  const container = ref.ref.firstChild as any
+export const updateWidgetElement = (widget: WidgetToUpdate, viewportPositions: GridPositionsInViewport): any => {
+  console.log({widget, viewportPositions})
 
-  container.style.setProperty('width', `${width}px`)
-  container.style.setProperty('height', `${height}px`)
+  const {id, isFullSize, ref, dimension, position} = widget
+  const {positions} = viewportPositions;
+  const {size, offset, animate, elevation, styles, borderRadius, zIndex} = dimension
+  const {relation, display, reference, element} = position;
+
+  const framePosition = makePositionStrategy(relation, {
+    rect: positions[reference as ReferenceToGridPosition] as rectPosition,
+    size,
+    offset,
+    display,
+    styles,
+    elevation,
+    isFullSize,
+    zIndex,
+    animate: animate ? WIDGET_ANIMATIONS.ease : false,
+    borderRadius: serializeBorderRadius(borderRadius, false) as boolean
+  })
+
+  console.log({framePosition})
+
+  if(!framePosition) {
+    throw new Error('invalid resizing or positions props')
+  }
+
+  try {
+    const iframe = elementById(ref.iframe)
+    const container = elementById(ref.container)
+
+    // map iframe to new border radius val if exit
+    iframe.style.setProperty(
+      'border-radius', serializeBorderRadius(borderRadius, '0') as string
+    )
+
+    // map the container iframe to her new position
+    forEach(framePosition, (val, key) => {
+      container.style.setProperty(key, val)
+    });
+  } catch(e) {
+    throw new Error(e)
+  }
 }
 

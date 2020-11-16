@@ -16,7 +16,7 @@ const WIDGET_ELEVATIONS = {
   [1]: '0 -5px 10px rgba(0,0,0,.2)',
   [2]: '0 -6px 12px rgba(0,0,0,.3)',
   [3]: '0 -8px 15px rgba(0,0,0,.4)',
-  box: '10px 10px 15px rgba(0,0,0,.2)'
+  center: '0 0 20px rgba(0,0,0,.25)'
 }
 
 export const removeNodeRef = (ref: HTMLElement): any => {
@@ -173,7 +173,7 @@ export const generateUrlFromParams = (
   const url = new URL(src);
   const params = new URLSearchParams(url.search);
 
-  params.append(slugKey, extra.slung);
+  params.append(slugKey, extra.slug);
   if(extra.params) {
     forEach(extra.params, (v, k) => params.append(v, k));
   }

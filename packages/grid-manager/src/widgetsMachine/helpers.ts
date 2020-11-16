@@ -149,7 +149,8 @@ export const getWidgetMapProps = (
   })
 : WidgetReference | WidgetToUpdate => {
   if(!isPositionValid) { return ref };
-  const {position, dimension} = update;
+
+  const { position, dimension } = update;
 
   return {
     id: widget.id,
