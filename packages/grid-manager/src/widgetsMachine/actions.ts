@@ -1,7 +1,7 @@
 import uniq from "lodash/uniq";
 import find from "lodash/find";
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "../grid/utils"
-import { GridPositionsInViewport, GridSettings, UpdateWidgetRules, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types"
+import { AddonRules, GridPositionsInViewport, GridSettings, UpdateWidgetRules, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types"
 import { WidgetsMachineCtx } from "./machine"
 import { renderWidgetElement, updateWidgetElement } from "../dom/render";
 import { generateSortedListOfWidgets, getWidgetMapProps } from "./helpers";
@@ -11,6 +11,7 @@ import { removeNodeRef } from "../dom/utils";
 export const SET_VIEWPORT_SIZE = 'SET_VIEWPORT_SIZE'
 export const SET_WIDGETS_IN_STATE = 'SET_WIDGETS_IN_STATE'
 export const UPDATE_WIDGET_IN_STATE = 'UPDATE_WIDGET_IN_STATE'
+export const ADD_WIDGET_ADDON_IN_STATE = 'UPDATE_WIDGET_IN_STATE'
 
 // Actions fns
 type SetViewportAction = {
@@ -35,9 +36,15 @@ export const sendUpdateToWidget = (widget: UpdateWidgetRules) => ({
   widget
 })
 
-export const removeWidget = (id: number) => ({
+export const removeWidget = (widgetId: string) => ({
   type: UPDATE_WIDGET_IN_STATE,
-  id
+  widgetId
+})
+
+export const extendWidgetWithAddons = (widgetId: string, addons: AddonRules[]) => ({
+  type: UPDATE_WIDGET_IN_STATE,
+  removeWidget,
+  addons
 })
 
 // calculateGridDimensions state invoker
@@ -139,7 +146,11 @@ export const updateWidgetRules = (context: WidgetsMachineCtx, event: {
       isPositionValid,
       activeWidget,
       getReference,
-      {dimension: dimensions[activeBreakpoint], position, kind}
+      {
+        dimension: dimensions[activeBreakpoint],
+        position: {...position, reference: position.reference[activeBreakpoint]},
+        kind
+      }
     ),
     // if position is null => false, is update obj has the breakpoint => true
     requireUpdate: isPositionValid,

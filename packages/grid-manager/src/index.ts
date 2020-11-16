@@ -1,8 +1,8 @@
-import { WidgetRules, WidgetDimensionsList, GridPositionsInViewport, GridSettings, ReferenceToGridPosition, relationTypeY, relationTypeX, UpdateWidgetRules } from "./types"
+import { WidgetRules, WidgetDimensionsList, GridPositionsInViewport, GridSettings, ReferenceToGridPosition, relationTypeY, relationTypeX, UpdateWidgetRules, AddonRules } from "./types"
 import debounce from "lodash/debounce"
 import { interpret, Interpreter, StateMachine } from "xstate"
 import widgetsMachine, { MachineStates, WidgetsMachineCtx } from './widgetsMachine/machine';
-import { sendViewportDimensions, sendWidgetsIntoMachine, sendUpdateToWidget } from "./widgetsMachine/actions";
+import { sendViewportDimensions, sendWidgetsIntoMachine, sendUpdateToWidget, extendWidgetWithAddons, removeWidget } from "./widgetsMachine/actions";
 import { updateRenderedWidgetMock, widgetsToRenderMock } from "./mocks/widgetRules";
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "./grid/utils";
 
@@ -26,7 +26,8 @@ interface GridManagerClass {
   getState: () => StateData | Error;
   renderWidgets: (widgets: WidgetRules[]) => Promise<TData>;
   updateWidgetRules: (widget: UpdateWidgetRules) => Promise<TData>;
-  removeWidget: (id: string) => Promise<TData>;
+  removeWidget: (widgetId: string) => Promise<TData>;
+  attachAddons: (widgetId: string, addons: AddonRules[]) => Promise<TData>
 }
 
 export class GridManager implements GridManagerClass {
@@ -166,8 +167,30 @@ export class GridManager implements GridManagerClass {
     }
   }
 
-  removeWidget(id) {
-    return Promise.resolve(true)
+  attachAddons(widgetId: string, addons: AddonRules[]) {
+    try {
+      this.interpreter.send(extendWidgetWithAddons(widgetId, addons))
+      // we can improve this because tracking the onDone interpreter
+      // this.interpreter.onDone(state => {
+        // return Promise.resolve(true)
+      // })
+      return Promise.resolve(true)
+    } catch(e) {
+      return Promise.reject(new Error(e))
+    }
+  }
+
+  removeWidget(widgetId) {
+    try {
+      this.interpreter.send(removeWidget(widgetId))
+      // we can improve this because tracking the onDone interpreter
+      // this.interpreter.onDone(state => {
+        // return Promise.resolve(true)
+      // })
+      return Promise.resolve(true)
+    } catch(e) {
+      return Promise.reject(new Error(e))
+    }
   }
 }
 

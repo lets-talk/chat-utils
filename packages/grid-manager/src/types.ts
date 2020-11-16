@@ -44,7 +44,6 @@ export enum HTMLFloatType {
 export type WidgetRelativePosition =
 'relative-to-viewport' |
 'relative-to-dom-element' |
-'relative-to-app' |
 'relative-to-center';
 
 export type WidgetType = 'iframe' | 'div' | 'blank';
@@ -56,7 +55,7 @@ export type IframeType =
 export type UrlSourceParams = {
   src: string | null;
   extra: {
-    slung: string;
+    slug: string;
     params?: {[key: string]: string};
   };
 }
@@ -92,7 +91,8 @@ export enum ReferenceToGridPosition {
 
 export enum ReferenceToFloat {
   fixed ='fixed',
-  default = 'default'
+  default = 'default',
+  relative = 'relative'
 }
 
 export type offsetX = {
@@ -137,6 +137,16 @@ export type WidgetDimensions = {
   offset: WidgetSizeOffset | null;
 };
 
+export type AddonDimensions = {
+  styles: WidgetStyles | null;
+  size: WidgetSize | null;
+  offset: WidgetSizeOffset | null;
+}
+
+export type AddonDimensionsList = {
+  [key in 'mobile' | 'tablet' | 'web']: AddonDimensions | null;
+}
+
 export type WidgetDimensionsList = {
   [key in 'mobile' | 'tablet' | 'web']: WidgetDimensions | null;
 };
@@ -148,10 +158,26 @@ export type UpdateWidgetRules = {
   kind: WidgetType;
 }
 
+export type AddonRules = {
+  id: string;
+  extra: {
+    slug: string;
+    params?: {[key: string]: string};
+  };
+  iframeType: "lt-basic-container-multimedia";
+  kind: "iframe";
+  position: {
+    relation: 'relative-to-app';
+    display: ReferenceToFloat;
+    reference: string; // widget-id
+  }
+  dimensions: AddonDimensionsList;
+}
+
 export type WidgetRules = {
   id: string;
   extra: {
-    slung: string;
+    slug: string;
     params?: {[key: string]: string};
   };
   iframeType: IframeType | null;
@@ -159,6 +185,7 @@ export type WidgetRules = {
   kind: WidgetType;
   position: ReferencePosition;
   dimensions: WidgetDimensionsList;
+  addons: AddonRules[] | null;
 }
 
 export type WidgetToRender = {
