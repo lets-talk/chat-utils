@@ -265,3 +265,10 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
     positionsInUse
   })
 }
+
+export const addAddonsToWidget = (context: WidgetsMachineCtx, event: {
+  widgetId: string,
+  addons: AddonRules[]
+}) => {
+  return Promise.resolve(true)
+}

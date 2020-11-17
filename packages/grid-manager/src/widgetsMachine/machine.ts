@@ -1,6 +1,6 @@
 import { assign, Machine, send} from "xstate";
 import { GridPositionsInViewport, GridSettings, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types";
-import { calculateGridDimensions, reconcileWidgets, renderWidgetsInDom, sendViewportDimensions, setWidgetsRules, SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE, updateWidgetRules, UPDATE_WIDGET_IN_STATE } from "./actions";
+import { addAddonsToWidget, ADD_WIDGET_ADDON_IN_STATE, calculateGridDimensions, reconcileWidgets, renderWidgetsInDom, sendViewportDimensions, setWidgetsRules, SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE, updateWidgetRules, UPDATE_WIDGET_IN_STATE } from "./actions";
 
 export enum MachineStates {
   calculateGridDimensions = 'calculateGridDimensions',
@@ -8,7 +8,8 @@ export enum MachineStates {
   updateWidgetRules = 'updateWidgetRules',
   reconcileWidgets = 'reconcileWidgets',
   renderWidgetsInDom = 'renderWidgetsInDom',
-  catchInvokeError = 'catchInvokeError'
+  catchInvokeError = 'catchInvokeError',
+  extendWidgetWithAddons = 'extendWidgetWithAddons'
 }
 
 export type WidgetsToRenderInCtx = {
@@ -59,6 +60,9 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
     },
     [UPDATE_WIDGET_IN_STATE]: {
       target: MachineStates.updateWidgetRules
+    },
+    [ADD_WIDGET_ADDON_IN_STATE]: {
+      target: MachineStates.extendWidgetWithAddons
     }
   },
   states: {
@@ -109,6 +113,17 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
               }
             })
           })
+        },
+        onError: handleInvokeError
+      }
+    },
+    // Event generate to update the rules of a valid and rendered widget,
+    // ex => chat minimized (icon state) to maximize (conversation:id view)
+    [MachineStates.extendWidgetWithAddons]: {
+      invoke: {
+        src: () => Promise.resolve(true),
+        onDone: {
+          target: MachineStates.renderWidgetsInDom,
         },
         onError: handleInvokeError
       }
