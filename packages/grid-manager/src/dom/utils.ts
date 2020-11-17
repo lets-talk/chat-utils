@@ -11,6 +11,7 @@ import {
   WidgetSize,
 } from "../types";
 import forEach from "lodash/forEach";
+import { WIDGET_ANIMATIONS } from './render';
 
 const WIDGET_ELEVATIONS = {
   [1]: '0 -5px 10px rgba(0,0,0,.2)',
@@ -83,6 +84,27 @@ export const serializeBorderRadius = (
     `${borderRadius}px` : borderRadius : fallback
 }
 
+export const generateParentContainer = (
+  className: string,
+  frame: any,
+  animation: string
+) => {
+  const { top, right, bottom, left, display, animate } = frame;
+
+  return generateDomElement(
+    className,
+    'div',
+    {
+      position: display,
+      transition: animate ? animation : 'none',
+      ...[{top}, {right}, {bottom}, {left}].reduce((acc, val) => {
+        return val ? {...acc, ...val} : acc
+      }, {})
+    },
+    null,
+  )
+}
+
 export const getPositionRelativeToViewport = (props): RelativePositionProps => {
   const {
     rect,
@@ -106,7 +128,7 @@ export const getPositionRelativeToViewport = (props): RelativePositionProps => {
   return {
     ...styles,
     ...transformToCssKey,
-    position: display === `${ReferenceToFloat.default}` ? 'relative' : display,
+    position: display === `${ReferenceToFloat.fixed}` ? 'relative' : display,
     width: `${fullSize ? window.innerWidth : size.width}px`,
     height: `${fullSize ? window.innerHeight : size.height}px`,
     ['z-index']: zIndex ? `${zIndex}` : 'inherit',

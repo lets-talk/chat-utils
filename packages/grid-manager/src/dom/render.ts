@@ -12,7 +12,8 @@ import {
   rectPosition,
   WidgetReference,
   ReferenceToGridPosition,
-  WidgetToUpdate
+  WidgetToUpdate,
+  ReferenceToFloat
 } from "../types";
 import { RELATIVE_RENDER_POSITION } from "../grid/utils";
 import {
@@ -21,7 +22,8 @@ import {
   appendNodeToParent,
   getPositionRelativeToViewport,
   serializeBorderRadius,
-  elementById
+  elementById,
+  generateParentContainer
 } from "./utils";
 
 const IFRAME_BASIC_STYLES = {
@@ -42,7 +44,7 @@ const CONTAINER_FRAME_STYLES = {
   opacity: '1!important'
 }
 
-const WIDGET_ANIMATIONS = {
+export const WIDGET_ANIMATIONS = {
   linear: 'all .2s linear',
   ease: 'all 0.2s ease'
 }
@@ -99,17 +101,6 @@ export const createIframeWidget = (
   const {size, styles, fullSize, animate, elevation, offset, zIndex, borderRadius} = dimensions;
   // generate iframe src url
   const url = generateUrlFromParams(urlParams);
-  // create empty wrapper div
-  const wrapperEl = generateDomElement(
-    `lt-app-container-${id}`,
-    'div',
-    {
-      ...WRAPPER_DIV_STYLES,
-      transition: animate ? WIDGET_ANIMATIONS.ease : 'none',
-      ['z-index']: zIndex ? `${zIndex}` : 'inherit',
-    },
-    null,
-  );
 
   const framePosition = makePositionStrategy(relation, {
     rect: positions[reference as ReferenceToGridPosition] as rectPosition,
@@ -124,11 +115,36 @@ export const createIframeWidget = (
     borderRadius: serializeBorderRadius(borderRadius, false) as boolean
   })
 
+  console.log({framePosition})
+
   if(!framePosition) {
     throw new Error('invalid position')
   }
 
-  const containerElClass = `lt-app-frame-${id}`
+  // create empty wrapper div
+  const wrapperElClass = `lt-app__container-${id}`
+  const wrapperEl = generateDomElement(
+    wrapperElClass,
+    'div',
+    {
+      ...WRAPPER_DIV_STYLES,
+      transition: animate ? WIDGET_ANIMATIONS.ease : 'none',
+      ['z-index']: zIndex ? `${zIndex}` : 'inherit',
+    },
+    null,
+  );
+
+  // we create a fiv addons composer with the rules of the frame
+  // in case of be need later in a post rendered widget insert
+  const fixedWrapperElClass = `lt-composer__parent-${id}`
+  const fixedWrapperAddonsEl = display === `${ReferenceToFloat.fixed}` ?
+    generateParentContainer(
+        fixedWrapperElClass,
+        {...framePosition, display},
+        WIDGET_ANIMATIONS.ease
+    ) : false
+
+  const containerElClass = `lt-app__frame-${id}`
   const containerEl = generateDomElement(
     containerElClass,
     'div',
@@ -137,7 +153,7 @@ export const createIframeWidget = (
   );
 
   // generate widget iframe and insert src url path
-  const iframeElClass = `lt-app-iframe-${id}`
+  const iframeElClass = `lt-app__iframe-${id}`
   const iframeEl = generateDomElement(
     iframeElClass,
     'iframe',
@@ -148,12 +164,26 @@ export const createIframeWidget = (
     {src: url.href, type: iframeType}
   )
 
-  // map dom elements and return widget in body node
   try {
+    // append iframe to container element aka #__frame
     appendNodeToParent(containerEl, iframeEl)
-    appendNodeToParent(wrapperEl, containerEl)
+    // if the position is fixed we encapsulate in a composer aka #__parent
+    if(fixedWrapperAddonsEl) {
+      // we need to remove duplicate position values  from container
+      ['top', 'right', 'bottom', 'left'].forEach(
+        (rule: string) => containerEl.style.removeProperty(rule)
+      )
+      appendNodeToParent(fixedWrapperAddonsEl, containerEl)
+      appendNodeToParent(wrapperEl, fixedWrapperAddonsEl)
+    // else we take the classic container and append to wrapper div
+    } else {
+      appendNodeToParent(wrapperEl, containerEl)
+    }
+
+    // append wrapperEl node to dom body
     appendNodeToParent(document.body, wrapperEl)
 
+    // return reference and utility classes
     return {
       id,
       ref: wrapperEl,

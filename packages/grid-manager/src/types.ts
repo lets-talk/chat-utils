@@ -164,6 +164,7 @@ export type AddonRules = {
     slug: string;
     params?: {[key: string]: string};
   };
+  src: string;
   iframeType: "lt-basic-container-multimedia";
   kind: "iframe";
   position: {
