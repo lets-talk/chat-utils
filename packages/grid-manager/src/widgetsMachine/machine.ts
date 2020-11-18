@@ -1,5 +1,5 @@
 import { assign, Machine, send} from "xstate";
-import { GridPositionsInViewport, GridSettings, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types";
+import { AddonRules, GridPositionsInViewport, GridSettings, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types";
 import { addAddonsToWidget, ADD_WIDGET_ADDON_IN_STATE, calculateGridDimensions, reconcileWidgets, renderWidgetsInDom, sendViewportDimensions, setWidgetsRules, SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE, updateWidgetRules, UPDATE_WIDGET_IN_STATE } from "./actions";
 
 export enum MachineStates {
@@ -18,6 +18,7 @@ export type WidgetsToRenderInCtx = {
     render: WidgetToRender[] | null;
     update: WidgetToUpdate[] | null;
     remove: WidgetReference[] | null;
+    widgetAddons: WidgetToRender[] | null;
   }
   positionsInUse: string[];
 }
@@ -106,6 +107,7 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
               ...ctx.renderCycle,
               updateCycle: {
                 render: [],
+                widgetAddons: [],
                 remove: event.data.requireRemove ?
                   [event.data.widgetUpdate] : [],
                 update: event.data.requireUpdate ?
@@ -163,6 +165,7 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
               updateCycle: {
                 ...context.renderCycle.updateCycle,
                 render: event.data.widgetsToRender,
+                widgetAddons: event.data.addonsToRender
               },
             }),
           })
@@ -193,7 +196,8 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
               updateCycle: {
                 render: [],
                 update: [],
-                remove: []
+                remove: [],
+                widgetAddons: []
               }
             }),
           })

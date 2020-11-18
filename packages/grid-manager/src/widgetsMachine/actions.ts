@@ -176,7 +176,8 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     iframe: [],
     usedPositions: [],
     requireFullSize: false,
-    isPristine: true
+    isPristine: true,
+    addons: []
   };
 
   // flow
@@ -192,7 +193,7 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     )
   }
 
-  // if only was a set of from class invoker map the new widgets
+  // if only was a method set or from class invoker map the new widget to model
   if(!!forRender.length) {
     widgetsListByType = generateSortedListOfWidgets(
       forRender.map(key => widgets[key]),
@@ -219,6 +220,7 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     return Promise.resolve({
       slotsInUse: widgetsListByType.usedPositions,
       widgetsToRender: [...widgetsListByType.blank, firstFullSizeWidget],
+      addonsToRender: []
     })
   }
 
@@ -227,9 +229,12 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     ...widgetsListByType.blank, ...widgetsListByType.iframe
   ]
 
+  console.log({widgetsListByType})
+
   return Promise.resolve({
-    widgetsToRender:toRenderList,
+    widgetsToRender: toRenderList,
     slotsInUse: widgetsListByType.usedPositions,
+    addonsToRender: widgetsListByType.addons,
   })
 }
 
@@ -241,24 +246,30 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
   console.log({updateCycle})
 
   if(requireGlobalUpdate) {
-    widgetsInDom.forEach((widget: any) =>
+    widgetsInDom.forEach((widget: WidgetReference) =>
       removeNodeRef(widget.ref)
     )
   }
 
-  updateCycle.remove.forEach((widget: any) =>
+  updateCycle.remove.forEach((widget: WidgetReference) =>
     removeNodeRef(widget.ref)
   )
 
-  updateCycle.update.forEach((widget: any) => {
+  updateCycle.update.forEach((widget: WidgetToUpdate) => {
     updateWidgetElement(widget, context.positions)
   })
 
+  // need fix
   // bug detected if the set aka render push a new ref that is
   // no in the collection they need to merge with the prev widgetsRef list
   const widgetsRef = updateCycle.render.map((widget: WidgetToRender) => {
     return renderWidgetElement(widget, context.positions) as any;
   });
+
+  // append
+  updateCycle.widgetAddons.forEach((widget: any) => {
+    // appendWidgetAddonToRef(widget, ref)
+  })
 
   return Promise.resolve({
     widgetsRef: !!widgetsRef.length ? widgetsRef : widgetsInDom,

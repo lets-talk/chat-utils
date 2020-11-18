@@ -1,17 +1,17 @@
 import { RELATIVE_RENDER_POSITION } from "../grid/utils";
-import { GridSettings, ReferencePosition, ReferenceToGridPosition, WidgetDimensions, WidgetReference, WidgetRelativePosition, WidgetRules, WidgetToRender, WidgetToUpdate, WidgetType } from "../types";
+import { AddonRules, GridSettings, ReferencePosition, ReferenceToGridPosition, WidgetDimensions, WidgetReference, WidgetRelativePosition, WidgetRules, WidgetToRender, WidgetToUpdate, WidgetType } from "../types";
 
 export const generateSortedListOfWidgets = (
   widgets: WidgetRules[],
   rules: GridSettings,
   breakpoint: string
 ) => {
-  console.log({generateSortedListOfWidgets: widgets})
   return widgets.reduce((acc, widget: any) => {
     switch(widget.kind) {
       case 'iframe':
         const widgetToRender = validateIframeWidgetWithProps(
           acc.iframe,
+          acc.addons,
           widget,
           rules.positions,
           breakpoint,
@@ -20,6 +20,7 @@ export const generateSortedListOfWidgets = (
 
         return {
           ...acc,
+          addons: widgetToRender.addons,
           iframe: widgetToRender.list,
           usedPositions: widgetToRender.position ?
             [...acc.usedPositions, widgetToRender.position] : acc.usedPositions,
@@ -42,6 +43,7 @@ export const generateSortedListOfWidgets = (
   }, {
     blank: [],
     iframe: [],
+    addons: [],
     usedPositions: [],
     requireFullSize: false,
     isPristine: false
@@ -78,14 +80,16 @@ export const isValidatePositionReference = (
 }
 
 export const validateIframeWidgetWithProps = (
-  list: WidgetToRender[],
+  widgetList: WidgetToRender[],
+  addonsList: WidgetToRender[],
   widget: WidgetRules,
   positions: ReferenceToGridPosition[],
   breakpoint: string,
   usedPositions: ReferenceToGridPosition[]
 ) => {
   const returnWidgetsList = {
-    list,
+    list: widgetList,
+    addons: addonsList,
     position: null,
     requireFullSize: false
   }
@@ -99,13 +103,26 @@ export const validateIframeWidgetWithProps = (
     widget.position.relation, positions, usedPositions, widgetReference
   )) return returnWidgetsList;
 
+  // if the widget has addons to render try to create the list of widgets
+  const addonsToRender = widget.addons && !!widget.addons.length ?
+    widget.addons.reduce((acc, addon: AddonRules) => {
+      const dimensions = addon.dimensions[breakpoint];
+      // if the addon doesn't support the breakpoint or is not of
+      // the kind relative-to-app return the previous list of addons
+      if(!dimensions || addon.position.relation !== 'relative-to-app') {
+        return acc;
+      }
+      // else map the widget and merge to the list
+      return [...acc, mapWidgetToRenderProps(addon, dimensions, false)]
+    }, []) : [];
+
   const isFullSize = dimensions.fullSize ? dimensions.fullSize : false;
   const widgetToRender = mapWidgetToRenderProps(
     widget, dimensions, dimensions.fullSize
   );
 
   return {
-    list: [...list, {
+    list: [...widgetList, {
       ...widgetToRender,
       position: {
         ...widgetToRender.position,
@@ -113,16 +130,18 @@ export const validateIframeWidgetWithProps = (
       }
     }],
     position: widgetReference,
-    fullSize: isFullSize
+    fullSize: isFullSize,
+    addons: [...addonsList, ...addonsToRender]
   } as unknown as {
     list: WidgetToRender[];
     position: ReferenceToGridPosition | null;
     requireFullSize: boolean;
+    addons: WidgetToRender[];
   }
 }
 
 export const mapWidgetToRenderProps = (
-  widget: WidgetRules,
+  widget: WidgetRules | AddonRules,
   dimensions: WidgetDimensions,
   fullSize = false,
   ): WidgetToRender => ({

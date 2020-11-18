@@ -15,8 +15,8 @@ export const RELATIVE_RENDER_POSITION = {
 }
 
 export const breakpoints: GridBreakpoints = {
-  small: [0, 480],
-  medium: [481, 1024],
+  small: [0, 520],
+  medium: [521, 1024],
   large: [1025, null]
 }
 

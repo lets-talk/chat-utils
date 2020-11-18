@@ -126,6 +126,12 @@ export type ReferencePosition = {
   element?: string; // ex #action-button | chat-widget
 }
 
+export type AddonsReferencePosition = {
+  relation: 'relative-to-app';
+  display: ReferenceToFloat;
+  reference: string; // widget-id
+}
+
 export type WidgetDimensions = {
   fullSize?: boolean;
   animate?: boolean;
@@ -167,11 +173,7 @@ export type AddonRules = {
   src: string;
   iframeType: "lt-basic-container-multimedia";
   kind: "iframe";
-  position: {
-    relation: 'relative-to-app';
-    display: ReferenceToFloat;
-    reference: string; // widget-id
-  }
+  position: AddonsReferencePosition;
   dimensions: AddonDimensionsList;
 }
 
@@ -196,7 +198,7 @@ export type WidgetToRender = {
   url: UrlSourceParams,
   dimensions: WidgetDimensions,
   iframeType: IframeType | null,
-  position: ReferencePosition;
+  position: ReferencePosition | AddonsReferencePosition;
 }
 
 export type WidgetToUpdate = {

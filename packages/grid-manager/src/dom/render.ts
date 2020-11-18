@@ -13,7 +13,8 @@ import {
   WidgetReference,
   ReferenceToGridPosition,
   WidgetToUpdate,
-  ReferenceToFloat
+  ReferenceToFloat,
+  AddonsReferencePosition
 } from "../types";
 import { RELATIVE_RENDER_POSITION } from "../grid/utils";
 import {
@@ -117,6 +118,8 @@ export const createIframeWidget = (
     borderRadius: serializeBorderRadius(borderRadius, false) as boolean
   })
 
+  console.log({framePosition})
+
   if(!framePosition) {
     throw new Error('invalid position')
   }
@@ -204,7 +207,13 @@ export const renderWidgetElement = (
   switch(kind) {
     case 'iframe':
       return createIframeWidget(
-        id, url, position, dimensions, iframeType, kind, viewportPositions,
+        id,
+        url,
+        position as ReferencePosition,
+        dimensions,
+        iframeType,
+        kind,
+        viewportPositions,
       );
     case 'blank':
       return createWindowBlankWidget(id, url, dimensions.size);
