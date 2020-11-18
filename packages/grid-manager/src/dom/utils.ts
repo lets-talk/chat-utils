@@ -84,22 +84,41 @@ export const serializeBorderRadius = (
     `${borderRadius}px` : borderRadius : fallback
 }
 
+export const resetNodeToAbsolutePosition = (el: HTMLElement) => {
+  const toReset = ['top', 'right', 'bottom', 'left'];
+  const toUpdate = {
+    top: '0px',
+    right: '0px',
+    position: 'absolute',
+    width: '100%',
+    height: '100%'
+  }
+
+  toReset.forEach(rule => el.style.removeProperty(rule));
+  forEach(toUpdate, (value,key) => el.style.setProperty(key, value))
+
+  return el
+}
+
 export const generateParentContainer = (
   className: string,
   frame: any,
   animation: string
 ) => {
-  const { top, right, bottom, left, display, animate } = frame;
-
+  const { top, right, bottom, left, display, animate, height, width } = frame;
   return generateDomElement(
     className,
     'div',
     {
+      // passing the widget rules to the frame
       position: display,
       transition: animate ? animation : 'none',
+      ...{width, height},
       ...[{top}, {right}, {bottom}, {left}].reduce((acc, val) => {
         return val ? {...acc, ...val} : acc
-      }, {})
+      }, {}),
+      // this make the magic of making the div pass through
+      ['pointer-events']: 'none',
     },
     null,
   )
@@ -135,7 +154,9 @@ export const getPositionRelativeToViewport = (props): RelativePositionProps => {
     ['border-radius']: serializeBorderRadius(borderRadius, '0') as string,
     ['box-shadow']: elevation && WIDGET_ELEVATIONS[elevation] ?
       WIDGET_ELEVATIONS[elevation]: 'none',
-    transition: animate ? animate : 'none'
+    transition: animate ? animate : 'none',
+    // force the iframe to catch all the clicks events
+    ['pointer-events']: 'all',
   }
 }
 

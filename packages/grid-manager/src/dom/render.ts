@@ -23,7 +23,8 @@ import {
   getPositionRelativeToViewport,
   serializeBorderRadius,
   elementById,
-  generateParentContainer
+  generateParentContainer,
+  resetNodeToAbsolutePosition
 } from "./utils";
 
 const IFRAME_BASIC_STYLES = {
@@ -37,6 +38,7 @@ const WRAPPER_DIV_STYLES = {
   padding: '0',
   margin: '0',
   border: 'none',
+  ['pointer-events']: 'none',
 }
 
 const CONTAINER_FRAME_STYLES = {
@@ -115,8 +117,6 @@ export const createIframeWidget = (
     borderRadius: serializeBorderRadius(borderRadius, false) as boolean
   })
 
-  console.log({framePosition})
-
   if(!framePosition) {
     throw new Error('invalid position')
   }
@@ -140,7 +140,7 @@ export const createIframeWidget = (
   const fixedWrapperAddonsEl = display === `${ReferenceToFloat.fixed}` ?
     generateParentContainer(
         fixedWrapperElClass,
-        {...framePosition, display},
+        {...framePosition, display, animate},
         WIDGET_ANIMATIONS.ease
     ) : false
 
@@ -170,10 +170,10 @@ export const createIframeWidget = (
     // if the position is fixed we encapsulate in a composer aka #__parent
     if(fixedWrapperAddonsEl) {
       // we need to remove duplicate position values  from container
-      ['top', 'right', 'bottom', 'left'].forEach(
-        (rule: string) => containerEl.style.removeProperty(rule)
+      appendNodeToParent(
+        fixedWrapperAddonsEl,
+        resetNodeToAbsolutePosition(containerEl)
       )
-      appendNodeToParent(fixedWrapperAddonsEl, containerEl)
       appendNodeToParent(wrapperEl, fixedWrapperAddonsEl)
     // else we take the classic container and append to wrapper div
     } else {
@@ -189,6 +189,7 @@ export const createIframeWidget = (
       ref: wrapperEl,
       iframe: iframeElClass,
       container: containerElClass,
+      parent: fixedWrapperAddonsEl ? fixedWrapperElClass : null
     } as unknown as WidgetReference
   } catch(e) {
     throw Error(e)
