@@ -92,7 +92,8 @@ export enum ReferenceToGridPosition {
 export enum ReferenceToFloat {
   fixed ='fixed',
   default = 'default',
-  relative = 'relative'
+  relative = 'relative',
+  absolute = 'absolute'
 }
 
 export type offsetX = {
@@ -137,21 +138,11 @@ export type WidgetDimensions = {
   animate?: boolean;
   elevation?: number;
   zIndex?: number;
-  borderRadius: string | number;
+  borderRadius?: string | number;
   styles: WidgetStyles | null;
   size: WidgetSize | null;
   offset: WidgetSizeOffset | null;
 };
-
-export type AddonDimensions = {
-  styles: WidgetStyles | null;
-  size: WidgetSize | null;
-  offset: WidgetSizeOffset | null;
-}
-
-export type AddonDimensionsList = {
-  [key in 'mobile' | 'tablet' | 'web']: AddonDimensions | null;
-}
 
 export type WidgetDimensionsList = {
   [key in 'mobile' | 'tablet' | 'web']: WidgetDimensions | null;
@@ -174,7 +165,7 @@ export type AddonRules = {
   iframeType: "lt-basic-container-multimedia";
   kind: "iframe";
   position: AddonsReferencePosition;
-  dimensions: AddonDimensionsList;
+  dimensions: WidgetDimensionsList;
 }
 
 export type WidgetRules = {
@@ -213,6 +204,7 @@ export type WidgetReference = {
   id: string;
   iframe: string;
   container: string;
+  parent: string;
   ref: HTMLDivElement | HTMLIFrameElement
 }
 

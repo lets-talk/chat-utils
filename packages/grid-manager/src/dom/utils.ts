@@ -66,17 +66,6 @@ export const getElementPosition = (elementId: string, elementFloatType: Referenc
   }
 }
 
-export type RelativePositionProps = {
-  rect: rectPosition;
-  size: WidgetSize;
-  offset: WidgetSizeOffset;
-  display: ReferenceToFloat;
-  styles: {[key:string]: string}
-  elevation: number;
-  fullSize: boolean;
-  animate: string | false;
-}
-
 export const serializeBorderRadius = (
   borderRadius: string | number, fallback: string | boolean
 ): string | boolean => {
@@ -124,7 +113,108 @@ export const generateParentContainer = (
   )
 }
 
-export const getPositionRelativeToViewport = (props): RelativePositionProps => {
+export type RelativeAppPositionProps = {
+  parentAppSize: DOMRect;
+  addonSize: WidgetSize;
+  offset: WidgetSizeOffset;
+  display: ReferenceToFloat;
+  styles: {[key:string]: string}
+  borderRadius: string;
+  zIndex: number;
+  elevation: number;
+}
+
+export const getPositionRelativeToApp = (props: RelativeAppPositionProps) => {
+  const {
+    parentAppSize,
+    addonSize,
+    offset,
+    display,
+    styles,
+    borderRadius,
+    zIndex,
+    elevation
+  } = props;
+
+  const relativePosition = getRelativePositionToApp(addonSize, offset);
+  const transformToCssKey = reduce(relativePosition, (acc, val, key) =>
+    !!val ? {...acc, [key]:`${val}px`} : acc
+  , {})
+
+  return {
+    ...styles,
+    ...transformToCssKey,
+    position: 'absolute',
+    width: `${addonSize.width}px`,
+    height: `${addonSize.height}px`,
+    ['z-index']: zIndex ? `${zIndex}` : 'inherit',
+    ['border-radius']: borderRadius,
+    ['box-shadow']: elevation && WIDGET_ELEVATIONS[elevation] ?
+    WIDGET_ELEVATIONS[elevation]: 'none',
+    // force the iframe to catch all the clicks events
+    ['pointer-events']: 'all',
+  }
+}
+
+export const getRelativePositionToApp = (
+  size: WidgetSize,
+  relativeOffset: WidgetSizeOffset
+): rectPosition => {
+  let offset: rectPosition = {
+    top: null, bottom: null, left: null, right: null
+  };
+
+  switch (relativeOffset.x.relationType) {
+    case relationTypeX.LL:
+      offset.left = (size.width + relativeOffset.x.value)*-1;
+      break;
+    case relationTypeX.LR:
+      offset.left = (size.width - relativeOffset.x.value)*-1;
+      break;
+    case relationTypeX.RL:
+      offset.right = (size.width - relativeOffset.x.value)*-1;
+      break;
+    case relationTypeX.RR:
+      offset.right = (size.width + relativeOffset.x.value)*-1;
+      break;
+    default:
+      return offset
+  }
+
+  switch (relativeOffset.y.relationType) {
+    case relationTypeY.TT:
+      offset.top = (size.height + relativeOffset.y.value)*-1;
+      break;
+    case relationTypeY.TB:
+      offset.top = (size.height - relativeOffset.y.value)*-1;
+      break;
+    case relationTypeY.BT:
+      offset.bottom = (size.height - relativeOffset.y.value)*-1;
+      break;
+    case relationTypeY.BB:
+      offset.bottom = (size.height + relativeOffset.y.value)*-1;
+      break;
+    default:
+      return offset
+  }
+
+  return offset;
+}
+
+export type RelativePositionProps = {
+  rect: rectPosition;
+  size: WidgetSize;
+  offset: WidgetSizeOffset;
+  display: ReferenceToFloat;
+  styles: {[key:string]: string}
+  elevation: number;
+  fullSize: boolean;
+  animate: string | false;
+  borderRadius: boolean | string | number;
+  zIndex: number;
+}
+
+export const getPositionRelativeToViewport = (props: RelativePositionProps) => {
   const {
     rect,
     size,
@@ -143,6 +233,9 @@ export const getPositionRelativeToViewport = (props): RelativePositionProps => {
     { top: 0, left: 0 } : reduce(relativePosition,
     (acc, val, key) => !!val ? {...acc, [key]:`${val}px`} : acc
   , {})
+  const parseBorderRadius =
+    borderRadius && typeof(borderRadius) !== 'boolean' ?
+      serializeBorderRadius(borderRadius, '0') as string : 'none'
 
   return {
     ...styles,
@@ -151,7 +244,7 @@ export const getPositionRelativeToViewport = (props): RelativePositionProps => {
     width: `${fullSize ? window.innerWidth : size.width}px`,
     height: `${fullSize ? window.innerHeight : size.height}px`,
     ['z-index']: zIndex ? `${zIndex}` : 'inherit',
-    ['border-radius']: serializeBorderRadius(borderRadius, '0') as string,
+    ['border-radius']: parseBorderRadius,
     ['box-shadow']: elevation && WIDGET_ELEVATIONS[elevation] ?
       WIDGET_ELEVATIONS[elevation]: 'none',
     transition: animate ? animate : 'none',

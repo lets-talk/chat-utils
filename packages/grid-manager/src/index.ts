@@ -78,7 +78,8 @@ export class GridManager implements GridManagerClass {
         updateCycle: {
           update: [],
           render: [],
-          remove: []
+          remove: [],
+          widgetAddons: []
         }
       },
     }

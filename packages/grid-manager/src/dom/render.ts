@@ -14,7 +14,8 @@ import {
   ReferenceToGridPosition,
   WidgetToUpdate,
   ReferenceToFloat,
-  AddonsReferencePosition
+  AddonsReferencePosition,
+  WidgetRules
 } from "../types";
 import { RELATIVE_RENDER_POSITION } from "../grid/utils";
 import {
@@ -25,7 +26,10 @@ import {
   serializeBorderRadius,
   elementById,
   generateParentContainer,
-  resetNodeToAbsolutePosition
+  resetNodeToAbsolutePosition,
+  getPositionRelativeToApp,
+  RelativeAppPositionProps,
+  RelativePositionProps
 } from "./utils";
 
 const IFRAME_BASIC_STYLES = {
@@ -73,15 +77,15 @@ export const createWindowBlankWidget = (
 
 export const makePositionStrategy = (
   type: WidgetRelativePosition,
-  data: any
+  data: RelativeAppPositionProps | RelativePositionProps
 ): any => {
   switch (type) {
     case RELATIVE_RENDER_POSITION.toDomEl:
       return false
     case RELATIVE_RENDER_POSITION.toViewport:
-      return getPositionRelativeToViewport(data)
+      return getPositionRelativeToViewport(data as RelativePositionProps)
     case RELATIVE_RENDER_POSITION.toApp:
-      return false
+      return getPositionRelativeToApp(data as RelativeAppPositionProps)
     case RELATIVE_RENDER_POSITION.toCenter:
       return false
     default:
@@ -118,7 +122,7 @@ export const createIframeWidget = (
     borderRadius: serializeBorderRadius(borderRadius, false) as boolean
   })
 
-  console.log({framePosition})
+  console.log({positionAtRender: framePosition})
 
   if(!framePosition) {
     throw new Error('invalid position')
@@ -224,6 +228,71 @@ export const renderWidgetElement = (
   }
 }
 
+export const appendWidgetAddonToRef = (
+  addonWidget: WidgetToRender,
+  parentWidgetId: string,
+  widgetRefs: WidgetReference[]
+) => {
+  const { dimensions, position, url, kind, iframeType, id } = addonWidget;
+  const {relation, display} = position as AddonsReferencePosition;
+  const {size, styles, fullSize, animate, elevation, offset, zIndex, borderRadius} = dimensions;
+
+  const widgetRef = widgetRefs.find(ref => ref.id === parentWidgetId);
+  const parentWrapperEl = elementById(widgetRef.parent)
+
+  if(!parentWrapperEl || kind !== 'iframe') {
+    throw new Error(`kind can't not be ${kind} or parent wrapped not found`)
+  }
+
+  // get iframe container size and position
+  const parentWidgetRect = parentWrapperEl.getBoundingClientRect();
+
+  // generate iframe src url
+  const parseUrl = generateUrlFromParams(url);
+
+  console.log({addonWidget, parentWidgetId, widgetRefs, parentWidgetRect})
+
+  const framePosition = makePositionStrategy(relation as any, {
+    parentAppSize: parentWidgetRect,
+    addonSize: size,
+    offset,
+    display,
+    styles,
+    borderRadius: serializeBorderRadius(borderRadius, '0') as string,
+    zIndex,
+    elevation
+  })
+
+  console.log({positionAtAddon: framePosition})
+  const containerElClass = `lt-addon_app__frame-${id}`
+  const containerEl = generateDomElement(
+    containerElClass,
+    'div',
+    styles ? framePosition : {...framePosition, ...styles},
+    null,
+  );
+
+  const iframeElClass = `lt-addon_app__iframe-${id}`
+  const iframe = generateDomElement(
+    iframeElClass,
+    'iframe',
+    {
+      ...IFRAME_BASIC_STYLES,
+      width: '100%',
+      height: '100%',
+      ['border-radius']: serializeBorderRadius(borderRadius, '0') as string
+    },
+    {src: parseUrl.href, type: iframeType}
+  )
+
+  try {
+    appendNodeToParent(containerEl, iframe);
+    appendNodeToParent(parentWrapperEl, containerEl);
+  }
+  catch(e) {
+    throw new Error(e)
+  }
+}
 
 export const updateWidgetElement = (widget: WidgetToUpdate, viewportPositions: GridPositionsInViewport): any => {
   console.log({widget, viewportPositions})
@@ -240,13 +309,13 @@ export const updateWidgetElement = (widget: WidgetToUpdate, viewportPositions: G
     display,
     styles,
     elevation,
-    isFullSize,
+    fullSize: isFullSize,
     zIndex,
     animate: animate ? WIDGET_ANIMATIONS.ease : false,
     borderRadius: serializeBorderRadius(borderRadius, false) as boolean
   })
 
-  console.log({framePosition})
+  console.log({positionAtUpdate: framePosition})
 
   if(!framePosition) {
     throw new Error('invalid resizing or positions props')

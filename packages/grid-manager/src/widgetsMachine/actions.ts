@@ -3,7 +3,7 @@ import find from "lodash/find";
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "../grid/utils"
 import { AddonRules, GridPositionsInViewport, GridSettings, UpdateWidgetRules, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types"
 import { WidgetsMachineCtx } from "./machine"
-import { renderWidgetElement, updateWidgetElement } from "../dom/render";
+import { appendWidgetAddonToRef, renderWidgetElement, updateWidgetElement } from "../dom/render";
 import { generateSortedListOfWidgets, getWidgetMapProps } from "./helpers";
 import { removeNodeRef } from "../dom/utils";
 
@@ -229,8 +229,6 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     ...widgetsListByType.blank, ...widgetsListByType.iframe
   ]
 
-  console.log({widgetsListByType})
-
   return Promise.resolve({
     widgetsToRender: toRenderList,
     slotsInUse: widgetsListByType.usedPositions,
@@ -240,39 +238,49 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
 
 // Get a list of widgets to render or update and call renderWidgetElement
 export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
-  const { requireGlobalUpdate, renderCycle } = context
+  const { requireGlobalUpdate, renderCycle, widgetsIds, widgets, } = context
   const { widgetsInDom, updateCycle, positionsInUse} = renderCycle;
 
-  console.log({updateCycle})
+  let prevWidgetsRefs = widgetsInDom ? widgetsInDom : [];
+  console.log({updateCycle, prevWidgetsRefs})
 
   if(requireGlobalUpdate) {
+    prevWidgetsRefs = [];
     widgetsInDom.forEach((widget: WidgetReference) =>
       removeNodeRef(widget.ref)
-    )
+    );
   }
 
-  updateCycle.remove.forEach((widget: WidgetReference) =>
+  updateCycle.remove.forEach((widget: WidgetReference) => {
+    prevWidgetsRefs = prevWidgetsRefs.filter(ref => ref.id !== widget.id);
     removeNodeRef(widget.ref)
-  )
+  })
 
   updateCycle.update.forEach((widget: WidgetToUpdate) => {
     updateWidgetElement(widget, context.positions)
   })
 
-  // need fix
-  // bug detected if the set aka render push a new ref that is
-  // no in the collection they need to merge with the prev widgetsRef list
   const widgetsRef = updateCycle.render.map((widget: WidgetToRender) => {
+    prevWidgetsRefs = prevWidgetsRefs.filter(ref => ref.id !== widget.id);
     return renderWidgetElement(widget, context.positions) as any;
   });
 
   // append
-  updateCycle.widgetAddons.forEach((widget: any) => {
-    // appendWidgetAddonToRef(widget, ref)
+  updateCycle.widgetAddons.forEach((addonWidget: any) => {
+    // is the referent can't be founded throw
+    if(widgetsIds.indexOf(addonWidget.position.reference) === -1) {
+      throw new Error('reference widget doesn`t exit in machine model')
+    }
+    // else dispatch action to append addon into the parent widget
+    appendWidgetAddonToRef(
+      addonWidget,
+      widgets[addonWidget.position.reference].id,
+      [...widgetsInDom, ...widgetsRef]
+    )
   })
 
   return Promise.resolve({
-    widgetsRef: !!widgetsRef.length ? widgetsRef : widgetsInDom,
+    widgetsRef: !!widgetsRef.length ? [...prevWidgetsRefs, ...widgetsRef] : widgetsInDom,
     positionsInUse
   })
 }
