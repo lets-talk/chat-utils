@@ -157,6 +157,8 @@ export const updateWidgetRules = (context: WidgetsMachineCtx, event: {
     requireRemove: !isPositionValid
   }
 
+  console.log({updateWidget})
+
   return Promise.resolve(updateWidget)
 }
 
@@ -242,7 +244,7 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
   const { widgetsInDom, updateCycle, positionsInUse} = renderCycle;
 
   let prevWidgetsRefs = widgetsInDom ? widgetsInDom : [];
-  console.log({updateCycle, prevWidgetsRefs})
+  console.log({updateCycle, prevWidgetsRefs, requireGlobalUpdate})
 
   if(requireGlobalUpdate) {
     prevWidgetsRefs = [];

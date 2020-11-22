@@ -252,8 +252,6 @@ export const appendWidgetAddonToRef = (
   // generate iframe src url
   const parseUrl = generateUrlFromParams(url);
 
-  console.log({addonWidget, parentWidgetId, widgetRefs, parentWidgetRect})
-
   const framePosition = makePositionStrategy(relation as any, {
     parentAppSize: parentWidgetRect,
     addonSize: size,
@@ -297,8 +295,6 @@ export const appendWidgetAddonToRef = (
 }
 
 export const updateWidgetElement = (widget: WidgetToUpdate, viewportPositions: GridPositionsInViewport): any => {
-  console.log({widget, viewportPositions})
-
   const {id, isFullSize, ref, dimension, position} = widget
   const {positions} = viewportPositions;
   const {size, offset, animate, elevation, styles, borderRadius, zIndex} = dimension
@@ -342,7 +338,6 @@ export const updateWidgetElement = (widget: WidgetToUpdate, viewportPositions: G
       container.style.setProperty('box-shadow', elevation && WIDGET_ELEVATIONS[elevation] ? WIDGET_ELEVATIONS[elevation]: 'none')
       // map the container iframe to her new position
       forEach({...position, height, width}, (val, key) => {
-        console.log({val, key})
         parent.style.setProperty(key, val)
       });
     } catch(e) {

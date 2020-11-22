@@ -124,10 +124,10 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
     [MachineStates.extendWidgetWithAddons]: {
       invoke: {
         src: () => Promise.resolve(true),
-        onDone: {
-          target: MachineStates.renderWidgetsInDom,
-        },
-        onError: handleInvokeError
+        // onDone: {
+        //   target: MachineStates.renderWidgetsInDom,
+        // },
+        // onError: handleInvokeError
       }
     },
     // first step of the controlled state machine
@@ -184,6 +184,7 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         src: renderWidgetsInDom,
         onDone: {
           actions: assign({
+            requireGlobalUpdate: false,
             widgetsIdsToTrack: () => ({
               forRender: [],
               forUpdate: [],
