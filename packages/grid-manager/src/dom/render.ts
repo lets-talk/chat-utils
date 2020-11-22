@@ -29,7 +29,8 @@ import {
   resetNodeToAbsolutePosition,
   getPositionRelativeToApp,
   RelativeAppPositionProps,
-  RelativePositionProps
+  RelativePositionProps,
+  WIDGET_ELEVATIONS
 } from "./utils";
 
 const IFRAME_BASIC_STYLES = {
@@ -144,10 +145,11 @@ export const createIframeWidget = (
   // we create a fiv addons composer with the rules of the frame
   // in case of be need later in a post rendered widget insert
   const fixedWrapperElClass = `lt-composer__parent-${id}`
+  // this need a little of refactor in the interface API, I feel we need to move all the display implementation to relation definition
   const fixedWrapperAddonsEl = display === `${ReferenceToFloat.fixed}` ?
     generateParentContainer(
         fixedWrapperElClass,
-        {...framePosition, display, animate},
+        {...framePosition, animate, display},
         WIDGET_ANIMATIONS.ease
     ) : false
 
@@ -321,21 +323,31 @@ export const updateWidgetElement = (widget: WidgetToUpdate, viewportPositions: G
     throw new Error('invalid resizing or positions props')
   }
 
-  try {
-    const iframe = elementById(ref.iframe)
-    const container = elementById(ref.container)
-
-    // map iframe to new border radius val if exit
-    iframe.style.setProperty(
-      'border-radius', serializeBorderRadius(borderRadius, '0') as string
-    )
-
-    // map the container iframe to her new position
-    forEach(framePosition, (val, key) => {
-      container.style.setProperty(key, val)
-    });
-  } catch(e) {
-    throw new Error(e)
+  // at this moment we only support update of apps related to viewport
+  if(relation === RELATIVE_RENDER_POSITION.toViewport) {
+    try {
+      // get ref to iframe and parents elements
+      const iframe = elementById(ref.iframe);
+      const container = elementById(ref.container);
+      const parent = elementById(ref.parent);
+      // serialize frame position and map
+      const setBorderRadius = serializeBorderRadius(borderRadius, '0') as string
+      const {top, right, bottom, left, height, width, elevation} = framePosition
+      const position = [{top}, {right}, {bottom}, {left}].reduce((acc, val) => {
+        return val ? {...acc, ...val} : acc
+      }, {})
+      // map iframe to new border radius val if exit
+      iframe.style.setProperty('border-radius', setBorderRadius)
+      container.style.setProperty('border-radius', setBorderRadius)
+      container.style.setProperty('box-shadow', elevation && WIDGET_ELEVATIONS[elevation] ? WIDGET_ELEVATIONS[elevation]: 'none')
+      // map the container iframe to her new position
+      forEach({...position, height, width}, (val, key) => {
+        console.log({val, key})
+        parent.style.setProperty(key, val)
+      });
+    } catch(e) {
+      throw new Error(e)
+    }
   }
 }
 

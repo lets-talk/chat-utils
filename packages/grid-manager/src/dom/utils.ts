@@ -13,7 +13,7 @@ import {
 import forEach from "lodash/forEach";
 import { WIDGET_ANIMATIONS } from './render';
 
-const WIDGET_ELEVATIONS = {
+export const WIDGET_ELEVATIONS = {
   [1]: '0 -5px 10px rgba(0,0,0,.2)',
   [2]: '0 -6px 12px rgba(0,0,0,.3)',
   [3]: '0 -8px 15px rgba(0,0,0,.4)',
@@ -240,7 +240,9 @@ export const getPositionRelativeToViewport = (props: RelativePositionProps) => {
   return {
     ...styles,
     ...transformToCssKey,
-    position: display === `${ReferenceToFloat.fixed}` ? 'relative' : display,
+    // I don't if make possible change the position value from the setting (see line below) or defined that always is fixed like now, in this casemake totally sense because the position is relative to the viewport no the page content aka fixed
+    position: 'fixed',
+    // position: display === `${ReferenceToFloat.fixed}` ? 'relative' : display,
     width: `${fullSize ? window.innerWidth : size.width}px`,
     height: `${fullSize ? window.innerHeight : size.height}px`,
     ['z-index']: zIndex ? `${zIndex}` : 'inherit',

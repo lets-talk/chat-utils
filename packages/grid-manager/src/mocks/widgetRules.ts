@@ -148,15 +148,15 @@ let updateRenderedWidgetMock = {
   },
   dimensions: {
     mobile: null,
-    tablet: null,
     web: {
       fullSize: false,
       animate: true,
-      elevation: 2,
+      elevation: 3,
       styles: null,
+      borderRadius: 50,
       size: {
-        width: 100,
-        height: 100
+        width: 150,
+        height: 150
       },
       offset: {
         x: {
@@ -166,6 +166,27 @@ let updateRenderedWidgetMock = {
         y: {
           relationType:'BB',
           value: 20
+        }
+      }
+    },
+    tablet: {
+      fullSize: false,
+      animate: true,
+      elevation: 3,
+      styles: null,
+      borderRadius: 50,
+      size: {
+        width: 100,
+        height: 100
+      },
+      offset: {
+        x: {
+          relationType:'LL',
+          value: 10
+        },
+        y: {
+          relationType:'BB',
+          value: 10
         }
       }
     }
