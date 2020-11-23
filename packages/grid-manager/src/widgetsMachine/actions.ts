@@ -1,17 +1,18 @@
 import uniq from "lodash/uniq";
 import find from "lodash/find";
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "../grid/utils"
-import { AddonRules, GridPositionsInViewport, GridSettings, UpdateWidgetRules, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types"
+import { AddonRules, GridPositionsInViewport, GridSettings, ReferenceToGridPosition, UpdateWidgetRules, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types"
 import { WidgetsMachineCtx } from "./machine"
 import { appendWidgetAddonToRef, renderWidgetElement, updateWidgetElement } from "../dom/render";
 import { generateSortedListOfWidgets, getWidgetMapProps } from "./helpers";
 import { removeNodeRef } from "../dom/utils";
 
 // Actions names
-export const SET_VIEWPORT_SIZE = 'SET_VIEWPORT_SIZE'
-export const SET_WIDGETS_IN_STATE = 'SET_WIDGETS_IN_STATE'
-export const UPDATE_WIDGET_IN_STATE = 'UPDATE_WIDGET_IN_STATE'
-export const ADD_WIDGET_ADDON_IN_STATE = 'UPDATE_WIDGET_IN_STATE'
+export const SET_VIEWPORT_SIZE = 'SET_VIEWPORT_SIZE';
+export const SET_WIDGETS_IN_STATE = 'SET_WIDGETS_IN_STATE';
+export const UPDATE_WIDGET_IN_STATE = 'UPDATE_WIDGET_IN_STATE';
+export const REMOVE_WIDGET_IN_STATE = 'REMOVE_WIDGET_IN_STATE';
+export const ADD_WIDGET_ADDON_IN_STATE = 'UPDATE_WIDGET_IN_STATE';
 
 // Actions fns
 type SetViewportAction = {
@@ -37,13 +38,12 @@ export const sendUpdateToWidget = (widget: UpdateWidgetRules) => ({
 })
 
 export const removeWidget = (widgetId: string) => ({
-  type: UPDATE_WIDGET_IN_STATE,
+  type: REMOVE_WIDGET_IN_STATE,
   widgetId
 })
 
 export const extendWidgetWithAddons = (widgetId: string, addons: AddonRules[]) => ({
-  type: UPDATE_WIDGET_IN_STATE,
-  removeWidget,
+  type: ADD_WIDGET_ADDON_IN_STATE,
   addons
 })
 
@@ -267,24 +267,39 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
     return renderWidgetElement(widget, context.positions) as any;
   });
 
-  // append
-  updateCycle.widgetAddons.forEach((addonWidget: any) => {
+  const addonsRef =  updateCycle.widgetAddons.map((addonWidget: WidgetToRender) => {
     // is the referent can't be founded throw
-    if(widgetsIds.indexOf(addonWidget.position.reference) === -1) {
+    if(widgetsIds.indexOf(addonWidget.position.reference as ReferenceToGridPosition) === -1) {
       throw new Error('reference widget doesn`t exit in machine model')
     }
     // else dispatch action to append addon into the parent widget
-    appendWidgetAddonToRef(
+    return appendWidgetAddonToRef(
       addonWidget,
-      widgets[addonWidget.position.reference].id,
+      widgets[addonWidget.position.reference as string].id,
       [...widgetsInDom, ...widgetsRef]
     )
   })
 
+  const hasNewReferences = !!widgetsRef.length || !!addonsRef.length;
+
   return Promise.resolve({
-    widgetsRef: !!widgetsRef.length ? [...prevWidgetsRefs, ...widgetsRef] : widgetsInDom,
+    widgetsRef: hasNewReferences ?
+      [...prevWidgetsRefs, ...widgetsRef, ...addonsRef] : widgetsInDom,
     positionsInUse
   })
+}
+
+export const removeWidgetInCtx = (context: WidgetsMachineCtx, event: {
+  widgetId: string
+}) => {
+  const { widgetsInDom, } = context.renderCycle;
+  const getReference =  widgetsInDom.filter(ref => ref.id === event.widgetId);
+
+  if(!getReference.length) {
+    throw new Error(`widget trying to be remove doesn't exit in model`);
+  }
+
+  return Promise.resolve({remove: getReference});
 }
 
 export const addAddonsToWidget = (context: WidgetsMachineCtx, event: {

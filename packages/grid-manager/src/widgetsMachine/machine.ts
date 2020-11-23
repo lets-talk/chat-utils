@@ -1,6 +1,6 @@
 import { assign, Machine, send} from "xstate";
 import { AddonRules, GridPositionsInViewport, GridSettings, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types";
-import { addAddonsToWidget, ADD_WIDGET_ADDON_IN_STATE, calculateGridDimensions, reconcileWidgets, renderWidgetsInDom, sendViewportDimensions, setWidgetsRules, SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE, updateWidgetRules, UPDATE_WIDGET_IN_STATE } from "./actions";
+import { addAddonsToWidget, ADD_WIDGET_ADDON_IN_STATE, calculateGridDimensions, reconcileWidgets, removeWidgetInCtx, REMOVE_WIDGET_IN_STATE, renderWidgetsInDom, sendViewportDimensions, setWidgetsRules, SET_VIEWPORT_SIZE, SET_WIDGETS_IN_STATE, updateWidgetRules, UPDATE_WIDGET_IN_STATE } from "./actions";
 
 export enum MachineStates {
   calculateGridDimensions = 'calculateGridDimensions',
@@ -9,7 +9,8 @@ export enum MachineStates {
   reconcileWidgets = 'reconcileWidgets',
   renderWidgetsInDom = 'renderWidgetsInDom',
   catchInvokeError = 'catchInvokeError',
-  extendWidgetWithAddons = 'extendWidgetWithAddons'
+  extendWidgetWithAddons = 'extendWidgetWithAddons',
+  removeWidgetInCtx = 'removeWidgetInCtx'
 }
 
 export type WidgetsToRenderInCtx = {
@@ -62,9 +63,12 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
     [UPDATE_WIDGET_IN_STATE]: {
       target: MachineStates.updateWidgetRules
     },
-    [ADD_WIDGET_ADDON_IN_STATE]: {
-      target: MachineStates.extendWidgetWithAddons
-    }
+    [REMOVE_WIDGET_IN_STATE]: {
+      target: MachineStates.removeWidgetInCtx
+    },
+    // [ADD_WIDGET_ADDON_IN_STATE]: {
+    //   target: MachineStates.extendWidgetWithAddons
+    // }
   },
   states: {
     // Event generate to update the rules of a valid and rendered widget,
@@ -119,17 +123,39 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
         onError: handleInvokeError
       }
     },
-    // Event generate to update the rules of a valid and rendered widget,
-    // ex => chat minimized (icon state) to maximize (conversation:id view)
-    [MachineStates.extendWidgetWithAddons]: {
+    // Event generated to remove a widget that exit as a reference aka. rendered
+    [MachineStates.removeWidgetInCtx]: {
       invoke: {
-        src: () => Promise.resolve(true),
-        // onDone: {
-        //   target: MachineStates.renderWidgetsInDom,
-        // },
-        // onError: handleInvokeError
+        // need debugging of type conflict
+        src: removeWidgetInCtx as any,
+        onDone: {
+          target: MachineStates.renderWidgetsInDom,
+          actions: assign({
+            renderCycle: (ctx: WidgetsMachineCtx, event) => ({
+              ...ctx.renderCycle,
+              updateCycle: {
+                render: [],
+                widgetAddons: [],
+                remove: event.data.remove,
+                update: [],
+              }
+            })
+          })
+        },
+        onError: handleInvokeError
       }
     },
+    // Event generate to update the rules of a valid and rendered widget,
+    // ex => chat minimized (icon state) to maximize (conversation:id view)
+    // [MachineStates.extendWidgetWithAddons]: {
+    //   invoke: {
+    //     src: () => Promise.resolve(true),
+    //     // onDone: {
+    //     //   target: MachineStates.renderWidgetsInDom,
+    //     // },
+    //     // onError: handleInvokeError
+    //   }
+    // },
     // first step of the controlled state machine
     // calculate the lasted grid dimensions and viewport breakpoint
     [MachineStates.calculateGridDimensions]: {

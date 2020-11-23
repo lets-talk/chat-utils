@@ -11,7 +11,6 @@ import {
   WidgetSize,
 } from "../types";
 import forEach from "lodash/forEach";
-import { WIDGET_ANIMATIONS } from './render';
 
 export const WIDGET_ELEVATIONS = {
   [1]: '0 -5px 10px rgba(0,0,0,.2)',

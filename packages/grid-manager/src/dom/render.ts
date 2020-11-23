@@ -261,7 +261,7 @@ export const appendWidgetAddonToRef = (
     borderRadius: serializeBorderRadius(borderRadius, '0') as string,
     zIndex,
     elevation
-  })
+  });
 
   console.log({positionAtAddon: framePosition})
   const containerElClass = `lt-addon_app__frame-${id}`
@@ -283,22 +283,29 @@ export const appendWidgetAddonToRef = (
       ['border-radius']: serializeBorderRadius(borderRadius, '0') as string
     },
     {src: parseUrl.href, type: iframeType}
-  )
+  );
 
   try {
     appendNodeToParent(containerEl, iframe);
     appendNodeToParent(parentWrapperEl, containerEl);
+    // return reference and utility classes
+    return {
+      id,
+      ref: containerEl,
+      iframe: iframeElClass,
+      container: containerElClass,
+    } as unknown as WidgetReference
   }
   catch(e) {
     throw new Error(e)
   }
 }
 
-export const updateWidgetElement = (widget: WidgetToUpdate, viewportPositions: GridPositionsInViewport): any => {
-  const {id, isFullSize, ref, dimension, position} = widget
+export const updateWidgetElement = (widget: WidgetToUpdate, viewportPositions: GridPositionsInViewport) => {
+  const {isFullSize, ref, dimension, position} = widget;
   const {positions} = viewportPositions;
-  const {size, offset, animate, elevation, styles, borderRadius, zIndex} = dimension
-  const {relation, display, reference, element} = position;
+  const {size, offset, animate, elevation, styles, borderRadius, zIndex} = dimension;
+  const {relation, display, reference} = position;
 
   const framePosition = makePositionStrategy(relation, {
     rect: positions[reference as ReferenceToGridPosition] as rectPosition,
@@ -311,12 +318,12 @@ export const updateWidgetElement = (widget: WidgetToUpdate, viewportPositions: G
     zIndex,
     animate: animate ? WIDGET_ANIMATIONS.ease : false,
     borderRadius: serializeBorderRadius(borderRadius, false) as boolean
-  })
+  });
 
   console.log({positionAtUpdate: framePosition})
 
   if(!framePosition) {
-    throw new Error('invalid resizing or positions props')
+    throw new Error('invalid resizing or positions props');
   }
 
   // at this moment we only support update of apps related to viewport
@@ -327,19 +334,25 @@ export const updateWidgetElement = (widget: WidgetToUpdate, viewportPositions: G
       const container = elementById(ref.container);
       const parent = elementById(ref.parent);
       // serialize frame position and map
+      const {top, right, bottom, left, height, width} = framePosition
       const setBorderRadius = serializeBorderRadius(borderRadius, '0') as string
-      const {top, right, bottom, left, height, width, elevation} = framePosition
+      // create container css valid position
       const position = [{top}, {right}, {bottom}, {left}].reduce((acc, val) => {
         return val ? {...acc, ...val} : acc
-      }, {})
-      // map iframe to new border radius val if exit
-      iframe.style.setProperty('border-radius', setBorderRadius)
-      container.style.setProperty('border-radius', setBorderRadius)
-      container.style.setProperty('box-shadow', elevation && WIDGET_ELEVATIONS[elevation] ? WIDGET_ELEVATIONS[elevation]: 'none')
+      }, {});
+      // map iframe to new border radius val to iframe
+      iframe.style.setProperty('border-radius', setBorderRadius);
+      // map box shadow and border radius in container
+      forEach({
+        'border-radius': setBorderRadius,
+        'box-shadow': WIDGET_ELEVATIONS[elevation] ? WIDGET_ELEVATIONS[elevation] : 'none'
+      }, (val, key) =>
+        container.style.setProperty(key, val)
+      );
       // map the container iframe to her new position
-      forEach({...position, height, width}, (val, key) => {
+      forEach({...position, height, width}, (val, key) =>
         parent.style.setProperty(key, val)
-      });
+      );
     } catch(e) {
       throw new Error(e)
     }
