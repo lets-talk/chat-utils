@@ -1,5 +1,6 @@
 import uniq from "lodash/uniq";
 import find from "lodash/find";
+import reduce from "lodash/reduce";
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "../grid/utils"
 import { AddonRules, GridPositionsInViewport, GridSettings, ReferenceToGridPosition, UpdateWidgetRules, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types"
 import { WidgetsMachineCtx } from "./machine"
@@ -12,40 +13,44 @@ export const SET_VIEWPORT_SIZE = 'SET_VIEWPORT_SIZE';
 export const SET_WIDGETS_IN_STATE = 'SET_WIDGETS_IN_STATE';
 export const UPDATE_WIDGET_IN_STATE = 'UPDATE_WIDGET_IN_STATE';
 export const REMOVE_WIDGET_IN_STATE = 'REMOVE_WIDGET_IN_STATE';
-export const ADD_WIDGET_ADDON_IN_STATE = 'UPDATE_WIDGET_IN_STATE';
+export const ADD_WIDGET_ADDON_IN_STATE = 'ADD_WIDGET_ADDON_IN_STATE';
 
 // Actions fns
 type SetViewportAction = {
   type: string;
   width: number;
   height: number;
-}
+};
 
 export const sendViewportDimensions = (width:number, height:number) => ({
   type: SET_VIEWPORT_SIZE,
   width,
   height
-})
+});
 
 export const sendWidgetsIntoMachine = (widgets: WidgetRules[]) => ({
   type: SET_WIDGETS_IN_STATE,
   widgets
-})
+});
 
 export const sendUpdateToWidget = (widget: UpdateWidgetRules) => ({
   type: UPDATE_WIDGET_IN_STATE,
   widget
-})
+});
 
 export const removeWidget = (widgetId: string) => ({
   type: REMOVE_WIDGET_IN_STATE,
   widgetId
-})
+});
 
-export const extendWidgetWithAddons = (widgetId: string, addons: AddonRules[]) => ({
+export const extendParentWidgetWithAddons = (
+  widgetId: string,
+  widgetAddons: AddonRules[]
+) => ({
   type: ADD_WIDGET_ADDON_IN_STATE,
-  addons
-})
+  widgetId,
+  widgetAddons
+});
 
 // calculateGridDimensions state invoker
 export const calculateGridDimensions = (context: WidgetsMachineCtx, event: SetViewportAction) => {
@@ -63,7 +68,7 @@ export const calculateGridDimensions = (context: WidgetsMachineCtx, event: SetVi
       cols: rules.columns,
       rows: rules.rows
     }, rules.positions
-  )
+  );
 
   if(rules && positions) {
     return Promise.resolve({
@@ -78,7 +83,7 @@ export const calculateGridDimensions = (context: WidgetsMachineCtx, event: SetVi
     })
   } else {
     throw new Error('invalid grid rules')
-  }
+  };
 }
 
 // setWidgetRules state invoker
@@ -88,7 +93,7 @@ export const setWidgetsRules = (context: WidgetsMachineCtx, event: {
 }) => {
   if(!event.widgets.length) {
     throw new Error('widgets value can`t be empty')
-  }
+  };
 
   const widgetsParsed =  event.widgets.reduce((acc, widget: WidgetRules) => ({
     ids: [...acc.ids, widget.id],
@@ -99,15 +104,15 @@ export const setWidgetsRules = (context: WidgetsMachineCtx, event: {
   }), {
     ids:[],
     widgets: {},
-  })
+  });
 
-  const ids = [...context.widgetsIds, ...widgetsParsed.ids]
-  const mergeIds = uniq(ids)
+  const ids = [...context.widgetsIds, ...widgetsParsed.ids];
+  const mergeIds = uniq(ids);
 
   // if the length differ we try to write the same widget to time
   // By design I don't want to trow an error and only log (always last set wins)
   if(mergeIds.length !== ids.length) {
-    console.log(`Trying to duplicate widget in model ids: ${[...ids]}`)
+    console.log(`Trying to duplicate widget in model ids: ${[...ids]}`);
   }
 
   return Promise.resolve({
@@ -117,7 +122,7 @@ export const setWidgetsRules = (context: WidgetsMachineCtx, event: {
       ...context.widgets
     },
     forRender: widgetsParsed.ids
-  })
+  });
 }
 
 // setWidgetRules state invoker
@@ -156,8 +161,6 @@ export const updateWidgetRules = (context: WidgetsMachineCtx, event: {
     requireUpdate: isPositionValid,
     requireRemove: !isPositionValid
   }
-
-  console.log({updateWidget})
 
   return Promise.resolve(updateWidget)
 }
@@ -290,21 +293,42 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
 }
 
 export const removeWidgetInCtx = (context: WidgetsMachineCtx, event: {
-  widgetId: string
+  type: string;
+  widgetId: string;
 }) => {
-  const { widgetsInDom, } = context.renderCycle;
+  const { widgets, renderCycle} = context;
+  const { widgetsInDom} = renderCycle;
   const getReference =  widgetsInDom.filter(ref => ref.id === event.widgetId);
 
   if(!getReference.length) {
     throw new Error(`widget trying to be remove doesn't exit in model`);
   }
 
-  return Promise.resolve({remove: getReference});
+  const widgetsInstance = reduce(widgets, (acc, widget: WidgetRules) => {
+    const isWidgetRequiredToBeRemove = widget.id === event.widgetId;
+    const filteredAddons = widget.addons.filter((addon: AddonRules) =>
+      addon.id !== event.widgetId
+    );
+
+    return isWidgetRequiredToBeRemove ? {...acc } : {
+      ...acc,
+      [widget.id]: {...widget, addons: filteredAddons}
+    };
+  }, {})
+
+  return Promise.resolve({
+    widgets: widgetsInstance,
+    remove: getReference
+  });
 }
 
 export const addAddonsToWidget = (context: WidgetsMachineCtx, event: {
+  type: string,
   widgetId: string,
   addons: AddonRules[]
 }) => {
-  return Promise.resolve(true)
+
+  return Promise.resolve({
+    addons: []
+  })
 }

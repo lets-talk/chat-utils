@@ -22,7 +22,7 @@ export const widgetsDimensionsMock = {
 }
 
 export const widgetAddonMock = {
-  id: 'left-addon-app-1',
+  id: 'left-addon-app-2',
   extra: {
     slug: '',
   },

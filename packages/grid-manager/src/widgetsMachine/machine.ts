@@ -66,9 +66,9 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
     [REMOVE_WIDGET_IN_STATE]: {
       target: MachineStates.removeWidgetInCtx
     },
-    // [ADD_WIDGET_ADDON_IN_STATE]: {
-    //   target: MachineStates.extendWidgetWithAddons
-    // }
+    [ADD_WIDGET_ADDON_IN_STATE]: {
+      target: MachineStates.extendWidgetWithAddons
+    }
   },
   states: {
     // Event generate to update the rules of a valid and rendered widget,
@@ -126,11 +126,13 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
     // Event generated to remove a widget that exit as a reference aka. rendered
     [MachineStates.removeWidgetInCtx]: {
       invoke: {
-        // need debugging of type conflict
-        src: removeWidgetInCtx as any,
+        src: removeWidgetInCtx,
         onDone: {
           target: MachineStates.renderWidgetsInDom,
           actions: assign({
+            widgets: (_, event) => ({
+              ...event.data.widgets
+            }),
             renderCycle: (ctx: WidgetsMachineCtx, event) => ({
               ...ctx.renderCycle,
               updateCycle: {
@@ -147,15 +149,30 @@ const widgetsMachine = (context: WidgetsMachineCtx) => Machine({
     },
     // Event generate to update the rules of a valid and rendered widget,
     // ex => chat minimized (icon state) to maximize (conversation:id view)
-    // [MachineStates.extendWidgetWithAddons]: {
-    //   invoke: {
-    //     src: () => Promise.resolve(true),
-    //     // onDone: {
-    //     //   target: MachineStates.renderWidgetsInDom,
-    //     // },
-    //     // onError: handleInvokeError
-    //   }
-    // },
+    [MachineStates.extendWidgetWithAddons]: {
+      invoke: {
+        src: addAddonsToWidget,
+        onDone: {
+          target: MachineStates.renderWidgetsInDom,
+          actions: assign({
+            widgets: (ctx: WidgetsMachineCtx, event) => ({
+              ...ctx.widgets,
+              [event.data.widget.id]: event.data.widget
+            }),
+            renderCycle: (ctx: WidgetsMachineCtx, event) => ({
+              ...ctx.renderCycle,
+              updateCycle: {
+                render: [],
+                widgetAddons: event.data.addons,
+                remove: [],
+                update: [],
+              }
+            })
+          })
+        },
+        onError: handleInvokeError
+      }
+    },
     // first step of the controlled state machine
     // calculate the lasted grid dimensions and viewport breakpoint
     [MachineStates.calculateGridDimensions]: {

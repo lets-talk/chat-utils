@@ -2,7 +2,7 @@ import { WidgetRules, WidgetDimensionsList, GridPositionsInViewport, GridSetting
 import debounce from "lodash/debounce"
 import { interpret, Interpreter, StateMachine } from "xstate"
 import widgetsMachine, { MachineStates, WidgetsMachineCtx } from './widgetsMachine/machine';
-import { sendViewportDimensions, sendWidgetsIntoMachine, sendUpdateToWidget, extendWidgetWithAddons, removeWidget } from "./widgetsMachine/actions";
+import { sendViewportDimensions, sendWidgetsIntoMachine, sendUpdateToWidget, removeWidget, extendParentWidgetWithAddons } from "./widgetsMachine/actions";
 import { updateRenderedWidgetMock, widgetsToRenderMock } from "./mocks/widgetRules";
 import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "./grid/utils";
 
@@ -27,7 +27,7 @@ interface GridManagerClass {
   renderWidgets: (widgets: WidgetRules[]) => Promise<TData>;
   updateWidgetRules: (widget: UpdateWidgetRules) => Promise<TData>;
   removeWidget: (widgetId: string) => Promise<TData>;
-  attachAddons: (widgetId: string, addons: AddonRules[]) => Promise<TData>
+  attachAddonsToWidget: (widgetId: string, addons: AddonRules[]) => Promise<TData>
 }
 
 export class GridManager implements GridManagerClass {
@@ -168,9 +168,9 @@ export class GridManager implements GridManagerClass {
     }
   }
 
-  attachAddons(widgetId: string, addons: AddonRules[]) {
+  attachAddonsToWidget(widgetId: string, widgetAddons: AddonRules[]) {
     try {
-      this.interpreter.send(extendWidgetWithAddons(widgetId, addons))
+      this.interpreter.send(extendParentWidgetWithAddons(widgetId, widgetAddons))
       // we can improve this because tracking the onDone interpreter
       // this.interpreter.onDone(state => {
         // return Promise.resolve(true)
