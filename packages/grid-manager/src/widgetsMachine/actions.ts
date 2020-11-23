@@ -5,7 +5,7 @@ import { breakpoints, getGridPositions, getRulesFromViewport, gridRules } from "
 import { AddonRules, GridPositionsInViewport, GridSettings, ReferenceToGridPosition, UpdateWidgetRules, WidgetReference, WidgetRules, WidgetToRender, WidgetToUpdate } from "../types"
 import { WidgetsMachineCtx } from "./machine"
 import { appendWidgetAddonToRef, renderWidgetElement, updateWidgetElement } from "../dom/render";
-import { generateSortedListOfWidgets, getWidgetMapProps } from "./helpers";
+import { generateSortedListOfWidgets, getWidgetMapProps, mapWidgetToRenderProps } from "./helpers";
 import { removeNodeRef } from "../dom/utils";
 
 // Actions names
@@ -325,10 +325,51 @@ export const removeWidgetInCtx = (context: WidgetsMachineCtx, event: {
 export const addAddonsToWidget = (context: WidgetsMachineCtx, event: {
   type: string,
   widgetId: string,
-  addons: AddonRules[]
+  widgetAddons: AddonRules[]
 }) => {
+  console.log({event})
+
+  const { widgets, widgetsIds, activeBreakpoint} = context;
+  const isWidgetValid = widgetsIds.indexOf(event.widgetId) !== -1;
+
+  if(!isWidgetValid) {
+    throw new Error(`Widget doesn't exit in context model`);
+  }
+
+  // get the active parent widget instance
+  const updatedParentWidgetInstance = {
+    ...widgets[event.widgetId],
+    addons: [
+      ...widgets[event.widgetId].addons,
+      ...event.widgetAddons
+    ]
+  }
+
+  // is widget breakpoint is disable for the active viewport only return the update widget model
+  const isWidgetBreakpointValid = !!updatedParentWidgetInstance.dimensions[activeBreakpoint];
+  if(!isWidgetBreakpointValid) {
+    return Promise.resolve({
+      widget: updatedParentWidgetInstance,
+      addons: []
+    });
+  }
+
+  // if the widget is valid try to create the list of widgets
+  const addonsToRender = event.widgetAddons.reduce((acc, addon: AddonRules) => {
+    const dimensions = addon.dimensions[activeBreakpoint];
+    // if the addon doesn't support the breakpoint or is not of
+    // the kind relative-to-app return the previous list of addons
+    if(!dimensions || addon.position.relation !== 'relative-to-app') {
+      return acc;
+    }
+    // else map the widget and merge to the list
+    return [...acc, mapWidgetToRenderProps(addon, dimensions, false)]
+  }, []);
+
+  console.log({addonsToRender})
 
   return Promise.resolve({
-    addons: []
+    widget: updatedParentWidgetInstance,
+    addons: addonsToRender
   })
 }

@@ -133,6 +133,44 @@ export const widgetAddonMock2 = {
   }
 }
 
+const widgetAddonMock3 = {
+  id: 'left-addon-app-3',
+  extra: {
+    slug: '',
+  },
+  iframeType: "lt-basic-container-multimedia",
+  kind: "iframe",
+  src: 'https://www.yofla.com/black-screen/',
+  position: {
+    relation: 'relative-to-app',
+    display: 'absolute',
+    reference: 'app-1'
+  },
+  dimensions: {
+    web: {
+      styles: null,
+      elevation: 2,
+      borderRadius: 3,
+      size: {
+        width: 50,
+        height: 50
+      },
+      offset: {
+        x: {
+          relationType:'RL',
+          value: 49
+        },
+        y: {
+          relationType:'TT',
+          value: 15
+        }
+      }
+    },
+    tablet: null,
+    mobile: null
+  }
+}
+
 let updateRenderedWidgetMock = {
   id: 'app-1',
   kind: 'iframe',
