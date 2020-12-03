@@ -8,42 +8,43 @@ import {
   IframeType,
   WidgetType,
   ReferenceToFloat,
-  WidgetSize,
-} from "../types";
-import forEach from "lodash/forEach";
+  WidgetSize
+} from '../types';
+import forEach from 'lodash/forEach';
 
 export const WIDGET_ELEVATIONS = {
   [1]: '0 -5px 10px rgba(0,0,0,.2)',
   [2]: '0 -6px 12px rgba(0,0,0,.3)',
   [3]: '0 -8px 15px rgba(0,0,0,.4)',
   center: '0 0 20px rgba(0,0,0,.25)'
-}
+};
 
 export const removeNodeRef = (ref: HTMLElement): any => {
   try {
     ref.remove();
-  } catch(e) {
-    throw new Error(e)
+  } catch (e) {
+    throw new Error(e);
   }
-}
+};
 
 export const elementById = (id: string): HTMLElement => {
   const element = document.getElementById(id);
-  if (element === null) throw Error('Can not find the dom element with id: ' + id);
+  if (element === null)
+    throw Error('Can not find the dom element with id: ' + id);
   return element;
-}
+};
 
 export const getElementDomPosition = (elementId: string): DOMRect => {
   const element = elementById(elementId);
   const positionInfo = element.getBoundingClientRect();
 
   return positionInfo;
-}
+};
 
 export const getElementPositionFixed = (elementId: string): rectPosition => {
   const domPosition = getElementDomPosition(elementId);
   return domPosition;
-}
+};
 
 export const getElementPositionDefault = (elementId: string): rectPosition => {
   const domPosition = getElementDomPosition(elementId);
@@ -52,25 +53,32 @@ export const getElementPositionDefault = (elementId: string): rectPosition => {
     top: Math.floor(domPosition.top + window.scrollY),
     right: domPosition.right,
     bottom: domPosition.bottom,
-    left: Math.floor(domPosition.left + window.scrollX),
+    left: Math.floor(domPosition.left + window.scrollX)
   };
-}
+};
 
-export const getElementPosition = (elementId: string, elementFloatType: ReferenceToFloat): rectPosition => {
+export const getElementPosition = (
+  elementId: string,
+  elementFloatType: ReferenceToFloat
+): rectPosition => {
   switch (elementFloatType) {
     case ReferenceToFloat.default:
       return getElementPositionDefault(elementId);
     case ReferenceToFloat.fixed:
       return getElementPositionFixed(elementId);
   }
-}
+};
 
 export const serializeBorderRadius = (
-  borderRadius: string | number, fallback: string | boolean
+  borderRadius: string | number,
+  fallback: string | boolean
 ): string | boolean => {
-  return borderRadius ? typeof(borderRadius) === 'number' ?
-    `${borderRadius}px` : borderRadius : fallback
-}
+  return borderRadius
+    ? typeof borderRadius === 'number'
+      ? `${borderRadius}px`
+      : borderRadius
+    : fallback;
+};
 
 export const resetNodeToAbsolutePosition = (el: HTMLElement) => {
   const toReset = ['top', 'right', 'bottom', 'left'];
@@ -80,13 +88,13 @@ export const resetNodeToAbsolutePosition = (el: HTMLElement) => {
     position: 'absolute',
     width: '100%',
     height: '100%'
-  }
+  };
 
-  toReset.forEach(rule => el.style.removeProperty(rule));
-  forEach(toUpdate, (value,key) => el.style.setProperty(key, value))
+  toReset.forEach((rule) => el.style.removeProperty(rule));
+  forEach(toUpdate, (value, key) => el.style.setProperty(key, value));
 
-  return el
-}
+  return el;
+};
 
 export const generateParentContainer = (
   className: string,
@@ -101,27 +109,27 @@ export const generateParentContainer = (
       // passing the widget rules to the frame
       position: display,
       transition: animate ? animation : 'none',
-      ...{width, height},
-      ...[{top}, {right}, {bottom}, {left}].reduce((acc, val) => {
-        return val ? {...acc, ...val} : acc
+      ...{ width, height },
+      ...[{ top }, { right }, { bottom }, { left }].reduce((acc, val) => {
+        return val ? { ...acc, ...val } : acc;
       }, {}),
       // this make the magic of making the div pass through
-      ['pointer-events']: 'none',
+      ['pointer-events']: 'none'
     },
-    null,
-  )
-}
+    null
+  );
+};
 
 export type RelativeAppPositionProps = {
   parentAppSize: DOMRect;
   addonSize: WidgetSize;
   offset: WidgetSizeOffset;
   display: ReferenceToFloat;
-  styles: {[key:string]: string}
+  styles: { [key: string]: string };
   borderRadius: string;
   zIndex: number;
   elevation: number;
-}
+};
 
 export const getPositionRelativeToApp = (props: RelativeAppPositionProps) => {
   const {
@@ -136,9 +144,11 @@ export const getPositionRelativeToApp = (props: RelativeAppPositionProps) => {
   } = props;
 
   const relativePosition = getRelativePositionToApp(addonSize, offset);
-  const transformToCssKey = reduce(relativePosition, (acc, val, key) =>
-    !!val ? {...acc, [key]:`${val}px`} : acc
-  , {})
+  const transformToCssKey = reduce(
+    relativePosition,
+    (acc, val, key) => (!!val ? { ...acc, [key]: `${val}px` } : acc),
+    {}
+  );
 
   return {
     ...styles,
@@ -148,70 +158,75 @@ export const getPositionRelativeToApp = (props: RelativeAppPositionProps) => {
     height: `${addonSize.height}px`,
     ['z-index']: zIndex ? `${zIndex}` : 'inherit',
     ['border-radius']: borderRadius,
-    ['box-shadow']: elevation && WIDGET_ELEVATIONS[elevation] ?
-    WIDGET_ELEVATIONS[elevation]: 'none',
+    ['box-shadow']:
+      elevation && WIDGET_ELEVATIONS[elevation]
+        ? WIDGET_ELEVATIONS[elevation]
+        : 'none',
     // force the iframe to catch all the clicks events
-    ['pointer-events']: 'all',
-  }
-}
+    ['pointer-events']: 'all'
+  };
+};
 
 export const getRelativePositionToApp = (
   size: WidgetSize,
   relativeOffset: WidgetSizeOffset
 ): rectPosition => {
   let offset: rectPosition = {
-    top: null, bottom: null, left: null, right: null
+    top: null,
+    bottom: null,
+    left: null,
+    right: null
   };
 
   switch (relativeOffset.x.relationType) {
     case relationTypeX.LL:
-      offset.left = (size.width + relativeOffset.x.value)*-1;
+      offset.left = (size.width + relativeOffset.x.value) * -1;
       break;
     case relationTypeX.LR:
-      offset.left = (size.width - relativeOffset.x.value)*-1;
+      offset.left = (size.width - relativeOffset.x.value) * -1;
       break;
     case relationTypeX.RL:
-      offset.right = (size.width - relativeOffset.x.value)*-1;
+      offset.right = (size.width - relativeOffset.x.value) * -1;
       break;
     case relationTypeX.RR:
-      offset.right = (size.width + relativeOffset.x.value)*-1;
+      offset.right = (size.width + relativeOffset.x.value) * -1;
       break;
     default:
-      return offset
+      return offset;
   }
 
   switch (relativeOffset.y.relationType) {
     case relationTypeY.TT:
-      offset.top = (size.height + relativeOffset.y.value)*-1;
+      offset.top = (size.height + relativeOffset.y.value) * -1;
       break;
     case relationTypeY.TB:
-      offset.top = (size.height - relativeOffset.y.value)*-1;
+      offset.top = (size.height - relativeOffset.y.value) * -1;
       break;
     case relationTypeY.BT:
-      offset.bottom = (size.height - relativeOffset.y.value)*-1;
+      offset.bottom = (size.height - relativeOffset.y.value) * -1;
       break;
     case relationTypeY.BB:
-      offset.bottom = (size.height + relativeOffset.y.value)*-1;
+      offset.bottom = (size.height + relativeOffset.y.value) * -1;
       break;
     default:
-      return offset
+      return offset;
   }
 
   return offset;
-}
+};
 
 export type RelativePositionProps = {
   rect: rectPosition;
   size: WidgetSize;
   offset: WidgetSizeOffset;
   display: ReferenceToFloat;
-  styles: {[key:string]: string}
+  styles: { [key: string]: string };
   elevation: number;
   fullSize: boolean;
   animate: string | false;
   borderRadius: boolean | string | number;
   zIndex: number;
-}
+};
 
 export const getPositionRelativeToViewport = (props: RelativePositionProps) => {
   const {
@@ -225,16 +240,20 @@ export const getPositionRelativeToViewport = (props: RelativePositionProps) => {
     animate,
     zIndex,
     borderRadius
-  } = props
+  } = props;
 
-  const relativePosition = getRelativePosition(rect, offset)
-  const transformToCssKey = fullSize ?
-    { top: 0, left: 0 } : reduce(relativePosition,
-    (acc, val, key) => !!val ? {...acc, [key]:`${val}px`} : acc
-  , {})
+  const relativePosition = getRelativePosition(rect, offset);
+  const transformToCssKey = fullSize
+    ? { top: 0, left: 0 }
+    : reduce(
+        relativePosition,
+        (acc, val, key) => (!!val ? { ...acc, [key]: `${val}px` } : acc),
+        {}
+      );
   const parseBorderRadius =
-    borderRadius && typeof(borderRadius) !== 'boolean' ?
-      serializeBorderRadius(borderRadius, '0') as string : 'none'
+    borderRadius && typeof borderRadius !== 'boolean'
+      ? (serializeBorderRadius(borderRadius, '0') as string)
+      : 'none';
 
   return {
     ...styles,
@@ -246,13 +265,15 @@ export const getPositionRelativeToViewport = (props: RelativePositionProps) => {
     height: `${fullSize ? window.innerHeight : size.height}px`,
     ['z-index']: zIndex ? `${zIndex}` : 'inherit',
     ['border-radius']: parseBorderRadius,
-    ['box-shadow']: elevation && WIDGET_ELEVATIONS[elevation] ?
-      WIDGET_ELEVATIONS[elevation]: 'none',
+    ['box-shadow']:
+      elevation && WIDGET_ELEVATIONS[elevation]
+        ? WIDGET_ELEVATIONS[elevation]
+        : 'none',
     transition: animate ? animate : 'none',
     // force the iframe to catch all the clicks events
-    ['pointer-events']: 'all',
-  }
-}
+    ['pointer-events']: 'all'
+  };
+};
 
 export const getRelativePosition = (
   gridDimensions: rectPosition,
@@ -262,7 +283,10 @@ export const getRelativePosition = (
   const { innerHeight, innerWidth } = window;
 
   let offset: rectPosition = {
-    top: null, bottom: null, left: null, right: null
+    top: null,
+    bottom: null,
+    left: null,
+    right: null
   };
 
   switch (relativeOffset.x.relationType) {
@@ -279,12 +303,12 @@ export const getRelativePosition = (
       offset.right = innerWidth - right + relativeOffset.x.value;
       break;
     default:
-      return offset
+      return offset;
   }
 
   switch (relativeOffset.y.relationType) {
     case relationTypeY.TT:
-      offset.top = top + relativeOffset.y.value
+      offset.top = top + relativeOffset.y.value;
       break;
     case relationTypeY.TB:
       offset.top = bottom + relativeOffset.y.value;
@@ -296,11 +320,11 @@ export const getRelativePosition = (
       offset.bottom = innerHeight - bottom + relativeOffset.y.value;
       break;
     default:
-      return offset
+      return offset;
   }
 
   return offset;
-}
+};
 
 export const generateUrlFromParams = (
   urlParams: UrlSourceParams,
@@ -311,23 +335,23 @@ export const generateUrlFromParams = (
   const params = new URLSearchParams(url.search);
 
   params.append(slugKey, extra.slug);
-  if(extra.params) {
+  if (extra.params) {
     forEach(extra.params, (v, k) => params.append(v, k));
   }
 
   url.search = params.toString();
   return url;
-}
+};
 
 export const generateDomElement = (
   id: string,
   element: WidgetType,
-  styles: {[key:string]: string} | null,
+  styles: { [key: string]: string } | null,
   iframeSettings: {
-    src: string
-    type?: IframeType,
+    src: string;
+    type?: IframeType;
   } | null,
-  className?: string,
+  className?: string
 ): HTMLDivElement | HTMLIFrameElement => {
   const src = iframeSettings ? iframeSettings.src : undefined;
   const type = iframeSettings ? iframeSettings.type : undefined;
@@ -336,25 +360,26 @@ export const generateDomElement = (
   el.id = id;
   el.className = className ? className : '';
 
-  if(element === 'iframe') {
+  if (element === 'iframe') {
     (el as HTMLIFrameElement).src = src;
   }
 
-  if(element === 'iframe' && type && ["lt-basic-container-multimedia",  "lt-webrtc"].indexOf(type) !== -1) {
-    (el as HTMLIFrameElement).allow = "microphone *; camera *";
+  if (
+    element === 'iframe' &&
+    type &&
+    ['lt-basic-container-multimedia', 'lt-webrtc'].indexOf(type) !== -1
+  ) {
+    (el as HTMLIFrameElement).allow = 'microphone *; camera *';
   }
 
-  if(styles) {
-    forEach(styles, (value,key) => el.style.setProperty(key, value))
+  if (styles) {
+    forEach(styles, (value, key) => el.style.setProperty(key, value));
   }
 
-  return el as any
-}
+  return el as any;
+};
 
-export const appendNodeToParent = (parent: Node, children: Node): Node => (
-  parent.appendChild(children)
-)
+export const appendNodeToParent = (parent: Node, children: Node): Node =>
+  parent.appendChild(children);
 
-export const updateWidgetNode = (ref: Node) => {
-
-}
+export const updateWidgetNode = (ref: Node) => {};
