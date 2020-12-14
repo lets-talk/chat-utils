@@ -299,7 +299,7 @@ const widgetsToRenderMock = [
           },
           y: {
             relationType: 'BB',
-            value: 0
+            value: 1
           }
         }
       },
@@ -429,9 +429,3 @@ const widgetsToRenderBlank = [
 ];
 
 export { updateRenderedWidgetMock, widgetsToRenderMock, widgetsToRenderBlank };
-
-function resizeNode() {
-  var el = document.getElementById('lt-app-frame-app-1');
-  el.style.setProperty('height', '700px');
-  el.style.setProperty('width', '290px');
-}
