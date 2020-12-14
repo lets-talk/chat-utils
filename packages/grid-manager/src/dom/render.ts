@@ -62,11 +62,12 @@ export const createWindowBlankWidget = (
   urlParams: UrlSourceParams,
   size: WidgetSize,
   windowName = 'popup',
-  windowFeatures = 'scrollbars=no,resizable=no'
+  windowFeatures = 'scrollbars=no,resizable=no',
+  open = window.open
 ): Window | Error => {
   const url = generateUrlFromParams(urlParams);
   try {
-    return window.open(
+    return open(
       url.href,
       `${id}-${windowName}`,
       `width=${size.width},height=${size.height},${windowFeatures}`
@@ -78,19 +79,23 @@ export const createWindowBlankWidget = (
 
 export const makePositionStrategy = (
   type: WidgetRelativePosition,
-  data: RelativeAppPositionProps | RelativePositionProps
+  data: RelativeAppPositionProps | RelativePositionProps,
+  strategy = {
+     getPositionRelativeToViewport,
+     getPositionRelativeToApp
+  }
 ): any => {
   switch (type) {
     case RELATIVE_RENDER_POSITION.toDomEl:
       return false;
     case RELATIVE_RENDER_POSITION.toViewport:
-      return getPositionRelativeToViewport(data as RelativePositionProps);
+      return strategy.getPositionRelativeToViewport(data as RelativePositionProps);
     case RELATIVE_RENDER_POSITION.toApp:
-      return getPositionRelativeToApp(data as RelativeAppPositionProps);
+      return strategy.getPositionRelativeToApp(data as RelativeAppPositionProps);
     case RELATIVE_RENDER_POSITION.toCenter:
       return false;
     default:
-      throw Error('Invalid position type configuration review app settings');
+      return new Error('Invalid position type configuration review app settings');
   }
 };
 
@@ -217,12 +222,17 @@ export const createIframeWidget = (
 
 export const renderWidgetElement = (
   widget: WidgetToRender,
-  viewportPositions: GridPositionsInViewport
+  viewportPositions: GridPositionsInViewport,
+  createDomElByKind = {
+    createIframeWidget,
+    createWindowBlankWidget
+  }
 ): Promise<HTMLDivElement> | Window | Error => {
+  console.log({widget})
   const { id, kind, url, dimensions, iframeType, position } = widget;
   switch (kind) {
     case 'iframe':
-      return createIframeWidget(
+      return createDomElByKind.createIframeWidget(
         id,
         url,
         position as ReferencePosition,
@@ -232,7 +242,7 @@ export const renderWidgetElement = (
         viewportPositions
       );
     case 'blank':
-      return createWindowBlankWidget(id, url, dimensions.size);
+      return createDomElByKind.createWindowBlankWidget(id, url, dimensions.size);
     // The div case will be supported in the near future
     case 'div':
     default:
@@ -266,13 +276,13 @@ export const appendWidgetAddonToRef = (
   }
 
   // get iframe container size and position
-  const parentWidgetRect = parentWrapperEl.getBoundingClientRect();
+  // const parentWidgetRect = parentWrapperEl.getBoundingClientRect() ;
 
   // generate iframe src url
   const parseUrl = generateUrlFromParams(url);
 
   const framePosition = makePositionStrategy(relation as any, {
-    parentAppSize: parentWidgetRect,
+    // parentAppSize: parentWidgetRect,
     addonSize: size,
     offset,
     display,

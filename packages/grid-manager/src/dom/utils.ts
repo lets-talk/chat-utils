@@ -1,4 +1,5 @@
 import reduce from 'lodash/reduce';
+import forEach from 'lodash/forEach';
 import {
   rectPosition,
   WidgetSizeOffset,
@@ -10,7 +11,6 @@ import {
   ReferenceToFloat,
   WidgetSize
 } from '../types';
-import forEach from 'lodash/forEach';
 
 export const WIDGET_ELEVATIONS = {
   [1]: '0 -5px 10px rgba(0,0,0,.2)',
@@ -22,15 +22,17 @@ export const WIDGET_ELEVATIONS = {
 export const removeNodeRef = (ref: HTMLElement): any => {
   try {
     ref.remove();
+    return true;
   } catch (e) {
-    throw new Error(e);
+    return e
   }
 };
 
-export const elementById = (id: string): HTMLElement => {
-  const element = document.getElementById(id);
-  if (element === null)
-    throw Error('Can not find the dom element with id: ' + id);
+export const elementById = (id: string, dom = document): HTMLElement => {
+  const element = dom.getElementById(id);
+  if (element === null) {
+    throw new Error(`Can not find the dom element with id: ${id}`);
+  }
   return element;
 };
 
@@ -42,18 +44,17 @@ export const getElementDomPosition = (elementId: string): DOMRect => {
 };
 
 export const getElementPositionFixed = (elementId: string): rectPosition => {
-  const domPosition = getElementDomPosition(elementId);
-  return domPosition;
+  return getElementDomPosition(elementId);
 };
 
-export const getElementPositionDefault = (elementId: string): rectPosition => {
+export const getElementPositionDefault = (elementId: string, w = window): rectPosition => {
   const domPosition = getElementDomPosition(elementId);
 
   return {
-    top: Math.floor(domPosition.top + window.scrollY),
+    top: Math.floor(domPosition.top + w.scrollY),
     right: domPosition.right,
     bottom: domPosition.bottom,
-    left: Math.floor(domPosition.left + window.scrollX)
+    left: Math.floor(domPosition.left + w.scrollX)
   };
 };
 
@@ -121,7 +122,6 @@ export const generateParentContainer = (
 };
 
 export type RelativeAppPositionProps = {
-  parentAppSize: DOMRect;
   addonSize: WidgetSize;
   offset: WidgetSizeOffset;
   display: ReferenceToFloat;
@@ -133,7 +133,6 @@ export type RelativeAppPositionProps = {
 
 export const getPositionRelativeToApp = (props: RelativeAppPositionProps) => {
   const {
-    parentAppSize,
     addonSize,
     offset,
     display,
@@ -277,7 +276,7 @@ export const getPositionRelativeToViewport = (props: RelativePositionProps) => {
 
 export const getRelativePosition = (
   gridDimensions: rectPosition,
-  relativeOffset: WidgetSizeOffset
+  relativeOffset: WidgetSizeOffset,
 ): rectPosition => {
   const { top, right, bottom, left } = gridDimensions;
   const { innerHeight, innerWidth } = window;
@@ -328,7 +327,7 @@ export const getRelativePosition = (
 
 export const generateUrlFromParams = (
   urlParams: UrlSourceParams,
-  slugKey = 'appName'
+  slugKey = 'appName',
 ): URL => {
   const { src, extra } = urlParams;
   const url = new URL(src);
@@ -382,4 +381,4 @@ export const generateDomElement = (
 export const appendNodeToParent = (parent: Node, children: Node): Node =>
   parent.appendChild(children);
 
-export const updateWidgetNode = (ref: Node) => {};
+// export const updateWidgetNode = (ref: Node) => {};
