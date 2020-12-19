@@ -63,7 +63,7 @@ export const gridRules: {
 export const getGridPositions = (
   viewport: { height: number; width: number },
   grid: { cols: number; rows: number },
-  keys: ReferenceToGridPosition[]
+  keys: ReferenceToGridPosition[],
 ): GridPositionsInViewport => {
   // calc tile size
   const tileSize = {
