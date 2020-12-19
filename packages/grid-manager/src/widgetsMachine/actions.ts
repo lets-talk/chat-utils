@@ -103,20 +103,20 @@ export const calculateGridDimensions = (
     rules.positions
   );
 
-  if (rules && positions) {
-    return Promise.resolve({
-      viewport: {
-        width,
-        height
-      },
-      label: rules.label,
-      rules,
-      positions,
-      requiredUpdate: rules.label !== context.rules.label
-    });
-  } else {
+  if (!rules && !positions) {
     throw new Error('invalid grid rules');
   }
+
+  return Promise.resolve({
+    viewport: {
+      width,
+      height
+    },
+    label: rules.label,
+    rules,
+    positions,
+    requiredUpdate: rules.label !== context.rules.label
+  });
 };
 
 // setWidgetRules state invoker
@@ -170,7 +170,7 @@ export const updateWidgetRules = (
   event: {
     type: string;
     widget: UpdateWidgetRules;
-  }
+  },
 ) => {
   const {
     activeBreakpoint,
@@ -222,7 +222,6 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     activeBreakpoint,
     requireGlobalUpdate,
     widgetsIdsToTrack: { forRender },
-    renderCycle: { widgetsInDom }
   } = context;
 
   let widgetsListByType = {
@@ -234,11 +233,10 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     addons: []
   };
 
-  // flow
-  // Take all the widgets that request to be rendered and consolidate
-  // in a finite list of valid widgets for renderWidgetElement dom method
+  // consolidation flow =>
+  // Take all the widgets that request to be rendered or re calculated and consolidate in a single source of thrusts
 
-  // if the breakpoint change the entire model required to be recalculated
+  // if the viewport breakpoint change the entire model required to be recalculated
   if (requireGlobalUpdate) {
     widgetsListByType = generateSortedListOfWidgets(
       Object.keys(widgets).map((key) => widgets[key]),
@@ -247,7 +245,7 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     );
   }
 
-  // if only was a method set or from class invoker map the new widget to model
+  // if we only need to append or update a new widget to the model we consolidate the new widget from forRender case
   if (!!forRender.length) {
     widgetsListByType = generateSortedListOfWidgets(
       forRender.map((key) => widgets[key]),
@@ -256,8 +254,7 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     );
   }
 
-  // is model is the same ex. resize event but the breakpoint
-  // return empty model
+  // if the result of consolidate is a pristine model we return a empty list
   if (widgetsListByType.isPristine) {
     return Promise.resolve({
       slotsInUse: [],
@@ -265,8 +262,8 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     });
   }
 
-  // if any widget require to be rendered at full size take the first one
-  // that match the criteria and remove all the rest from the iframe queue
+  // if any of the iframe widgets require to be rendered at full size take the first that match the criteria and remove the rest from the iframe queue
+  // improvement: add to the widgets model a priority value in the case of two or more widget want to be rendered at full size
   if (widgetsListByType.requireFullSize) {
     const firstFullSizeWidget = find(
       widgetsListByType.iframe,
@@ -279,12 +276,13 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     });
   }
 
-  // else merge the two list and check if it's no empty
+  // else we merge the two list of the render on iframe or window open blank
   const toRenderList = [
     ...widgetsListByType.blank,
     ...widgetsListByType.iframe
   ];
 
+  // return the consolidate list of  widget to be rendered
   return Promise.resolve({
     widgetsToRender: toRenderList,
     slotsInUse: widgetsListByType.usedPositions,
@@ -298,7 +296,7 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
   const { widgetsInDom, updateCycle, positionsInUse } = renderCycle;
 
   let prevWidgetsRefs = widgetsInDom ? widgetsInDom : [];
-  console.log({ updateCycle, prevWidgetsRefs, requireGlobalUpdate });
+  // console.log({ updateCycle, prevWidgetsRefs, requireGlobalUpdate });
 
   if (requireGlobalUpdate) {
     prevWidgetsRefs = [];
@@ -329,7 +327,7 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
           addonWidget.position.reference as ReferenceToGridPosition
         ) === -1
       ) {
-        throw new Error('reference widget doesn`t exit in machine model');
+        throw new Error(`reference widget doesn't exit in machine model`);
       }
       // else dispatch action to append addon into the parent widget
       return appendWidgetAddonToRef(
