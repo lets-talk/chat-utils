@@ -11,10 +11,12 @@ module.exports = {
     "html"
   ],
   collectCoverageFrom: [
-    "**/*.{js,jsx,ts,tsx}",
+    "**/src/*.{js,jsx,ts,tsx}",
+    "**/src/**/*.{js,jsx,ts,tsx}",
     "!**/node_modules/**",
     "!**/vendor/**",
-    "!**/dist/**"
+    "!**/dist/**",
+    "!**/src/mocks/**"
   ],
   coverageThreshold: {
     global: {
