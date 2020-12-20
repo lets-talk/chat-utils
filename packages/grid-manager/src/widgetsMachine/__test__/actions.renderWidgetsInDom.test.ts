@@ -1,6 +1,4 @@
 import * as actions from '../actions';
-import * as helpers from '../helpers';
-import * as utils from '../../grid/utils';
 import * as domRender from '../../dom/render';
 import * as domUtils from '../../dom/utils';
 
@@ -234,4 +232,95 @@ describe('renderWidgetsInDom state invoker', () => {
     expect(updateWidgetElementSpy).toBeCalledTimes(1)
     expect(updateWidgetElementSpy).toBeCalledWith({id: 2, ref: true}, 'context.position')
   })
+
+  it('should only render the widgets from the updateCycle.update list', async () => {
+    const renderCycle = {
+      widgetsInDom: [],
+      updateCycle: {
+        render: [{id: 1}, {id: 2}],
+        update: [],
+        remove: [],
+        widgetAddons: [],
+      },
+      positionsInUse: []
+    }
+
+    const context = {
+      requireGlobalUpdate: false,
+      renderCycle: renderCycle,
+      widgetsIds: [],
+      widgets: {},
+      positions: 'context.position'
+    }
+
+    renderWidgetElementSpy.mockImplementationOnce(() => [])
+
+    await renderWidgetsInDomSpy(context)
+    expect(renderWidgetElementSpy).toBeCalledTimes(2)
+    expect(renderWidgetElementSpy.mock.calls[0]).toEqual([
+      {id: 1}, 'context.position'
+    ])
+  })
+
+  it('updateCycle.widgetAddons should check that the parent widget exit if not throw and error', async () => {
+    const renderCycle = {
+      widgetsInDom: [],
+      updateCycle: {
+        render: [],
+        update: [],
+        remove: [],
+        widgetAddons: [{id: 1, position: {reference: 'app-1'}}],
+      },
+      positionsInUse: []
+    }
+
+    const context = {
+      requireGlobalUpdate: false,
+      renderCycle: renderCycle,
+      widgetsIds: ['app-2'],
+      widgets: {},
+      positions: 'context.position'
+    }
+
+    try {
+      await renderWidgetsInDomSpy(context)
+    } catch(e) {
+      expect(renderWidgetsInDomSpy).toThrowError()
+      expect(e.message).toBe(`reference widget doesn't exit in machine model`)
+    }
+  })
+
+  it('should only append to widget from updateCycle.widgetAddons list', async () => {
+    const renderCycle = {
+      widgetsInDom: [],
+      updateCycle: {
+        render: [],
+        update: [],
+        remove: [],
+        widgetAddons: [{id: 2, position: {reference: 'app-1'}}],
+      },
+      positionsInUse: []
+    }
+
+    const context = {
+      requireGlobalUpdate: false,
+      renderCycle: renderCycle,
+      widgetsIds: ['app-1'],
+      widgets: {['app-1']: {id: 'app-1'}},
+      positions: 'context.position'
+    }
+
+    // renderWidgetElementSpy.mockImplementationOnce(() => null)
+    appendWidgetAddonToRefSpy.mockImplementationOnce(() => jest.fn(() => null))
+    await renderWidgetsInDomSpy(context)
+
+    expect(appendWidgetAddonToRefSpy).toBeCalledTimes(1)
+    expect(appendWidgetAddonToRefSpy).toBeCalledWith(
+      {id: 2, position: {reference: 'app-1'}},
+      'app-1',
+      []
+    )
+  })
+
+  it.skip('Should return a new updated model to the widget machine', () => {})
 })

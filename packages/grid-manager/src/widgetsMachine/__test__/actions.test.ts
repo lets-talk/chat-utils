@@ -1,28 +1,21 @@
 import * as actions from '../actions';
-import * as helpers from '../helpers';
+import * as helpers from '../helpers'
 import * as utils from '../../grid/utils';
-import * as domRender from '../../dom/render';
-import * as domUtils from '../../dom/utils';
 import { UpdateWidgetRules } from '../../types';
 
 // mock dependencies
 const getRulesFromViewportSpy: any = jest.spyOn(utils, 'getRulesFromViewport')
 const getGridPositionsSpy: any = jest.spyOn(utils, 'getGridPositions')
-const generateSortedListOfWidgetsSpy: any = jest.spyOn(helpers, 'generateSortedListOfWidgets')
-const consoleSpy = jest.spyOn(console, 'log');
-const removeNodeRefSpy: any = jest.spyOn(domUtils, 'removeNodeRef')
-const updateWidgetElementSpy: any = jest.spyOn(domRender, 'updateWidgetElement'
-)
-const renderWidgetElementSpy: any = jest.spyOn(domRender, 'renderWidgetElement')
-const appendWidgetAddonToRefSpy: any = jest.spyOn(domRender, 'appendWidgetAddonToRef')
+const consoleSpy: any = jest.spyOn(console, 'log');
+const mapWidgetToRenderPropsSpy: any = jest.spyOn(helpers, 'mapWidgetToRenderProps')
 
 // actions
 const updateWidgetRulesSpy: any = jest.spyOn(actions, 'updateWidgetRules')
 const reconcileWidgetsSpy: any = jest.spyOn(actions, 'reconcileWidgets')
 const calculateGridDimensionsSpy: any = jest.spyOn(actions, 'calculateGridDimensions')
 const setWidgetsRulesSpy: any = jest.spyOn(actions, 'setWidgetsRules')
-const renderWidgetsInDomSpy: any = jest.spyOn(actions, 'renderWidgetsInDom')
-
+const removeWidgetInCtxSpy: any = jest.spyOn(actions, 'removeWidgetInCtx')
+const addAddonsToWidgetSpy: any = jest.spyOn(actions, 'addAddonsToWidget')
 
 describe('Actions machine module', () => {
   beforeEach(() => {
@@ -323,4 +316,220 @@ describe('Actions machine module', () => {
     })
   })
 
+  describe('removeWidgetInCtx state invoker', () => {
+    it('should be called with the correct arguments', async () => {
+      const context = {
+        widgets: {},
+        renderCycle: {
+          widgetsInDom: [{id: 'app-1'}]
+        }
+      }
+      const event = {
+        type: '',
+        widgetId: 'app-1'
+      }
+
+      await removeWidgetInCtxSpy(context, event)
+      expect(actions.removeWidgetInCtx).toBeCalledWith(context, event)
+    })
+    it('should throw and error if the widget doesnt exit', async () => {
+      const context = {
+        widgets: {},
+        renderCycle: {
+          widgetsInDom: [{id: 'app-2'}]
+        }
+      }
+      const event = {
+        type: '',
+        widgetId: 'app-1'
+      }
+
+      try {
+        removeWidgetInCtxSpy(context, event)
+      } catch(e) {
+        expect(removeWidgetInCtxSpy).toThrowError()
+        expect(e.message).toBe(`widget trying to be remove doesn't exit in model`)
+      }
+    })
+
+    it('Should return a new updated model to the widget machine', async () => {
+      const context = {
+        widgets: {
+          ['app-1']: {id: 'app-1', addons: []},
+          ['app-2']: {id: 'app-2', addons: []}
+        },
+        renderCycle: {
+          widgetsInDom: [{id: 'app-1'}, {id: 'app-2'}]
+        }
+      }
+      const event = {
+        type: '',
+        widgetId: 'app-1'
+      }
+
+      const result = await removeWidgetInCtxSpy(context, event)
+      expect(result).toStrictEqual({
+        widgets: { 'app-2': { id: 'app-2', addons: [] } },
+        remove: [ { id: 'app-1' } ]
+      })
+    })
+  })
+
+  describe('addAddonsToWidget state invoker', () => {
+    it('should be called with the correct arguments', async () => {
+      const context = {
+        widgets: {
+          ['app-1']: {
+            id: 'app-1',
+            addons: [],
+            dimensions: {web: true}
+          },
+        },
+        widgetsIds: ['app-1'],
+        activeBreakpoint: 'web'
+      }
+      const event = {
+        type: '',
+        widgetId: 'app-1',
+        widgetAddons: [{
+          id: 'addon-1',
+          dimensions: {web: true},
+          position: {
+            relation: 'relative-to-app'
+          }
+        }]
+      }
+
+      await addAddonsToWidgetSpy(context, event)
+      expect(actions.addAddonsToWidget).toBeCalledWith(context, event)
+    })
+
+    it('should throw an error if the parent widget doesnt exit', async () => {
+      const context = {
+        widgets: {
+          ['app-1']: {
+            id: 'app-1',
+            addons: [],
+            dimensions: {web: true}
+          },
+        },
+        widgetsIds: ['app-1'],
+        activeBreakpoint: 'web'
+      }
+      const event = {
+        type: '',
+        widgetId: 'app-2',
+        widgetAddons: [{
+          id: 'addon-1',
+          dimensions: {web: true},
+          position: {
+            relation: 'relative-to-app'
+          }
+        }]
+      }
+
+      try {
+        addAddonsToWidgetSpy(context, event)
+      } catch(e) {
+        expect(addAddonsToWidgetSpy).toThrowError()
+        expect(e.message).toBe(`Widget doesn't exit in context model`)
+      }
+    })
+
+    it('should return only the updated model if breakpoint is disable', async () => {
+      const context = {
+        widgets: {
+          ['app-1']: {
+            id: 'app-1',
+            addons: [],
+            dimensions: {tablet: true}
+          },
+        },
+        widgetsIds: ['app-1'],
+        activeBreakpoint: 'tablet'
+      }
+      const event = {
+        type: '',
+        widgetId: 'app-1',
+        widgetAddons: [{
+          id: 'addon-1',
+          dimensions: {tablet: null},
+          position: {
+            relation: 'relative-to-app'
+          }
+        }]
+      }
+
+      const result = await addAddonsToWidgetSpy(context, event)
+      expect(result).toStrictEqual({
+        widget: {
+          id: 'app-1',
+          dimensions: { tablet: true },
+          addons: [{
+            id: 'addon-1',
+            dimensions: {tablet: null},
+            position: {
+              relation: 'relative-to-app'
+            }
+          }]
+        },
+        addons: []
+      })
+    })
+
+    it('should return the updated model and the addon to render if breakpoint exit', async () => {
+      const context = {
+        widgets: {
+          ['app-1']: {
+            id: 'app-1',
+            addons: [],
+            dimensions: {tablet: true}
+          },
+        },
+        widgetsIds: ['app-1'],
+        activeBreakpoint: 'tablet'
+      }
+      const event = {
+        type: '',
+        widgetId: 'app-1',
+        widgetAddons: [{
+          id: 'addon-1',
+          dimensions: {tablet: true},
+          position: {
+            relation: 'relative-to-app'
+          }
+        }]
+      }
+
+      mapWidgetToRenderPropsSpy.mockImplementationOnce(() => ({
+        id: 'addon-1',
+          dimensions: {tablet: true},
+          position: {
+            relation: 'relative-to-app'
+          }
+      }))
+
+      const result = await addAddonsToWidgetSpy(context, event)
+      expect(result).toStrictEqual({
+        widget: {
+          id: 'app-1',
+          dimensions: { tablet: true },
+          addons: [{
+            id: 'addon-1',
+            dimensions: {tablet: true},
+            position: {
+              relation: 'relative-to-app'
+            }
+          }]
+        },
+        addons: [{
+          id: 'addon-1',
+          dimensions: {tablet: true},
+          position: {
+            relation: 'relative-to-app'
+          }
+        }]
+      })
+    })
+  })
 })

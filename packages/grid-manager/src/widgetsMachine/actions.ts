@@ -214,7 +214,7 @@ export const updateWidgetRules = (
   return Promise.resolve(updateWidget);
 };
 
-// reconcileWidgets state invoker
+// ReconcileWidgets state invoker
 export const reconcileWidgets = (context: WidgetsMachineCtx) => {
   const {
     widgets,
@@ -321,7 +321,8 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
 
   const addonsRef = updateCycle.widgetAddons.map(
     (addonWidget: WidgetToRender) => {
-      // is the referent can't be founded throw
+      // is the referent can't be founded throw an error
+      // todo: we should move this to the reconcile flow
       if (
         widgetsIds.indexOf(
           addonWidget.position.reference as ReferenceToGridPosition
@@ -348,6 +349,7 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
   });
 };
 
+// Take a valid app id and remove the node from the dom and model
 export const removeWidgetInCtx = (
   context: WidgetsMachineCtx,
   event: {
@@ -387,6 +389,7 @@ export const removeWidgetInCtx = (
   });
 };
 
+// append an addons to a widget if it valid and require a render if it needed
 export const addAddonsToWidget = (
   context: WidgetsMachineCtx,
   event: {
@@ -395,10 +398,8 @@ export const addAddonsToWidget = (
     widgetAddons: AddonRules[];
   }
 ) => {
-  console.log({ event });
-
   const { widgets, widgetsIds, activeBreakpoint } = context;
-  const isWidgetValid = widgetsIds.indexOf(event.widgetId) !== -1;
+  const isWidgetValid =  widgetsIds.indexOf(event.widgetId) !== -1;
 
   if (!isWidgetValid) {
     throw new Error(`Widget doesn't exit in context model`);
@@ -432,8 +433,6 @@ export const addAddonsToWidget = (
     // else map the widget and merge to the list
     return [...acc, mapWidgetToRenderProps(addon, dimensions, false)];
   }, []);
-
-  console.log({ addonsToRender });
 
   return Promise.resolve({
     widget: updatedParentWidgetInstance,

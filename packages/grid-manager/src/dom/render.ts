@@ -228,7 +228,6 @@ export const renderWidgetElement = (
     createWindowBlankWidget
   }
 ): Promise<HTMLDivElement> | Window | Error => {
-  console.log({widget})
   const { id, kind, url, dimensions, iframeType, position } = widget;
   switch (kind) {
     case 'iframe':
