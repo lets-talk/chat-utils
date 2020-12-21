@@ -1,4 +1,4 @@
-import { assign, Machine, send } from 'xstate';
+import { assign, DoneInvokeEvent, Machine, send, SingleOrArray, TransitionConfig } from 'xstate';
 import {
   AddonRules,
   GridPositionsInViewport,
@@ -67,12 +67,17 @@ export type WidgetsMachineCtx = {
   renderCycle: WidgetsToRenderInCtx;
 };
 
-const handleInvokeError = {
+export const errorAction = (context, event) => console.log(event.data.msg)
+
+export const genericErrorHandler = actions => {
   target: MachineStates.catchInvokeError,
   // rejected promise data is on event.data property
   // we could send to sentry log
-  actions: (context, event) => console.log(event.data)
+  actions
 };
+
+// todo: find the correct type for a error handler in xstate
+const handleInvokeError: any = genericErrorHandler(errorAction)
 
 const widgetsMachine = (context: WidgetsMachineCtx) =>
   Machine({
