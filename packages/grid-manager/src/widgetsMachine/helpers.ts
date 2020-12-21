@@ -44,17 +44,17 @@ export const generateSortedListOfWidgets = (
           };
         // I find a case here the blank case apply to any breakpoint?
         case 'blank':
-          return {
+          return widget.dimensions['web'] ? {
             ...acc,
             blank: [
               ...acc.blank,
               mapWidgetToRenderProps(widget, widget.dimensions['web'])
             ]
-          };
-        // div case is unsupported and default doesn't exit
+          } : acc
+        // todo: div case is unsupported at the moment and should be return acc
         case 'div':
         default:
-          return acc;
+          return acc
       }
     },
     {
@@ -79,11 +79,9 @@ export const isValidatePositionReference = (
       // if the position doesn't exit for the active breakpoint
       // or if the position is duplicated
       return (
-        validPositions.indexOf(widgetReference) !== -1 ||
-        positionsInUse.indexOf(widgetReference) !== -1
+        validPositions.indexOf(widgetReference) !== -1 &&
+        positionsInUse.indexOf(widgetReference) === -1
       );
-    // un supported cases at this moment need to be implemented and mapped
-    case RELATIVE_RENDER_POSITION.toApp:
     // for this case we need to extend this method to take the list
     // of rendered references and search for the relation or
     // maybe search in all the logic widgets for the relation need discussions
@@ -116,7 +114,10 @@ export const validateIframeWidgetWithProps = (
   const widgetReference = widget.position.reference[breakpoint];
 
   // if the widget don't need to be render return the prev list
-  if (dimensions === null) return returnWidgetsList;
+  if (dimensions === null) {
+    return returnWidgetsList;
+  }
+
   if (
     !isValidatePositionReference(
       widget.position.relation,
@@ -124,8 +125,9 @@ export const validateIframeWidgetWithProps = (
       usedPositions,
       widgetReference
     )
-  )
+  ) {
     return returnWidgetsList;
+  }
 
   // if the widget has addons to render try to create the list of widgets
   const addonsToRender =
