@@ -1,4 +1,4 @@
-import { assign, DoneInvokeEvent, Machine, send, SingleOrArray, TransitionConfig } from 'xstate';
+import { assign, Machine } from 'xstate';
 import {
   AddonRules,
   GridPositionsInViewport,
@@ -23,6 +23,7 @@ import {
   updateWidgetRules,
   UPDATE_WIDGET_IN_STATE
 } from './actions';
+import mapAssign from './assign'
 
 export enum MachineStates {
   calculateGridDimensions = 'calculateGridDimensions',
@@ -67,8 +68,6 @@ export type WidgetsMachineCtx = {
   renderCycle: WidgetsToRenderInCtx;
 };
 
-export const errorAction = (context, event) => console.log(event.data.msg)
-
 export const genericErrorHandler = actions => {
   target: MachineStates.catchInvokeError,
   // rejected promise data is on event.data property
@@ -77,7 +76,7 @@ export const genericErrorHandler = actions => {
 };
 
 // todo: find the correct type for a error handler in xstate
-const handleInvokeError: any = genericErrorHandler(errorAction)
+const handleInvokeError: any = genericErrorHandler(mapAssign.errorAction)
 
 const widgetsMachine = (context: WidgetsMachineCtx) =>
   Machine({
@@ -107,15 +106,9 @@ const widgetsMachine = (context: WidgetsMachineCtx) =>
           onDone: {
             target: MachineStates.calculateGridDimensions,
             actions: assign({
-              widgetsIds: (_, event) => [...event.data.ids],
-              widgets: (_, event) => ({
-                ...event.data.widgets
-              }),
-              widgetsIdsToTrack: (_, event) => ({
-                forRender: event.data.forRender,
-                forUpdate: [],
-                forRemove: []
-              })
+              widgetsIds: mapAssign.setWidgetsRulesIds,
+              widgets: mapAssign.setWidgetsRulesWidgets,
+              widgetsIdsToTrack: mapAssign.setWidgetsRulesIdsToTrack
             })
           },
           onError: handleInvokeError
@@ -129,23 +122,8 @@ const widgetsMachine = (context: WidgetsMachineCtx) =>
           onDone: {
             target: MachineStates.renderWidgetsInDom,
             actions: assign({
-              widgets: (ctx: WidgetsMachineCtx, event) => ({
-                ...ctx.widgets,
-                [event.data.widget.id]: event.data.widget
-              }),
-              renderCycle: (ctx: WidgetsMachineCtx, event) => ({
-                ...ctx.renderCycle,
-                updateCycle: {
-                  render: [],
-                  widgetAddons: [],
-                  remove: event.data.requireRemove
-                    ? [event.data.widgetUpdate]
-                    : [],
-                  update: event.data.requireUpdate
-                    ? [event.data.widgetUpdate]
-                    : []
-                }
-              })
+              widgets: mapAssign.updateWidgetRulesActions,
+              renderCycle: mapAssign.updateWidgetRulesRenderCycle
             })
           },
           onError: handleInvokeError
@@ -158,18 +136,8 @@ const widgetsMachine = (context: WidgetsMachineCtx) =>
           onDone: {
             target: MachineStates.renderWidgetsInDom,
             actions: assign({
-              widgets: (_, event) => ({
-                ...event.data.widgets
-              }),
-              renderCycle: (ctx: WidgetsMachineCtx, event) => ({
-                ...ctx.renderCycle,
-                updateCycle: {
-                  render: [],
-                  widgetAddons: [],
-                  remove: event.data.remove,
-                  update: []
-                }
-              })
+              widgets: mapAssign.removeWidgetInCtxWidgets,
+              renderCycle: mapAssign.removeWidgetInCtxRenderCycle
             })
           },
           onError: handleInvokeError
@@ -183,19 +151,8 @@ const widgetsMachine = (context: WidgetsMachineCtx) =>
           onDone: {
             target: MachineStates.renderWidgetsInDom,
             actions: assign({
-              widgets: (ctx: WidgetsMachineCtx, event) => ({
-                ...ctx.widgets,
-                [event.data.widget.id]: event.data.widget
-              }),
-              renderCycle: (ctx: WidgetsMachineCtx, event) => ({
-                ...ctx.renderCycle,
-                updateCycle: {
-                  render: [],
-                  widgetAddons: event.data.addons,
-                  remove: [],
-                  update: []
-                }
-              })
+              widgets: mapAssign.addAddonsToWidgetWidgets,
+              renderCycle: mapAssign.addAddonsToWidgetRenderCycle
             })
           },
           onError: handleInvokeError
@@ -212,11 +169,11 @@ const widgetsMachine = (context: WidgetsMachineCtx) =>
           onDone: {
             target: MachineStates.reconcileWidgets,
             actions: assign({
-              viewport: (_, event) => event.data.viewport,
-              activeBreakpoint: (_, event) => event.data.label,
-              rules: (_, event) => event.data.rules,
-              positions: (_, event) => event.data.positions,
-              requireGlobalUpdate: (_, event) => event.data.requiredUpdate
+              viewport: mapAssign.calculateGridDimensionsViewport,
+              activeBreakpoint: mapAssign.calculateGridDimensionsActiveBreakpoint,
+              rules: mapAssign.calculateGridDimensionsRules,
+              positions: mapAssign.calculateGridDimensionsPositions,
+              requireGlobalUpdate: mapAssign.calculateGridDimensionsRequireGlobalUpdate
             })
           },
           onError: handleInvokeError
@@ -230,15 +187,7 @@ const widgetsMachine = (context: WidgetsMachineCtx) =>
           onDone: {
             target: MachineStates.renderWidgetsInDom,
             actions: assign({
-              renderCycle: (context: WidgetsMachineCtx, event) => ({
-                ...context.renderCycle,
-                positionsInUse: event.data.slotsInUse,
-                updateCycle: {
-                  ...context.renderCycle.updateCycle,
-                  render: event.data.widgetsToRender,
-                  widgetAddons: event.data.addonsToRender
-                }
-              })
+              renderCycle: mapAssign.reconcileWidgetsRenderCycle
             })
           }
         }
@@ -256,22 +205,8 @@ const widgetsMachine = (context: WidgetsMachineCtx) =>
           onDone: {
             actions: assign({
               requireGlobalUpdate: false,
-              widgetsIdsToTrack: () => ({
-                forRender: [],
-                forUpdate: [],
-                forRemove: []
-              }),
-              renderCycle: (context: WidgetsMachineCtx, event) => ({
-                ...context.renderCycle,
-                widgetsInDom: event.data.widgetsRef,
-                positionsInUse: context.renderCycle.positionsInUse,
-                updateCycle: {
-                  render: [],
-                  update: [],
-                  remove: [],
-                  widgetAddons: []
-                }
-              })
+              widgetsIdsToTrack: mapAssign.renderWidgetsInDomWidgetsToTrack,
+              renderCycle: mapAssign.renderWidgetsInDomRenderCycle
             })
           }
         }

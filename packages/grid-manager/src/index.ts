@@ -41,7 +41,9 @@ declare global {
   }
 }
 
+/* istanbul ignore next */
 window.grid = true;
+/* istanbul ignore next */
 window.manager = {};
 
 type TData = Boolean | Error;
@@ -80,7 +82,6 @@ export class GridManager implements GridManagerClass {
       breakpoints
     );
     // generate initial grid positions values
-
     const initialGridPositions: GridPositionsInViewport = getGridPositions(
       {
         width: window.innerWidth,
@@ -125,13 +126,13 @@ export class GridManager implements GridManagerClass {
   private _generateMachineInterpreter() {
     this.interpreter = interpret(this.widgetMachine, { devTools: true })
       .onTransition((state, event) => {
-        console.log(`in transition => event type: ${event.type}`, {
-          state,
-          event
-        });
+      //   console.log(`in transition => event type: ${event.type}`, {
+      //     state,
+      //     event
+      //   });
       })
       .onDone((state) => {
-        console.log(`reach final state`, { state });
+        // console.log(`reach final state`, { state });
       })
       .start();
 
@@ -139,10 +140,10 @@ export class GridManager implements GridManagerClass {
   }
 
   private _resizeEventCb() {
-    console.log('viewport resize', {
-      interpreter: this.interpreter,
-      width: window.innerWidth
-    });
+    // console.log('viewport resize', {
+    //   interpreter: this.interpreter,
+    //   width: window.innerWidth
+    // });
     return this.interpreter.send(
       sendViewportDimensions(window.innerWidth, window.innerHeight)
     );
@@ -152,7 +153,7 @@ export class GridManager implements GridManagerClass {
     const interpreter = this._generateMachineInterpreter();
     // if the interpreter is generated, we start the machine listener
     if (interpreter) {
-      console.log('machine start :)');
+      // console.log('machine start :)');
       // Add event listener for the resize event
       window.addEventListener(
         'resize',
@@ -242,10 +243,14 @@ export class GridManager implements GridManagerClass {
 }
 
 // create machine with initial state
+/* istanbul ignore next */
 const machine = new GridManager(widgetsMachine);
+/* istanbul ignore next */
 const widgetService = machine.start();
+/* istanbul ignore next */
 machine.renderWidgets(widgetsToRenderMock as any);
 // machine.updateWidgetRules(updateRenderedWidgetMock as any)
-
+/* istanbul ignore next */
 window.manager = machine;
+/* istanbul ignore next */
 window.updateMock = updateRenderedWidgetMock;
