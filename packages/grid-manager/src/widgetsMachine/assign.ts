@@ -82,7 +82,6 @@ const renderWidgetsInDomWidgetsToTrack = () => ({
   forUpdate: [],
   forRemove: []
 })
-
 const renderWidgetsInDomRenderCycle = (context: WidgetsMachineCtx, event) => ({
   ...context.renderCycle,
   widgetsInDom: event.data.widgetsRef,

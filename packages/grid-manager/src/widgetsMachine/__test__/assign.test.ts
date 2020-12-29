@@ -71,7 +71,7 @@ describe('map assign module', () => {
           remove: [],
           update: []
         }
-      })
+      } as any)
     })
 
     it('updateWidgetRulesRenderCycle should return a new state if model change', () => {
@@ -95,7 +95,7 @@ describe('map assign module', () => {
           remove: [{id: 1}],
           update: [{id: 1}]
         }
-      })
+      } as any)
     })
   })
 
@@ -130,7 +130,7 @@ describe('map assign module', () => {
           remove: [{id: 1}],
           update: []
         }
-      })
+      } as any)
     })
   })
 
@@ -171,7 +171,7 @@ describe('map assign module', () => {
           remove: [],
           update: []
         }
-      })
+      } as any)
     })
   })
 
@@ -234,7 +234,7 @@ describe('map assign module', () => {
           remove: [],
           update: []
         }
-      })
+      } as any)
     })
   })
 

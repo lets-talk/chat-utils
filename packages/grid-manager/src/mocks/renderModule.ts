@@ -138,6 +138,17 @@ export const frameParentRulesMock = {
   width: '200px',
 }
 
+export const frameParentRulesMockAlternativePath = {
+  top: null,
+  display: 'fixed',
+  right: null,
+  bottom: null,
+  left: null,
+  animate: true,
+  height: '200px',
+  width: '200px',
+}
+
 export const getPositionRelativeToAppRulesMock = {
   addonSize: {
     height: 100,

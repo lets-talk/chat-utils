@@ -1,4 +1,4 @@
-import { frameParentRulesMock, getPositionRelativeToAppRulesMock, getPositionRelativeToViewportRulesMock, urlSourceParamsSpec } from '../../mocks/renderModule';
+import { frameParentRulesMock, frameParentRulesMockAlternativePath, getPositionRelativeToAppRulesMock, getPositionRelativeToViewportRulesMock, urlSourceParamsSpec } from '../../mocks/renderModule';
 import * as utilsHelpers from '../utils';
 
 const mockRemoveNodeRefMock: any = jest.spyOn(utilsHelpers, 'removeNodeRef');
@@ -17,12 +17,23 @@ const generateUrlFromParamsMock: any = jest.spyOn(utilsHelpers, 'generateUrlFrom
 const generateDomElementMock: any = jest.spyOn(utilsHelpers, 'generateDomElement')
 const appendNodeToParentMock: any = jest.spyOn(utilsHelpers, 'appendNodeToParent')
 
+// mock window obj
+window = Object.assign(window, {
+  innerWidth: 500,
+  innerHeight: 500
+});
+
 describe('module: dom/utils', () => {
   beforeEach(() => {
     mockRemoveNodeRefMock.mockClear();
     elementByIdMock.mockClear();
     getElementDomPositionMock.mockClear();
     getElementPositionFixedMock.mockClear();
+    generateParentContainerMock.mockClear();
+    getPositionRelativeToAppMock.mockClear();
+    getRelativePositionToAppMock.mockClear();
+    getRelativePositionMock.mockClear();
+    getPositionRelativeToViewportMock.mockClear();
   })
 
   describe('removeNodeRef method', () => {
@@ -214,7 +225,13 @@ describe('module: dom/utils', () => {
       // right and bottom where initialized as null in the mock
       expect(result.style.right).toBe('')
       expect(result.style.bottom).toBe('')
+      expect(result.style.transition).toBe('none')
     })
+
+    it('it should handle alternative paths', () => {
+      const result = generateParentContainerMock('someClass',
+      frameParentRulesMockAlternativePath, 'ease-out')
+      expect(result.style.transition).toBe('ease-out')
   })
 
   describe('getPositionRelativeToApp method', () => {
@@ -238,6 +255,18 @@ describe('module: dom/utils', () => {
           'box-shadow': '0 -5px 10px rgba(0,0,0,.2)',
           'pointer-events': 'all'
       })
+    })
+
+    it('should handle fallbacks cases', () => {
+      const fallbackMock = {
+        ...getPositionRelativeToAppRulesMock,
+        zIndex: false,
+        elevation: false
+      }
+
+      const result = getPositionRelativeToAppMock(fallbackMock)
+      expect(result['z-index']).toBe('inherit')
+      expect(result['box-shadow']).toBe('none')
     })
   })
 
@@ -305,21 +334,98 @@ describe('module: dom/utils', () => {
         "bottom": null
       })
     })
+
+    it('For x LR and y TB should be only that two values', () => {
+      const size ={
+        width: 20,
+        height: 20,
+      }
+      const offset = {
+        x: {
+          relationType: 'LR',
+          value: 15
+        },
+        y: {
+          relationType: 'TB',
+          value: 15
+        }
+      }
+
+      const result = getRelativePositionToAppMock(size, offset as any)
+      expect(result).toStrictEqual({
+        "top": -5,
+        "right": null,
+        "left": -5,
+        "bottom": null
+      })
+    })
+
+    it('For x RL and y BT should be only that two values', () => {
+      const size ={
+        width: 20,
+        height: 20,
+      }
+      const offset = {
+        x: {
+          relationType: 'RL',
+          value: 15
+        },
+        y: {
+          relationType: 'BT',
+          value: 15
+        }
+      }
+
+      const result = getRelativePositionToAppMock(size, offset as any)
+      expect(result).toStrictEqual({
+        "top": null,
+        "right": -5,
+        "left": null,
+        "bottom": -5
+      })
+    })
+
+    it('Should handle default case', () => {
+      const size ={
+        width: 20,
+        height: 20,
+      }
+      const offset = {
+        x: {
+          relationType: 'NULL',
+          value: 15
+        },
+        y: {
+          relationType: 'NULL',
+          value: 15
+        }
+      }
+
+      const result = getRelativePositionToAppMock(size, offset as any)
+      expect(result).toStrictEqual({
+        "top": null,
+        "right": null,
+        "left": null,
+        "bottom":null
+      })
+    })
   })
 
   describe('getPositionRelativeToViewport method', () => {
+    beforeAll(() => {
+      getPositionRelativeToViewportMock.mockClear();
+    })
     it('should be called with the correct arguments', () => {
       getPositionRelativeToViewportMock(getPositionRelativeToViewportRulesMock)
       expect(getPositionRelativeToViewportMock)
         .toBeCalledWith(getPositionRelativeToViewportRulesMock)
      })
-
      it('should return the correct css props', () => {
       const result = getPositionRelativeToViewportMock(getPositionRelativeToViewportRulesMock)
       expect(result).toStrictEqual({
         border: '1px solid red',
-        bottom: '783px',
-        right: '1039px',
+        bottom: '515px',
+        right: '515px',
         position: 'fixed',
         width: '100px',
         height: '100px',
@@ -329,6 +435,24 @@ describe('module: dom/utils', () => {
         transition: 'none',
         'pointer-events': 'all'
       })
+     })
+
+     it('should handle fallback cases', () => {
+       const fallbackMock = {
+         ...getPositionRelativeToViewportRulesMock,
+         fullSize: true,
+         borderRadius: false,
+         zIndex: false,
+         animate: 'ease-out',
+         elevation: false
+      }
+      const result = getPositionRelativeToViewportMock(fallbackMock)
+      expect(result.width).toBe('500px')
+      expect(result.height).toBe('500px')
+      expect(result.top).toBe(0)
+      expect(result.left).toBe(0)
+      expect(result['border-radius']).toBe('none')
+      expect(result.transition).toBe('ease-out')
      })
   })
 
@@ -374,9 +498,9 @@ describe('module: dom/utils', () => {
 
       const result = getRelativePositionMock(rect, offset as any)
       expect(result).toStrictEqual({
-        "bottom": 763,
+        "bottom": 495,
         "left": null,
-        "right": 1019,
+        "right": 495,
         "top": null})
     })
 
@@ -405,6 +529,88 @@ describe('module: dom/utils', () => {
         "left": 35,
         "bottom": null
       })
+    })
+
+
+    it('For x lr and y tb should be only that two values', () => {
+      const rect ={
+        left: 20,
+        top: 20,
+        right: 0,
+        bottom: 0
+      }
+      const offset = {
+        x: {
+          relationType: 'LR',
+          value: 15
+        },
+        y: {
+          relationType: 'TB',
+          value: 15
+        }
+      }
+
+      const result = getRelativePositionMock(rect, offset as any)
+      expect(result).toStrictEqual({
+        "top": 15,
+        "right": null,
+        "left": 15,
+        "bottom": null
+      })
+    })
+  })
+
+  it('For x rl and y bt should be only that two values', () => {
+    const rect ={
+      left: 20,
+      top: 20,
+      right: 0,
+      bottom: 0
+    }
+    const offset = {
+      x: {
+        relationType: 'RL',
+        value: 15
+      },
+      y: {
+        relationType: 'BT',
+        value: 15
+      }
+    }
+
+    const result = getRelativePositionMock(rect, offset as any)
+    expect(result).toStrictEqual({
+      "top": null,
+      "right": 495,
+      "left": null,
+      "bottom": 495
+    })
+  })
+
+  it('should handle default case', () => {
+    const rect ={
+      left: 20,
+      top: 20,
+      right: 0,
+      bottom: 0
+    }
+    const offset = {
+      x: {
+        relationType: 'NULL',
+        value: 15
+      },
+      y: {
+        relationType: 'NULL',
+        value: 15
+      }
+    }
+
+    const result = getRelativePositionMock(rect, offset as any)
+    expect(result).toStrictEqual({
+      "top": null,
+      "right": null,
+      "left": null,
+      "bottom": null
     })
   })
 
