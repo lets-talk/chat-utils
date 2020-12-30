@@ -63,11 +63,10 @@ export const createWindowBlankWidget = (
   size: WidgetSize,
   windowName = 'popup',
   windowFeatures = 'scrollbars=no,resizable=no',
-  open = window.open
 ): Window | Error => {
   const url = generateUrlFromParams(urlParams);
   try {
-    return open(
+    return window.open(
       url.href,
       `${id}-${windowName}`,
       `width=${size.width},height=${size.height},${windowFeatures}`
@@ -136,7 +135,7 @@ export const createIframeWidget = (
     borderRadius: serializeBorderRadius(borderRadius, false) as boolean
   });
 
-  console.log({ positionAtRender: framePosition });
+  // console.log({ positionAtRender: framePosition });
 
   if (!framePosition) {
     throw new Error('invalid position');
@@ -291,7 +290,7 @@ export const appendWidgetAddonToRef = (
     elevation
   });
 
-  console.log({ positionAtAddon: framePosition });
+  // console.log({ positionAtAddon: framePosition });
   const containerElClass = `lt-addon_app__frame-${id}`;
   const containerEl = generateDomElement(
     containerElClass,
@@ -358,7 +357,7 @@ export const updateWidgetElement = (
     borderRadius: serializeBorderRadius(borderRadius, false) as boolean
   });
 
-  console.log({ positionAtUpdate: framePosition });
+  // console.log({ positionAtUpdate: framePosition });
 
   if (!framePosition) {
     throw new Error('invalid resizing or positions props');

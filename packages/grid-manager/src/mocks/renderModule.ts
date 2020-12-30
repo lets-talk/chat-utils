@@ -204,3 +204,83 @@ export const getPositionRelativeToViewportRulesMock = {
   elevation: 1,
   animate: false
 }
+
+export const createIframeWidgetMock = {
+  id: 'test',
+  urlParams: urlSourceParamsSpec,
+  position: {
+    relation: 'relative-to-viewport',
+    reference: 'top',
+    element: null,
+    display: 'fixed'
+  },
+  dimensions: {
+    fullSize: false,
+    animate: true,
+    elevation: 2,
+    styles: null,
+    borderRadius: '10px 10px 0 0',
+    size: {
+      width: 460,
+      height: 560
+    },
+    offset: {
+      x: {
+        relationType: 'RR',
+        value: 15
+      },
+      y: {
+        relationType: 'BB',
+        value: 0
+      }
+    }
+  },
+  iframeType: 'lt-basic-container-multimedia',
+  kind: 'iframe',
+  viewportPositions: {
+    tileSize: {
+      width: 100,
+      height: 100
+    },
+    positions: {
+      top: {left: 0, top: 0, right: 0, bottom: 0},
+      mid: {left: 0, top: 0, right: 0, bottom: 0},
+      bottom: {left: 0, top: 0, right: 0, bottom: 0}
+    },
+    availablePosition: 3
+  }
+}
+
+export const appendWidgetAddonToRefMock = {
+  addonWidget: {
+    ...widgetToRenderSpec,
+    kind: 'iframe',
+  },
+  parentWidgetId: 'parent',
+  widgetRefs: [{
+    id: 'parent',
+    iframe: 'iframe-class',
+    container: 'container-class',
+    parent: 'parent-class',
+    ref: () => {}
+  }]
+}
+
+export const updateWidgetElementMock = {
+  widget: {
+    ...widgetToRenderSpec,
+    dimension: widgetToRenderSpec.dimensions
+  },
+  viewportPositions: {
+    tileSize: {
+      width: 100,
+      height: 100
+    },
+    positions: {
+      top: {left: 0, top: 0, right: 0, bottom: 0},
+      mid: {left: 0, top: 0, right: 0, bottom: 0},
+      bottom: {left: 0, top: 0, right: 0, bottom: 0}
+    },
+    availablePosition: 3
+  }
+}
