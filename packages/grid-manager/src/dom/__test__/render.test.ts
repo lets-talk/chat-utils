@@ -426,15 +426,20 @@ describe('module: dom/render', () => {
   })
 
   describe('method: updateWidgetElement', () => {
+    beforeAll(() => {
+      mockMakePositionStrategy.mockClear()
+      mockMakePositionStrategy.mockClear()
+    })
     it('should be called with the correct arguments', () => {
       const { widget, viewportPositions } = updateWidgetElementMock
+
       mockMakePositionStrategy.mockImplementationOnce(() => ({
         border: '1px solid red',
-        bottom: '515px',
-        right: '515px',
+        bottom: '10px',
+        right: '10px',
         position: 'fixed',
-        width: '100px',
-        height: '100px',
+        width: '150px',
+        height: '150px',
         'z-index': '9999',
         'border-radius': '10px',
         'box-shadow': '0 -5px 10px rgba(0,0,0,.2)',
@@ -442,12 +447,12 @@ describe('module: dom/render', () => {
         'pointer-events': 'all'
       }))
 
-      renderHelpers.updateWidgetElement(
-        widget as any,
-        viewportPositions as any
-      )
-
-      expect(updateWidgetElementSpy).toBeCalledWith(widget, viewportPositions)
+      renderHelpers.updateWidgetElement({
+        ...widget, position: {...widget.position, relation: 'invalid'}
+      } as any, viewportPositions as any)
+      expect(updateWidgetElementSpy).toBeCalledWith({
+        ...widget, position: {...widget.position, relation: 'invalid'}
+      } , viewportPositions)
     })
 
     it('should throw an error if framePosition is invalid', () => {
@@ -497,27 +502,53 @@ describe('module: dom/render', () => {
         )
       } catch(e) {
         expect(updateWidgetElementSpy).toThrowError()
-        expect(e.message).toBe(`TypeError: Cannot read property 'iframe' of undefined`)
+        expect(e.message).toBe(`Error: Can not find the dom element with id: iframe-class`)
       }
     })
 
-    it('', () => {
-      // updateWidgetElementSpy(
-      //   {
-      //     ...widget,
-      //     position: {
-      //       relation: 'relative-to-viewport',
-      //       reference: {
-      //         web: 'bottom-right',
-      //         tablet: 'bottom-left',
-      //         mobile: 'bottom'
-      //       },
-      //       element: null,
-      //       display: 'fixed'
-      //     }
-      //   },
-      //   viewportPositions
-      // )
+    it('should try to update the iframe and parent dom nodes with the new props', () => {
+      const { widget, viewportPositions } = updateWidgetElementMock
+      const iframeEL =  document.createElement('div');
+      const containerEl =  document.createElement('div');
+      const parentEL =  document.createElement('div');
+
+      iframeEL.id = 'iframe-class'
+      containerEl.id = 'container-class'
+      parentEL.id = 'parent-class'
+
+      elementByIdSpy
+        .mockImplementation((id) => {
+          switch(id) {
+            case 'iframe-class':
+              return iframeEL
+            case 'container-class':
+              return containerEl
+            case 'parent-class':
+              return parentEL
+          }
+        })
+
+      mockMakePositionStrategy.mockImplementationOnce(() => ({
+        border: '1px solid red',
+        bottom: '10px',
+        right: '10px',
+        position: 'fixed',
+        width: '150px',
+        height: '150px',
+        'z-index': '9999',
+        'border-radius': '10px',
+        'box-shadow': '0 -5px 10px rgba(0,0,0,.2)',
+        transition: 'none',
+        'pointer-events': 'all'
+      }))
+
+      updateWidgetElementSpy({...widget}, viewportPositions)
+
+      expect(parentEL.style.height).toBe('150px')
+      expect(parentEL.style.width).toBe('150px')
+      expect(parentEL.style.bottom).toBe('10px')
+      expect(parentEL.style.right).toBe('10px')
     })
+
   })
 })

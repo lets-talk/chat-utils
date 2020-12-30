@@ -268,8 +268,42 @@ export const appendWidgetAddonToRefMock = {
 
 export const updateWidgetElementMock = {
   widget: {
-    ...widgetToRenderSpec,
-    dimension: widgetToRenderSpec.dimensions
+    id: 'test',
+    isFullSize: false,
+    ref: {
+      id: 'parent',
+      iframe: 'iframe-class',
+      container: 'container-class',
+      parent: 'parent-class',
+      ref: () => {}
+    },
+    position: {
+      relation: 'relative-to-viewport',
+      reference: 'top',
+      element: null,
+      display: 'fixed'
+    },
+    dimension: {
+      fullSize: false,
+      animate: true,
+      elevation: 2,
+      styles: null,
+      borderRadius: '10px 10px 0 0',
+      size: {
+        width: 460,
+        height: 560
+      },
+      offset: {
+        x: {
+          relationType: 'RR',
+          value: 15
+        },
+        y: {
+          relationType: 'BB',
+          value: 0
+        }
+      }
+    }
   },
   viewportPositions: {
     tileSize: {
