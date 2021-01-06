@@ -46,7 +46,7 @@ describe('module: dom/utils', () => {
 
     it('should be throw a error if the HTMLElement is not valid', () => {
       const result = mockRemoveNodeRefMock({
-        remove: () => {throw new Error("error")}
+        remove: () => { throw new Error("error") }
       })
       expect(result).toStrictEqual(Error("error"))
     })
@@ -54,7 +54,7 @@ describe('module: dom/utils', () => {
 
   describe('elementById method', () => {
     it('should be called with with a HTMLElement', () => {
-      const el =  document.createElement('div');
+      const el = document.createElement('div');
       el.setAttribute('id', 'node');
 
       const mockDocument = {
@@ -68,7 +68,7 @@ describe('module: dom/utils', () => {
         const result = elementByIdMock('node', mockDocument)
         expect(elementByIdMock).toBeCalled()
         expect(elementByIdMock).toHaveBeenCalledWith('node', mockDocument)
-      } catch(e) {}
+      } catch (e) { }
     })
 
     it('should throw an error if the element it doesn`t exit ', async () => {
@@ -84,7 +84,7 @@ describe('module: dom/utils', () => {
 
       try {
         elementByIdMock('otherId', mockDocument)
-      } catch(e) {
+      } catch (e) {
         expect(e).toStrictEqual(Error('Can not find the dom element with id: otherId'))
       }
     })
@@ -105,7 +105,7 @@ describe('module: dom/utils', () => {
 
     it('It should return the correct dimensions ', () => {
       const result = getElementDomPositionMock('someIds')
-      expect(result).toEqual({"bottom": 0, "height": 0, "left": 0, "right": 0, "top": 0, "width": 0})
+      expect(result).toEqual({ "bottom": 0, "height": 0, "left": 0, "right": 0, "top": 0, "width": 0 })
     })
   })
 
@@ -123,7 +123,7 @@ describe('module: dom/utils', () => {
 
     it('It should return the correct dimensions ', () => {
       const result = getElementPositionFixedMock('someIds')
-      expect(result).toEqual({"bottom": 0, "height": 0, "left": 0, "right": 0, "top": 0, "width": 0})
+      expect(result).toEqual({ "bottom": 0, "height": 0, "left": 0, "right": 0, "top": 0, "width": 0 })
     })
   })
 
@@ -135,14 +135,14 @@ describe('module: dom/utils', () => {
       elementByIdMock.mockImplementationOnce(mockElementById)
     })
 
-    it('It should be called with the correct arguments', ()  => {
-      getElementPositionDefaultMock('someIds', {scrollY: 100, scrollX: 100})
+    it('It should be called with the correct arguments', () => {
+      getElementPositionDefaultMock('someIds', { scrollY: 100, scrollX: 100 })
       expect(mockElementById).toHaveBeenCalledWith('someIds')
     })
 
     it('It should return the correct dimensions ', () => {
-      const result = getElementPositionDefaultMock('someIds', {scrollY: 100, scrollX: 100})
-      expect(result).toEqual({"bottom": 0, "left": 100, "right": 0, "top": 100})
+      const result = getElementPositionDefaultMock('someIds', { scrollY: 100, scrollX: 100 })
+      expect(result).toEqual({ "bottom": 0, "left": 100, "right": 0, "top": 100 })
     })
   })
 
@@ -215,7 +215,7 @@ describe('module: dom/utils', () => {
 
     it('it should return a dom node with the passed rules', () => {
       const result = generateParentContainerMock('someClass',
-      frameParentRulesMock, null)
+        frameParentRulesMock, null)
 
       expect(result.style.position).toBe(frameParentRulesMock.display)
       expect(result.style.width).toBe(frameParentRulesMock.width)
@@ -230,8 +230,9 @@ describe('module: dom/utils', () => {
 
     it('it should handle alternative paths', () => {
       const result = generateParentContainerMock('someClass',
-      frameParentRulesMockAlternativePath, 'ease-out')
+        frameParentRulesMockAlternativePath, 'ease-out')
       expect(result.style.transition).toBe('ease-out')
+    })
   })
 
   describe('getPositionRelativeToApp method', () => {
@@ -244,16 +245,16 @@ describe('module: dom/utils', () => {
       const result = getPositionRelativeToAppMock(getPositionRelativeToAppRulesMock)
 
       expect(result).toMatchObject({
-          bottom: '-115px',
-          right: '-115px',
-          position: 'absolute',
-          width: '100px',
-          height: '100px',
-          border: '1px solid red',
-          'z-index': '9999',
-          'border-radius': '10px',
-          'box-shadow': '0 -5px 10px rgba(0,0,0,.2)',
-          'pointer-events': 'all'
+        bottom: '-115px',
+        right: '-115px',
+        position: 'absolute',
+        width: '100px',
+        height: '100px',
+        border: '1px solid red',
+        'z-index': '9999',
+        'border-radius': '10px',
+        'box-shadow': '0 -5px 10px rgba(0,0,0,.2)',
+        'pointer-events': 'all'
       })
     })
 
@@ -272,7 +273,7 @@ describe('module: dom/utils', () => {
 
   describe('getRelativePositionToApp method', () => {
     it('it should be called with the correct number of arguments', () => {
-      const size ={
+      const size = {
         width: 100,
         height: 100,
       }
@@ -291,7 +292,7 @@ describe('module: dom/utils', () => {
     })
 
     it('For x rr and y bb should be only that two values', () => {
-      const size ={
+      const size = {
         width: 20,
         height: 20,
       }
@@ -307,11 +308,11 @@ describe('module: dom/utils', () => {
       }
 
       const result = getRelativePositionToAppMock(size, offset as any)
-      expect(result).toStrictEqual({"bottom": -35, "left": null, "right": -35, "top": null})
+      expect(result).toStrictEqual({ "bottom": -35, "left": null, "right": -35, "top": null })
     })
 
     it('For x ll and y tt should be only that two values', () => {
-      const size ={
+      const size = {
         width: 20,
         height: 20,
       }
@@ -336,7 +337,7 @@ describe('module: dom/utils', () => {
     })
 
     it('For x LR and y TB should be only that two values', () => {
-      const size ={
+      const size = {
         width: 20,
         height: 20,
       }
@@ -361,7 +362,7 @@ describe('module: dom/utils', () => {
     })
 
     it('For x RL and y BT should be only that two values', () => {
-      const size ={
+      const size = {
         width: 20,
         height: 20,
       }
@@ -386,7 +387,7 @@ describe('module: dom/utils', () => {
     })
 
     it('Should handle default case', () => {
-      const size ={
+      const size = {
         width: 20,
         height: 20,
       }
@@ -406,7 +407,7 @@ describe('module: dom/utils', () => {
         "top": null,
         "right": null,
         "left": null,
-        "bottom":null
+        "bottom": null
       })
     })
   })
@@ -419,8 +420,8 @@ describe('module: dom/utils', () => {
       getPositionRelativeToViewportMock(getPositionRelativeToViewportRulesMock)
       expect(getPositionRelativeToViewportMock)
         .toBeCalledWith(getPositionRelativeToViewportRulesMock)
-     })
-     it('should return the correct css props', () => {
+    })
+    it('should return the correct css props', () => {
       const result = getPositionRelativeToViewportMock(getPositionRelativeToViewportRulesMock)
       expect(result).toStrictEqual({
         border: '1px solid red',
@@ -435,16 +436,16 @@ describe('module: dom/utils', () => {
         transition: 'none',
         'pointer-events': 'all'
       })
-     })
+    })
 
-     it('should handle fallback cases', () => {
-       const fallbackMock = {
-         ...getPositionRelativeToViewportRulesMock,
-         fullSize: true,
-         borderRadius: false,
-         zIndex: false,
-         animate: 'ease-out',
-         elevation: false
+    it('should handle fallback cases', () => {
+      const fallbackMock = {
+        ...getPositionRelativeToViewportRulesMock,
+        fullSize: true,
+        borderRadius: false,
+        zIndex: false,
+        animate: 'ease-out',
+        elevation: false
       }
       const result = getPositionRelativeToViewportMock(fallbackMock)
       expect(result.width).toBe('500px')
@@ -453,12 +454,12 @@ describe('module: dom/utils', () => {
       expect(result.left).toBe(0)
       expect(result['border-radius']).toBe('none')
       expect(result.transition).toBe('ease-out')
-     })
+    })
   })
 
   describe('getRelativePosition method', () => {
     it('it should be called with the correct number of arguments', () => {
-      const rect ={
+      const rect = {
         left: 100,
         bottom: 100,
         right: 100,
@@ -479,7 +480,7 @@ describe('module: dom/utils', () => {
     })
 
     it('For x rr and y bb should be only that two values', () => {
-      const rect ={
+      const rect = {
         left: 0,
         top: 0,
         right: 20,
@@ -501,11 +502,12 @@ describe('module: dom/utils', () => {
         "bottom": 495,
         "left": null,
         "right": 495,
-        "top": null})
+        "top": null
+      })
     })
 
     it('For x ll and y tt should be only that two values', () => {
-      const rect ={
+      const rect = {
         left: 20,
         top: 20,
         right: 0,
@@ -533,7 +535,7 @@ describe('module: dom/utils', () => {
 
 
     it('For x lr and y tb should be only that two values', () => {
-      const rect ={
+      const rect = {
         left: 20,
         top: 20,
         right: 0,
@@ -561,7 +563,7 @@ describe('module: dom/utils', () => {
   })
 
   it('For x rl and y bt should be only that two values', () => {
-    const rect ={
+    const rect = {
       left: 20,
       top: 20,
       right: 0,
@@ -588,7 +590,7 @@ describe('module: dom/utils', () => {
   })
 
   it('should handle default case', () => {
-    const rect ={
+    const rect = {
       left: 20,
       top: 20,
       right: 0,

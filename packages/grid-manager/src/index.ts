@@ -62,13 +62,13 @@ interface GridManagerClass {
   ) => Promise<TData>;
 }
 
-export class GridManager implements GridManagerClass {
+export default class GridManager implements GridManagerClass {
   interpreter: null | Interpreter<any>;
   widgetMachine: null | StateMachine<any, any, any>;
 
   constructor(
     machine: (state: WidgetsMachineCtx) => StateMachine<any, any, any>,
-    state?: WidgetsMachineCtx
+    state?: WidgetsMachineCtx,
   ) {
     this.interpreter = null;
     this.widgetMachine = machine(state ? state : this._generateFirstState());
@@ -125,25 +125,20 @@ export class GridManager implements GridManagerClass {
 
   private _generateMachineInterpreter() {
     this.interpreter = interpret(this.widgetMachine, { devTools: true })
-      .onTransition((state, event) => {
-      //   console.log(`in transition => event type: ${event.type}`, {
-      //     state,
-      //     event
-      //   });
-      })
-      .onDone((state) => {
-        // console.log(`reach final state`, { state });
-      })
+      // .onTransition((state, event) => {
+      //   // todo add log service
+      //   // event type: ${event.type}`
+      // })
+      // .onDone((state) => {
+      //   // todo add log service
+      //   // `reach final state`, { state }
+      // })
       .start();
 
     return this.interpreter.initialized ? this.interpreter.initialized : false;
   }
 
   private _resizeEventCb() {
-    // console.log('viewport resize', {
-    //   interpreter: this.interpreter,
-    //   width: window.innerWidth
-    // });
     return this.interpreter.send(
       sendViewportDimensions(window.innerWidth, window.innerHeight)
     );
@@ -153,7 +148,6 @@ export class GridManager implements GridManagerClass {
     const interpreter = this._generateMachineInterpreter();
     // if the interpreter is generated, we start the machine listener
     if (interpreter) {
-      // console.log('machine start :)');
       // Add event listener for the resize event
       window.addEventListener(
         'resize',
@@ -190,10 +184,6 @@ export class GridManager implements GridManagerClass {
   renderWidgets(widgets: WidgetRules[]) {
     try {
       this.interpreter.send(sendWidgetsIntoMachine(widgets));
-      // we can improve this because tracking the onDone interpreter
-      // this.interpreter.onDone(state => {
-      // return Promise.resolve(true)
-      // })
       return Promise.resolve(true);
     } catch (e) {
       return Promise.reject(new Error(e));
@@ -203,10 +193,6 @@ export class GridManager implements GridManagerClass {
   updateWidgetRules(widget: UpdateWidgetRules) {
     try {
       this.interpreter.send(sendUpdateToWidget(widget));
-      // we can improve this because tracking the onDone interpreter
-      // this.interpreter.onDone(state => {
-      // return Promise.resolve(true)
-      // })
       return Promise.resolve(true);
     } catch (e) {
       return Promise.reject(new Error(e));
@@ -218,10 +204,6 @@ export class GridManager implements GridManagerClass {
       this.interpreter.send(
         extendParentWidgetWithAddons(widgetId, widgetAddons)
       );
-      // we can improve this because tracking the onDone interpreter
-      // this.interpreter.onDone(state => {
-      // return Promise.resolve(true)
-      // })
       return Promise.resolve(true);
     } catch (e) {
       return Promise.reject(new Error(e));
@@ -231,10 +213,6 @@ export class GridManager implements GridManagerClass {
   removeWidget(widgetId) {
     try {
       this.interpreter.send(removeWidget(widgetId));
-      // we can improve this because tracking the onDone interpreter
-      // this.interpreter.onDone(state => {
-      // return Promise.resolve(true)
-      // })
       return Promise.resolve(true);
     } catch (e) {
       return Promise.reject(new Error(e));
@@ -242,15 +220,15 @@ export class GridManager implements GridManagerClass {
   }
 }
 
-// create machine with initial state
-/* istanbul ignore next */
-const machine = new GridManager(widgetsMachine);
-/* istanbul ignore next */
-const widgetService = machine.start();
-/* istanbul ignore next */
-machine.renderWidgets(widgetsToRenderMock as any);
-// machine.updateWidgetRules(updateRenderedWidgetMock as any)
-/* istanbul ignore next */
-window.manager = machine;
-/* istanbul ignore next */
-window.updateMock = updateRenderedWidgetMock;
+// // create machine with initial state
+// /* istanbul ignore next */
+// const machine = new GridManager(widgetsMachine);
+// /* istanbul ignore next */
+// const widgetService = machine.start();
+// /* istanbul ignore next */
+// machine.renderWidgets(widgetsToRenderMock as any);
+// // machine.updateWidgetRules(updateRenderedWidgetMock as any)
+// /* istanbul ignore next */
+// window.manager = machine;
+// /* istanbul ignore next */
+// window.updateMock = updateRenderedWidgetMock;

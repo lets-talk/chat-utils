@@ -11,8 +11,8 @@ module.exports = {
     "html"
   ],
   collectCoverageFrom: [
-    "**/src/*.{js,jsx,ts,tsx}",
-    "**/src/**/*.{js,jsx,ts,tsx}",
+    "**/src/**/*.{ts,tsx}",
+    "!**/src/index.ts",
     "!**/node_modules/**",
     "!**/vendor/**",
     "!**/dist/**",
