@@ -2,6 +2,16 @@
 
 Microbundle includes two commands - `build` (the default) and `watch`. Neither require any options, but you can tailor things to suit your needs a bit if you like.
 
+### How to **use**
+```
+const machine = new GridManager();
+// in case of want to observe the state machine
+const widgetService = machine.start();
+// start using the class
+machine.renderWidgets({...widgets settings});
+machine.updateWidgetRules({...widgets to update})
+```
+
 ### `xstate`
 
 Something amazing about `xState` is that you can visualize the machine definition and behavior whiteout need to understand the real code implementation 🎉

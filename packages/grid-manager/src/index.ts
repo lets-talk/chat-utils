@@ -1,11 +1,7 @@
 import {
   WidgetRules,
-  WidgetDimensionsList,
   GridPositionsInViewport,
   GridSettings,
-  ReferenceToGridPosition,
-  relationTypeY,
-  relationTypeX,
   UpdateWidgetRules,
   AddonRules
 } from './types';
@@ -22,10 +18,6 @@ import {
   removeWidget,
   extendParentWidgetWithAddons
 } from './widgetsMachine/actions';
-import {
-  updateRenderedWidgetMock,
-  widgetsToRenderMock
-} from './mocks/widgetRules';
 import {
   breakpoints,
   getGridPositions,
@@ -67,11 +59,13 @@ export default class GridManager implements GridManagerClass {
   widgetMachine: null | StateMachine<any, any, any>;
 
   constructor(
-    machine: (state: WidgetsMachineCtx) => StateMachine<any, any, any>,
+    machine?: (state: WidgetsMachineCtx) => StateMachine<any, any, any>,
     state?: WidgetsMachineCtx,
   ) {
     this.interpreter = null;
-    this.widgetMachine = machine(state ? state : this._generateFirstState());
+    this.widgetMachine = machine ?
+      machine(state ? state : this._generateFirstState()) :
+      widgetsMachine(state ? state : this._generateFirstState());
   }
 
   private _generateFirstState() {
@@ -219,16 +213,3 @@ export default class GridManager implements GridManagerClass {
     }
   }
 }
-
-// // create machine with initial state
-// /* istanbul ignore next */
-// const machine = new GridManager(widgetsMachine);
-// /* istanbul ignore next */
-// const widgetService = machine.start();
-// /* istanbul ignore next */
-// machine.renderWidgets(widgetsToRenderMock as any);
-// // machine.updateWidgetRules(updateRenderedWidgetMock as any)
-// /* istanbul ignore next */
-// window.manager = machine;
-// /* istanbul ignore next */
-// window.updateMock = updateRenderedWidgetMock;
