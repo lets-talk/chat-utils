@@ -44,7 +44,7 @@ type StateData = WidgetsMachineCtx;
 interface GridManagerProps {
   start: () => Interpreter<any> | Error;
   stop: () => TData;
-  getState: () => StateData | Error;
+  getState: () => StateData;
   renderWidgets: (widgets: WidgetRules[]) => Promise<TData>;
   updateWidgetRules: (widget: UpdateWidgetRules) => Promise<TData>;
   removeWidget: (widgetId: string) => Promise<TData>;
@@ -168,11 +168,7 @@ class GridManager implements GridManagerProps {
   }
 
   getState() {
-    try {
-      return this.interpreter.state.context as StateData;
-    } catch (e) {
-      return new Error(e);
-    }
+    return this.interpreter.state.context as StateData;
   }
 
   renderWidgets(widgets: WidgetRules[]) {
