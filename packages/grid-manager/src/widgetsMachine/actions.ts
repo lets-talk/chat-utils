@@ -319,7 +319,7 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
     return renderWidgetElement(widget, context.positions) as any;
   });
 
-  const addonsRef = updateCycle.widgetAddons.map(
+  const addonsRef = updateCycle.widgetAddons ? updateCycle.widgetAddons.map(
     (addonWidget: WidgetToRender) => {
       // is the referent can't be founded throw an error
       // todo: we should move this to the reconcile flow
@@ -337,7 +337,7 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
         [...widgetsInDom, ...widgetsRef]
       );
     }
-  );
+  ) : [];
 
   const hasNewReferences = !!widgetsRef.length || !!addonsRef.length;
 

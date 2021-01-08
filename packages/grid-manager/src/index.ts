@@ -41,7 +41,7 @@ window.manager = {};
 type TData = Boolean | Error;
 type StateData = WidgetsMachineCtx;
 
-export interface GridManager {
+interface GridManagerProps {
   start: () => Interpreter<any> | Error;
   stop: () => TData;
   getState: () => StateData | Error;
@@ -54,7 +54,7 @@ export interface GridManager {
   ) => Promise<TData>;
 }
 
-export default class ModuleExport implements GridManager {
+class GridManager implements GridManagerProps {
   interpreter: null | Interpreter<any>;
   widgetMachine: null | StateMachine<any, any, any>;
 
@@ -169,7 +169,7 @@ export default class ModuleExport implements GridManager {
 
   getState() {
     try {
-      return this.widgetMachine.context as StateData;
+      return this.interpreter.state.context as StateData;
     } catch (e) {
       return new Error(e);
     }
@@ -213,3 +213,9 @@ export default class ModuleExport implements GridManager {
     }
   }
 }
+
+export { GridManager }
+// const machine = new GridManager()
+// machine.start()
+// window.manager = machine
+// export default GridManager
