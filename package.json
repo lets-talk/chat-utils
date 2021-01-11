@@ -3,9 +3,10 @@
     "@types/jest": "^24.0.0",
     "jest": "^23.4.2",
     "lerna": "^3.0.0-rc.0",
+    "microbundle": "^0.12.3",
+    "ts-jest": "^24.0.0",
     "tslint": "^5.11.0",
-    "typescript": "^3.0.1",
-    "ts-jest": "^24.0.0"
+    "typescript": "^3.0.1"
   },
   "private": true,
   "scripts": {
@@ -15,7 +16,8 @@
     "publish": "lerna publish --c --yes",
     "docs": "docsify serve docs --port 3333"
   },
-  "workspaces": [
-    "packages/*"
-  ]
+  "workspaces": {
+    "packages": ["packages/*"],
+    "nohoist": ["**/typescript", "**/eslint", "**/prettier", "**/microbundle", "**/xstate", "**/webpack", "**/lodash"]
+  }
 }
