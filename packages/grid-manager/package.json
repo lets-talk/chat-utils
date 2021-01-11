@@ -2,12 +2,16 @@
   "name": "@lets-talk/lt-grid-manager",
   "version": "0.1.0",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "main": "dist/grid-manager.js",
   "module": "dist/grid-manager.module.js",
   "unpkg": "dist/grid-manager.umd.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
+    "prepublishOnly": "microbundle --external=none",
     "install-isolate": "yarn --pure-lockfile",
     "build": "microbundle --external=none",
     "dev": "microbundle --external=none watch ",
