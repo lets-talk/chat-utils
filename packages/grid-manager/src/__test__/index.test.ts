@@ -1,5 +1,5 @@
 // const GridManager: any = require('../index')
-import GridManager from '../index'
+import { GridManager } from '../index'
 jest.mock('../index')
 
 declare global {
