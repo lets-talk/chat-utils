@@ -5,6 +5,83 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LT-Proxy-Channels</title>
+    <script>
+      var remount_widget = [
+        {
+          id: 'app-1',
+          extra: {
+            slug: 'bci',
+            params: null
+          },
+          iframeType: 'lt-basic-container-multimedia',
+          src: 'https://www.yofla.com/black-screen/',
+          kind: 'iframe',
+          addons: [],
+          position: {
+            relation: 'relative-to-viewport',
+            reference: {
+              web: 'bottom-right',
+              tablet: 'bottom-left',
+              mobile: 'bottom'
+            },
+            element: null,
+            display: 'fixed'
+          },
+          dimensions: {
+            tablet: {
+              zIndex: 9999,
+              borderRadius: '10px 10px 0 0',
+              fullSize: false,
+              animate: true,
+              elevation: 2,
+              styles: null,
+              size: {
+                width: 360,
+                height: 460
+              },
+              offset: {
+                x: {
+                  relationType: 'LL',
+                  value: 15
+                },
+                y: {
+                  relationType: 'BB',
+                  value: 0
+                }
+              }
+            },
+            web: {
+              fullSize: false,
+              animate: true,
+              elevation: 2,
+              styles: null,
+              borderRadius: '10px 10px 0 0',
+              size: {
+                width: 460,
+                height: 560
+              },
+              offset: {
+                x: {
+                  relationType: 'RR',
+                  value: 15
+                },
+                y: {
+                  relationType: 'BB',
+                  value: 1
+                }
+              }
+            },
+            mobile: null
+          }
+        },
+      ];
+
+      function remountWidget() {
+        if(window.manager) {
+          window.manager.renderWidgets(remount_widget)
+        }
+      }
+    </script>
     <style>
       #box-1 {
         border: 1px solid black;
@@ -40,7 +117,7 @@
     <div id="box-2"></div>
     <div>
       <button id="left-case">left-case</button>
-      <button id="right-case">right-case</button>
+      <button id="right-case" onclick="remountWidget()">re-mount right widget</button>
       <div id="content">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum tempora unde quidem? Quasi veritatis nobis vitae facere excepturi, cum voluptate, doloribus magnam ea id voluptatibus. Natus commodi debitis adipisci explicabo!</p>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum tempora unde quidem? Quasi veritatis nobis vitae facere excepturi, cum voluptate, doloribus magnam ea id voluptatibus. Natus commodi debitis adipisci explicabo!</p>
