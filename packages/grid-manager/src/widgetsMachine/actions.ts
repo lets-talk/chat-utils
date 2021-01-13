@@ -147,7 +147,7 @@ export const setWidgetsRules = (
     }
   );
 
-  const ids = [...context.widgetsIds, ...widgetsParsed.ids];
+  const ids = [...widgetsIds, ...widgetsParsed.ids];
   const mergeIds = uniq(ids)
   // if the length differ we try to write the same widget to time
   // By design I don't want to trow an error and only log (always last set wins)

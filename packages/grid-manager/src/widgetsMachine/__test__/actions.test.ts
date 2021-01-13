@@ -181,7 +181,8 @@ describe('Actions machine module', () => {
     it('should be called with the correct arguments', () => {
       const context = {
         widgetsIds: [],
-        widgets: {}
+        widgets: {},
+        renderCycle: {widgetsInDom: []}
       }
       const event = {type: '', widgets:[{}] }
       setWidgetsRulesSpy(context, event)
@@ -205,7 +206,8 @@ describe('Actions machine module', () => {
     it('should log duplicated keys', async () => {
       const context = {
         widgetsIds: [1,2,3,4],
-        widgets: {}
+        widgets: {},
+        renderCycle: {widgetsInDom: []}
       }
       const event = {type: '', widgets:[{
         id: 2,
@@ -218,7 +220,8 @@ describe('Actions machine module', () => {
     it('should return a valid widget model', async () => {
       const context = {
         widgetsIds: [1],
-        widgets: {}
+        widgets: {},
+        renderCycle: {widgetsInDom: []}
       }
       const event = {type: '', widgets:[{
         id: 2,
