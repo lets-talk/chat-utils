@@ -145,7 +145,7 @@ export const getPositionRelativeToApp = (props: RelativeAppPositionProps) => {
   const relativePosition = getRelativePositionToApp(addonSize, offset);
   const transformToCssKey = reduce(
     relativePosition,
-    (acc, val, key) => (!!val ? { ...acc, [key]: `${val}px` } : acc),
+    (acc, val, key) => (val !== null ? { ...acc, [key]: `${val}px` } : acc),
     {}
   );
 
@@ -246,7 +246,7 @@ export const getPositionRelativeToViewport = (props: RelativePositionProps) => {
     ? { top: 0, left: 0 }
     : reduce(
         relativePosition,
-        (acc, val, key) => (!!val ? { ...acc, [key]: `${val}px` } : acc),
+        (acc, val, key) => (val !== null ? { ...acc, [key]: `${val}px` } : acc),
         {}
       );
   const parseBorderRadius =

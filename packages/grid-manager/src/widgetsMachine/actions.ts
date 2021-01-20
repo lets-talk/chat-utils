@@ -131,6 +131,8 @@ export const setWidgetsRules = (
     throw new Error('widgets value can`t be empty');
   }
 
+  const { widgetsIds, renderCycle: {widgetsInDom}} = context
+
   const widgetsParsed = event.widgets.reduce(
     (acc, widget: WidgetRules) => ({
       ids: [...acc.ids, widget.id],
@@ -145,17 +147,23 @@ export const setWidgetsRules = (
     }
   );
 
-  const ids = [...context.widgetsIds, ...widgetsParsed.ids];
-  const mergeIds = uniq(ids);
-
+  const ids = [...widgetsIds, ...widgetsParsed.ids];
+  const mergeIds = uniq(ids)
   // if the length differ we try to write the same widget to time
   // By design I don't want to trow an error and only log (always last set wins)
   if (mergeIds.length !== ids.length) {
     console.log(`Trying to duplicate widget in model ids: ${[...ids]}`);
+    // if the widget is rendered I remove the node and make the
+    // reconciliation flow continue as always
+    widgetsInDom.forEach((widget) => {
+      if(widget.id in widgetsParsed.widgets) {
+        removeNodeRef(widget.ref)
+      }
+    })
   }
 
   return Promise.resolve({
-    ids,
+    ids: mergeIds,
     widgets: {
       ...widgetsParsed.widgets,
       ...context.widgets
@@ -294,9 +302,7 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
 export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
   const { requireGlobalUpdate, renderCycle, widgetsIds, widgets } = context;
   const { widgetsInDom, updateCycle, positionsInUse } = renderCycle;
-
   let prevWidgetsRefs = widgetsInDom ? widgetsInDom : [];
-  // console.log({ updateCycle, prevWidgetsRefs, requireGlobalUpdate });
 
   if (requireGlobalUpdate) {
     prevWidgetsRefs = [];
