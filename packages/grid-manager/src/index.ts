@@ -205,7 +205,6 @@ class GridManager implements GridManagerProps {
 }
 
 export { GridManager }
-export default GridManager
 
 if(process && process.env === 'development' as any) {
   window.manager = new GridManager()
