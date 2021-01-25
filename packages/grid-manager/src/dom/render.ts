@@ -157,7 +157,10 @@ export const createIframeWidget = (
   // we create a fiv addons composer with the rules of the frame
   // in case of be need later in a post rendered widget insert
   const fixedWrapperElClass = `lt-composer__parent-${id}`;
-  // this need a little of refactor in the interface API, I feel we need to move all the display implementation to relation definition
+  // this need a little of refactor in the interface API, I feel we
+  // need to move all the display implementation to relation definition
+  // new: add this to to-do I find a bug that was created by the
+  // inconsistences in the api definitions
   const fixedWrapperAddonsEl =
     display === `${ReferenceToFloat.fixed}`
       ? generateParentContainer(
@@ -202,7 +205,6 @@ export const createIframeWidget = (
     } else {
       appendNodeToParent(wrapperEl, containerEl);
     }
-
     // append wrapperEl node to dom body
     appendNodeToParent(document.body, wrapperEl);
 
@@ -274,14 +276,13 @@ export const appendWidgetAddonToRef = (
   }
 
   // get iframe container size and position
-  // const parentWidgetRect = parentWrapperEl.getBoundingClientRect() ;
-
+  const parentWidgetRect = parentWrapperEl.getBoundingClientRect() ;
   // generate iframe src url
   const parseUrl = generateUrlFromParams(url);
 
   const framePosition = makePositionStrategy(relation as any, {
-    // parentAppSize: parentWidgetRect,
     addonSize: size,
+    parentSize: parentWidgetRect,
     offset,
     display,
     styles,

@@ -8,7 +8,6 @@ import {
 import debounce from 'lodash/debounce';
 import { interpret, Interpreter, StateMachine } from 'xstate';
 import widgetsMachine, {
-  MachineStates,
   WidgetsMachineCtx
 } from './widgetsMachine/machine';
 import {
@@ -27,14 +26,9 @@ import {
 
 declare global {
   interface Window {
-    grid: any;
     manager: any;
-    updateMock: any;
   }
 }
-
-/* istanbul ignore next */
-window.grid = true;
 /* istanbul ignore next */
 window.manager = {};
 
@@ -211,7 +205,5 @@ class GridManager implements GridManagerProps {
 }
 
 export { GridManager }
-// const machine = new GridManager()
-// machine.start()
-// window.manager = machine
-// export default GridManager
+
+
