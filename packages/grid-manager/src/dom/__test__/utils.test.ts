@@ -245,8 +245,8 @@ describe('module: dom/utils', () => {
       const result = getPositionRelativeToAppMock(getPositionRelativeToAppRulesMock)
 
       expect(result).toMatchObject({
-        bottom: '-115px',
-        right: '-115px',
+        bottom: '15px',
+        right: '15px',
         position: 'absolute',
         width: '100px',
         height: '100px',
@@ -277,6 +277,10 @@ describe('module: dom/utils', () => {
         width: 100,
         height: 100,
       }
+      const parentSize = {
+        width: 50,
+        height: 50,
+      }
       const offset = {
         x: {
           relationType: 'RR',
@@ -287,8 +291,8 @@ describe('module: dom/utils', () => {
           value: 15
         }
       }
-      getRelativePositionToAppMock(size, offset)
-      expect(getRelativePositionToAppMock).toBeCalledWith(size, offset)
+      getRelativePositionToAppMock(size, parentSize, offset)
+      expect(getRelativePositionToAppMock).toBeCalledWith(size, parentSize, offset)
     })
 
     it('For x rr and y bb should be only that two values', () => {
@@ -307,8 +311,13 @@ describe('module: dom/utils', () => {
         }
       }
 
-      const result = getRelativePositionToAppMock(size, offset as any)
-      expect(result).toStrictEqual({ "bottom": -35, "left": null, "right": -35, "top": null })
+      const result = getRelativePositionToAppMock(size, {}, offset as any)
+      expect(result).toStrictEqual({
+        "bottom": 15,
+        "left": null,
+        "right": 15,
+        "top": null
+      })
     })
 
     it('For x ll and y tt should be only that two values', () => {
@@ -327,11 +336,11 @@ describe('module: dom/utils', () => {
         }
       }
 
-      const result = getRelativePositionToAppMock(size, offset as any)
+      const result = getRelativePositionToAppMock(size, {} , offset as any)
       expect(result).toStrictEqual({
-        "top": -35,
+        "top": 15,
         "right": null,
-        "left": -35,
+        "left": 15,
         "bottom": null
       })
     })
@@ -352,12 +361,12 @@ describe('module: dom/utils', () => {
         }
       }
 
-      const result = getRelativePositionToAppMock(size, offset as any)
+      const result = getRelativePositionToAppMock(size, {}, offset as any)
       expect(result).toStrictEqual({
-        "top": -5,
-        "right": null,
-        "left": -5,
-        "bottom": null
+        "bottom": -35,
+        "left": null,
+        "right": -5,
+        "top": null
       })
     })
 
@@ -377,12 +386,12 @@ describe('module: dom/utils', () => {
         }
       }
 
-      const result = getRelativePositionToAppMock(size, offset as any)
+      const result = getRelativePositionToAppMock(size, {}, offset as any)
       expect(result).toStrictEqual({
-        "top": null,
-        "right": -5,
-        "left": null,
-        "bottom": -5
+        "top": -35,
+        "right": null,
+        "left": -5,
+        "bottom": null
       })
     })
 
@@ -402,7 +411,7 @@ describe('module: dom/utils', () => {
         }
       }
 
-      const result = getRelativePositionToAppMock(size, offset as any)
+      const result = getRelativePositionToAppMock(size, {}, offset as any)
       expect(result).toStrictEqual({
         "top": null,
         "right": null,
@@ -629,7 +638,7 @@ describe('module: dom/utils', () => {
     })
   })
 
-  describe('generateDomElementMock method', () => {
+  describe('generateDomElement method', () => {
     it('should call the correct arguments', () => {
       generateDomElementMock(
         'app', 'iframe',
@@ -671,7 +680,7 @@ describe('module: dom/utils', () => {
     })
   })
 
-  describe('appendNodeToParentMock method', () => {
+  describe('appendNodeToParent method', () => {
     it('should be called with the correct arguments', () => {
       const parent = document.createElement('div')
       const children = document.createElement('div')
