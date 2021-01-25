@@ -123,6 +123,7 @@ export const generateParentContainer = (
 
 export type RelativeAppPositionProps = {
   addonSize: WidgetSize;
+  parentSize: rectPosition & WidgetSize;
   offset: WidgetSizeOffset;
   display: ReferenceToFloat;
   styles: { [key: string]: string };
@@ -134,15 +135,15 @@ export type RelativeAppPositionProps = {
 export const getPositionRelativeToApp = (props: RelativeAppPositionProps) => {
   const {
     addonSize,
+    parentSize,
     offset,
-    display,
     styles,
     borderRadius,
     zIndex,
     elevation
   } = props;
 
-  const relativePosition = getRelativePositionToApp(addonSize, offset);
+  const relativePosition = getRelativePositionToApp(addonSize, parentSize, offset);
   const transformToCssKey = reduce(
     relativePosition,
     (acc, val, key) => (val !== null ? { ...acc, [key]: `${val}px` } : acc),
@@ -168,6 +169,7 @@ export const getPositionRelativeToApp = (props: RelativeAppPositionProps) => {
 
 export const getRelativePositionToApp = (
   size: WidgetSize,
+  parent: WidgetSize,
   relativeOffset: WidgetSizeOffset
 ): rectPosition => {
   let offset: rectPosition = {
@@ -179,16 +181,16 @@ export const getRelativePositionToApp = (
 
   switch (relativeOffset.x.relationType) {
     case relationTypeX.LL:
-      offset.left = (size.width + relativeOffset.x.value) * -1;
+      offset.left = relativeOffset.x.value;
       break;
     case relationTypeX.LR:
-      offset.left = (size.width - relativeOffset.x.value) * -1;
+      offset.right = (size.width - relativeOffset.x.value) *-1;
       break;
     case relationTypeX.RL:
-      offset.right = (size.width - relativeOffset.x.value) * -1;
+      offset.left = (size.width - relativeOffset.x.value) *-1;
       break;
     case relationTypeX.RR:
-      offset.right = (size.width + relativeOffset.x.value) * -1;
+      offset.right = relativeOffset.x.value;
       break;
     default:
       return offset;
@@ -196,16 +198,16 @@ export const getRelativePositionToApp = (
 
   switch (relativeOffset.y.relationType) {
     case relationTypeY.TT:
-      offset.top = (size.height + relativeOffset.y.value) * -1;
-      break;
-    case relationTypeY.TB:
-      offset.top = (size.height - relativeOffset.y.value) * -1;
+      offset.top = relativeOffset.y.value;
       break;
     case relationTypeY.BT:
-      offset.bottom = (size.height - relativeOffset.y.value) * -1;
+      offset.top = (size.height + relativeOffset.y.value) *-1;
       break;
+    case relationTypeY.TB:
+      offset.bottom = (size.height + relativeOffset.y.value) *-1;
+      break
     case relationTypeY.BB:
-      offset.bottom = (size.height + relativeOffset.y.value) * -1;
+      offset.bottom = relativeOffset.y.value;
       break;
     default:
       return offset;
