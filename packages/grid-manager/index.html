@@ -165,7 +165,7 @@
               const mapApps = res.apps.map((app, i) => {
                 return {
                   ...app,
-                  ...app.states['small'],
+                  ...app.states[app.initialState],
                   id: app.appName,
                   iframeType: 'lt-basic-container-multimedia',
                   src: 'https://www.yofla.com/black-screen/',
