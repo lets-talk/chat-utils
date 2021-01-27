@@ -1,4 +1,5 @@
 {
+  "name": "@lets-talk/root",
   "devDependencies": {
     "@types/jest": "^24.0.0",
     "jest": "^23.4.2",
@@ -6,15 +7,52 @@
     "microbundle": "^0.12.3",
     "ts-jest": "^24.0.0",
     "tslint": "^5.11.0",
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "commitizen": "4.2.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.3"
   },
   "private": true,
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "lerna:build": "lerna run build",
+    "lerna:build:current": "npm run lerna:build --since origin/master --include-filtered-dependents --include-filtered-dependencies",
+    "lerna:install": "lerna run install",
+    "lerna:lint": "lerna run lint",
+    "lerna:lint:current": "yarn run lerna:lint --since origin/master --include-filtered-dependents --include-filtered-dependencies",
+    "lerna:updated": "lerna updated",
+    "lerna:unit": "lerna run unit --concurrency=1",
+    "lerna:unit:current": "yarn run lerna:unit --since origin/master --include-filtered-dependents --include-filtered-dependencies",
+    "lerna:test": "lerna run test --concurrency=1",
+    "lerna:test:current": "yarn run lerna:test --since origin/master --include-filtered-dependents --include-filtered-dependencies",
+    "lerna:ls": "lerna ls",
+    "lerna:ls:current": "yarn run lerna:ls --since origin/master --include-filtered-dependents --include-filtered-dependencies",
+    "lerna:bootstrap": "lerna bootstrap",
+    "lerna:publish": "npm run lerna:build && lerna publish --c --yes",
+    "lerna:release": "lerna version --conventional-commits --conventional-graduate",
+    "lerna:prerelease": "lerna version prerelease --preid $(git branch | grep '*' | cut -d ' ' -f2 | sed -e 's:[_-]*[/]*::g')",
+    "commit": "yarn git-cz",
     "postinstall": "node postinstall.js",
     "test": "jest --no-cache --coverage",
     "publish": "lerna publish --c --yes",
     "docs": "docsify serve docs --port 3333"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "workspaces": {
     "packages": ["packages/*"],
