@@ -170,9 +170,9 @@ export const createIframeWidget = (
           ...framePosition,
           animate,
           display,
+          zIndex
         },
         WIDGET_ANIMATIONS.ease,
-        zIndex
       )
       : false;
 

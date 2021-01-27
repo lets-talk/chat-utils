@@ -105,9 +105,8 @@ export const generateParentContainer = (
   className: string,
   frame: any,
   animation: string,
-  zIndex?: number
 ) => {
-  const { top, right, bottom, left, display, animate, height, width } = frame;
+  const { top, right, bottom, left, display, animate, height, width, zIndex } = frame;
   return generateDomElement(
     className,
     'div',
