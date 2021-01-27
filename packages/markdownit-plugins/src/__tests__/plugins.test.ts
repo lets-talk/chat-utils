@@ -281,7 +281,7 @@ describe('Plugins tests', () => {
     
         pluginLTAppsSDKMethod(tokens, 1);
   
-        const expectedOnclick = `javascript:window.$AppsSDK.executeSDKEvent64('${mockMethodCallAndArgsEncoded}');window.LTAnalytics.event('MessageInteraction', 'click', '${mockHref}')`;
+        const expectedOnclick = `javascript:window.$AppsSDK.executeSDKEvent64('${mockMethodCallAndArgsEncoded}');window.LTAnalytics.event('MessageInteraction', 'click', '${mockHref}'); return false;`;
     
         expect(mockAttrSet).toHaveBeenNthCalledWith(2, 'onclick', expectedOnclick);
       });
