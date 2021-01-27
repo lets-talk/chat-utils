@@ -12,6 +12,10 @@ import {
   WidgetSize
 } from '../types';
 
+// this is max z-index valid in equal to 32bits val
+export const BASE_Z_INDEX = '2147483647'
+
+
 export const WIDGET_ELEVATIONS = {
   [1]: '0 -5px 10px rgba(0,0,0,.2)',
   [2]: '0 -6px 12px rgba(0,0,0,.3)',
@@ -100,7 +104,8 @@ export const resetNodeToAbsolutePosition = (el: HTMLElement) => {
 export const generateParentContainer = (
   className: string,
   frame: any,
-  animation: string
+  animation: string,
+  zIndex?: number
 ) => {
   const { top, right, bottom, left, display, animate, height, width } = frame;
   return generateDomElement(
@@ -115,7 +120,8 @@ export const generateParentContainer = (
         return val ? { ...acc, ...val } : acc;
       }, {}),
       // this make the magic of making the div pass through
-      ['pointer-events']: 'none'
+      ['pointer-events']: 'none',
+      ['z-index']: zIndex ? `${zIndex}` : BASE_Z_INDEX
     },
     null
   );
