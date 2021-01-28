@@ -30,7 +30,8 @@ import {
   getPositionRelativeToApp,
   RelativeAppPositionProps,
   RelativePositionProps,
-  WIDGET_ELEVATIONS
+  WIDGET_ELEVATIONS,
+  BASE_Z_INDEX
 } from './utils';
 
 const IFRAME_BASIC_STYLES = {
@@ -80,8 +81,8 @@ export const makePositionStrategy = (
   type: WidgetRelativePosition,
   data: RelativeAppPositionProps | RelativePositionProps,
   strategy = {
-     getPositionRelativeToViewport,
-     getPositionRelativeToApp
+    getPositionRelativeToViewport,
+    getPositionRelativeToApp
   }
 ): any => {
   switch (type) {
@@ -149,7 +150,7 @@ export const createIframeWidget = (
     {
       ...WRAPPER_DIV_STYLES,
       transition: animate ? WIDGET_ANIMATIONS.ease : 'none',
-      ['z-index']: zIndex ? `${zIndex}` : 'inherit'
+      ['z-index']: zIndex ? `${zIndex}` : BASE_Z_INDEX
     },
     null
   );
@@ -164,10 +165,15 @@ export const createIframeWidget = (
   const fixedWrapperAddonsEl =
     display === `${ReferenceToFloat.fixed}`
       ? generateParentContainer(
-          fixedWrapperElClass,
-          { ...framePosition, animate, display },
-          WIDGET_ANIMATIONS.ease
-        )
+        fixedWrapperElClass,
+        {
+          ...framePosition,
+          animate,
+          display,
+          zIndex
+        },
+        WIDGET_ANIMATIONS.ease,
+      )
       : false;
 
   const containerElClass = `lt-app__frame-${id}`;
@@ -276,7 +282,7 @@ export const appendWidgetAddonToRef = (
   }
 
   // get iframe container size and position
-  const parentWidgetRect = parentWrapperEl.getBoundingClientRect() ;
+  const parentWidgetRect = parentWrapperEl.getBoundingClientRect();
   // generate iframe src url
   const parseUrl = generateUrlFromParams(url);
 
