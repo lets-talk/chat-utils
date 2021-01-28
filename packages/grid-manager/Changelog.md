@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Release [0.2.2] (https://github.com/lets-talk/chat-utils/releases/tag/lt-grid-manager-0.2.3) - 2021-01-28
+### Fixed
+- Put correct z-index in the Apps wrapper container
+
 ## Release [0.2.1] (https://github.com/lets-talk/chat-utils/releases/tag/lt-grid-manager-0.2.1) - 2021-01-25
 ### Fixed
 - Change the way relative to apps widgets position is calculated
