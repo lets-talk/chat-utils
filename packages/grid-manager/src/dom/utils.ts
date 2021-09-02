@@ -1,20 +1,19 @@
 import reduce from 'lodash/reduce';
 import forEach from 'lodash/forEach';
 import {
+  IframeType,
   rectPosition,
-  WidgetSizeOffset,
+  ReferenceToFloat,
   relationTypeX,
   relationTypeY,
   UrlSourceParams,
-  IframeType,
-  WidgetType,
-  ReferenceToFloat,
-  WidgetSize
+  WidgetSize,
+  WidgetSizeOffset,
+  WidgetType
 } from '../types';
 
 // this is max z-index valid in equal to 32bits val
-export const BASE_Z_INDEX = '2147483647'
-
+export const BASE_Z_INDEX = '2147483647';
 
 export const WIDGET_ELEVATIONS = {
   [1]: '0 -5px 10px rgba(0,0,0,.2)',
@@ -28,7 +27,7 @@ export const removeNodeRef = (ref: HTMLElement): any => {
     ref.remove();
     return true;
   } catch (e) {
-    return e
+    return e;
   }
 };
 
@@ -42,16 +41,17 @@ export const elementById = (id: string, dom = document): HTMLElement => {
 
 export const getElementDomPosition = (elementId: string): DOMRect => {
   const element = elementById(elementId);
-  const positionInfo = element.getBoundingClientRect();
-
-  return positionInfo;
+  return <DOMRect>element.getBoundingClientRect();
 };
 
 export const getElementPositionFixed = (elementId: string): rectPosition => {
   return getElementDomPosition(elementId);
 };
 
-export const getElementPositionDefault = (elementId: string, w = window): rectPosition => {
+export const getElementPositionDefault = (
+  elementId: string,
+  w = window
+): rectPosition => {
   const domPosition = getElementDomPosition(elementId);
 
   return {
@@ -104,9 +104,19 @@ export const resetNodeToAbsolutePosition = (el: HTMLElement) => {
 export const generateParentContainer = (
   className: string,
   frame: any,
-  animation: string,
+  animation: string
 ) => {
-  const { top, right, bottom, left, display, animate, height, width, zIndex } = frame;
+  const {
+    top,
+    right,
+    bottom,
+    left,
+    display,
+    animate,
+    height,
+    width,
+    zIndex
+  } = frame;
   return generateDomElement(
     className,
     'div',
@@ -148,7 +158,11 @@ export const getPositionRelativeToApp = (props: RelativeAppPositionProps) => {
     elevation
   } = props;
 
-  const relativePosition = getRelativePositionToApp(addonSize, parentSize, offset);
+  const relativePosition = getRelativePositionToApp(
+    addonSize,
+    parentSize,
+    offset
+  );
   const transformToCssKey = reduce(
     relativePosition,
     (acc, val, key) => (val !== null ? { ...acc, [key]: `${val}px` } : acc),
@@ -189,10 +203,10 @@ export const getRelativePositionToApp = (
       offset.left = relativeOffset.x.value;
       break;
     case relationTypeX.LR:
-      offset.right = (size.width - relativeOffset.x.value) *-1;
+      offset.right = (size.width - relativeOffset.x.value) * -1;
       break;
     case relationTypeX.RL:
-      offset.left = (size.width - relativeOffset.x.value) *-1;
+      offset.left = (size.width - relativeOffset.x.value) * -1;
       break;
     case relationTypeX.RR:
       offset.right = relativeOffset.x.value;
@@ -206,11 +220,11 @@ export const getRelativePositionToApp = (
       offset.top = relativeOffset.y.value;
       break;
     case relationTypeY.BT:
-      offset.top = (size.height + relativeOffset.y.value) *-1;
+      offset.top = (size.height + relativeOffset.y.value) * -1;
       break;
     case relationTypeY.TB:
-      offset.bottom = (size.height + relativeOffset.y.value) *-1;
-      break
+      offset.bottom = (size.height + relativeOffset.y.value) * -1;
+      break;
     case relationTypeY.BB:
       offset.bottom = relativeOffset.y.value;
       break;
@@ -283,7 +297,7 @@ export const getPositionRelativeToViewport = (props: RelativePositionProps) => {
 
 export const getRelativePosition = (
   gridDimensions: rectPosition,
-  relativeOffset: WidgetSizeOffset,
+  relativeOffset: WidgetSizeOffset
 ): rectPosition => {
   const { top, right, bottom, left } = gridDimensions;
   const { innerHeight, innerWidth } = window;
@@ -334,7 +348,7 @@ export const getRelativePosition = (
 
 export const generateUrlFromParams = (
   urlParams: UrlSourceParams,
-  slugKey = 'appName',
+  slugKey = 'appName'
 ): URL => {
   const { src, extra } = urlParams;
   const url = new URL(src);

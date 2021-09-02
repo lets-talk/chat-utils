@@ -7,9 +7,7 @@ import {
 } from './types';
 import debounce from 'lodash/debounce';
 import { interpret, Interpreter, StateMachine } from 'xstate';
-import widgetsMachine, {
-  WidgetsMachineCtx
-} from './widgetsMachine/machine';
+import widgetsMachine, { WidgetsMachineCtx } from './widgetsMachine/machine';
 import {
   sendViewportDimensions,
   sendWidgetsIntoMachine,
@@ -54,12 +52,12 @@ class GridManager implements GridManagerProps {
 
   constructor(
     machine?: (state: WidgetsMachineCtx) => StateMachine<any, any, any>,
-    state?: WidgetsMachineCtx,
+    state?: WidgetsMachineCtx
   ) {
     this.interpreter = null;
-    this.widgetMachine = machine ?
-      machine(state ? state : this._generateFirstState()) :
-      widgetsMachine(state ? state : this._generateFirstState());
+    this.widgetMachine = machine
+      ? machine(state ? state : this._generateFirstState())
+      : widgetsMachine(state ? state : this._generateFirstState());
   }
 
   private _generateFirstState() {
@@ -113,20 +111,23 @@ class GridManager implements GridManagerProps {
 
   private _generateMachineInterpreter() {
     this.interpreter = interpret(this.widgetMachine, { devTools: true })
-      // .onTransition((state, event) => {
-      //   // todo add log service
-      //   // event type: ${event.type}`
-      // })
-      // .onDone((state) => {
-      //   // todo add log service
-      //   // `reach final state`, { state }
-      // })
+      .onTransition((state, event) => {
+        // todo add log service
+        console.log(`event type: ${event.type}`);
+      })
+      .onDone((state) => {
+        // todo add log service
+        console.log(`reach final state`, { state });
+      })
       .start();
 
     return this.interpreter.initialized ? this.interpreter.initialized : false;
   }
 
   private _resizeEventCb() {
+    console.log('resize!!!!!00');
+    console.log(window.navigator.userAgent);
+
     return this.interpreter.send(
       sendViewportDimensions(window.innerWidth, window.innerHeight)
     );
@@ -204,6 +205,4 @@ class GridManager implements GridManagerProps {
   }
 }
 
-export { GridManager }
-
-
+export { GridManager };

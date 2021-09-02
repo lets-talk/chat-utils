@@ -63,7 +63,7 @@ export const createWindowBlankWidget = (
   urlParams: UrlSourceParams,
   size: WidgetSize,
   windowName = 'popup',
-  windowFeatures = 'scrollbars=no,resizable=no',
+  windowFeatures = 'scrollbars=no,resizable=no'
 ): Window | Error => {
   const url = generateUrlFromParams(urlParams);
   try {
@@ -89,13 +89,19 @@ export const makePositionStrategy = (
     case RELATIVE_RENDER_POSITION.toDomEl:
       return false;
     case RELATIVE_RENDER_POSITION.toViewport:
-      return strategy.getPositionRelativeToViewport(data as RelativePositionProps);
+      return strategy.getPositionRelativeToViewport(
+        data as RelativePositionProps
+      );
     case RELATIVE_RENDER_POSITION.toApp:
-      return strategy.getPositionRelativeToApp(data as RelativeAppPositionProps);
+      return strategy.getPositionRelativeToApp(
+        data as RelativeAppPositionProps
+      );
     case RELATIVE_RENDER_POSITION.toCenter:
       return false;
     default:
-      return new Error('Invalid position type configuration review app settings');
+      return new Error(
+        'Invalid position type configuration review app settings'
+      );
   }
 };
 
@@ -165,15 +171,15 @@ export const createIframeWidget = (
   const fixedWrapperAddonsEl =
     display === `${ReferenceToFloat.fixed}`
       ? generateParentContainer(
-        fixedWrapperElClass,
-        {
-          ...framePosition,
-          animate,
-          display,
-          zIndex
-        },
-        WIDGET_ANIMATIONS.ease,
-      )
+          fixedWrapperElClass,
+          {
+            ...framePosition,
+            animate,
+            display,
+            zIndex
+          },
+          WIDGET_ANIMATIONS.ease
+        )
       : false;
 
   const containerElClass = `lt-app__frame-${id}`;
@@ -235,6 +241,7 @@ export const renderWidgetElement = (
     createWindowBlankWidget
   }
 ): Promise<HTMLDivElement> | Window | Error => {
+  console.log('renderWidgetElement!!!00');
   const { id, kind, url, dimensions, iframeType, position } = widget;
   switch (kind) {
     case 'iframe':
@@ -248,7 +255,11 @@ export const renderWidgetElement = (
         viewportPositions
       );
     case 'blank':
-      return createDomElByKind.createWindowBlankWidget(id, url, dimensions.size);
+      return createDomElByKind.createWindowBlankWidget(
+        id,
+        url,
+        dimensions.size
+      );
     // The div case will be supported in the near future
     case 'div':
     default:
@@ -338,6 +349,7 @@ export const updateWidgetElement = (
   widget: WidgetToUpdate,
   viewportPositions: GridPositionsInViewport
 ) => {
+  console.log('on updateWidgetElement');
   const { isFullSize, ref, dimension, position } = widget;
   const { positions } = viewportPositions;
   const {
@@ -403,9 +415,12 @@ export const updateWidgetElement = (
         (val, key) => container.style.setProperty(key, val)
       );
       // map the container iframe to her new position
-      forEach({ ...position, height, width }, (val, key) =>
-        parent.style.setProperty(key, val)
-      );
+      forEach({ ...position, height, width }, (val, key) => {
+        console.log(parent);
+        console.log(key);
+        console.log(val);
+        parent.style.setProperty(key, val);
+      });
     } catch (e) {
       throw new Error(e);
     }

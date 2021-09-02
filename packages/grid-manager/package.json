@@ -20,7 +20,7 @@
     "test-watch": "jest --watch",
     "format": "prettier --write \"**/*.ts{,on}\" \"**/*.md\"  \"**/*.mdx\"",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
-    "serve": "cp index.html dist/ && yarn http-server ./dist -p 9000"
+    "serve": "parcel index.html -p 9000"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,yml}": [
@@ -55,6 +55,7 @@
     "microbundle": "^0.12.4",
     "prettier": "^2.1.2",
     "jest": "^26.4.4",
-    "ts-jest": "^26.4.4"
+    "ts-jest": "^26.4.4",
+    "parcel": "^2.0.0-rc.0"
   }
 }

@@ -4,6 +4,7 @@ import reduce from 'lodash/reduce';
 import {
   breakpoints,
   getGridPositions,
+  getHeightRulesFromViewport,
   getRulesFromViewport,
   gridRules
 } from '../grid/utils';
@@ -91,6 +92,11 @@ export const calculateGridDimensions = (
     breakpoints
   );
 
+  const isHeightChanged = getHeightRulesFromViewport(height, context);
+
+  console.log('width', width);
+  console.log('height', height);
+  console.log('calculateGridDimensions rules', rules);
   const positions: GridPositionsInViewport = getGridPositions(
     {
       width,
@@ -102,6 +108,8 @@ export const calculateGridDimensions = (
     },
     rules.positions
   );
+
+  console.log('calculateGridDimensions positions', positions);
 
   if (!rules && !positions) {
     throw new Error('invalid grid rules');
@@ -115,7 +123,7 @@ export const calculateGridDimensions = (
     label: rules.label,
     rules,
     positions,
-    requiredUpdate: rules.label !== context.rules.label
+    requiredUpdate: rules.label !== context.rules.label || isHeightChanged
   });
 };
 
@@ -131,7 +139,10 @@ export const setWidgetsRules = (
     throw new Error('widgets value can`t be empty');
   }
 
-  const { widgetsIds, renderCycle: {widgetsInDom}} = context
+  const {
+    widgetsIds,
+    renderCycle: { widgetsInDom }
+  } = context;
 
   const widgetsParsed = event.widgets.reduce(
     (acc, widget: WidgetRules) => ({
@@ -148,7 +159,7 @@ export const setWidgetsRules = (
   );
 
   const ids = [...widgetsIds, ...widgetsParsed.ids];
-  const mergeIds = uniq(ids)
+  const mergeIds = uniq(ids);
   // if the length differ we try to write the same widget to time
   // By design I don't want to trow an error and only log (always last set wins)
   if (mergeIds.length !== ids.length) {
@@ -156,10 +167,10 @@ export const setWidgetsRules = (
     // if the widget is rendered I remove the node and make the
     // reconciliation flow continue as always
     widgetsInDom.forEach((widget) => {
-      if(widget.id in widgetsParsed.widgets) {
-        removeNodeRef(widget.ref)
+      if (widget.id in widgetsParsed.widgets) {
+        removeNodeRef(widget.ref);
       }
-    })
+    });
   }
 
   return Promise.resolve({
@@ -178,7 +189,7 @@ export const updateWidgetRules = (
   event: {
     type: string;
     widget: UpdateWidgetRules;
-  },
+  }
 ) => {
   const {
     activeBreakpoint,
@@ -229,7 +240,7 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     rules,
     activeBreakpoint,
     requireGlobalUpdate,
-    widgetsIdsToTrack: { forRender },
+    widgetsIdsToTrack: { forRender }
   } = context;
 
   let widgetsListByType = {
@@ -300,8 +311,10 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
 
 // Get a list of widgets to render or update and call renderWidgetElement
 export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
+  console.log('renderWidgetsInDom!!!');
   const { requireGlobalUpdate, renderCycle, widgetsIds, widgets } = context;
   const { widgetsInDom, updateCycle, positionsInUse } = renderCycle;
+  console.log('updateCycle', updateCycle);
   let prevWidgetsRefs = widgetsInDom ? widgetsInDom : [];
 
   if (requireGlobalUpdate) {
@@ -325,25 +338,25 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
     return renderWidgetElement(widget, context.positions) as any;
   });
 
-  const addonsRef = updateCycle.widgetAddons ? updateCycle.widgetAddons.map(
-    (addonWidget: WidgetToRender) => {
-      // is the referent can't be founded throw an error
-      // todo: we should move this to the reconcile flow
-      if (
-        widgetsIds.indexOf(
-          addonWidget.position.reference as ReferenceToGridPosition
-        ) === -1
-      ) {
-        throw new Error(`reference widget doesn't exit in machine model`);
-      }
-      // else dispatch action to append addon into the parent widget
-      return appendWidgetAddonToRef(
-        addonWidget,
-        widgets[addonWidget.position.reference as string].id,
-        [...widgetsInDom, ...widgetsRef]
-      );
-    }
-  ) : [];
+  const addonsRef = updateCycle.widgetAddons
+    ? updateCycle.widgetAddons.map((addonWidget: WidgetToRender) => {
+        // is the referent can't be founded throw an error
+        // todo: we should move this to the reconcile flow
+        if (
+          widgetsIds.indexOf(
+            addonWidget.position.reference as ReferenceToGridPosition
+          ) === -1
+        ) {
+          throw new Error(`reference widget doesn't exit in machine model`);
+        }
+        // else dispatch action to append addon into the parent widget
+        return appendWidgetAddonToRef(
+          addonWidget,
+          widgets[addonWidget.position.reference as string].id,
+          [...widgetsInDom, ...widgetsRef]
+        );
+      })
+    : [];
 
   const hasNewReferences = !!widgetsRef.length || !!addonsRef.length;
 
@@ -405,7 +418,7 @@ export const addAddonsToWidget = (
   }
 ) => {
   const { widgets, widgetsIds, activeBreakpoint } = context;
-  const isWidgetValid =  widgetsIds.indexOf(event.widgetId) !== -1;
+  const isWidgetValid = widgetsIds.indexOf(event.widgetId) !== -1;
 
   if (!isWidgetValid) {
     throw new Error(`Widget doesn't exit in context model`);
