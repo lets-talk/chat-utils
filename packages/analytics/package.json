@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/analytics",
-  "version": "0.0.4-alpha.0",
+  "version": "0.0.5-alpha.0",
   "description": "Analytics for chat apps",
   "scripts": {
     "test": "jest --no-cache --coverage",
