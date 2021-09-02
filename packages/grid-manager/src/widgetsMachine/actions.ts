@@ -94,9 +94,6 @@ export const calculateGridDimensions = (
 
   const isHeightChanged = getHeightRulesFromViewport(height, context);
 
-  console.log('width', width);
-  console.log('height', height);
-  console.log('calculateGridDimensions rules', rules);
   const positions: GridPositionsInViewport = getGridPositions(
     {
       width,
@@ -108,8 +105,6 @@ export const calculateGridDimensions = (
     },
     rules.positions
   );
-
-  console.log('calculateGridDimensions positions', positions);
 
   if (!rules && !positions) {
     throw new Error('invalid grid rules');
@@ -311,10 +306,8 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
 
 // Get a list of widgets to render or update and call renderWidgetElement
 export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
-  console.log('renderWidgetsInDom!!!');
   const { requireGlobalUpdate, renderCycle, widgetsIds, widgets } = context;
   const { widgetsInDom, updateCycle, positionsInUse } = renderCycle;
-  console.log('updateCycle', updateCycle);
   let prevWidgetsRefs = widgetsInDom ? widgetsInDom : [];
 
   if (requireGlobalUpdate) {

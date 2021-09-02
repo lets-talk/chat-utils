@@ -125,9 +125,6 @@ class GridManager implements GridManagerProps {
   }
 
   private _resizeEventCb() {
-    console.log('resize!!!!!00');
-    console.log(window.navigator.userAgent);
-
     return this.interpreter.send(
       sendViewportDimensions(window.innerWidth, window.innerHeight)
     );

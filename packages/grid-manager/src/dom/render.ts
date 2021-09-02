@@ -241,7 +241,6 @@ export const renderWidgetElement = (
     createWindowBlankWidget
   }
 ): Promise<HTMLDivElement> | Window | Error => {
-  console.log('renderWidgetElement!!!00');
   const { id, kind, url, dimensions, iframeType, position } = widget;
   switch (kind) {
     case 'iframe':
@@ -349,7 +348,6 @@ export const updateWidgetElement = (
   widget: WidgetToUpdate,
   viewportPositions: GridPositionsInViewport
 ) => {
-  console.log('on updateWidgetElement');
   const { isFullSize, ref, dimension, position } = widget;
   const { positions } = viewportPositions;
   const {
@@ -416,9 +414,6 @@ export const updateWidgetElement = (
       );
       // map the container iframe to her new position
       forEach({ ...position, height, width }, (val, key) => {
-        console.log(parent);
-        console.log(key);
-        console.log(val);
         parent.style.setProperty(key, val);
       });
     } catch (e) {

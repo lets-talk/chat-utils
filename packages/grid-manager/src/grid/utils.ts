@@ -102,9 +102,6 @@ export const getHeightRulesFromViewport = (
   viewportHeight: number,
   context: WidgetsMachineCtx
 ) => {
-  console.log('from event vpH: ', viewportHeight);
-  console.log('actual conetxt vpH: ', context.viewport.height);
-
   return viewportHeight < context.viewport.height;
 };
 
