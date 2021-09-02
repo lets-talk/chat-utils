@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/lt-grid-manager",
-  "version": "0.2.3-featureviewportheightupdate.2",
+  "version": "0.2.2",
   "license": "MIT",
   "private": false,
   "main": "dist/grid-manager.js",
