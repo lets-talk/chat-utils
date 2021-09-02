@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/apps-sdk",
-  "version": "0.10.1-featureviewportheightupdate.1",
+  "version": "0.10.1-featureviewportheightupdate.2",
   "description": "SDK for apps running on letstalk plataform",
   "scripts": {
     "prepublishOnly": "tsc",

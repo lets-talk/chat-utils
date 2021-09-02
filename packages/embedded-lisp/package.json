@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/embedded-lisp",
-  "version": "0.5.3-featureviewportheightupdate.1",
+  "version": "0.5.3-featureviewportheightupdate.2",
   "description": "Minimal lisp implementation based on http://kanaka.github.io/miniMAL/",
   "scripts": {
     "prepublishOnly": "tsc",

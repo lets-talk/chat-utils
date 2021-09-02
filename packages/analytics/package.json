@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/analytics",
-  "version": "0.0.4-featureviewportheightupdate.1",
+  "version": "0.0.4-featureviewportheightupdate.2",
   "description": "Analytics for chat apps",
   "scripts": {
     "prepublishOnly": "tsc",
