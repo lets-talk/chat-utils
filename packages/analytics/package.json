@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/analytics",
-  "version": "0.0.3",
+  "version": "0.0.4-alpha.0",
   "description": "Analytics for chat apps",
   "scripts": {
     "prepublishOnly": "tsc",
