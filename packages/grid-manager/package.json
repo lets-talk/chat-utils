@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/lt-grid-manager",
-  "version": "0.2.2",
+  "version": "0.2.3-featureviewportheightupdate.0",
   "license": "MIT",
   "private": false,
   "main": "dist/grid-manager.js",
@@ -52,10 +52,10 @@
     "html-webpack-plugin": "^4.4.1",
     "http-server": "^0.12.3",
     "husky": "^3.0.9",
-    "microbundle": "^0.12.4",
-    "prettier": "^2.1.2",
     "jest": "^26.4.4",
-    "ts-jest": "^26.4.4",
-    "parcel": "^2.0.0-rc.0"
+    "microbundle": "^0.12.4",
+    "parcel": "^2.0.0-rc.0",
+    "prettier": "^2.1.2",
+    "ts-jest": "^26.4.4"
   }
 }

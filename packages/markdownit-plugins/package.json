@@ -1,10 +1,9 @@
 {
   "name": "@lets-talk/markdownit-plugins",
-  "version": "1.0.2",
+  "version": "1.0.3-featureviewportheightupdate.0",
   "main": "dist/lt-markdownit-plugins.cjs.js",
   "module": "dist/lt-markdownit-plugins.esm.js",
   "browser": "dist/lt-markdownit-plugins.umd.js",
-  "dependencies": {},
   "devDependencies": {
     "istanbul-cobertura-badger": "^1.3.1",
     "jest": "^24.9.0",
