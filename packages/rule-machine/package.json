@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/rule-machine",
-  "version": "1.0.1-featureviewportheightupdate.0",
+  "version": "1.0.1-featureviewportheightupdate.1",
   "description": "Lisp Rules + triggers",
   "scripts": {
     "build": "webpack --config=./webpack.dev.config.js",

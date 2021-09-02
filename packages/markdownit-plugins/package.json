@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/markdownit-plugins",
-  "version": "1.0.3-featureviewportheightupdate.0",
+  "version": "1.0.3-featureviewportheightupdate.1",
   "main": "dist/lt-markdownit-plugins.cjs.js",
   "module": "dist/lt-markdownit-plugins.esm.js",
   "browser": "dist/lt-markdownit-plugins.umd.js",
