@@ -3,8 +3,6 @@
   "version": "1.0.1-featureviewportheightupdate.2",
   "description": "Lisp Rules + triggers",
   "scripts": {
-    "build": "webpack --config=./webpack.dev.config.js",
-    "build:production": "webpack --config=./webpack.prod.config.js",
     "prepublishOnly": "tsc",
     "test": "echo 'no test yet'",
     "test:ci": "echo 'no test yet'"
