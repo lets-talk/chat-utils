@@ -17,5 +17,6 @@
   },
   "dependencies": {
     "es6-map": "^0.1.5"
-  }
+  },
+  "gitHead": "c28c3c03fd99c8417eabe0defc2e33a190d3a96f"
 }

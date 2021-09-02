@@ -3,7 +3,6 @@
   "version": "0.0.4-alpha.0",
   "description": "Analytics for chat apps",
   "scripts": {
-    "prepublishOnly": "tsc",
     "test": "jest --no-cache --coverage",
     "test:ci": "jest --no-cache --coverage --runInBand",
     "build": "tsc",
@@ -30,5 +29,6 @@
     "jest": "^23.5.0",
     "regenerator-runtime": "^0.13.0",
     "ts-jest": "^23.1.4"
-  }
+  },
+  "gitHead": "c28c3c03fd99c8417eabe0defc2e33a190d3a96f"
 }
