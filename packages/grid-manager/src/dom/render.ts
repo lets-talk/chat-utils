@@ -361,9 +361,6 @@ export const updateWidgetElement = (
   } = dimension;
   const { relation, display, reference } = position;
 
-  console.log('WIDGET', widget);
-  console.log(viewportPositions);
-
   const framePosition = makePositionStrategy(relation, {
     rect: positions[reference as ReferenceToGridPosition] as rectPosition,
     size,

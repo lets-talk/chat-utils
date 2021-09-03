@@ -110,8 +110,7 @@ export const validateIframeWidgetWithProps = (
     list: widgetList,
     addons: addonsList,
     position: null,
-    requireFullSize: false,
-    ref: {}
+    requireFullSize: false
   };
   const dimensions = widget.dimensions[breakpoint];
   const widgetReference = widget.position.reference[breakpoint];
@@ -222,4 +221,28 @@ export const getWidgetMapProps = (
     position,
     dimension
   };
+};
+
+export const getWidgetsShapeToUpdate = (
+  widgetRef: WidgetReference[],
+  widgets: { [key: string]: WidgetRules },
+  breakpoint: string
+) => {
+  return Object.values(widgets)
+    .filter(
+      (widget) =>
+        widgetRef.find((dom) => dom.id === widget.id) &&
+        widget.dimensions?.mobile?.fullSize
+    )
+    .map((widget) => {
+      const reference = widget.position.reference[breakpoint];
+      const toReturn: WidgetToUpdate = {
+        id: widget.id,
+        ref: widgetRef.find((dom) => dom.id === widget.id),
+        isFullSize: widget.dimensions[breakpoint].fullSize,
+        dimension: widget.dimensions[breakpoint],
+        position: { ...widget.position, reference: reference }
+      };
+      return toReturn;
+    });
 };

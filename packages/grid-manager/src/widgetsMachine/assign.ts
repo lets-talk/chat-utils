@@ -66,14 +66,13 @@ const calculateGridDimensionsRequireHeightUpdate = (_, event) =>
 
 // reconcileWidgets state
 const reconcileWidgetsRenderCycle = (context: WidgetsMachineCtx, event) => {
-  console.log('event reconcile', event);
-  console.log('context reconcile', context);
   return {
     ...context.renderCycle,
     positionsInUse: event.data.slotsInUse,
     updateCycle: {
       ...context.renderCycle.updateCycle,
-      update: event.data.heightUpdateCycle,
+      update:
+        event.data.heightUpdateCycle || context.renderCycle.updateCycle.update,
       render: event.data.widgetsToRender,
       widgetAddons: event.data.addonsToRender
     }

@@ -29,6 +29,7 @@ import {
 import {
   generateSortedListOfWidgets,
   getWidgetMapProps,
+  getWidgetsShapeToUpdate,
   mapWidgetToRenderProps
 } from './helpers';
 import { removeNodeRef } from '../dom/utils';
@@ -82,7 +83,6 @@ export const calculateGridDimensions = (
   context: WidgetsMachineCtx,
   event: SetViewportAction
 ) => {
-  console.log('calcula!!!!!!');
   // if the event is was not triggered by a window resize
   // we use the last valid viewport value
   const isFromResize = event.type === SET_VIEWPORT_SIZE;
@@ -95,9 +95,6 @@ export const calculateGridDimensions = (
   );
 
   const isHeightChanged = getHeightRulesFromViewport(height, context);
-
-  console.log('cambia el alto??', isHeightChanged);
-
   const positions: GridPositionsInViewport = getGridPositions(
     {
       width,
@@ -110,7 +107,7 @@ export const calculateGridDimensions = (
     rules.positions
   );
 
-  if (!rules && !positions) {
+  if (!rules.columns && !rules.rows && !rules.positions && !positions) {
     throw new Error('invalid grid rules');
   }
 
@@ -191,7 +188,6 @@ export const updateWidgetRules = (
     widget: UpdateWidgetRules;
   }
 ) => {
-  console.log('update rules!!!!!!');
   const {
     activeBreakpoint,
     renderCycle: { widgetsInDom },
@@ -254,41 +250,20 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     addons: []
   };
 
-  console.log('requireHeightUpdate', requireHeightUpdate);
-
-  console.log('breakpoint', activeBreakpoint);
-  const widgetsList = context.widgets;
-  const widgetsInDOM = context.renderCycle.widgetsInDom;
-  console.log('widgetsInDOM', widgetsInDOM);
-  const toUpdate = Object.values(widgetsList)
-    .filter((widget) => {
-      return (
-        widgetsInDOM.find((dom) => dom.id === widget.id) &&
-        widget.dimensions?.mobile?.fullSize
-      );
-    })
-    .map((widget) => {
-      console.log('widget!!!!', widget);
-
-      const reference = widget.position.reference[activeBreakpoint];
-      const toReturn: WidgetToUpdate = {
-        id: widget.id,
-        ref: widgetsInDOM.find((dom) => dom.id === widget.id),
-        isFullSize: widget.dimensions[activeBreakpoint].fullSize,
-        dimension: widget.dimensions[activeBreakpoint],
-        position: { ...widget.position, reference: reference }
-      };
-      return toReturn;
-    });
-
-  console.log('encuenytra algo para updatear?', toUpdate);
+  const toUpdate =
+    requireHeightUpdate && !requireGlobalUpdate
+      ? getWidgetsShapeToUpdate(
+          context.renderCycle.widgetsInDom,
+          context.widgets,
+          activeBreakpoint
+        )
+      : context.renderCycle.updateCycle.update;
 
   // consolidation flow =>
   // Take all the widgets that request to be rendered or re calculated and consolidate in a single source of thrusts
 
   // if the viewport breakpoint change the entire model required to be recalculated
   if (requireGlobalUpdate) {
-    console.log('requireGlobalUpdate');
     widgetsListByType = generateSortedListOfWidgets(
       Object.keys(widgets).map((key) => widgets[key]),
       rules,
@@ -298,7 +273,6 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
 
   // if we only need to append or update a new widget to the model we consolidate the new widget from forRender case
   if (!!forRender.length) {
-    console.log('!!forRender.length');
     widgetsListByType = generateSortedListOfWidgets(
       forRender.map((key) => widgets[key]),
       rules,
@@ -308,21 +282,16 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
 
   // if the result of consolidate is a pristine model we return a empty list
   if (widgetsListByType.isPristine) {
-    console.log('isPristine');
     return Promise.resolve({
       slotsInUse: [],
       widgetsToRender: [],
-      heightUpdateCycle:
-        requireHeightUpdate && !requireGlobalUpdate
-          ? toUpdate
-          : context.renderCycle.updateCycle.update
+      heightUpdateCycle: toUpdate
     });
   }
 
   // if any of the iframe widgets require to be rendered at full size take the first that match the criteria and remove the rest from the iframe queue
   // improvement: add to the widgets model a priority value in the case of two or more widget want to be rendered at full size
   if (widgetsListByType.requireFullSize) {
-    console.log('full size');
     const firstFullSizeWidget = find(
       widgetsListByType.iframe,
       (widget) => widget.dimensions.fullSize
@@ -345,10 +314,7 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     widgetsToRender: toRenderList,
     slotsInUse: widgetsListByType.usedPositions,
     addonsToRender: widgetsListByType.addons,
-    heightUpdateCycle:
-      requireHeightUpdate && !requireGlobalUpdate
-        ? toUpdate
-        : context.renderCycle.updateCycle.update
+    heightUpdateCycle: toUpdate
   });
 };
 
