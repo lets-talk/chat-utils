@@ -3,6 +3,7 @@ import {
   AddonRules,
   GridSettings,
   ReferencePosition,
+  ReferenceToFloat,
   ReferenceToGridPosition,
   WidgetDimensions,
   WidgetReference,
@@ -44,17 +45,19 @@ export const generateSortedListOfWidgets = (
           };
         // I find a case here the blank case apply to any breakpoint?
         case 'blank':
-          return widget.dimensions['web'] ? {
-            ...acc,
-            blank: [
-              ...acc.blank,
-              mapWidgetToRenderProps(widget, widget.dimensions['web'])
-            ]
-          } : acc
+          return widget.dimensions['web']
+            ? {
+                ...acc,
+                blank: [
+                  ...acc.blank,
+                  mapWidgetToRenderProps(widget, widget.dimensions['web'])
+                ]
+              }
+            : acc;
         // todo: div case is unsupported at the moment and should be return acc
         case 'div':
         default:
-          return acc
+          return acc;
       }
     },
     {
@@ -107,9 +110,9 @@ export const validateIframeWidgetWithProps = (
     list: widgetList,
     addons: addonsList,
     position: null,
-    requireFullSize: false
+    requireFullSize: false,
+    ref: {}
   };
-
   const dimensions = widget.dimensions[breakpoint];
   const widgetReference = widget.position.reference[breakpoint];
 
@@ -166,6 +169,7 @@ export const validateIframeWidgetWithProps = (
     fullSize: isFullSize,
     addons: [...addonsList, ...addonsToRender]
   } as unknown) as {
+    ref: any;
     list: WidgetToRender[];
     position: ReferenceToGridPosition | null;
     requireFullSize: boolean;
@@ -195,9 +199,14 @@ export const getWidgetMapProps = (
   widget: WidgetRules,
   ref: WidgetReference,
   update: {
-    kind: WidgetType;
-    dimension: WidgetDimensions;
-    position: ReferencePosition;
+    kind: 'iframe' | 'div' | 'blank';
+    position: {
+      reference: any;
+      display: ReferenceToFloat;
+      relation: WidgetRelativePosition;
+      element?: string;
+    };
+    dimension: any;
   }
 ): WidgetReference | WidgetToUpdate => {
   if (!isPositionValid) {

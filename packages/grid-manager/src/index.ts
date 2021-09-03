@@ -91,6 +91,7 @@ class GridManager implements GridManagerProps {
       positions: initialGridPositions,
       rules: initialGridRules,
       requireGlobalUpdate: false,
+      requireHeightUpdate: false,
       widgetsIdsToTrack: {
         forRender: [],
         forUpdate: [],
@@ -114,6 +115,7 @@ class GridManager implements GridManagerProps {
       .onTransition((state, event) => {
         // todo add log service
         console.log(`event type: ${event.type}`);
+        console.log(`state state`, { state });
       })
       .onDone((state) => {
         // todo add log service

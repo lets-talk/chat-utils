@@ -102,7 +102,7 @@ export const getHeightRulesFromViewport = (
   viewportHeight: number,
   context: WidgetsMachineCtx
 ) => {
-  return viewportHeight < context.viewport.height;
+  return viewportHeight !== context.viewport.height;
 };
 
 export const getRulesFromViewport = (

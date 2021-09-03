@@ -389,6 +389,7 @@ export const generateDomElement = (
     type &&
     ['lt-basic-container-multimedia', 'lt-webrtc'].indexOf(type) !== -1
   ) {
+    // @ts-ignore
     (el as HTMLIFrameElement).allow = 'microphone *; camera *';
   }
 

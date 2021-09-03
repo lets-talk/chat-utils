@@ -14,13 +14,13 @@
     "prepublishOnly": "microbundle --external=none",
     "install-isolate": "yarn --pure-lockfile",
     "build": "microbundle --external=none",
-    "dev": "microbundle --external=none watch ",
+    "dev": "microbundle --external=none --no-compress watch ",
     "test": "jest",
     "test:ci": "jest",
     "test-watch": "jest --watch",
     "format": "prettier --write \"**/*.ts{,on}\" \"**/*.md\"  \"**/*.mdx\"",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
-    "serve": "parcel index.html -p 9000"
+    "serve": "cp index.html dist/ && yarn http-server ./dist -p 9000"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,yml}": [
@@ -53,7 +53,7 @@
     "http-server": "^0.12.3",
     "husky": "^3.0.9",
     "jest": "^26.4.4",
-    "microbundle": "^0.12.4",
+    "microbundle": "^0.13.3",
     "parcel": "^2.0.0-rc.0",
     "prettier": "^2.1.2",
     "ts-jest": "^26.4.4"

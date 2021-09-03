@@ -23,7 +23,7 @@ import {
   updateWidgetRules,
   UPDATE_WIDGET_IN_STATE
 } from './actions';
-import mapAssign from './assign'
+import mapAssign from './assign';
 
 export enum MachineStates {
   calculateGridDimensions = 'calculateGridDimensions',
@@ -65,18 +65,19 @@ export type WidgetsMachineCtx = {
   positions: GridPositionsInViewport;
   rules: GridSettings;
   requireGlobalUpdate: boolean;
+  requireHeightUpdate: boolean;
   renderCycle: WidgetsToRenderInCtx;
 };
 
-export const genericErrorHandler = actions => {
+export const genericErrorHandler = (actions) => {
   target: MachineStates.catchInvokeError,
-  // rejected promise data is on event.data property
-  // we could send to sentry log
-  actions
+    // rejected promise data is on event.data property
+    // we could send to sentry log
+    actions;
 };
 
 // todo: find the correct type for a error handler in xstate
-const handleInvokeError: any = genericErrorHandler(mapAssign.errorAction)
+const handleInvokeError: any = genericErrorHandler(mapAssign.errorAction);
 
 const widgetsMachine = (context: WidgetsMachineCtx) =>
   Machine({
@@ -170,10 +171,14 @@ const widgetsMachine = (context: WidgetsMachineCtx) =>
             target: MachineStates.reconcileWidgets,
             actions: assign({
               viewport: mapAssign.calculateGridDimensionsViewport,
-              activeBreakpoint: mapAssign.calculateGridDimensionsActiveBreakpoint,
+              activeBreakpoint:
+                mapAssign.calculateGridDimensionsActiveBreakpoint,
               rules: mapAssign.calculateGridDimensionsRules,
               positions: mapAssign.calculateGridDimensionsPositions,
-              requireGlobalUpdate: mapAssign.calculateGridDimensionsRequireGlobalUpdate
+              requireGlobalUpdate:
+                mapAssign.calculateGridDimensionsRequireGlobalUpdate,
+              requireHeightUpdate:
+                mapAssign.calculateGridDimensionsRequireHeightUpdate
             })
           },
           onError: handleInvokeError

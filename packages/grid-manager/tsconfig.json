@@ -4,7 +4,7 @@
     "allowSyntheticDefaultImports": true,
     "lib": [
       "dom",
-      "es5",
+      "esnext",
       "scripthost",
       "es2015.promise"
     ]

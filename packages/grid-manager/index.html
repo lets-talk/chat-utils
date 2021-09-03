@@ -150,7 +150,7 @@
 </div>
 <script>window.process = {env: 'development'}</script>
 <script type="module">
-    import { GridManager } from './dist/grid-manager.module.js';
+    import { GridManager } from './grid-manager.module.js';
     const machine = new GridManager();
     // in case of want to observe the state machine
     const widgetService = machine.start();
@@ -220,7 +220,28 @@
                         }
                     }
                 },
-                mobile: null
+                mobile: {
+                    zIndex: 9999,
+                    borderRadius: 0,
+                    fullSize: true,
+                    animate: true,
+                    elevation: 0,
+                    styles: null,
+                    size: {
+                        width: 80,
+                        height: 80
+                    },
+                    offset: {
+                        x: {
+                            relationType: 'RR',
+                            value: 0
+                        },
+                        y: {
+                            relationType: 'BB',
+                            value: 0
+                        }
+                    }
+                }
             }
         },
     ];
