@@ -572,10 +572,11 @@ describe('actions/helpers module', () => {
           position: { reference: { mobile: 'bottom' } }
         }
       };
-      // @ts-ignore
+
       expect(
         getWidgetsShapeToUpdate(
           widgetRef as WidgetReference[],
+          // @ts-ignore
           widgets,
           breakpoint
         )
