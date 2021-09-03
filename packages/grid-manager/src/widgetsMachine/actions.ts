@@ -241,7 +241,6 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     rules,
     activeBreakpoint,
     requireGlobalUpdate,
-    viewport,
     requireHeightUpdate,
     widgetsIdsToTrack: { forRender }
   } = context;
@@ -313,9 +312,10 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     return Promise.resolve({
       slotsInUse: [],
       widgetsToRender: [],
-      heightUpdateCycle: requireHeightUpdate
-        ? toUpdate
-        : context.renderCycle.updateCycle.update
+      heightUpdateCycle:
+        requireHeightUpdate && !requireGlobalUpdate
+          ? toUpdate
+          : context.renderCycle.updateCycle.update
     });
   }
 
@@ -345,9 +345,10 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     widgetsToRender: toRenderList,
     slotsInUse: widgetsListByType.usedPositions,
     addonsToRender: widgetsListByType.addons,
-    heightUpdateCycle: requireHeightUpdate
-      ? toUpdate
-      : context.renderCycle.updateCycle.update
+    heightUpdateCycle:
+      requireHeightUpdate && !requireGlobalUpdate
+        ? toUpdate
+        : context.renderCycle.updateCycle.update
   });
 };
 
