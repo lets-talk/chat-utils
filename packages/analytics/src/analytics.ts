@@ -9,7 +9,7 @@ export class LTAnalytics implements ILTAnalytics {
     this.options = options;
     this.allTrackersIDs = this.options.trackers;
 
-    if (!this.allTrackersIDs || this.allTrackersIDs.length < 1) {
+    if (!this.allTrackersIDs || this.allTrackersIDs.length < 1) {
       throw new Error('Configuration Error. You must specify at least one tracker');
     }
 

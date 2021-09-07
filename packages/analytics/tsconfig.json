@@ -16,8 +16,13 @@
     "outDir": "dist",
     "removeComments": true,
     "sourceRoot": "./",
+    "rootDir": "./",
     "strict": true,
     "target": "es5",
     "lib": ["es5", "es6", "dom"]
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "../../node_modules"
+  ]
 }
