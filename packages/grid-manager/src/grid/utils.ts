@@ -6,6 +6,7 @@ import {
   TilePosition
 } from '../types';
 import reduce from 'lodash/reduce';
+import { WidgetsMachineCtx } from '../widgetsMachine/machine';
 
 export const RELATIVE_RENDER_POSITION = {
   toViewport: 'relative-to-viewport',
@@ -63,7 +64,7 @@ export const gridRules: {
 export const getGridPositions = (
   viewport: { height: number; width: number },
   grid: { cols: number; rows: number },
-  keys: ReferenceToGridPosition[],
+  keys: ReferenceToGridPosition[]
 ): GridPositionsInViewport => {
   // calc tile size
   const tileSize = {
@@ -95,6 +96,13 @@ export const getGridPositions = (
     positions,
     availablePosition: keys.length
   };
+};
+
+export const getHeightRulesFromViewport = (
+  viewportHeight: number,
+  context: WidgetsMachineCtx
+) => {
+  return viewportHeight !== context.viewport.height;
 };
 
 export const getRulesFromViewport = (

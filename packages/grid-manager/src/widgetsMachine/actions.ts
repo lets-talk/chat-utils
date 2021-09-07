@@ -1,9 +1,11 @@
 import uniq from 'lodash/uniq';
 import find from 'lodash/find';
 import reduce from 'lodash/reduce';
+import mapAssign from './assign';
 import {
   breakpoints,
   getGridPositions,
+  getHeightRulesFromViewport,
   getRulesFromViewport,
   gridRules
 } from '../grid/utils';
@@ -27,6 +29,7 @@ import {
 import {
   generateSortedListOfWidgets,
   getWidgetMapProps,
+  getWidgetsShapeToUpdate,
   mapWidgetToRenderProps
 } from './helpers';
 import { removeNodeRef } from '../dom/utils';
@@ -91,6 +94,7 @@ export const calculateGridDimensions = (
     breakpoints
   );
 
+  const isHeightChanged = getHeightRulesFromViewport(height, context);
   const positions: GridPositionsInViewport = getGridPositions(
     {
       width,
@@ -103,7 +107,7 @@ export const calculateGridDimensions = (
     rules.positions
   );
 
-  if (!rules && !positions) {
+  if (!rules.columns && !rules.rows && !rules.positions && !positions) {
     throw new Error('invalid grid rules');
   }
 
@@ -115,7 +119,8 @@ export const calculateGridDimensions = (
     label: rules.label,
     rules,
     positions,
-    requiredUpdate: rules.label !== context.rules.label
+    requiredUpdate: rules.label !== context.rules.label,
+    requireHeightUpdate: isHeightChanged
   });
 };
 
@@ -131,7 +136,10 @@ export const setWidgetsRules = (
     throw new Error('widgets value can`t be empty');
   }
 
-  const { widgetsIds, renderCycle: {widgetsInDom}} = context
+  const {
+    widgetsIds,
+    renderCycle: { widgetsInDom }
+  } = context;
 
   const widgetsParsed = event.widgets.reduce(
     (acc, widget: WidgetRules) => ({
@@ -148,7 +156,7 @@ export const setWidgetsRules = (
   );
 
   const ids = [...widgetsIds, ...widgetsParsed.ids];
-  const mergeIds = uniq(ids)
+  const mergeIds = uniq(ids);
   // if the length differ we try to write the same widget to time
   // By design I don't want to trow an error and only log (always last set wins)
   if (mergeIds.length !== ids.length) {
@@ -156,10 +164,10 @@ export const setWidgetsRules = (
     // if the widget is rendered I remove the node and make the
     // reconciliation flow continue as always
     widgetsInDom.forEach((widget) => {
-      if(widget.id in widgetsParsed.widgets) {
-        removeNodeRef(widget.ref)
+      if (widget.id in widgetsParsed.widgets) {
+        removeNodeRef(widget.ref);
       }
-    })
+    });
   }
 
   return Promise.resolve({
@@ -178,7 +186,7 @@ export const updateWidgetRules = (
   event: {
     type: string;
     widget: UpdateWidgetRules;
-  },
+  }
 ) => {
   const {
     activeBreakpoint,
@@ -229,7 +237,8 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     rules,
     activeBreakpoint,
     requireGlobalUpdate,
-    widgetsIdsToTrack: { forRender },
+    requireHeightUpdate,
+    widgetsIdsToTrack: { forRender }
   } = context;
 
   let widgetsListByType = {
@@ -240,6 +249,15 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
     isPristine: true,
     addons: []
   };
+
+  const toUpdate =
+    requireHeightUpdate && !requireGlobalUpdate
+      ? getWidgetsShapeToUpdate(
+          context.renderCycle.widgetsInDom,
+          context.widgets,
+          activeBreakpoint
+        )
+      : context.renderCycle.updateCycle.update;
 
   // consolidation flow =>
   // Take all the widgets that request to be rendered or re calculated and consolidate in a single source of thrusts
@@ -266,7 +284,8 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
   if (widgetsListByType.isPristine) {
     return Promise.resolve({
       slotsInUse: [],
-      widgetsToRender: []
+      widgetsToRender: [],
+      heightUpdateCycle: toUpdate
     });
   }
 
@@ -294,7 +313,8 @@ export const reconcileWidgets = (context: WidgetsMachineCtx) => {
   return Promise.resolve({
     widgetsToRender: toRenderList,
     slotsInUse: widgetsListByType.usedPositions,
-    addonsToRender: widgetsListByType.addons
+    addonsToRender: widgetsListByType.addons,
+    heightUpdateCycle: toUpdate
   });
 };
 
@@ -316,34 +336,35 @@ export const renderWidgetsInDom = (context: WidgetsMachineCtx) => {
     removeNodeRef(widget.ref);
   });
 
-  updateCycle.update.forEach((widget: WidgetToUpdate) => {
-    updateWidgetElement(widget, context.positions);
-  });
+  updateCycle.update &&
+    updateCycle.update.forEach((widget: WidgetToUpdate) => {
+      updateWidgetElement(widget, context.positions);
+    });
 
   const widgetsRef = updateCycle.render.map((widget: WidgetToRender) => {
     prevWidgetsRefs = prevWidgetsRefs.filter((ref) => ref.id !== widget.id);
     return renderWidgetElement(widget, context.positions) as any;
   });
 
-  const addonsRef = updateCycle.widgetAddons ? updateCycle.widgetAddons.map(
-    (addonWidget: WidgetToRender) => {
-      // is the referent can't be founded throw an error
-      // todo: we should move this to the reconcile flow
-      if (
-        widgetsIds.indexOf(
-          addonWidget.position.reference as ReferenceToGridPosition
-        ) === -1
-      ) {
-        throw new Error(`reference widget doesn't exit in machine model`);
-      }
-      // else dispatch action to append addon into the parent widget
-      return appendWidgetAddonToRef(
-        addonWidget,
-        widgets[addonWidget.position.reference as string].id,
-        [...widgetsInDom, ...widgetsRef]
-      );
-    }
-  ) : [];
+  const addonsRef = updateCycle.widgetAddons
+    ? updateCycle.widgetAddons.map((addonWidget: WidgetToRender) => {
+        // is the referent can't be founded throw an error
+        // todo: we should move this to the reconcile flow
+        if (
+          widgetsIds.indexOf(
+            addonWidget.position.reference as ReferenceToGridPosition
+          ) === -1
+        ) {
+          throw new Error(`reference widget doesn't exit in machine model`);
+        }
+        // else dispatch action to append addon into the parent widget
+        return appendWidgetAddonToRef(
+          addonWidget,
+          widgets[addonWidget.position.reference as string].id,
+          [...widgetsInDom, ...widgetsRef]
+        );
+      })
+    : [];
 
   const hasNewReferences = !!widgetsRef.length || !!addonsRef.length;
 
@@ -405,7 +426,7 @@ export const addAddonsToWidget = (
   }
 ) => {
   const { widgets, widgetsIds, activeBreakpoint } = context;
-  const isWidgetValid =  widgetsIds.indexOf(event.widgetId) !== -1;
+  const isWidgetValid = widgetsIds.indexOf(event.widgetId) !== -1;
 
   if (!isWidgetValid) {
     throw new Error(`Widget doesn't exit in context model`);

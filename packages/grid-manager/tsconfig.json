@@ -2,5 +2,11 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "lib": [
+      "dom",
+      "esnext",
+      "scripthost",
+      "es2015.promise"
+    ]
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/availability",
-  "version": "0.1.1",
+  "version": "0.1.3-alpha.0",
   "description": "Weekly schedule timescopes",
   "scripts": {
     "prepublishOnly": "tsc",
@@ -14,5 +14,6 @@
   "private": false,
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "c28c3c03fd99c8417eabe0defc2e33a190d3a96f"
 }

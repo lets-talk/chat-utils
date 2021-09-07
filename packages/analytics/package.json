@@ -1,9 +1,8 @@
 {
   "name": "@lets-talk/analytics",
-  "version": "0.0.3",
+  "version": "0.0.7-alpha.0",
   "description": "Analytics for chat apps",
   "scripts": {
-    "prepublishOnly": "tsc",
     "test": "jest --no-cache --coverage",
     "test:ci": "jest --no-cache --coverage --runInBand",
     "build": "tsc",
@@ -30,5 +29,6 @@
     "jest": "^23.5.0",
     "regenerator-runtime": "^0.13.0",
     "ts-jest": "^23.1.4"
-  }
+  },
+  "gitHead": "1677bb37b21ac4c5c5e5c432bbf2c0abe55f22f9"
 }
