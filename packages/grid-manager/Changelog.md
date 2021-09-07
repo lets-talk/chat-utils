@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## Release [0.2.9] (https://github.com/lets-talk/chat-utils/releases/tag/lt-grid-manager-0.2.9) - 2021-09-07
+### Fixed
+- Handle height autoresize specially for mobile
+
 ## Release [0.2.2] (https://github.com/lets-talk/chat-utils/releases/tag/lt-grid-manager-0.2.3) - 2021-01-28
 ### Fixed
 - Put correct z-index in the Apps wrapper container
