@@ -268,7 +268,7 @@ export const getPositionRelativeToViewport = (props: RelativePositionProps) => {
     : reduce(
         relativePosition,
         (acc, val, key) => (val !== null ? { ...acc, [key]: `${val}px` } : acc),
-        {}
+        { left: 'unset', right: 'unset', top: 'unset', bottom: 'unset' }
       );
   const parseBorderRadius =
     borderRadius && typeof borderRadius !== 'boolean'
