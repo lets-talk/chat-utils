@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## Release [0.2.10] (https://github.com/lets-talk/chat-utils/releases/tag/lt-grid-manager-0.2.10) - 2022-05-25
+### Fixed
+- Creates a valid object when changing state in mobile.
+
 ## Release [0.2.9] (https://github.com/lets-talk/chat-utils/releases/tag/lt-grid-manager-0.2.9) - 2021-09-07
 ### Fixed
 - Handle height autoresize specially for mobile
