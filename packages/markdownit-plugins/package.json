@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/markdownit-plugins",
-  "version": "1.0.4-alpha.0",
+  "version": "1.0.4",
   "main": "dist/lt-markdownit-plugins.cjs.js",
   "module": "dist/lt-markdownit-plugins.esm.js",
   "browser": "dist/lt-markdownit-plugins.umd.js",

@@ -1,6 +1,6 @@
 {
   "name": "@lets-talk/lt-grid-manager",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "license": "MIT",
   "private": false,
   "main": "dist/grid-manager.js",
