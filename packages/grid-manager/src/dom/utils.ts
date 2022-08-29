@@ -382,6 +382,12 @@ export const generateDomElement = (
 
   if (element === 'iframe') {
     (el as HTMLIFrameElement).src = src;
+    (el as HTMLIFrameElement).sandbox.add('allow-scripts');
+    (el as HTMLIFrameElement).sandbox.add('allow-downloads');
+    (el as HTMLIFrameElement).sandbox.add('allow-popups-to-escape-sandbox');
+    (el as HTMLIFrameElement).sandbox.add('allow-popups');
+    (el as HTMLIFrameElement).sandbox.add('allow-same-origin');
+    (el as HTMLIFrameElement).sandbox.add('allow-forms');
   }
 
   if (
