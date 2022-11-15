@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## Release [0.2.13](https://github.com/lets-talk/chat-utils/releases/tag/0.2.13) - 2022-11-15
+### Fixed
+- lt-grid-manager: allow screen-share permission on iframe.
+
 ## Release [0.2.11](https://github.com/lets-talk/chat-utils/releases/tag/0.2.11) - 2022-08-28
 ### Fixed
 - lt-grid-manager: Sandboxing iframe. Preventing Browser history mixing with iframe navigation 
