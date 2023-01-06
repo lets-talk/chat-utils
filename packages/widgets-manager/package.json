@@ -32,7 +32,7 @@
     "@types/lodash": "^4.14.144",
     "@types/qs": "^6.5.3",
     "@types/redux-logger": "^3.0.7",
-    "jest": "^23.5.0",
+    "jest": "^29.3.1",
     "ts-jest": "^24.0.0"
   }
 }
